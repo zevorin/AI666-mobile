@@ -6,13 +6,19 @@
   <meta name="theme-color" content="#05070b">
   <title>多元拾光 · 移动社区</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260820-p6">
-  <script src="./mobile-h5.js?v=20260820-p6" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260821-tabbar-bg-v1">
+  <script src="./mobile-h5.js?v=20260821-apple-all-1" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="community">
   <div class="mobile-shell mobile-primary-shell has-bottom-nav">
     <main id="main" class="mobile-content mobile-community-content mobile-community-hub">
-      <header class="mobile-community-hub-head"><h1>社区</h1></header>
+      <header class="mobile-community-hub-head">
+        <div class="mobile-community-hub-title">
+          <span>DISCOVER · COMMUNITY</span>
+          <h1>社区</h1>
+          <p>发现作品、灵感与创作方法</p>
+        </div>
+      </header>
       <div class="mobile-community-module-tabs" role="tablist" aria-label="社区频道">
         <button id="mobile-community-tab-recommend" class="mobile-community-module-tab is-active" type="button" role="tab" data-mobile-community-tab="recommend" aria-controls="mobile-community-panel-recommend" aria-selected="true">推荐</button>
         <button id="mobile-community-tab-aigc" class="mobile-community-module-tab" type="button" role="tab" data-mobile-community-tab="aigc" aria-controls="mobile-community-panel-aigc" aria-selected="false">AIGC</button>
@@ -142,7 +148,7 @@
     <nav class="mobile-bottom-nav" aria-label="移动端一级导航">
       <a class="mobile-nav-item" href="./mobile-home.html"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Buildings/home-5-line.svg" alt=""><span>首页</span></a>
       <a class="mobile-nav-item is-active" href="./mobile-community.html" aria-current="page"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Map/compass-3-line.svg" alt=""><span>社区</span></a>
-      <a class="mobile-nav-item mobile-nav-create" href="./mobile-create.html"><span class="mobile-nav-create-icon"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/add-line.svg" alt=""></span><span>创作</span></a>
+      <a class="mobile-nav-item mobile-nav-create" href="./mobile-create.html"><span class="mobile-nav-create-icon"><img class="mobile-icon mobile-nav-ai-image" src="./assets/mobile/ai-creation-spark-v3.webp" alt=""></span><span>AI创作</span></a>
       <a class="mobile-nav-item" href="./mobile-activity.html"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Business/calendar-event-line.svg" alt=""><span>活动</span></a>
       <a class="mobile-nav-item" href="./mobile-my.html"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/User & Faces/user-line.svg" alt=""><span>我的</span></a>
     </nav>

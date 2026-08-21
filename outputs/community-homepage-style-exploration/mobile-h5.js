@@ -152,7 +152,7 @@
     button.addEventListener("click", () => {
       const target = document.querySelector(button.dataset.mobileFocusTarget);
       if (!target) return;
-      target.scrollIntoView({ block: "center", behavior: "smooth" });
+      target.scrollIntoView({ block: "center", behavior: "auto" });
       window.setTimeout(() => target.focus(), 180);
     });
   });
@@ -256,7 +256,7 @@
   document.querySelectorAll("[data-mobile-community-open-module]").forEach((button) => {
     button.addEventListener("click", () => {
       setCommunityModule(button.dataset.mobileCommunityOpenModule, true);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "auto" });
     });
   });
   if (communityTabs.length) setCommunityModule(params.get("compose") === "1" ? "flash" : (params.get("module") || "recommend"));
@@ -1117,7 +1117,7 @@
       }
       createPrompt.value = "";
       syncCreatePrompt();
-      if (scroll) taskTurn.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (scroll) taskTurn.scrollIntoView({ behavior: "auto", block: "center" });
     };
     createComposer.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -1352,7 +1352,7 @@
       if (submitButton) submitButton.disabled = generationState === "running" || generationState === "queue" || generationState === "unknown";
       if (submitLabel) submitLabel.textContent = generationState === "success" ? "再次生成" : generationState === "failed" ? "调整后重试" : "生成中";
       if (costLabel) costLabel.textContent = generationState === "success" ? "结果已生成" : generationState === "failed" ? "本次未生成" : "任务生成中";
-      if (focus) taskCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (focus) taskCard.scrollIntoView({ behavior: "auto", block: "start" });
     };
     const openResult = () => {
       if (generationState !== "success") {
@@ -1504,7 +1504,7 @@
       if (editor?.hidden) {
         editor.hidden = false;
         editButton.querySelector("span").textContent = "确认重投";
-        editor.scrollIntoView({ block: "center", behavior: "smooth" });
+        editor.scrollIntoView({ block: "center", behavior: "auto" });
         window.setTimeout(() => copy?.focus(), 180);
         return;
       }

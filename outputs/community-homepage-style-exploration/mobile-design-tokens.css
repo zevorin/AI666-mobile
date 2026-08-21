@@ -48,9 +48,10 @@
   --ds-white: #fff;
 
   /* Shape — no ad-hoc radius values outside this scale. */
-  --ds-radius-control: 12px;
-  --ds-radius-card: 16px;
-  --ds-radius-modal: 24px;
+  --ds-radius-control: 14px;
+  --ds-radius-work: 14px;
+  --ds-radius-card: 20px;
+  --ds-radius-modal: 28px;
   --ds-radius-pill: 999px;
 
   /* Spacing and sizing. */
@@ -63,9 +64,9 @@
   --ds-space-8: 32px;
   --ds-space-10: 40px;
   --ds-space-12: 48px;
-  --ds-control-compact: 32px;
-  --ds-control-default: 40px;
-  --ds-control-large: 48px;
+  --ds-control-compact: 36px;
+  --ds-control-default: 44px;
+  --ds-control-large: 50px;
 
   /* Type. */
   --ds-font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei UI", sans-serif;
@@ -77,15 +78,15 @@
   --ds-type-body: 14px;
   --ds-type-body-lg: 16px;
   --ds-type-title: 18px;
-  --ds-type-heading: 24px;
-  --ds-type-display: 32px;
+  --ds-type-heading: 26px;
+  --ds-type-display: 36px;
 
   /* Elevation and glass. */
-  --ds-shadow-control: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 24px rgba(0, 0, 0, 0.24);
-  --ds-shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 14px 36px rgba(0, 0, 0, 0.24);
-  --ds-shadow-modal: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 28px 72px rgba(0, 0, 0, 0.44);
+  --ds-shadow-control: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 8px 22px rgba(0, 0, 0, 0.22);
+  --ds-shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.055), 0 18px 44px rgba(0, 0, 0, 0.26);
+  --ds-shadow-modal: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 30px 80px rgba(0, 0, 0, 0.48);
   --ds-focus-ring: 0 0 0 3px rgba(244, 201, 93, 0.14);
-  --ds-blur: blur(16px) saturate(1.12);
+  --ds-blur: blur(22px) saturate(1.28);
 
   /* Mobile aliases kept for the existing page markup. */
   --mobile-bg: var(--ds-bg);
