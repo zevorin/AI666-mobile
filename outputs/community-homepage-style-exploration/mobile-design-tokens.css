@@ -1,0 +1,108 @@
+/*
+ * AI666 mobile design tokens
+ * Mirrors AI666-web/design-tokens.css while keeping mobile-specific sizing aliases.
+ * Shared colors, radii, elevation and typography must be changed here first.
+ */
+
+@font-face {
+  font-family: "Montserrat Mobile";
+  src: url("../../assets/web/fonts/Montserrat-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GGQ Mobile";
+  src: url("../../assets/web/fonts/GGQ.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+
+  /* Semantic color — synchronized with the web design system. */
+  --ds-bg: #05070b;
+  --ds-bg-raised: #0b0f13;
+  --ds-surface: rgba(11, 15, 19, 0.74);
+  --ds-surface-strong: rgba(20, 22, 24, 0.92);
+  --ds-surface-hover: rgba(31, 30, 27, 0.94);
+  --ds-text: #fffaf0;
+  --ds-text-muted: rgba(255, 250, 240, 0.66);
+  --ds-text-faint: rgba(255, 250, 240, 0.44);
+  --ds-line: rgba(255, 247, 230, 0.11);
+  --ds-line-strong: rgba(244, 201, 93, 0.32);
+  --ds-gold: #f4c95d;
+  --ds-gold-bright: #ffe58a;
+  --ds-gold-deep: #d8aa52;
+  --ds-gold-soft: rgba(244, 201, 93, 0.10);
+  --ds-gold-muted: rgba(244, 201, 93, 0.20);
+  --ds-gold-border: rgba(244, 201, 93, 0.32);
+  --ds-lime: #d9ff8c;
+  --ds-success: #68ca93;
+  --ds-danger: #ef664e;
+  --ds-blue: #89a7ff;
+  --ds-ink: #10131a;
+  --ds-white: #fff;
+
+  /* Shape — no ad-hoc radius values outside this scale. */
+  --ds-radius-control: 12px;
+  --ds-radius-card: 16px;
+  --ds-radius-modal: 24px;
+  --ds-radius-pill: 999px;
+
+  /* Spacing and sizing. */
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 20px;
+  --ds-space-6: 24px;
+  --ds-space-8: 32px;
+  --ds-space-10: 40px;
+  --ds-space-12: 48px;
+  --ds-control-compact: 32px;
+  --ds-control-default: 40px;
+  --ds-control-large: 48px;
+
+  /* Type. */
+  --ds-font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei UI", sans-serif;
+  --ds-font-display: "Montserrat Mobile", "PingFang SC", sans-serif;
+  --ds-font-brand: "GGQ Mobile", "Songti SC", serif;
+  --ds-type-xs: 11px;
+  --ds-type-sm: 12px;
+  --ds-type-md: 13px;
+  --ds-type-body: 14px;
+  --ds-type-body-lg: 16px;
+  --ds-type-title: 18px;
+  --ds-type-heading: 24px;
+  --ds-type-display: 32px;
+
+  /* Elevation and glass. */
+  --ds-shadow-control: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 24px rgba(0, 0, 0, 0.24);
+  --ds-shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 14px 36px rgba(0, 0, 0, 0.24);
+  --ds-shadow-modal: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 28px 72px rgba(0, 0, 0, 0.44);
+  --ds-focus-ring: 0 0 0 3px rgba(244, 201, 93, 0.14);
+  --ds-blur: blur(16px) saturate(1.12);
+
+  /* Mobile aliases kept for the existing page markup. */
+  --mobile-bg: var(--ds-bg);
+  --mobile-bg-soft: var(--ds-bg-raised);
+  --mobile-panel: var(--ds-surface-strong);
+  --mobile-panel-soft: rgba(255, 247, 230, 0.055);
+  --mobile-paper: var(--ds-text);
+  --mobile-muted: var(--ds-text-muted);
+  --mobile-faint: var(--ds-text-faint);
+  --mobile-line: var(--ds-line);
+  --mobile-line-strong: var(--ds-line-strong);
+  --mobile-gold: var(--ds-gold);
+  --mobile-lime: var(--ds-lime);
+  --mobile-green: var(--ds-success);
+  --mobile-red: var(--ds-danger);
+  --mobile-blue: var(--ds-blue);
+  --mobile-radius-sm: var(--ds-radius-control);
+  --mobile-radius: var(--ds-radius-card);
+  --mobile-radius-lg: var(--ds-radius-modal);
+}
