@@ -57,6 +57,55 @@
     createActionSheet.querySelectorAll("[data-mobile-create-action-close]").forEach((button) => button.addEventListener("click", () => setCreateActionSheet(false)));
   }
 
+  const bottomNav = document.querySelector(".mobile-bottom-nav");
+  if (bottomNav) {
+    const navItems = [...bottomNav.querySelectorAll(":scope > .mobile-nav-item")];
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const setIndicatorPosition = (item, animate = true) => {
+      if (!item) return;
+      const navRect = bottomNav.getBoundingClientRect();
+      const itemRect = item.getBoundingClientRect();
+      if (!animate) bottomNav.classList.remove("is-indicator-ready");
+      bottomNav.style.setProperty("--mobile-nav-indicator-x", `${itemRect.left - navRect.left + (itemRect.width / 2)}px`);
+      if (!animate) window.requestAnimationFrame(() => bottomNav.classList.add("is-indicator-ready"));
+    };
+
+    const initialItem = navItems.find((item) => item.classList.contains("is-active"));
+    bottomNav.classList.toggle("is-create-current", Boolean(initialItem?.classList.contains("mobile-nav-create")));
+    setIndicatorPosition(initialItem, false);
+
+    navItems.forEach((item) => {
+      if (item.classList.contains("mobile-nav-create")) return;
+      item.addEventListener("click", (event) => {
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        if (item.classList.contains("is-active")) {
+          event.preventDefault();
+          return;
+        }
+        event.preventDefault();
+        if (bottomNav.dataset.mobileNavTransitioning === "true") return;
+        bottomNav.dataset.mobileNavTransitioning = "true";
+
+        navItems.forEach((navItem) => {
+          const selected = navItem === item;
+          navItem.classList.toggle("is-active", selected);
+          if (selected) navItem.setAttribute("aria-current", "page");
+          else navItem.removeAttribute("aria-current");
+        });
+        bottomNav.classList.remove("is-create-current");
+        window.requestAnimationFrame(() => setIndicatorPosition(item, true));
+
+        const destination = item.href;
+        window.setTimeout(() => window.location.assign(destination), reduceMotion.matches ? 0 : 390);
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      if (bottomNav.dataset.mobileNavTransitioning === "true") return;
+      setIndicatorPosition(navItems.find((item) => item.classList.contains("is-active")), false);
+    });
+  }
+
   const updatePressedLabel = (button, pressed) => {
     const idle = button.dataset.idleLabel;
     const active = button.dataset.activeLabel;

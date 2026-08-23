@@ -7,6 +7,7 @@
 .vscode/
 *.swp
 *.tmp
+validation/chrome-profile-home-banner/
 
 # Local environment files
 .env
