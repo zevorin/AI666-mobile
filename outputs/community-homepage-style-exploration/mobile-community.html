@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#05070b">
   <title>多元拾光 · 移动社区</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260824-tabbar-indicator-v18">
-  <script src="./mobile-h5.js?v=20260823-tabbar-slider-v10" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260824-home-refine-v34">
+  <script src="./mobile-h5.js?v=20260824-create-panel-v13" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="community">
   <div class="mobile-shell mobile-primary-shell has-bottom-nav">
@@ -19,11 +19,11 @@
           <p>发现作品、灵感与创作方法</p>
         </div>
       </header>
-      <div class="mobile-community-module-tabs" role="tablist" aria-label="社区频道">
-        <button id="mobile-community-tab-recommend" class="mobile-community-module-tab is-active" type="button" role="tab" data-mobile-community-tab="recommend" aria-controls="mobile-community-panel-recommend" aria-selected="true">推荐</button>
-        <button id="mobile-community-tab-aigc" class="mobile-community-module-tab" type="button" role="tab" data-mobile-community-tab="aigc" aria-controls="mobile-community-panel-aigc" aria-selected="false">AIGC</button>
-        <button id="mobile-community-tab-flash" class="mobile-community-module-tab" type="button" role="tab" data-mobile-community-tab="flash" aria-controls="mobile-community-panel-flash" aria-selected="false">闪念</button>
-        <button id="mobile-community-tab-tutorial" class="mobile-community-module-tab" type="button" role="tab" data-mobile-community-tab="tutorial" aria-controls="mobile-community-panel-tutorial" aria-selected="false">教程</button>
+      <div class="mobile-filter-tabs mobile-community-module-tabs" role="tablist" aria-label="社区频道">
+        <button id="mobile-community-tab-recommend" class="mobile-filter-tab mobile-community-module-tab is-active" type="button" role="tab" data-mobile-community-tab="recommend" aria-controls="mobile-community-panel-recommend" aria-selected="true">推荐</button>
+        <button id="mobile-community-tab-aigc" class="mobile-filter-tab mobile-community-module-tab" type="button" role="tab" data-mobile-community-tab="aigc" aria-controls="mobile-community-panel-aigc" aria-selected="false">AIGC</button>
+        <button id="mobile-community-tab-flash" class="mobile-filter-tab mobile-community-module-tab" type="button" role="tab" data-mobile-community-tab="flash" aria-controls="mobile-community-panel-flash" aria-selected="false">闪念</button>
+        <button id="mobile-community-tab-tutorial" class="mobile-filter-tab mobile-community-module-tab" type="button" role="tab" data-mobile-community-tab="tutorial" aria-controls="mobile-community-panel-tutorial" aria-selected="false">教程</button>
       </div>
 
       <section id="mobile-community-panel-recommend" class="mobile-community-panel mobile-community-recommend" role="tabpanel" aria-labelledby="mobile-community-tab-recommend" data-mobile-community-panel="recommend">
@@ -76,10 +76,10 @@
       </section>
 
       <section id="mobile-community-panel-aigc" class="mobile-community-panel mobile-community-inner-panel" role="tabpanel" aria-labelledby="mobile-community-tab-aigc" data-mobile-community-panel="aigc" hidden>
-        <div class="mobile-home-filter-tabs mobile-community-tabs" aria-label="AIGC 内容类型筛选">
-          <button class="mobile-home-filter-tab is-active" type="button" data-mobile-filter="all" aria-pressed="true">全部</button>
-          <button class="mobile-home-filter-tab" type="button" data-mobile-filter="image" aria-pressed="false">图片</button>
-          <button class="mobile-home-filter-tab" type="button" data-mobile-filter="video" aria-pressed="false">视频</button>
+        <div class="mobile-filter-tabs mobile-home-filter-tabs mobile-community-tabs" aria-label="AIGC 内容类型筛选">
+          <button class="mobile-filter-tab mobile-home-filter-tab is-active" type="button" data-mobile-filter="all" aria-pressed="true">全部</button>
+          <button class="mobile-filter-tab mobile-home-filter-tab" type="button" data-mobile-filter="image" aria-pressed="false">图片</button>
+          <button class="mobile-filter-tab mobile-home-filter-tab" type="button" data-mobile-filter="video" aria-pressed="false">视频</button>
         </div>
 
         <div class="mobile-community-grid" data-mobile-community-masonry aria-label="AIGC 作品流">

@@ -23,11 +23,24 @@
 
   const createLaunchers = [...document.querySelectorAll(".mobile-nav-create")];
   let createActionSheet = null;
-  const setCreateActionSheet = (open) => {
+  const setCreateActionSheet = (open, returnFocus = false) => {
     if (!createActionSheet) return;
+    window.clearTimeout(setCreateActionSheet.focusTimer);
     createActionSheet.classList.toggle("is-open", open);
     createActionSheet.setAttribute("aria-hidden", open ? "false" : "true");
-    createLaunchers.forEach((launcher) => launcher.setAttribute("aria-expanded", open ? "true" : "false"));
+    body.classList.toggle("is-create-menu-open", open);
+    createLaunchers.forEach((launcher) => {
+      launcher.classList.toggle("is-menu-open", open);
+      launcher.setAttribute("aria-expanded", open ? "true" : "false");
+      launcher.closest(".mobile-bottom-nav")?.classList.toggle("is-create-menu-open", open);
+    });
+    if (open) {
+      setCreateActionSheet.focusTimer = window.setTimeout(() => {
+        if (createActionSheet.classList.contains("is-open")) createActionSheet.querySelector(".mobile-create-action-option")?.focus();
+      }, 180);
+    } else if (returnFocus) {
+      createLaunchers[0]?.focus();
+    }
   };
   if (createLaunchers.length) {
     createActionSheet = document.createElement("section");
@@ -37,24 +50,39 @@
     createActionSheet.setAttribute("aria-hidden", "true");
     createActionSheet.innerHTML = `
       <button class="mobile-sheet-backdrop" type="button" data-mobile-create-action-close aria-label="关闭创作方式"></button>
-      <div class="mobile-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="mobile-create-action-title">
-        <header class="mobile-sheet-head"><h2 id="mobile-create-action-title">选择创作方式</h2><button class="mobile-icon-button" type="button" data-mobile-create-action-close aria-label="关闭创作方式"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button></header>
+      <div class="mobile-create-action-panel" role="dialog" aria-modal="true" aria-label="选择创作方式">
         <div class="mobile-create-action-list">
-          <a class="mobile-create-action-option" href="./mobile-create.html"><span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Design/quill-pen-ai-line.svg" alt=""></span><strong>AIGC 生成</strong><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt=""></a>
-          <a class="mobile-create-action-option" href="./mobile-community.html?module=flash&amp;compose=1"><span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Document/sticky-note-add-line.svg" alt=""></span><strong>发布闪念</strong><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt=""></a>
+          <a class="mobile-create-action-option is-aigc" href="./mobile-create.html">
+            <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-aigc-flat-v1.png" width="512" height="512" alt=""></span>
+            <span class="mobile-create-action-copy"><strong>AIGC 生成</strong><small>把灵感变成作品</small></span>
+            <span class="mobile-create-action-meta">图片 · 视频 · 文本</span>
+            <span class="mobile-create-action-arrow"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt=""></span>
+          </a>
+          <a class="mobile-create-action-option is-flash" href="./mobile-community.html?module=flash&amp;compose=1">
+            <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-flash-flat-v1.png" width="512" height="512" alt=""></span>
+            <span class="mobile-create-action-copy"><strong>发布闪念</strong><small>记录此刻的创作想法</small></span>
+            <span class="mobile-create-action-meta">分享灵感 · 参与讨论</span>
+            <span class="mobile-create-action-arrow"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt=""></span>
+          </a>
         </div>
+        <button class="mobile-create-action-close" type="button" data-mobile-create-action-close aria-label="关闭创作菜单">
+          <img src="./assets/mobile/ai-creation-spark-v3.webp" alt="">
+        </button>
       </div>`;
-    body.append(createActionSheet);
+    (document.querySelector(".mobile-shell") || body).append(createActionSheet);
     createLaunchers.forEach((launcher) => {
       launcher.setAttribute("aria-haspopup", "dialog");
       launcher.setAttribute("aria-controls", "mobile-create-action-sheet");
       launcher.setAttribute("aria-expanded", "false");
       launcher.addEventListener("click", (event) => {
         event.preventDefault();
-        setCreateActionSheet(true);
+        setCreateActionSheet(!createActionSheet.classList.contains("is-open"));
       });
     });
-    createActionSheet.querySelectorAll("[data-mobile-create-action-close]").forEach((button) => button.addEventListener("click", () => setCreateActionSheet(false)));
+    createActionSheet.querySelectorAll("[data-mobile-create-action-close]").forEach((button) => button.addEventListener("click", () => setCreateActionSheet(false, true)));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && createActionSheet.classList.contains("is-open")) setCreateActionSheet(false, true);
+    });
   }
 
   const bottomNav = document.querySelector(".mobile-bottom-nav");
@@ -65,9 +93,16 @@
       if (!item) return;
       const navRect = bottomNav.getBoundingClientRect();
       const itemRect = item.getBoundingClientRect();
-      if (!animate) bottomNav.classList.remove("is-indicator-ready");
+      if (!animate) {
+        bottomNav.classList.add("is-indicator-static");
+        bottomNav.classList.remove("is-indicator-ready");
+      }
       bottomNav.style.setProperty("--mobile-nav-indicator-x", `${itemRect.left - navRect.left + (itemRect.width / 2)}px`);
-      if (!animate) window.requestAnimationFrame(() => bottomNav.classList.add("is-indicator-ready"));
+      if (!animate) {
+        void bottomNav.offsetWidth;
+        bottomNav.classList.add("is-indicator-ready");
+        window.requestAnimationFrame(() => bottomNav.classList.remove("is-indicator-static"));
+      }
     };
 
     const initialItem = navItems.find((item) => item.classList.contains("is-active"));
@@ -147,6 +182,19 @@
         showToast("邀请码已复制");
       } catch (error) {
         showToast("复制失败，请长按邀请码复制");
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-mobile-copy-profile-id]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const profileId = button.dataset.profileId?.trim();
+      if (!profileId) return;
+      try {
+        await navigator.clipboard.writeText(profileId);
+        showToast("用户 ID 已复制");
+      } catch {
+        showToast("复制失败，请长按用户 ID 复制");
       }
     });
   });
@@ -259,14 +307,35 @@
     requestCommunityMasonrySync();
   };
 
+  let homeFeedFilterTimer = 0;
+  const homeFeedReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   document.querySelectorAll("[data-mobile-filter]").forEach((button) => {
     button.addEventListener("click", () => {
       document.querySelectorAll("[data-mobile-filter]").forEach((item) => {
         const active = item === button;
         item.classList.toggle("is-active", active);
         item.setAttribute("aria-pressed", String(active));
+        if (item.hasAttribute("aria-selected")) item.setAttribute("aria-selected", String(active));
       });
-      applyFeedFilter();
+      window.clearTimeout(homeFeedFilterTimer);
+      const useHomeFeedMotion = body.dataset.mobilePage === "home" && button.hasAttribute("data-mobile-home-filter") && homeMasonry && !homeFeedReduceMotion.matches;
+      if (!useHomeFeedMotion) {
+        homeMasonry?.classList.remove("is-filtering");
+        homeMasonry?.removeAttribute("aria-busy");
+        applyFeedFilter();
+        return;
+      }
+      homeMasonry.classList.add("is-filtering");
+      homeMasonry.setAttribute("aria-busy", "true");
+      homeFeedFilterTimer = window.setTimeout(() => {
+        applyFeedFilter();
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            homeMasonry.classList.remove("is-filtering");
+            homeMasonry.removeAttribute("aria-busy");
+          });
+        });
+      }, 150);
     });
   });
   document.querySelector("[data-mobile-search-input]")?.addEventListener("input", applyFeedFilter);
@@ -769,6 +838,125 @@
       if (pointsRecordEmpty) pointsRecordEmpty.hidden = [...pointsRecords].some((record) => !record.hidden);
     });
   });
+
+  const pointsRobotPAG = document.querySelector("[data-mobile-points-robot-pag]");
+  const pointsRobotCanvas = pointsRobotPAG?.querySelector("[data-mobile-points-robot-pag-canvas]");
+  const pointsShopVideo = document.querySelector("[data-mobile-points-shop-video]");
+  if (pointsRobotPAG || pointsShopVideo) {
+    const reducePointsMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const LIBPAG_VERSION = "4.5.85";
+    const LIBPAG_BASE_URL = `https://cdn.jsdelivr.net/npm/libpag@${LIBPAG_VERSION}/lib/`;
+    let pointsPAGView = null;
+    let pointsPAGFile = null;
+    let pointsPAGInitPromise = null;
+    let pointsRobotVisible = true;
+    let pointsShopVisible = true;
+
+    const shouldPlayPointsRobot = () => !reducePointsMotion && !document.hidden && pointsRobotVisible;
+    const initPointsPAG = () => {
+      if (!pointsRobotPAG || !pointsRobotCanvas || reducePointsMotion) return Promise.resolve();
+      if (pointsPAGInitPromise) return pointsPAGInitPromise;
+
+      pointsRobotPAG.dataset.pagState = "loading";
+      pointsPAGInitPromise = Promise.all([
+        import(`${LIBPAG_BASE_URL}libpag.esm.js`).then(({ PAGInit }) => PAGInit({
+          locateFile: (file) => `${LIBPAG_BASE_URL}${file}`,
+        })),
+        fetch(new URL(pointsRobotPAG.dataset.pagSrc, document.baseURI)),
+      ])
+        .then(async ([PAG, response]) => {
+          if (!response.ok) throw new Error(`PAG 文件加载失败（HTTP ${response.status}）`);
+          pointsPAGFile = await PAG.PAGFile.load(await response.arrayBuffer());
+          pointsRobotCanvas.width = pointsPAGFile.width();
+          pointsRobotCanvas.height = pointsPAGFile.height();
+          pointsPAGView = await PAG.PAGView.init(pointsPAGFile, pointsRobotCanvas);
+          if (!pointsPAGView) throw new Error("PAGView 初始化失败");
+          pointsPAGView.setRepeatCount(0);
+          pointsPAGView.setMaxFrameRate(30);
+          pointsRobotPAG.dataset.pagState = "ready";
+          if (shouldPlayPointsRobot()) await pointsPAGView.play();
+        })
+        .catch((error) => {
+          pointsPAGView?.destroy();
+          pointsPAGView = null;
+          pointsPAGFile?.destroy();
+          pointsPAGFile = null;
+          pointsRobotPAG.dataset.pagState = "fallback";
+          console.warn("移动积分中心 PAG 动画加载失败，已回退到静态插图。", error);
+        });
+      return pointsPAGInitPromise;
+    };
+
+    const syncPointsRobotPlayback = () => {
+      if (!pointsRobotPAG || reducePointsMotion) return;
+      if (!shouldPlayPointsRobot()) {
+        void pointsPAGView?.pause().catch((error) => console.warn("移动积分中心 PAG 动画暂停失败。", error));
+        return;
+      }
+      if (!pointsPAGView) {
+        void initPointsPAG();
+        return;
+      }
+      void pointsPAGView.play().catch((error) => console.warn("移动积分中心 PAG 动画恢复失败。", error));
+    };
+
+    const syncPointsShopPlayback = () => {
+      if (!pointsShopVideo) return;
+      if (reducePointsMotion || document.hidden || !pointsShopVisible) {
+        pointsShopVideo.pause();
+        return;
+      }
+      void pointsShopVideo.play().catch((error) => {
+        console.warn("移动积分商城视频自动播放失败，已保留封面图。", error);
+      });
+    };
+
+    if (pointsRobotPAG) {
+      if (reducePointsMotion) {
+        pointsRobotPAG.dataset.pagState = "reduced-motion";
+      } else if ("IntersectionObserver" in window) {
+        const pointsRobotObserver = new IntersectionObserver(([entry]) => {
+          pointsRobotVisible = entry.isIntersecting;
+          syncPointsRobotPlayback();
+        }, { threshold: 0.01 });
+        pointsRobotObserver.observe(pointsRobotPAG);
+      } else {
+        syncPointsRobotPlayback();
+      }
+    }
+
+    if (pointsShopVideo) {
+      if (!reducePointsMotion && "IntersectionObserver" in window) {
+        const pointsShopObserver = new IntersectionObserver(([entry]) => {
+          pointsShopVisible = entry.isIntersecting;
+          syncPointsShopPlayback();
+        }, { threshold: 0.05 });
+        pointsShopObserver.observe(pointsShopVideo);
+      } else {
+        syncPointsShopPlayback();
+      }
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      syncPointsRobotPlayback();
+      syncPointsShopPlayback();
+    });
+    window.addEventListener("pagehide", (event) => {
+      pointsShopVideo?.pause();
+      if (event.persisted) {
+        void pointsPAGView?.pause();
+        return;
+      }
+      pointsPAGView?.destroy();
+      pointsPAGView = null;
+      pointsPAGFile?.destroy();
+      pointsPAGFile = null;
+    });
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) syncPointsRobotPlayback();
+      syncPointsShopPlayback();
+    });
+  }
 
   document.querySelector("[data-mobile-checkin]")?.addEventListener("click", (event) => {
     const button = event.currentTarget;

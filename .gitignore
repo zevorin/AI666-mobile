@@ -15,6 +15,9 @@ validation/
 outputs/**/qa-*.png
 design-handoff/implementation-*.png
 design-handoff/reference-vs-implementation*.png
+/design-qa*.md
+/profile-redesign-comparison-*.png
+/profile-redesign-implementation*.png
 
 # Local environment files
 .env
