@@ -81,6 +81,31 @@
   --ds-type-heading: 26px;
   --ds-type-display: 36px;
 
+  /* Semantic mobile typography — TabBar copy (11px) is the hard minimum. */
+  --ds-type-min: var(--ds-type-xs);
+  --ds-type-caption: var(--ds-type-sm);
+  --ds-type-meta: var(--ds-type-md);
+  --ds-type-nav-title: 17px;
+  --ds-type-card-title: var(--ds-type-body-lg);
+  --ds-type-section-title: var(--ds-type-title);
+  --ds-type-page-title: 24px;
+  --ds-type-hero-title: 30px;
+  --ds-leading-min: 16px;
+  --ds-leading-caption: 18px;
+  --ds-leading-meta: 19px;
+  --ds-leading-body: 22px;
+  --ds-leading-body-lg: 24px;
+  --ds-leading-nav-title: 24px;
+  --ds-leading-card-title: 22px;
+  --ds-leading-section-title: 26px;
+  --ds-leading-page-title: 32px;
+  --ds-leading-hero-title: 38px;
+  --ds-weight-regular: 400;
+  --ds-weight-medium: 500;
+  --ds-weight-semibold: 600;
+  --ds-weight-bold: 700;
+  --ds-weight-extrabold: 800;
+
   /* Elevation and glass. */
   --ds-shadow-control: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 8px 22px rgba(0, 0, 0, 0.22);
   --ds-shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.055), 0 18px 44px rgba(0, 0, 0, 0.26);
@@ -106,4 +131,5 @@
   --mobile-radius-sm: var(--ds-radius-control);
   --mobile-radius: var(--ds-radius-card);
   --mobile-radius-lg: var(--ds-radius-modal);
+  --mobile-font-min: var(--ds-type-min);
 }

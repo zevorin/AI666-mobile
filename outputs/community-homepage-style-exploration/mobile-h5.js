@@ -23,7 +23,7 @@
 
   const createLaunchers = [...document.querySelectorAll(".mobile-nav-create")];
   let createActionSheet = null;
-  const setCreateActionSheet = (open, returnFocus = false) => {
+  const setCreateActionSheet = (open, returnFocus = false, focusFirstOption = false) => {
     if (!createActionSheet) return;
     window.clearTimeout(setCreateActionSheet.focusTimer);
     createActionSheet.classList.toggle("is-open", open);
@@ -34,7 +34,7 @@
       launcher.setAttribute("aria-expanded", open ? "true" : "false");
       launcher.closest(".mobile-bottom-nav")?.classList.toggle("is-create-menu-open", open);
     });
-    if (open) {
+    if (open && focusFirstOption) {
       setCreateActionSheet.focusTimer = window.setTimeout(() => {
         if (createActionSheet.classList.contains("is-open")) createActionSheet.querySelector(".mobile-create-action-option")?.focus();
       }, 180);
@@ -55,19 +55,12 @@
           <a class="mobile-create-action-option is-aigc" href="./mobile-create.html">
             <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-aigc-flat-v1.png" width="512" height="512" alt=""></span>
             <span class="mobile-create-action-copy"><strong>AIGC 生成</strong><small>把灵感变成作品</small></span>
-            <span class="mobile-create-action-meta">图片 · 视频 · 文本</span>
-            <span class="mobile-create-action-arrow"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt=""></span>
           </a>
           <a class="mobile-create-action-option is-flash" href="./mobile-community.html?module=flash&amp;compose=1">
             <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-flash-flat-v1.png" width="512" height="512" alt=""></span>
             <span class="mobile-create-action-copy"><strong>发布闪念</strong><small>记录此刻的创作想法</small></span>
-            <span class="mobile-create-action-meta">分享灵感 · 参与讨论</span>
-            <span class="mobile-create-action-arrow"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt=""></span>
           </a>
         </div>
-        <button class="mobile-create-action-close" type="button" data-mobile-create-action-close aria-label="关闭创作菜单">
-          <img src="./assets/mobile/ai-creation-spark-v3.webp" alt="">
-        </button>
       </div>`;
     (document.querySelector(".mobile-shell") || body).append(createActionSheet);
     createLaunchers.forEach((launcher) => {
@@ -76,7 +69,8 @@
       launcher.setAttribute("aria-expanded", "false");
       launcher.addEventListener("click", (event) => {
         event.preventDefault();
-        setCreateActionSheet(!createActionSheet.classList.contains("is-open"));
+        const opening = !createActionSheet.classList.contains("is-open");
+        setCreateActionSheet(opening, false, opening && event.detail === 0);
       });
     });
     createActionSheet.querySelectorAll("[data-mobile-create-action-close]").forEach((button) => button.addEventListener("click", () => setCreateActionSheet(false, true)));
