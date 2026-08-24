@@ -5,8 +5,7 @@
 - 24 个移动端 H5 原型页面源文件
 - 移动端共享样式与交互脚本：`mobile-h5.css`、`mobile-h5.js`
 - 页面实际引用的品牌图、内容图、Remix Icon 图标资源
-- 已确认的邀请页第三版设计参考、实现截图与对照图
-- 移动端专项验证结果与设计 QA 记录
+- 已确认的邀请页第三版设计参考
 
 ## 查看方式
 
@@ -31,10 +30,7 @@ npx serve .
 ## 设计交接说明
 
 - `design-handoff/selected-invite-design.png`：用户确认的邀请页第三版设计方向
-- `design-handoff/implementation-390x844.png`：当前 390 × 844 实现截图
-- `design-handoff/reference-vs-implementation.png`：参考图与实现效果对照
-- `design-handoff/design-qa.md`：设计走查记录
-- `validation/community-mobile-h5-prototype-validation.json`：24 页移动端专项验证结果
+- `design-handoff/2026-08-21-web-style-mobile-redesign.md`：移动端重设计交接说明
 
 ## 边界
 

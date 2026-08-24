@@ -9,6 +9,13 @@
 *.tmp
 validation/chrome-profile-home-banner/
 
+# Generated QA output and browser/Codex screenshots
+qa/
+validation/
+outputs/**/qa-*.png
+design-handoff/implementation-*.png
+design-handoff/reference-vs-implementation*.png
+
 # Local environment files
 .env
 .env.*
