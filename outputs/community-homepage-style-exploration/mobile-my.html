@@ -6,18 +6,24 @@
   <meta name="theme-color" content="#05070b">
   <title>个人中心 - 多元拾光</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260825-profile-density-v43">
-  <script src="./mobile-h5.js?v=20260824-touch-focus-v18" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260825-display-heading-profile-taste-v7">
+  <link rel="stylesheet" href="./mobile-my-taste.css?v=20260825-profile-cover-v12">
+  <script src="./mobile-h5.js?v=20260825-profile-cover-v19" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="my">
   <div class="mobile-shell mobile-primary-shell has-bottom-nav">
-    <main id="main" class="mobile-content mobile-my-content mobile-my-redesign">
+    <main id="main" class="mobile-content mobile-my-content mobile-my-redesign mobile-my-taste">
       <section class="mobile-my-redesign-profile" aria-labelledby="mobile-profile-name">
+        <div class="mobile-my-profile-cover-art" aria-hidden="true">
+          <video class="mobile-my-profile-cover-media" data-mobile-profile-cover-video muted loop playsinline preload="metadata" poster="../../assets/web/user/userbg.png">
+            <source src="../../assets/web/user/userbg.mp4" type="video/mp4">
+          </video>
+        </div>
         <div class="mobile-my-redesign-identity">
           <img class="mobile-profile-avatar" src="../../assets/web/image_assets/nav-avatar-ai-creator-v1.webp" alt="拾光创作者头像">
           <div class="mobile-profile-copy">
             <h1 id="mobile-profile-name">拾光创作者</h1>
-            <p><span>ID：AI666-SG20****</span><button type="button" data-mobile-copy-profile-id data-profile-id="AI666-SG20****" aria-label="复制用户 ID"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Document/file-copy-line.svg" alt=""></button></p>
+            <p><span>ID：AI666-KNWYZU05</span><button type="button" data-mobile-copy-profile-id data-profile-id="AI666-KNWYZU05" aria-label="复制用户 ID"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Document/file-copy-line.svg" alt=""></button></p>
           </div>
         </div>
         <div class="mobile-my-profile-actions">
@@ -32,8 +38,7 @@
         <a href="./mobile-my-submissions.html"><strong>1</strong><span>我的投稿</span></a>
       </nav>
 
-      <section class="mobile-my-redesign-section" aria-labelledby="mobile-my-content-title">
-        <h2 id="mobile-my-content-title" class="mobile-my-redesign-title">内容</h2>
+      <section class="mobile-my-redesign-section" aria-label="我的内容">
         <div class="mobile-my-redesign-content-grid">
           <a class="mobile-my-redesign-card mobile-my-works-card" href="./mobile-my-works.html">
             <span class="mobile-my-redesign-art mobile-my-works-art"><img src="./assets/mobile/profile-works-desk-3d-v1.png" alt=""></span>
@@ -72,14 +77,15 @@
       </section>
     </main>
 
-    <nav class="mobile-bottom-nav" aria-label="移动端一级导航">
+  </div>
+
+  <nav class="mobile-bottom-nav" aria-label="移动端一级导航">
       <a class="mobile-nav-item" href="./mobile-home.html"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Buildings/home-5-line.svg" alt=""><span>首页</span></a>
       <a class="mobile-nav-item" href="./mobile-community.html"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Map/compass-3-line.svg" alt=""><span>社区</span></a>
       <a class="mobile-nav-item mobile-nav-create" href="./mobile-create.html"><span class="mobile-nav-create-icon"><img class="mobile-icon mobile-nav-ai-image" src="./assets/mobile/ai-creation-spark-v3.webp" alt=""></span><span>AI创作</span></a>
       <a class="mobile-nav-item" href="./mobile-activity.html"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Business/calendar-event-line.svg" alt=""><span>活动</span></a>
       <a class="mobile-nav-item is-active" href="./mobile-my.html" aria-current="page"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/User & Faces/user-line.svg" alt=""><span>我的</span></a>
-    </nav>
-  </div>
+  </nav>
 
   <button class="mobile-walkthrough-trigger" type="button" data-mobile-walkthrough-open aria-controls="mobile-walkthrough">走查</button>
   <aside id="mobile-walkthrough" class="mobile-walkthrough" data-mobile-walkthrough aria-hidden="true">

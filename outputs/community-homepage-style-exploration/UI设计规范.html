@@ -1,0 +1,1037 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#05070b">
+  <title>移动端 UI 设计规范 · 多元拾光</title>
+  <link rel="icon" href="./assets/brand/duoyuan-shiguang-favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./mobile-design-tokens.css?v=20260825-type-contract">
+  <link rel="stylesheet" href="./mobile-display-heading.css?v=20260825-display-heading-v3">
+  <style>
+    :root {
+      --guide-rail: 244px;
+      --guide-max: 1520px;
+      --guide-grid: rgba(255, 250, 240, 0.035);
+      --guide-panel: rgba(13, 16, 20, 0.88);
+      --guide-panel-strong: #111419;
+      --guide-code: #0a0d11;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      min-width: 320px;
+      scroll-behavior: smooth;
+      background: var(--ds-bg);
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      color: var(--ds-text-primary);
+      background:
+        linear-gradient(90deg, transparent 31px, var(--guide-grid) 32px, transparent 33px) 0 0 / 64px 64px,
+        linear-gradient(transparent 31px, var(--guide-grid) 32px, transparent 33px) 0 0 / 64px 64px,
+        radial-gradient(circle at 78% 4%, rgba(244, 201, 93, 0.12), transparent 26%),
+        radial-gradient(circle at 22% 42%, rgba(104, 202, 147, 0.055), transparent 28%),
+        var(--ds-bg);
+      font-family: var(--ds-font-body);
+      font-size: var(--ds-type-reading);
+      line-height: var(--ds-leading-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button,
+    input,
+    select { color: inherit; font: inherit; }
+
+    button,
+    a { -webkit-tap-highlight-color: transparent; }
+
+    button { border: 0; }
+
+    a { color: inherit; text-decoration: none; }
+
+    code,
+    pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+
+    .guide-skip {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 200;
+      padding: 9px 13px;
+      border-radius: var(--ds-radius-control);
+      color: var(--ds-ink);
+      background: var(--ds-gold);
+      font-weight: 700;
+      transform: translateY(-150%);
+    }
+
+    .guide-skip:focus { transform: translateY(0); }
+
+    .guide-layout {
+      width: min(100%, var(--guide-max));
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: var(--guide-rail) minmax(0, 1fr);
+      margin: 0 auto;
+    }
+
+    .guide-rail {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 28px 20px 20px;
+      border-right: 1px solid var(--ds-line);
+      background: rgba(5, 7, 11, 0.82);
+      backdrop-filter: blur(24px) saturate(1.2);
+    }
+
+    .guide-brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 0 8px 26px;
+    }
+
+    .guide-brand img { width: 34px; height: 34px; }
+
+    .guide-brand-copy { display: grid; gap: 1px; }
+
+    .guide-brand-copy strong {
+      font-size: 15px;
+      line-height: 21px;
+      letter-spacing: -0.02em;
+    }
+
+    .guide-brand-copy span {
+      color: var(--ds-text-tertiary);
+      font-size: var(--ds-type-min);
+      line-height: var(--ds-leading-min);
+      letter-spacing: 0.12em;
+    }
+
+    .guide-nav {
+      display: grid;
+      gap: 3px;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+
+    .guide-nav::-webkit-scrollbar { display: none; }
+
+    .guide-nav a {
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 0 12px;
+      border-radius: 12px;
+      color: var(--ds-text-secondary);
+      font-size: var(--ds-type-meta);
+      line-height: var(--ds-leading-meta);
+      transition: color 150ms ease, background-color 150ms ease;
+    }
+
+    .guide-nav a::after {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: currentColor;
+      content: "";
+      opacity: 0.24;
+    }
+
+    .guide-nav a:hover,
+    .guide-nav a.is-current {
+      color: var(--ds-gold);
+      background: var(--ds-gold-soft);
+    }
+
+    .guide-nav a.is-current::after { opacity: 1; box-shadow: 0 0 10px var(--ds-gold); }
+
+    .guide-rail-foot {
+      display: grid;
+      gap: 4px;
+      margin-top: auto;
+      padding: 20px 9px 0;
+      color: var(--ds-text-tertiary);
+      font-size: var(--ds-type-min);
+      line-height: var(--ds-leading-min);
+    }
+
+    .guide-rail-foot strong { color: var(--ds-text-secondary); font-weight: 600; }
+
+    .guide-main { min-width: 0; padding: 0 48px 96px; }
+
+    .guide-hero {
+      min-height: 520px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr);
+      align-items: end;
+      gap: 48px;
+      padding: 84px 0 56px;
+      border-bottom: 1px solid var(--ds-line);
+    }
+
+    .guide-kicker,
+    .guide-section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--ds-gold);
+      font-family: var(--ds-font-display);
+      font-size: var(--ds-type-min);
+      font-weight: 700;
+      line-height: var(--ds-leading-min);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .guide-kicker::before,
+    .guide-section-kicker::before {
+      width: 22px;
+      height: 1px;
+      background: var(--ds-gold);
+      box-shadow: 0 0 12px rgba(244, 201, 93, 0.45);
+      content: "";
+    }
+
+    .guide-hero h1 {
+      max-width: 760px;
+      margin: 20px 0 22px;
+      font-size: clamp(50px, 6.6vw, 94px);
+      font-weight: 700;
+      line-height: 0.93;
+      letter-spacing: -0.065em;
+    }
+
+    .guide-hero h1 span { color: var(--ds-gold); }
+
+    .guide-hero p {
+      max-width: 640px;
+      margin: 0;
+      color: var(--ds-text-secondary);
+      font-size: 16px;
+      line-height: 28px;
+    }
+
+    .guide-hero-aside { display: grid; gap: 10px; }
+
+    .guide-baseline-card {
+      position: relative;
+      min-height: 190px;
+      display: grid;
+      align-content: end;
+      overflow: hidden;
+      padding: 24px;
+      border: 1px solid var(--ds-gold-border);
+      border-radius: var(--ds-radius-card);
+      background:
+        radial-gradient(circle at 78% 18%, rgba(244, 201, 93, 0.25), transparent 36%),
+        rgba(17, 20, 25, 0.88);
+      box-shadow: var(--ds-shadow-card);
+    }
+
+    .guide-baseline-card::before {
+      position: absolute;
+      top: 21px;
+      right: 23px;
+      color: rgba(244, 201, 93, 0.20);
+      font-family: var(--ds-font-display);
+      font-size: 92px;
+      font-weight: 700;
+      line-height: 1;
+      content: "11";
+    }
+
+    .guide-baseline-card span {
+      color: var(--ds-gold);
+      font-size: var(--ds-type-min);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+    }
+
+    .guide-baseline-card strong {
+      position: relative;
+      margin-top: 5px;
+      font-size: 22px;
+      line-height: 29px;
+      letter-spacing: -0.03em;
+    }
+
+    .guide-baseline-card small {
+      position: relative;
+      color: var(--ds-text-secondary);
+      font-size: var(--ds-type-caption);
+      line-height: var(--ds-leading-caption);
+    }
+
+    .guide-fact-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+    .guide-fact {
+      min-height: 84px;
+      display: grid;
+      align-content: center;
+      gap: 3px;
+      padding: 14px;
+      border: 1px solid var(--ds-line);
+      border-radius: var(--ds-radius-control);
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .guide-fact strong { font-family: var(--ds-font-display); font-size: 20px; line-height: 24px; }
+    .guide-fact span { color: var(--ds-text-tertiary); font-size: var(--ds-type-min); line-height: var(--ds-leading-min); }
+
+    .guide-section {
+      scroll-margin-top: 24px;
+      padding: 72px 0;
+      border-bottom: 1px solid var(--ds-line);
+    }
+
+    .guide-section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 420px);
+      gap: 40px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .guide-section h2 {
+      margin: 12px 0 0;
+      font-size: clamp(30px, 4vw, 50px);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+    }
+
+    .guide-section-head > p {
+      margin: 0;
+      color: var(--ds-text-secondary);
+      font-size: var(--ds-type-reading);
+      line-height: var(--ds-leading-body);
+    }
+
+    .guide-note {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 11px;
+      padding: 16px 18px;
+      border-left: 2px solid var(--ds-gold);
+      border-radius: 0 var(--ds-radius-control) var(--ds-radius-control) 0;
+      color: var(--ds-text-secondary);
+      background: rgba(244, 201, 93, 0.07);
+      font-size: var(--ds-type-meta);
+      line-height: var(--ds-leading-body);
+    }
+
+    .guide-note b { color: var(--ds-gold); font-family: var(--ds-font-display); font-size: 12px; }
+
+    .type-table { border-top: 1px solid var(--ds-line); }
+
+    .type-row {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.2fr) minmax(250px, 1.8fr) 168px 92px;
+      gap: 24px;
+      align-items: center;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--ds-line);
+    }
+
+    .type-role { display: grid; gap: 5px; }
+    .type-role strong { font-size: 15px; line-height: 21px; }
+    .type-role code { color: var(--ds-gold); font-size: 11px; line-height: 16px; word-break: break-all; }
+    .type-meta { display: grid; gap: 2px; color: var(--ds-text-secondary); font-size: 12px; line-height: 18px; }
+    .type-meta b { color: var(--ds-text-primary); font-weight: 600; }
+
+    .type-sample { min-width: 0; margin: 0; }
+    .type-sample.is-min { font-size: var(--ds-type-min); font-weight: 500; line-height: var(--ds-leading-min); }
+    .type-sample.is-caption { color: var(--ds-text-tertiary); font-size: var(--ds-type-caption); line-height: var(--ds-leading-caption); }
+    .type-sample.is-meta { color: var(--ds-text-secondary); font-size: var(--ds-type-meta); line-height: var(--ds-leading-meta); }
+    .type-sample.is-body { color: var(--ds-text-secondary); font-size: var(--ds-type-reading); line-height: var(--ds-leading-body); }
+    .type-sample.is-label { font-size: var(--ds-type-label); font-weight: 600; line-height: var(--ds-leading-control); }
+    .type-sample.is-emphasis { font-size: var(--ds-type-emphasis); font-weight: 600; line-height: var(--ds-leading-emphasis); }
+    .type-sample.is-card { font-size: var(--ds-type-card-title); font-weight: 600; line-height: var(--ds-leading-card-title); letter-spacing: var(--ds-tracking-card-title); }
+    .type-sample.is-nav { font-size: var(--ds-type-nav-title); font-weight: 600; line-height: var(--ds-leading-nav-title); letter-spacing: var(--ds-tracking-nav-title); }
+    .type-sample.is-section { font-size: var(--ds-type-section-title); font-weight: 700; line-height: var(--ds-leading-section-title); letter-spacing: var(--ds-tracking-section-title); }
+    .type-sample.is-page { font-size: var(--ds-type-page-title); font-weight: 700; line-height: var(--ds-leading-page-title); letter-spacing: var(--ds-tracking-page-title); }
+    .type-sample.is-hero { font-size: var(--ds-type-hero-title); font-weight: 700; line-height: var(--ds-leading-hero-title); letter-spacing: var(--ds-tracking-hero-title); }
+    .type-sample.is-number { font-family: var(--ds-font-display); font-size: var(--ds-type-number); font-weight: 700; line-height: var(--ds-leading-number); letter-spacing: var(--ds-tracking-number); }
+
+    .copy-token {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 11px;
+      border: 1px solid var(--ds-line);
+      border-radius: 10px;
+      color: var(--ds-text-secondary);
+      background: rgba(255, 255, 255, 0.025);
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .copy-token:hover,
+    .copy-token:focus-visible { border-color: var(--ds-gold-border); color: var(--ds-gold); outline: 0; }
+    .copy-token.is-copied { color: var(--ds-success); border-color: rgba(104, 202, 147, 0.35); }
+
+    .guide-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
+    .guide-card {
+      grid-column: span 4;
+      min-width: 0;
+      padding: 20px;
+      border: 1px solid var(--ds-line);
+      border-radius: var(--ds-radius-card);
+      background: var(--guide-panel);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+    }
+    .guide-card.wide { grid-column: span 8; }
+    .guide-card.full { grid-column: 1 / -1; }
+    .guide-card h3 { margin: 0; font-size: 16px; line-height: 23px; letter-spacing: -0.015em; }
+    .guide-card > p { margin: 8px 0 0; color: var(--ds-text-secondary); font-size: 13px; line-height: 20px; }
+
+    .swatch { min-height: 152px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+    .swatch-color { height: 76px; margin: -20px -20px 18px; border-bottom: 1px solid var(--ds-line); }
+    .swatch-meta { display: flex; align-items: end; justify-content: space-between; gap: 12px; }
+    .swatch-meta code { color: var(--ds-text-tertiary); font-size: 11px; }
+
+    .spacing-demo { display: grid; gap: 12px; margin-top: 18px; }
+    .spacing-row { display: grid; grid-template-columns: 50px minmax(0, 1fr) 42px; align-items: center; gap: 12px; font-size: 12px; }
+    .spacing-row span:first-child { color: var(--ds-text-secondary); }
+    .spacing-bar { height: 8px; border-radius: 99px; background: linear-gradient(90deg, var(--ds-gold), var(--ds-gold-deep)); }
+    .spacing-row code { color: var(--ds-text-tertiary); text-align: right; }
+
+    .component-stage {
+      display: grid;
+      gap: 22px;
+      margin-top: 18px;
+      padding: 22px;
+      border: 1px solid var(--ds-line);
+      border-radius: var(--ds-radius-card);
+      background:
+        radial-gradient(circle at 90% 10%, rgba(244, 201, 93, 0.075), transparent 28%),
+        var(--guide-code);
+    }
+
+    .component-label { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .component-label code { color: var(--ds-gold); font-size: 11px; }
+    .component-label span { color: var(--ds-text-tertiary); font-size: 11px; }
+
+    .heading-component-examples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .heading-component-example { min-width: 0; padding: 16px; border: 1px solid var(--ds-line); border-radius: var(--ds-radius-control); background: #05070b; overflow: hidden; }
+    .heading-component-example > small { display: block; margin-bottom: 8px; color: var(--ds-text-tertiary); font-size: 11px; }
+    .heading-component-code { margin: 0; padding: 14px; overflow-x: auto; border-radius: var(--ds-radius-control); color: var(--ds-text-secondary); background: rgba(0, 0, 0, 0.32); font-size: 11px; line-height: 18px; white-space: pre; }
+
+    .demo-buttons,
+    .demo-tabs,
+    .demo-badges { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .demo-button {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border: 1px solid var(--ds-line);
+      border-radius: var(--ds-radius-control);
+      color: var(--ds-text-primary);
+      background: rgba(255, 255, 255, 0.055);
+      font-size: var(--ds-type-label);
+      font-weight: 600;
+      line-height: var(--ds-leading-control);
+    }
+
+    .demo-button.primary { border-color: var(--ds-gold); color: var(--ds-ink); background: var(--ds-gold); }
+    .demo-button.compact { min-height: 36px; padding: 0 14px; }
+    .demo-button[disabled] { color: var(--ds-text-tertiary); background: rgba(255, 255, 255, 0.025); opacity: 0.62; }
+
+    .demo-tab {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 16px;
+      border-radius: var(--ds-radius-control);
+      color: var(--ds-text-secondary);
+      background: rgba(255, 255, 255, 0.05);
+      font-size: var(--ds-type-label);
+      font-weight: 600;
+    }
+
+    .demo-tab.active { color: var(--ds-ink); background: var(--ds-gold); }
+
+    .demo-badge {
+      min-height: 24px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 9px;
+      border-radius: var(--ds-radius-pill);
+      color: var(--ds-text-secondary);
+      background: rgba(255, 255, 255, 0.06);
+      font-size: var(--ds-type-min);
+      font-weight: 600;
+      line-height: var(--ds-leading-min);
+    }
+
+    .demo-badge.gold { color: var(--ds-gold); background: var(--ds-gold-soft); }
+    .demo-badge.success { color: var(--ds-success); background: rgba(104, 202, 147, 0.10); }
+    .demo-badge.danger { color: var(--ds-danger); background: rgba(239, 102, 78, 0.10); }
+
+    .demo-field { display: grid; gap: 7px; }
+    .demo-field > span { font-size: var(--ds-type-label); font-weight: 600; line-height: var(--ds-leading-control); }
+    .demo-input {
+      width: 100%;
+      min-height: 48px;
+      padding: 0 14px;
+      border: 1px solid var(--ds-line);
+      border-radius: var(--ds-radius-control);
+      outline: 0;
+      color: var(--ds-text-primary);
+      background: rgba(255, 255, 255, 0.045);
+      font-size: var(--ds-type-reading);
+      line-height: var(--ds-leading-body);
+    }
+    .demo-input::placeholder { color: var(--ds-text-tertiary); }
+    .demo-input:focus { border-color: var(--ds-gold-border); box-shadow: var(--ds-focus-ring); }
+    .demo-field small { color: var(--ds-text-tertiary); font-size: var(--ds-type-caption); line-height: var(--ds-leading-caption); }
+
+    .demo-content-card { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; align-items: center; }
+    .demo-content-art { width: 72px; height: 72px; border-radius: var(--ds-radius-control); background: linear-gradient(145deg, rgba(244, 201, 93, 0.42), rgba(137, 167, 255, 0.12)), #14181e; }
+    .demo-content-copy { display: grid; gap: 3px; }
+    .demo-content-copy strong { font-size: var(--ds-type-card-title); line-height: var(--ds-leading-card-title); letter-spacing: var(--ds-tracking-card-title); }
+    .demo-content-copy span { color: var(--ds-text-secondary); font-size: var(--ds-type-meta); line-height: var(--ds-leading-meta); }
+    .demo-content-copy small { color: var(--ds-text-tertiary); font-size: var(--ds-type-caption); line-height: var(--ds-leading-caption); }
+
+    .demo-tabbar {
+      height: 72px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: end;
+      padding: 8px 6px 10px;
+      border-radius: 18px;
+      background: #15181c;
+    }
+    .demo-tabbar-item { display: grid; justify-items: center; gap: 6px; color: var(--ds-text-tertiary); font-size: var(--ds-type-min); line-height: var(--ds-leading-min); }
+    .demo-tabbar-item i { width: 20px; height: 20px; display: block; border: 1.5px solid currentColor; border-radius: 7px; }
+    .demo-tabbar-item.active { color: var(--ds-gold); }
+    .demo-tabbar-item.create i { width: 38px; height: 38px; margin-top: -19px; border-color: var(--ds-gold); border-radius: 50%; box-shadow: 0 0 16px rgba(244, 201, 93, 0.24); }
+
+    .registry-tools { display: flex; gap: 10px; margin-bottom: 18px; }
+    .registry-search {
+      width: 100%;
+      min-height: 44px;
+      padding: 0 14px;
+      border: 1px solid var(--ds-line);
+      border-radius: var(--ds-radius-control);
+      outline: 0;
+      color: var(--ds-text-primary);
+      background: rgba(255, 255, 255, 0.035);
+      font-size: var(--ds-type-reading);
+    }
+    .registry-search:focus { border-color: var(--ds-gold-border); box-shadow: var(--ds-focus-ring); }
+
+    .registry { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .registry-item {
+      min-width: 0;
+      display: grid;
+      gap: 11px;
+      padding: 18px;
+      border: 1px solid var(--ds-line);
+      border-radius: var(--ds-radius-control);
+      background: rgba(255, 255, 255, 0.025);
+    }
+    .registry-item[hidden] { display: none; }
+    .registry-item header { display: flex; align-items: start; justify-content: space-between; gap: 14px; }
+    .registry-item h3 { margin: 0; font-size: 15px; line-height: 21px; }
+    .registry-item header span { flex: 0 0 auto; color: var(--ds-text-tertiary); font-size: 11px; line-height: 16px; }
+    .registry-item p { margin: 0; color: var(--ds-text-secondary); font-size: 12px; line-height: 18px; }
+    .registry-item code { display: block; overflow-wrap: anywhere; color: var(--ds-gold); font-size: 11px; line-height: 17px; }
+
+    .preview-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 18px; }
+    .preview-select {
+      min-height: 40px;
+      padding: 0 36px 0 12px;
+      border: 1px solid var(--ds-line);
+      border-radius: 12px;
+      color: var(--ds-text-primary);
+      background: var(--guide-panel-strong);
+      font-size: 13px;
+    }
+    .preview-sizes { display: flex; gap: 6px; }
+    .preview-size {
+      min-height: 40px;
+      padding: 0 12px;
+      border: 1px solid var(--ds-line);
+      border-radius: 12px;
+      color: var(--ds-text-secondary);
+      background: transparent;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .preview-size.is-active { color: var(--ds-ink); border-color: var(--ds-gold); background: var(--ds-gold); }
+    .preview-open { margin-left: auto; color: var(--ds-gold); font-size: 12px; }
+
+    .preview-canvas {
+      min-height: 760px;
+      display: grid;
+      place-items: start center;
+      overflow-x: auto;
+      padding: 28px;
+      border: 1px solid var(--ds-line);
+      border-radius: var(--ds-radius-card);
+      background:
+        linear-gradient(45deg, rgba(255,255,255,.02) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.02) 75%),
+        linear-gradient(45deg, rgba(255,255,255,.02) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.02) 75%),
+        #080b0f;
+      background-position: 0 0, 12px 12px;
+      background-size: 24px 24px;
+    }
+    .preview-device {
+      width: 390px;
+      height: 720px;
+      overflow: hidden;
+      border: 8px solid #22262c;
+      border-radius: 32px;
+      background: #020305;
+      box-shadow: 0 36px 90px rgba(0, 0, 0, 0.55);
+      transition: width 180ms ease;
+    }
+    .preview-device iframe { width: 100%; height: 100%; display: block; border: 0; background: #020305; }
+
+    .coverage { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .coverage a {
+      min-height: 68px;
+      display: grid;
+      align-content: center;
+      gap: 3px;
+      padding: 12px 14px;
+      border: 1px solid var(--ds-line);
+      border-radius: var(--ds-radius-control);
+      background: rgba(255, 255, 255, 0.025);
+    }
+    .coverage a:hover { border-color: var(--ds-gold-border); background: var(--ds-gold-soft); }
+    .coverage strong { font-size: 13px; line-height: 19px; }
+    .coverage span { overflow: hidden; color: var(--ds-text-tertiary); font-size: 11px; line-height: 16px; text-overflow: ellipsis; white-space: nowrap; }
+
+    .rule-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; counter-reset: rule; }
+    .rule-list li {
+      min-height: 62px;
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr);
+      align-items: start;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--ds-line);
+      border-radius: var(--ds-radius-control);
+      color: var(--ds-text-secondary);
+      background: rgba(255, 255, 255, 0.025);
+      font-size: 13px;
+      line-height: 20px;
+      counter-increment: rule;
+    }
+    .rule-list li::before {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--ds-ink);
+      background: var(--ds-gold);
+      font-family: var(--ds-font-display);
+      font-size: 11px;
+      font-weight: 700;
+      content: counter(rule, decimal-leading-zero);
+    }
+    .rule-list strong { color: var(--ds-text-primary); }
+
+    .guide-footer { padding: 46px 0 0; color: var(--ds-text-tertiary); font-size: 12px; line-height: 18px; }
+    .guide-footer strong { color: var(--ds-text-secondary); }
+
+    .guide-toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 300;
+      padding: 11px 14px;
+      border: 1px solid rgba(104, 202, 147, 0.3);
+      border-radius: 12px;
+      color: var(--ds-success);
+      background: rgba(10, 15, 13, 0.94);
+      box-shadow: var(--ds-shadow-control);
+      font-size: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+    .guide-toast.is-visible { opacity: 1; transform: translateY(0); }
+
+    :focus-visible { outline: 2px solid var(--ds-gold); outline-offset: 3px; }
+
+    @media (max-width: 1120px) {
+      :root { --guide-rail: 208px; }
+      .guide-main { padding-inline: 32px; }
+      .guide-hero { grid-template-columns: 1fr; gap: 34px; }
+      .guide-hero-aside { grid-template-columns: 1.1fr 0.9fr; }
+      .guide-fact-row { grid-template-columns: 1fr; }
+      .type-row { grid-template-columns: minmax(190px, 0.9fr) minmax(240px, 1.5fr) 150px; }
+      .type-row .copy-token { display: none; }
+      .guide-card { grid-column: span 6; }
+      .guide-card.wide { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 820px) {
+      .guide-layout { display: block; }
+      .guide-rail {
+        position: sticky;
+        z-index: 100;
+        width: 100%;
+        height: auto;
+        display: block;
+        padding: 10px 16px;
+        border-right: 0;
+        border-bottom: 1px solid var(--ds-line);
+      }
+      .guide-brand { display: none; }
+      .guide-nav { display: flex; gap: 6px; overflow-x: auto; }
+      .guide-nav a { flex: 0 0 auto; min-height: 36px; padding: 0 11px; }
+      .guide-nav a::after { display: none; }
+      .guide-rail-foot { display: none; }
+      .guide-main { padding: 0 20px 72px; }
+      .guide-hero { min-height: 0; padding: 62px 0 42px; }
+      .guide-hero h1 { font-size: clamp(46px, 13vw, 72px); }
+      .guide-hero-aside { grid-template-columns: 1fr; }
+      .guide-fact-row { grid-template-columns: repeat(3, 1fr); }
+      .guide-section { scroll-margin-top: 62px; padding: 56px 0; }
+      .guide-section-head { grid-template-columns: 1fr; gap: 18px; }
+      .type-row { grid-template-columns: minmax(150px, 0.85fr) minmax(190px, 1.15fr); gap: 18px; }
+      .type-meta { display: none; }
+      .guide-card { grid-column: span 6; }
+      .registry { grid-template-columns: 1fr; }
+      .coverage { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 560px) {
+      .guide-main { padding-inline: 16px; }
+      .guide-hero p { font-size: 14px; line-height: 24px; }
+      .guide-fact-row { grid-template-columns: 1fr; }
+      .guide-section h2 { font-size: 32px; }
+      .type-row { grid-template-columns: 1fr; gap: 12px; }
+      .type-sample { padding: 14px; border-radius: 12px; background: rgba(255, 255, 255, 0.025); }
+      .type-meta { display: grid; }
+      .guide-card,
+      .guide-card.wide { grid-column: 1 / -1; }
+      .heading-component-examples { grid-template-columns: 1fr; }
+      .coverage { grid-template-columns: 1fr; }
+      .preview-open { width: 100%; margin-left: 0; }
+      .preview-canvas { place-items: start; padding: 14px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="guide-skip" href="#main">跳到规范正文</a>
+  <div class="guide-layout">
+    <aside class="guide-rail" aria-label="规范目录">
+      <a class="guide-brand" href="#top">
+        <img src="./assets/brand/duoyuan-shiguang-logo-mark-reverse.svg" alt="">
+        <span class="guide-brand-copy"><strong>多元拾光</strong><span>MOBILE UI SYSTEM</span></span>
+      </a>
+      <nav class="guide-nav">
+        <a href="#principles">01 · 基本原则</a>
+        <a href="#typography">02 · 文字层级</a>
+        <a href="#foundations">03 · 基础变量</a>
+        <a href="#components">04 · 通用组件</a>
+        <a href="#registry">05 · 组件索引</a>
+        <a href="#preview">06 · 页面预览</a>
+        <a href="#coverage">07 · 覆盖范围</a>
+        <a href="#rules">08 · 落地规则</a>
+      </nav>
+      <div class="guide-rail-foot"><strong>规范版本 1.1</strong><span>更新于 2026-08-25</span><span>基准视口 390 × 844</span></div>
+    </aside>
+
+    <main id="main" class="guide-main">
+      <header id="top" class="guide-hero">
+        <div>
+          <span class="guide-kicker">Mobile design language</span>
+          <h1>让每个页面<br><span>说同一种语言。</span></h1>
+          <p>以首页 tabbar 的 11px 文案为硬性最小字号，统一 24 个移动端 H5 页面的标题、正文、辅助说明、控件与状态文字。规范同时记录现有组件类名，设计和开发共用同一套 token。</p>
+        </div>
+        <div class="guide-hero-aside">
+          <article class="guide-baseline-card"><span>HARD MINIMUM</span><strong>11px / 16px</strong><small>仅用于 tabbar 与密集微标签</small></article>
+          <div class="guide-fact-row">
+            <div class="guide-fact"><strong>24</strong><span>移动页面</span></div>
+            <div class="guide-fact"><strong>12</strong><span>语义文字角色</span></div>
+            <div class="guide-fact"><strong>1×</strong><span>共享 token 源</span></div>
+          </div>
+        </div>
+      </header>
+
+      <section id="principles" class="guide-section">
+        <div class="guide-section-head">
+          <div><span class="guide-section-kicker">01 / Principles</span><h2>先统一语义，<br>再统一像素。</h2></div>
+          <p>字号相同不代表作用相同。每段文字先确定任务：导航、阅读、操作、标题或数据展示，再选择对应 role。禁止为了“塞下”内容临时新增 10px、13.5px、15.5px 等散值。</p>
+        </div>
+        <div class="guide-grid">
+          <article class="guide-card"><h3>11px 是底线，不是正文</h3><p>tabbar 是本项目已确认的视觉基准。普通说明文字从 12px 起，正文统一 14px，避免把整站压成密集小字。</p></article>
+          <article class="guide-card"><h3>一个角色，一个 token</h3><p>页面标题、区块标题、卡片标题和正文分别使用固定变量；旧组件通过兼容层映射，不在页面内重写字号。</p></article>
+          <article class="guide-card"><h3>层级靠组合，不只靠大小</h3><p>字号、字重、行高、颜色和间距共同表达层级。辅助信息使用次级颜色，不用无限缩小字号。</p></article>
+          <article class="guide-card"><h3>中文优先可读</h3><p>正文保持 1.57 倍行高，标题使用轻度负字距。长中文不使用全大写式宽字距，数字用等宽特性。</p></article>
+          <article class="guide-card"><h3>控件保持可触达</h3><p>字号最小 14px，常规控件高度 44px；紧凑按钮 36px 仅用于低优先级行内操作。</p></article>
+          <article class="guide-card"><h3>视觉大字允许例外</h3><p>活动主视觉、积分数字和邀请奖励属于表达性文字，可大于常规层级；仍必须使用 display 字体与数字规则。</p></article>
+        </div>
+        <div class="guide-note" style="margin-top:16px"><b>!</b><span><strong>事实：</strong>现有首页 tabbar 最终样式为 11px。<strong>规范决策：</strong>11px 只允许用于非阅读型微文案；这不是平台或 WCAG 对字号的强制结论。</span></div>
+      </section>
+
+      <section id="typography" class="guide-section">
+        <div class="guide-section-head">
+          <div><span class="guide-section-kicker">02 / Typography</span><h2>移动端文字<br>完整层级。</h2></div>
+          <p>以下 12 个角色覆盖导航、说明、正文、控件、标题和数据。点击变量名可复制；新组件必须从这里选，不再创建页面专属字号。</p>
+        </div>
+        <div class="type-table" aria-label="移动端文字层级表">
+          <div class="type-row"><div class="type-role"><strong>最小字 / Micro</strong><code>--ds-type-min</code></div><p class="type-sample is-min">首页　社区　AI创作　活动　我的</p><div class="type-meta"><b>11 / 16 · Medium</b><span>tabbar、微标签、角标</span></div><button class="copy-token" data-copy="var(--ds-type-min)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>辅助说明 / Caption</strong><code>--ds-type-caption</code></div><p class="type-sample is-caption">3 分钟前 · 内容由 AI 生成</p><div class="type-meta"><b>12 / 18 · Regular</b><span>时间、帮助、卡片说明</span></div><button class="copy-token" data-copy="var(--ds-type-caption)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>元信息 / Meta</strong><code>--ds-type-meta</code></div><p class="type-sample is-meta">Seedance 2.0 · 视频生成</p><div class="type-meta"><b>13 / 19 · Regular</b><span>作者、模型、状态信息</span></div><button class="copy-token" data-copy="var(--ds-type-meta)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>正文 / Body</strong><code>--ds-type-reading</code></div><p class="type-sample is-body">描述创作目标、画面内容和期望风格，让信息自然换行并保持稳定阅读节奏。</p><div class="type-meta"><b>14 / 22 · Regular</b><span>详情、表单说明、评论</span></div><button class="copy-token" data-copy="var(--ds-type-reading)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>控件文字 / Label</strong><code>--ds-type-label</code></div><p class="type-sample is-label">立即生成　查看详情　确认兑换</p><div class="type-meta"><b>14 / 20 · Semibold</b><span>按钮、输入标签、tab</span></div><button class="copy-token" data-copy="var(--ds-type-label)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>重点正文 / Emphasis</strong><code>--ds-type-emphasis</code></div><p class="type-sample is-emphasis">本次生成预计消耗 20 积分</p><div class="type-meta"><b>15 / 21 · Semibold</b><span>关键提示、摘要</span></div><button class="copy-token" data-copy="var(--ds-type-emphasis)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>卡片标题 / Card title</strong><code>--ds-type-card-title</code></div><p class="type-sample is-card">森境微光</p><div class="type-meta"><b>16 / 23 · Semibold</b><span>列表卡片、消息、菜单</span></div><button class="copy-token" data-copy="var(--ds-type-card-title)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>导航标题 / Nav title</strong><code>--ds-type-nav-title</code></div><p class="type-sample is-nav">投稿详情</p><div class="type-meta"><b>17 / 24 · Semibold</b><span>二级页顶部标题</span></div><button class="copy-token" data-copy="var(--ds-type-nav-title)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>区块标题 / Section</strong><code>--ds-type-section-title</code></div><p class="type-sample is-section">爆款作品</p><div class="type-meta"><b>20 / 28 · Bold</b><span>内容区、分组标题</span></div><button class="copy-token" data-copy="var(--ds-type-section-title)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>页面标题 / Page</strong><code>--ds-type-page-title</code></div><p class="type-sample is-page">开始你的创作</p><div class="type-meta"><b>24 / 32 · Bold</b><span>页面首屏主标题</span></div><button class="copy-token" data-copy="var(--ds-type-page-title)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>主视觉标题 / Hero</strong><code>--ds-type-hero-title</code></div><p class="type-sample is-hero">让灵感变成作品</p><div class="type-meta"><b>30 / 38 · Bold</b><span>Hero、活动、邀请</span></div><button class="copy-token" data-copy="var(--ds-type-hero-title)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>数据展示 / Number</strong><code>--ds-type-number</code></div><p class="type-sample is-number">2,860</p><div class="type-meta"><b>36 / 40 · Bold</b><span>积分、奖励、核心数据</span></div><button class="copy-token" data-copy="var(--ds-type-number)">复制 token</button></div>
+        </div>
+      </section>
+
+      <section id="foundations" class="guide-section">
+        <div class="guide-section-head">
+          <div><span class="guide-section-kicker">03 / Foundations</span><h2>颜色、间距<br>与形状。</h2></div>
+          <p>黑色建立沉浸空间，暖金只承担主动作和当前状态。文字颜色按 primary / secondary / tertiary 三层使用，不通过降低字号制造弱层级。</p>
+        </div>
+        <div class="guide-grid">
+          <article class="guide-card swatch"><div class="swatch-color" style="background:#05070b"></div><div class="swatch-meta"><div><h3>背景 / BG</h3><code>#05070B</code></div><button class="copy-token" data-copy="var(--ds-bg)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:#141618"></div><div class="swatch-meta"><div><h3>表面 / Surface</h3><code>#141618 · 92%</code></div><button class="copy-token" data-copy="var(--ds-surface-strong)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:#fffaf0"></div><div class="swatch-meta"><div><h3>主文字 / Text</h3><code>#FFFAF0</code></div><button class="copy-token" data-copy="var(--ds-text)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:#f4c95d"></div><div class="swatch-meta"><div><h3>品牌金 / Gold</h3><code>#F4C95D</code></div><button class="copy-token" data-copy="var(--ds-gold)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:#68ca93"></div><div class="swatch-meta"><div><h3>成功 / Success</h3><code>#68CA93</code></div><button class="copy-token" data-copy="var(--ds-success)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:#ef664e"></div><div class="swatch-meta"><div><h3>危险 / Danger</h3><code>#EF664E</code></div><button class="copy-token" data-copy="var(--ds-danger)">复制</button></div></article>
+          <article class="guide-card wide"><h3>4px 间距系统</h3><p>页面横向留白固定 16px；组件内部优先 8 / 12 / 16 / 20 / 24px。</p><div class="spacing-demo"><div class="spacing-row"><span>space-1</span><i class="spacing-bar" style="width:4px"></i><code>4</code></div><div class="spacing-row"><span>space-2</span><i class="spacing-bar" style="width:8px"></i><code>8</code></div><div class="spacing-row"><span>space-3</span><i class="spacing-bar" style="width:12px"></i><code>12</code></div><div class="spacing-row"><span>space-4</span><i class="spacing-bar" style="width:16px"></i><code>16</code></div><div class="spacing-row"><span>space-6</span><i class="spacing-bar" style="width:24px"></i><code>24</code></div><div class="spacing-row"><span>space-8</span><i class="spacing-bar" style="width:32px"></i><code>32</code></div></div></article>
+          <article class="guide-card"><h3>圆角层级</h3><p>控件 14px、卡片 20px、弹层 28px、胶囊 999px。不要按页面创建 13px、17px 等近似值。</p><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px"><i style="height:70px;border:1px solid var(--ds-line);border-radius:14px;background:rgba(255,255,255,.04)"></i><i style="height:70px;border:1px solid var(--ds-line);border-radius:28px;background:rgba(255,255,255,.04)"></i></div></article>
+        </div>
+      </section>
+
+      <section id="components" class="guide-section">
+        <div class="guide-section-head">
+          <div><span class="guide-section-kicker">04 / Components</span><h2>通用组件<br>与文字映射。</h2></div>
+          <p>组件示例使用与页面相同的语义 token。类名沿用现有实现，便于设计标注直接对应代码。</p>
+        </div>
+        <div class="guide-grid">
+          <article class="guide-card full"><h3>展示标题</h3><p>首页完整形态与其他页面一级内容区共用同一组件。Feature 保留英文胶囊和入场动效；Compact 只收紧布局，不用于顶部导航、表单、卡片、弹窗或状态标题。</p><div class="component-stage"><div class="component-label"><code>.mobile-display-heading</code><span>Feature / Compact</span></div><div class="heading-component-examples"><div class="heading-component-example"><small>Feature · 首页与重点内容</small><div class="mobile-display-heading mobile-display-heading--feature" data-mobile-display-heading><div class="mobile-display-heading__content"><h2 class="mobile-display-heading__title"><span class="mobile-display-heading__accent">爆款</span>作品</h2><span class="mobile-display-heading__kicker">COMMUNITY CURATION</span></div></div></div><div class="heading-component-example"><small>Compact · 一级内容区</small><div class="mobile-section-heading mobile-display-heading mobile-display-heading--compact" data-mobile-display-heading><h2 class="mobile-display-heading__title"><span class="mobile-display-heading__accent">活动</span>任务</h2><a href="#components">查看全部</a></div></div></div><pre class="heading-component-code">&lt;div class=&quot;mobile-display-heading mobile-display-heading--feature&quot; data-mobile-display-heading&gt;
+  &lt;div class=&quot;mobile-display-heading__content&quot;&gt;
+    &lt;h2 class=&quot;mobile-display-heading__title&quot;&gt;&lt;span class=&quot;mobile-display-heading__accent&quot;&gt;爆款&lt;/span&gt;作品&lt;/h2&gt;
+    &lt;span class=&quot;mobile-display-heading__kicker&quot;&gt;COMMUNITY CURATION&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div></article>
+          <article class="guide-card wide"><h3>按钮</h3><p>主按钮每屏尽量只有一个；文字统一 Label 14/20 Semibold。</p><div class="component-stage"><div class="component-label"><code>.mobile-button · .primary · .compact</code><span>44 / 36px</span></div><div class="demo-buttons"><button class="demo-button primary">立即生成</button><button class="demo-button">查看详情</button><button class="demo-button compact">去完成</button><button class="demo-button" disabled>暂不可用</button></div></div></article>
+          <article class="guide-card"><h3>筛选与标签</h3><p>筛选项使用 Label；徽标可使用最小字，但只放短词。</p><div class="component-stage"><div class="component-label"><code>.mobile-filter-tab</code><span>34px</span></div><div class="demo-tabs"><span class="demo-tab active">全部</span><span class="demo-tab">图片生成</span><span class="demo-tab">视频生成</span></div><div class="demo-badges"><span class="demo-badge gold">进行中</span><span class="demo-badge success">已完成</span><span class="demo-badge danger">已结束</span></div></div></article>
+          <article class="guide-card"><h3>表单</h3><p>标签 14px，输入正文 14px，帮助说明 12px。</p><div class="component-stage"><label class="demo-field"><span>作品名称</span><input class="demo-input" placeholder="请输入作品名称"><small>最多 30 个字，不使用 11px 说明文字</small></label></div></article>
+          <article class="guide-card"><h3>内容卡片</h3><p>标题 16px、元信息 13px、辅助说明 12px。</p><div class="component-stage"><div class="component-label"><code>.mobile-work-card</code><span>Card title</span></div><div class="demo-content-card"><span class="demo-content-art"></span><span class="demo-content-copy"><strong>森境微光</strong><span>Flux Pro 1.1 · 图片生成</span><small>3 分钟前</small></span></div></div></article>
+          <article class="guide-card wide"><h3>底部导航</h3><p>首页 tabbar 是全站最小字号基准：11/16 Medium。选中态靠颜色和指示器，不靠放大文字。</p><div class="component-stage"><div class="component-label"><code>.mobile-bottom-nav · .mobile-nav-item</code><span>72px + safe area</span></div><div class="demo-tabbar"><span class="demo-tabbar-item active"><i></i>首页</span><span class="demo-tabbar-item"><i></i>社区</span><span class="demo-tabbar-item create"><i></i>AI创作</span><span class="demo-tabbar-item"><i></i>活动</span><span class="demo-tabbar-item"><i></i>我的</span></div></div></article>
+        </div>
+      </section>
+
+      <section id="registry" class="guide-section">
+        <div class="guide-section-head">
+          <div><span class="guide-section-kicker">05 / Registry</span><h2>现有组件<br>全部归档。</h2></div>
+          <p>这里收录已在 24 个页面中复用的组件族。搜索业务名或 CSS 类名，快速确认它应采用哪种文字角色。</p>
+        </div>
+        <div class="registry-tools"><input id="registry-search" class="registry-search" type="search" placeholder="搜索：标题、按钮、积分、mobile-filter-tab…" aria-label="搜索组件"></div>
+        <div id="registry-list" class="registry">
+          <article class="registry-item" data-keywords="导航 顶部 标题 返回 topbar page title"><header><h3>顶部导航</h3><span>Nav title 17</span></header><p>二级页面返回、标题与右侧动作。标题居中，超长单行省略。</p><code>.mobile-topbar · .mobile-page-title · .mobile-back-button</code></article>
+          <article class="registry-item" data-keywords="底部 导航 tabbar nav item create"><header><h3>底部 TabBar</h3><span>Minimum 11</span></header><p>五项一级导航与中央 AI 创作入口，11px 为全站硬下限。</p><code>.mobile-bottom-nav · .mobile-nav-item · .mobile-nav-create</code></article>
+          <article class="registry-item" data-keywords="标题 页面 区块 heading section display feature compact"><header><h3>展示标题</h3><span>Feature / Compact</span></header><p>首页重点标题和一级内容区共用；强调字与英文 kicker 可选，不覆盖导航、表单、卡片、弹窗或状态标题。</p><code>.mobile-display-heading · .mobile-display-heading--feature · .mobile-display-heading--compact</code></article>
+          <article class="registry-item" data-keywords="按钮 button primary secondary compact action"><header><h3>按钮</h3><span>Label 14</span></header><p>主、次、紧凑三种规格；常规触控高度不小于 44px。</p><code>.mobile-button · .primary · .secondary · .compact</code></article>
+          <article class="registry-item" data-keywords="筛选 tab chip secondary tabs"><header><h3>筛选与页签</h3><span>Label 14</span></header><p>横向筛选、二级分段与选择 chip，选中态使用暖金。</p><code>.mobile-filter-tabs · .mobile-filter-tab · .mobile-secondary-tabs · .mobile-chip</code></article>
+          <article class="registry-item" data-keywords="表单 input textarea field prompt generator profile"><header><h3>表单与输入</h3><span>Body / Label</span></header><p>输入、选择、提示词和个人资料表单，帮助文字不得低于 12px。</p><code>.mobile-field · .mobile-prompt-input · .mobile-generator-form · .mobile-profile-form</code></article>
+          <article class="registry-item" data-keywords="作品 card work feed community flash"><header><h3>内容卡片</h3><span>Card title 16</span></header><p>首页作品、社区动态、闪念与作者内容卡片。</p><code>.mobile-work-card · .mobile-feed-card · .mobile-community-card · .mobile-flash-post-card</code></article>
+          <article class="registry-item" data-keywords="活动 campaign task growth submission"><header><h3>活动与任务</h3><span>Hero / Card</span></header><p>活动卡片、任务列表、进度与投稿条目。</p><code>.mobile-activity-card · .mobile-campaign-hero · .mobile-task-row · .mobile-submission-row</code></article>
+          <article class="registry-item" data-keywords="创作 create mode composer setting history generation"><header><h3>AI 创作</h3><span>Page / Body</span></header><p>创作模式、输入区、参数设置、历史和任务状态。</p><code>.mobile-create-mode · .mobile-create-composer · .mobile-create-setting-panel · .mobile-history-row</code></article>
+          <article class="registry-item" data-keywords="生成 generation progress result state spinner"><header><h3>生成状态</h3><span>Number / Body</span></header><p>生成中、进度、成功结果与去向提示。</p><code>.mobile-generation-stage · .mobile-inline-generation · .mobile-generation-result-panel</code></article>
+          <article class="registry-item" data-keywords="详情 detail media comment author action bar"><header><h3>作品详情</h3><span>Hero / Body</span></header><p>图片/视频媒体、作者、正文、评论和底部动作。</p><code>.mobile-detail-media · .mobile-author-block · .mobile-comment · .mobile-action-bar</code></article>
+          <article class="registry-item" data-keywords="积分 points balance record stats"><header><h3>积分系统</h3><span>Number / Meta</span></header><p>积分余额、统计、获得入口和记录列表。数字启用 tabular-nums。</p><code>.mobile-points-hero · .mobile-points-stats · .mobile-points-row · .mobile-points-record-summary</code></article>
+          <article class="registry-item" data-keywords="商城 exchange product confirm records sheet"><header><h3>商城与兑换</h3><span>Card / Label</span></header><p>商品卡、确认弹层、成功状态与兑换记录。</p><code>.mobile-exchange-card · .mobile-exchange-sheet · .mobile-exchange-record-card</code></article>
+          <article class="registry-item" data-keywords="邀请 invite reward progress pass share"><header><h3>邀请有礼</h3><span>Hero / Number</span></header><p>邀请函、奖励、进度和分享动作；主视觉允许表达性大字。</p><code>.mobile-invite-pass · .mobile-invite-reward · .mobile-invite-progress · .mobile-invite-action-bar</code></article>
+          <article class="registry-item" data-keywords="个人中心 my profile benefit metrics menu"><header><h3>个人中心</h3><span>Card / Number</span></header><p>资料、统计、内容入口、权益和设置菜单。</p><code>.mobile-my-profile-row · .mobile-my-redesign-stats · .mobile-my-redesign-card</code></article>
+          <article class="registry-item" data-keywords="消息 message notification icon list"><header><h3>消息中心</h3><span>Card / Caption</span></header><p>消息标题、摘要、时间与未读状态。</p><code>.mobile-message-list · .mobile-message-icon</code></article>
+          <article class="registry-item" data-keywords="弹层 sheet modal bottom toast walkthrough"><header><h3>弹层与反馈</h3><span>Body / Label</span></header><p>底部弹层、确认、Toast 和走查面板。</p><code>.mobile-bottom-sheet · .mobile-sheet-panel · .mobile-toast · .mobile-walkthrough</code></article>
+          <article class="registry-item" data-keywords="空状态 empty error success danger status"><header><h3>状态与空页面</h3><span>Body / Caption</span></header><p>空内容、错误、成功和危险反馈，语义色不能替代文字说明。</p><code>.mobile-empty-filter · .mobile-inline-state · .mobile-field-error</code></article>
+        </div>
+        <p id="registry-empty" class="guide-note" hidden style="margin-top:12px"><b>?</b><span>没有匹配的组件。可搜索业务名、中文用途或 CSS 类名。</span></p>
+      </section>
+
+      <section id="preview" class="guide-section">
+        <div class="guide-section-head">
+          <div><span class="guide-section-kicker">06 / Preview</span><h2>用真实页面<br>检查规范。</h2></div>
+          <p>预览直接加载现有 H5 页面，不是重画的示意图。切换页面和常用移动宽度，检查标题、正文、辅助文字、按钮与 tabbar 的层级是否连续。</p>
+        </div>
+        <div class="preview-toolbar">
+          <select id="preview-page" class="preview-select" aria-label="选择预览页面">
+            <option value="mobile-home.html">首页 · 内容与 TabBar</option>
+            <option value="mobile-community.html">社区 · 卡片与元信息</option>
+            <option value="mobile-create.html">AI 创作 · 页面与输入</option>
+            <option value="mobile-activity.html">活动 · 卡片与状态</option>
+            <option value="mobile-points.html">积分中心 · 数字与区块</option>
+            <option value="mobile-my.html">个人中心 · 菜单与统计</option>
+            <option value="mobile-image-detail.html">作品详情 · 正文与评论</option>
+            <option value="mobile-profile-edit.html">编辑资料 · 表单</option>
+          </select>
+          <div class="preview-sizes" aria-label="预览宽度">
+            <button class="preview-size" data-width="360">360</button>
+            <button class="preview-size is-active" data-width="390">390</button>
+            <button class="preview-size" data-width="430">430</button>
+          </div>
+          <a id="preview-open" class="preview-open" href="./mobile-home.html" target="_blank" rel="noopener">在新窗口打开 ↗</a>
+        </div>
+        <div class="preview-canvas"><div id="preview-device" class="preview-device"><iframe id="preview-frame" src="./mobile-home.html" title="移动页面实时预览"></iframe></div></div>
+      </section>
+
+      <section id="coverage" class="guide-section">
+        <div class="guide-section-head">
+          <div><span class="guide-section-kicker">07 / Coverage</span><h2>24 个页面<br>统一覆盖。</h2></div>
+          <p>全部页面共享 `mobile-design-tokens.css` 与 `mobile-h5.css`。点击任一页面可单独打开走查。</p>
+        </div>
+        <div class="coverage">
+          <a href="./mobile-home.html" target="_blank"><strong>首页</strong><span>mobile-home.html</span></a>
+          <a href="./mobile-community.html" target="_blank"><strong>社区</strong><span>mobile-community.html</span></a>
+          <a href="./mobile-create.html" target="_blank"><strong>AI 创作</strong><span>mobile-create.html</span></a>
+          <a href="./mobile-activity.html" target="_blank"><strong>活动中心</strong><span>mobile-activity.html</span></a>
+          <a href="./mobile-my.html" target="_blank"><strong>个人中心</strong><span>mobile-my.html</span></a>
+          <a href="./mobile-image-detail.html" target="_blank"><strong>图片详情</strong><span>mobile-image-detail.html</span></a>
+          <a href="./mobile-video-detail.html" target="_blank"><strong>视频详情</strong><span>mobile-video-detail.html</span></a>
+          <a href="./mobile-create-image.html" target="_blank"><strong>图片生成</strong><span>mobile-create-image.html</span></a>
+          <a href="./mobile-create-video.html" target="_blank"><strong>视频生成</strong><span>mobile-create-video.html</span></a>
+          <a href="./mobile-generation-progress.html" target="_blank"><strong>生成中</strong><span>mobile-generation-progress.html</span></a>
+          <a href="./mobile-generation-result.html" target="_blank"><strong>生成结果</strong><span>mobile-generation-result.html</span></a>
+          <a href="./mobile-campaign-detail.html" target="_blank"><strong>生图挑战</strong><span>mobile-campaign-detail.html</span></a>
+          <a href="./mobile-activity-detail.html" target="_blank"><strong>活动详情</strong><span>mobile-activity-detail.html</span></a>
+          <a href="./mobile-submission-detail.html" target="_blank"><strong>投稿详情</strong><span>mobile-submission-detail.html</span></a>
+          <a href="./mobile-my-submissions.html" target="_blank"><strong>我的投稿</strong><span>mobile-my-submissions.html</span></a>
+          <a href="./mobile-tasks.html" target="_blank"><strong>新手任务</strong><span>mobile-tasks.html</span></a>
+          <a href="./mobile-invite.html" target="_blank"><strong>邀请有礼</strong><span>mobile-invite.html</span></a>
+          <a href="./mobile-points.html" target="_blank"><strong>积分中心</strong><span>mobile-points.html</span></a>
+          <a href="./mobile-points-records.html" target="_blank"><strong>积分记录</strong><span>mobile-points-records.html</span></a>
+          <a href="./mobile-exchange.html" target="_blank"><strong>AI 商城</strong><span>mobile-exchange.html</span></a>
+          <a href="./mobile-exchange-records.html" target="_blank"><strong>兑换记录</strong><span>mobile-exchange-records.html</span></a>
+          <a href="./mobile-messages.html" target="_blank"><strong>消息中心</strong><span>mobile-messages.html</span></a>
+          <a href="./mobile-profile-edit.html" target="_blank"><strong>编辑资料</strong><span>mobile-profile-edit.html</span></a>
+          <a href="./mobile-my-works.html" target="_blank"><strong>我的作品</strong><span>mobile-my-works.html</span></a>
+        </div>
+      </section>
+
+      <section id="rules" class="guide-section">
+        <div class="guide-section-head">
+          <div><span class="guide-section-kicker">08 / Handoff</span><h2>设计与开发<br>落地规则。</h2></div>
+          <p>这些规则用于新增页面、改版和验收。若业务确实需要新层级，应先更新 token 与本规范，再进入页面实现。</p>
+        </div>
+        <ol class="rule-list">
+          <li><span><strong>先选语义 role，再写组件。</strong>不要根据单张设计图目测一个新字号。</span></li>
+          <li><span><strong>11px 只给 tabbar 与短微标签。</strong>时间、帮助、卡片副标题至少 12px，正文 14px。</span></li>
+          <li><span><strong>同一组件跨页面不得改字号。</strong>差异应由内容、状态或布局解决，不创建页面专属覆盖。</span></li>
+          <li><span><strong>按钮和输入标签统一 14/20 Semibold。</strong>常规触控区至少 44px，紧凑操作至少 36px。</span></li>
+          <li><span><strong>长文本必须用正文行高。</strong>详情、评论、规则和说明使用 14/22，不压缩成 Caption。</span></li>
+          <li><span><strong>弱层级优先调整颜色。</strong>Primary、Secondary、Tertiary 三层足够，不用透明度叠加到不可读。</span></li>
+          <li><span><strong>数字启用 tabular-nums。</strong>积分、奖励、进度和统计保持对齐；表达性大字可超出 36px。</span></li>
+          <li><span><strong>验收 360 / 390 / 430 三档。</strong>检查无横向滚动、标题不碰撞、正文不截断、tabbar 不变形。</span></li>
+        </ol>
+      </section>
+
+      <footer class="guide-footer"><strong>多元拾光 Mobile UI System v1.1</strong><br>设计令牌：mobile-design-tokens.css · 展示标题：mobile-display-heading.css · 页面兼容层：mobile-h5.css · 范围：24 个移动端 H5 原型</footer>
+    </main>
+  </div>
+  <div id="guide-toast" class="guide-toast" role="status" aria-live="polite">已复制 token</div>
+
+  <script>
+    (() => {
+      const navLinks = [...document.querySelectorAll('.guide-nav a')];
+      const sections = navLinks.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+      const toast = document.querySelector('#guide-toast');
+      let toastTimer;
+
+      const showToast = (message) => {
+        toast.textContent = message;
+        toast.classList.add('is-visible');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 1600);
+      };
+
+      document.querySelectorAll('[data-copy]').forEach((button) => {
+        button.addEventListener('click', async () => {
+          const value = button.dataset.copy;
+          try {
+            await navigator.clipboard.writeText(value);
+            button.classList.add('is-copied');
+            button.textContent = '已复制';
+            showToast(`已复制 ${value}`);
+            setTimeout(() => {
+              button.classList.remove('is-copied');
+              button.textContent = button.closest('.swatch') ? '复制' : '复制 token';
+            }, 1400);
+          } catch (error) {
+            showToast(`请手动复制：${value}`);
+          }
+        });
+      });
+
+      const registrySearch = document.querySelector('#registry-search');
+      const registryItems = [...document.querySelectorAll('.registry-item')];
+      const registryEmpty = document.querySelector('#registry-empty');
+      registrySearch.addEventListener('input', () => {
+        const query = registrySearch.value.trim().toLowerCase();
+        let visible = 0;
+        registryItems.forEach((item) => {
+          const match = !query || `${item.textContent} ${item.dataset.keywords}`.toLowerCase().includes(query);
+          item.hidden = !match;
+          if (match) visible += 1;
+        });
+        registryEmpty.hidden = visible > 0;
+      });
+
+      const previewPage = document.querySelector('#preview-page');
+      const previewFrame = document.querySelector('#preview-frame');
+      const previewOpen = document.querySelector('#preview-open');
+      const previewDevice = document.querySelector('#preview-device');
+      previewPage.addEventListener('change', () => {
+        const url = `./${previewPage.value}`;
+        previewFrame.src = url;
+        previewOpen.href = url;
+      });
+
+      document.querySelectorAll('.preview-size').forEach((button) => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.preview-size').forEach((item) => item.classList.remove('is-active'));
+          button.classList.add('is-active');
+          previewDevice.style.width = `${button.dataset.width}px`;
+        });
+      });
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (!visible) return;
+          navLinks.forEach((link) => link.classList.toggle('is-current', link.getAttribute('href') === `#${visible.target.id}`));
+        }, { rootMargin: '-20% 0px -65% 0px', threshold: [0.01, 0.2, 0.6] });
+        sections.forEach((section) => observer.observe(section));
+      }
+    })();
+  </script>
+</body>
+</html>

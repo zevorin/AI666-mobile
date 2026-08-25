@@ -68,7 +68,12 @@
   --ds-control-default: 44px;
   --ds-control-large: 50px;
 
-  /* Type. */
+  /*
+   * Type scale.
+   * 11px matches the approved homepage TabBar label and is the absolute UI
+   * minimum. It is not a default caption size: ordinary supporting copy starts
+   * at 12px and reading copy starts at 14px.
+   */
   --ds-font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei UI", sans-serif;
   --ds-font-display: "Montserrat Mobile", "PingFang SC", sans-serif;
   --ds-font-brand: "GGQ Mobile", "Songti SC", serif;
@@ -76,35 +81,59 @@
   --ds-type-sm: 12px;
   --ds-type-md: 13px;
   --ds-type-body: 14px;
+  --ds-type-control: 14px;
+  --ds-type-body-strong: 15px;
   --ds-type-body-lg: 16px;
-  --ds-type-title: 18px;
-  --ds-type-heading: 26px;
+  --ds-type-title: 20px;
+  --ds-type-heading: 24px;
   --ds-type-display: 36px;
 
-  /* Semantic mobile typography — TabBar copy (11px) is the hard minimum. */
+  /* Semantic mobile typography roles. */
   --ds-type-min: var(--ds-type-xs);
   --ds-type-caption: var(--ds-type-sm);
   --ds-type-meta: var(--ds-type-md);
+  --ds-type-reading: var(--ds-type-body);
+  --ds-type-label: var(--ds-type-control);
+  --ds-type-emphasis: var(--ds-type-body-strong);
   --ds-type-nav-title: 17px;
   --ds-type-card-title: var(--ds-type-body-lg);
   --ds-type-section-title: var(--ds-type-title);
-  --ds-type-page-title: 24px;
+  --ds-type-page-title: var(--ds-type-heading);
   --ds-type-hero-title: 30px;
+  --ds-type-number: var(--ds-type-display);
+
   --ds-leading-min: 16px;
   --ds-leading-caption: 18px;
   --ds-leading-meta: 19px;
   --ds-leading-body: 22px;
+  --ds-leading-control: 20px;
+  --ds-leading-emphasis: 21px;
   --ds-leading-body-lg: 24px;
   --ds-leading-nav-title: 24px;
-  --ds-leading-card-title: 22px;
-  --ds-leading-section-title: 26px;
+  --ds-leading-card-title: 23px;
+  --ds-leading-section-title: 28px;
   --ds-leading-page-title: 32px;
   --ds-leading-hero-title: 38px;
+  --ds-leading-number: 40px;
+
   --ds-weight-regular: 400;
   --ds-weight-medium: 500;
   --ds-weight-semibold: 600;
   --ds-weight-bold: 700;
   --ds-weight-extrabold: 800;
+
+  --ds-tracking-label: 0.01em;
+  --ds-tracking-card-title: -0.015em;
+  --ds-tracking-nav-title: -0.02em;
+  --ds-tracking-section-title: -0.03em;
+  --ds-tracking-page-title: -0.04em;
+  --ds-tracking-hero-title: -0.045em;
+  --ds-tracking-number: -0.035em;
+
+  --ds-text-primary: var(--ds-text);
+  --ds-text-secondary: var(--ds-text-muted);
+  --ds-text-tertiary: var(--ds-text-faint);
+  --ds-text-accent: var(--ds-gold);
 
   /* Elevation and glass. */
   --ds-shadow-control: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 8px 22px rgba(0, 0, 0, 0.22);

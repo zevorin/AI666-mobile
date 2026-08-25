@@ -27,6 +27,14 @@ npx serve .
 /outputs/community-homepage-style-exploration/mobile-invite.html
 ```
 
+移动端 UI 设计规范：
+
+```text
+/outputs/community-homepage-style-exploration/UI设计规范.html
+```
+
+规范页记录 11px 最小字号基准、完整语义文字层级、共享组件类名、24 个页面覆盖范围，并提供 360 / 390 / 430 三档真实页面预览。
+
 ## 设计交接说明
 
 - `design-handoff/selected-invite-design.png`：用户确认的邀请页第三版设计方向

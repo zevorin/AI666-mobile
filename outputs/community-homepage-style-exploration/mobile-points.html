@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#05070b">
   <title>积分中心 - 多元拾光</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260824-points-layout-v8">
-  <script src="./mobile-h5.js?v=20260824-points-web-parity-v1" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260825-points-compact-v13">
+  <script src="./mobile-h5.js?v=20260825-points-taste-v9" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="points">
   <div class="mobile-shell">
@@ -23,29 +23,36 @@
     </header>
 
     <main id="main" class="mobile-task-content mobile-points-content">
-      <section class="mobile-points-balance" aria-labelledby="mobile-points-balance-title">
-        <strong data-mobile-points-value>1,280</strong>
-        <span id="mobile-points-balance-title">
-          <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Finance/copper-coin-line.svg" alt="">
-          可用积分
-        </span>
-      </section>
+      <header class="mobile-points-heading">
+        <div>
+          <span>创作积分</span>
+          <h2>你的创作资产</h2>
+          <p>完成任务，解锁更多 AI 创作权益</p>
+        </div>
+      </header>
 
-      <section class="mobile-points-overview-card" aria-label="积分概览">
-        <div class="mobile-points-overview-item">
-          <span class="mobile-points-overview-icon"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Others/flashlight-fill.svg" alt=""></span>
-          <small>今日获得</small>
-          <strong>+40</strong>
+      <section class="mobile-points-hero" aria-labelledby="mobile-points-balance-title">
+        <div class="mobile-points-balance-head">
+          <span id="mobile-points-balance-title">可用积分</span>
+          <span>可用于 AI 商城兑换</span>
         </div>
-        <div class="mobile-points-overview-item">
-          <span class="mobile-points-overview-icon"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Finance/coins-line.svg" alt=""></span>
-          <small>近 7 日</small>
-          <strong>+180</strong>
-        </div>
-        <div class="mobile-points-overview-item">
-          <span class="mobile-points-overview-icon"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/time-line.svg" alt=""></span>
-          <small>待到账</small>
-          <strong>0</strong>
+        <strong data-mobile-points-value>1,280</strong>
+        <div class="mobile-points-stats" aria-label="积分概览">
+          <span>
+            <i aria-hidden="true"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Others/flashlight-fill.svg" alt=""></i>
+            <small>今日获得</small>
+            <b>+40</b>
+          </span>
+          <span>
+            <i aria-hidden="true"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Finance/coins-line.svg" alt=""></i>
+            <small>近 7 日</small>
+            <b>+180</b>
+          </span>
+          <span>
+            <i aria-hidden="true"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/time-line.svg" alt=""></i>
+            <small>待到账</small>
+            <b>0</b>
+          </span>
         </div>
       </section>
 
@@ -63,16 +70,17 @@
           <source src="../../assets/web/points/points-shop-coin.mp4" type="video/mp4">
         </video>
         <span class="mobile-points-store-copy">
-          <small>创作权益</small>
-          <strong>积分兑换</strong>
-          <b>去商城</b>
+          <small>AI 商城</small>
+          <strong>用积分，换创作力</strong>
+          <em>模型 Token 与 AI 体验权益</em>
+          <b>去兑换<img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-line.svg" alt=""></b>
         </span>
       </a>
 
       <section class="mobile-section mobile-points-earn" aria-labelledby="mobile-points-earn-title">
-        <div class="mobile-section-heading">
-          <h2 id="mobile-points-earn-title">赚积分</h2>
-          <a href="./mobile-activity.html">更多活动<img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt=""></a>
+        <div class="mobile-section-heading mobile-display-heading mobile-display-heading--compact" data-mobile-display-heading>
+          <h2 id="mobile-points-earn-title">继续赚积分</h2>
+          <a href="./mobile-activity.html">全部任务<img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt=""></a>
         </div>
         <div class="mobile-points-earn-list">
           <a class="mobile-points-earn-featured" href="./mobile-tasks.html">
@@ -80,7 +88,7 @@
               <small>新用户专属</small>
               <strong>新手任务</strong>
               <em>最高 150 积分</em>
-              <b>去完成</b>
+              <b>开始任务<img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-line.svg" alt=""></b>
             </span>
             <span
               class="mobile-points-robot-art"

@@ -6,15 +6,18 @@
   <meta name="theme-color" content="#05070b">
   <title>多元拾光 · AIGC 生成</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260824-create-rotate-v42">
-  <script src="./mobile-h5.js?v=20260824-touch-focus-v18" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260825-aigc-create-v1">
+  <script src="./mobile-h5.js?v=20260825-aigc-create-v1" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="create">
   <div class="mobile-shell mobile-primary-shell mobile-create-shell has-bottom-nav">
     <main id="main" class="mobile-create-workspace" data-mobile-create-workspace>
       <section class="mobile-create-thread" aria-labelledby="mobile-create-title">
         <div class="mobile-create-workspace-title">
-          <h1 id="mobile-create-title">AIGC 生成</h1>
+          <div class="mobile-create-title-copy">
+            <h1 id="mobile-create-title">AIGC 生成</h1>
+            <p>把灵感变成图片、剧本或视频</p>
+          </div>
           <button class="mobile-create-history-trigger" type="button" data-mobile-create-history-open aria-controls="mobile-create-history-sheet">
             <img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/history-line.svg" alt="">
             <span>生成记录</span>
@@ -32,12 +35,32 @@
         </article>
 
         <div class="mobile-create-empty" data-mobile-create-empty>
-          <span class="mobile-create-empty-icon"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Design/magic-line.svg" alt=""></span>
-          <h2>输入提示词开始创作</h2>
-          <div class="mobile-create-empty-modes" aria-hidden="true">
-            <span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Media/image-line.svg" alt="">图片</span>
-            <span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Document/draft-line.svg" alt="">剧本</span>
-            <span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Media/video-line.svg" alt="">视频</span>
+          <div class="mobile-create-empty-intro">
+            <span class="mobile-create-empty-icon"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Design/magic-line.svg" alt=""></span>
+            <div>
+              <h2>从一个画面开始</h2>
+              <p>写下主体、场景和氛围，细节越清楚，结果越接近你的想法。</p>
+            </div>
+          </div>
+          <div class="mobile-create-inspiration">
+            <h3>试试这些灵感</h3>
+            <div class="mobile-create-inspiration-list">
+              <button type="button" data-mobile-create-suggestion data-suggestion-mode="image" data-suggestion-prompt="凤冠神女立于深红宫门前，金色逆光勾勒轮廓，白金刺绣长袍随风轻扬，电影感东方人物海报。">
+                <img src="../../assets/image_assets/15.jpg" alt="凤冠神女创作示例">
+                <span><strong>东方人物海报</strong><small>图片 · 电影感光影</small></span>
+                <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt="">
+              </button>
+              <button type="button" data-mobile-create-suggestion data-suggestion-mode="script" data-suggestion-prompt="雨夜霓虹街头，少年发现自己被跟踪，手中藏着一件不能暴露的关键道具。请拆解人物冲突与三段分镜节奏。">
+                <img src="../../assets/image_assets/17.png" alt="雨夜追踪剧本创作示例">
+                <span><strong>雨夜追踪故事</strong><small>剧本 · 人物与分镜</small></span>
+                <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt="">
+              </button>
+              <button type="button" data-mobile-create-suggestion data-suggestion-mode="video" data-suggestion-prompt="海边灯塔被薄雾包围，镜头从礁石水面缓慢抬升，掠过飞鸟，最后停在灯塔亮起的瞬间。">
+                <img src="../../assets/image_assets/4.png" alt="海边灯塔视频创作示例">
+                <span><strong>雾海灯塔镜头</strong><small>视频 · 缓慢运镜</small></span>
+                <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt="">
+              </button>
+            </div>
           </div>
         </div>
 
@@ -53,37 +76,44 @@
           <button type="button" data-mobile-create-mode="script" aria-pressed="false">剧本创作</button>
           <button type="button" data-mobile-create-mode="video" aria-pressed="false">视频</button>
         </div>
-        <button class="mobile-create-settings-button" type="button" data-mobile-create-settings-open aria-controls="mobile-create-settings-sheet">
-          <span class="mobile-create-settings-copy">
-            <strong data-mobile-create-settings-summary>Flux Pro 1.1 · 1:1</strong>
-            <small><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Finance/coins-line.svg" alt=""><span data-mobile-create-settings-cost>预计消耗 20 积分</span></small>
-          </span>
-          <img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/settings-3-line.svg" alt="">
-        </button>
       </div>
       <div class="mobile-create-input-row">
-        <button class="mobile-create-attachment-button" type="button" data-mobile-create-attachment aria-label="添加参考图" aria-pressed="false" title="添加参考图">
-          <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Editor/attachment-2.svg" alt="">
-        </button>
-        <textarea name="prompt" rows="1" maxlength="1000" data-mobile-create-prompt placeholder="描述你想生成的图片" aria-label="提示词"></textarea>
-        <button class="mobile-create-send" type="submit" aria-label="发起生成">
-          <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Business/send-plane-2-fill.svg" alt="">
-        </button>
+        <div class="mobile-create-input-head">
+          <label for="mobile-create-prompt" data-mobile-create-prompt-label>描述画面</label>
+          <span><b data-mobile-create-prompt-count>0</b>/<span data-mobile-create-prompt-limit>1000</span></span>
+        </div>
+        <textarea id="mobile-create-prompt" name="prompt" rows="3" maxlength="1000" data-mobile-create-prompt placeholder="描述你想生成的图片"></textarea>
+        <div class="mobile-create-input-actions">
+          <button class="mobile-create-attachment-button" type="button" data-mobile-create-attachment aria-label="添加参考图" aria-pressed="false" title="添加参考图">
+            <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Editor/attachment-2.svg" alt="">
+          </button>
+          <button class="mobile-create-settings-button" type="button" data-mobile-create-settings-open aria-controls="mobile-create-settings-sheet">
+            <span class="mobile-create-settings-copy">
+              <strong data-mobile-create-settings-summary>Flux Pro 1.1 · 1:1</strong>
+              <small><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Finance/coins-line.svg" alt=""><span data-mobile-create-settings-cost>预计消耗 20 积分</span></small>
+            </span>
+            <img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/settings-3-line.svg" alt="">
+          </button>
+          <button class="mobile-create-send" type="submit" aria-label="发起生成">
+            <span>生成</span>
+            <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Business/send-plane-2-fill.svg" alt="">
+          </button>
+        </div>
       </div>
       <div class="mobile-create-composer-meta">
         <span class="mobile-field-error" data-mobile-create-error aria-live="polite"></span>
-        <span><b data-mobile-create-prompt-count>0</b>/<span data-mobile-create-prompt-limit>1000</span></span>
       </div>
     </form>
 
-    <nav class="mobile-bottom-nav" aria-label="移动端一级导航">
+  </div>
+
+  <nav class="mobile-bottom-nav" aria-label="移动端一级导航">
       <a class="mobile-nav-item" href="./mobile-home.html"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Buildings/home-5-line.svg" alt=""><span>首页</span></a>
       <a class="mobile-nav-item" href="./mobile-community.html"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Map/compass-3-line.svg" alt=""><span>社区</span></a>
       <a class="mobile-nav-item mobile-nav-create is-active" href="./mobile-create.html" aria-current="page"><span class="mobile-nav-create-icon"><img class="mobile-icon mobile-nav-ai-image" src="./assets/mobile/ai-creation-spark-v3.webp" alt=""></span><span>AI创作</span></a>
       <a class="mobile-nav-item" href="./mobile-activity.html"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Business/calendar-event-line.svg" alt=""><span>活动</span></a>
       <a class="mobile-nav-item" href="./mobile-my.html"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/User & Faces/user-line.svg" alt=""><span>我的</span></a>
-    </nav>
-  </div>
+  </nav>
 
   <section id="mobile-create-settings-sheet" class="mobile-bottom-sheet mobile-create-sheet" data-mobile-create-settings-sheet aria-hidden="true">
     <button class="mobile-sheet-backdrop" type="button" data-mobile-create-settings-close aria-label="关闭生成设置"></button>
