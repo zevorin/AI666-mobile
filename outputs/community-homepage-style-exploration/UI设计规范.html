@@ -7,16 +7,16 @@
   <meta name="theme-color" content="#05070b">
   <title>移动端 UI 设计规范 · 多元拾光</title>
   <link rel="icon" href="./assets/brand/duoyuan-shiguang-favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./mobile-design-tokens.css?v=20260825-type-contract">
+  <link rel="stylesheet" href="./mobile-design-tokens.css?v=20260826-web-color-sync-v1">
   <link rel="stylesheet" href="./mobile-display-heading.css?v=20260825-display-heading-v3">
   <style>
     :root {
       --guide-rail: 244px;
       --guide-max: 1520px;
-      --guide-grid: rgba(255, 250, 240, 0.035);
-      --guide-panel: rgba(13, 16, 20, 0.88);
-      --guide-panel-strong: #111419;
-      --guide-code: #0a0d11;
+      --guide-grid: var(--ds-white-veil);
+      --guide-panel: rgba(9, 13, 19, 0.66);
+      --guide-panel-strong: var(--ds-surface-strong);
+      --guide-code: #080b10;
     }
 
     * { box-sizing: border-box; }
@@ -32,10 +32,10 @@
       margin: 0;
       color: var(--ds-text-primary);
       background:
-        linear-gradient(90deg, transparent 31px, var(--guide-grid) 32px, transparent 33px) 0 0 / 64px 64px,
-        linear-gradient(transparent 31px, var(--guide-grid) 32px, transparent 33px) 0 0 / 64px 64px,
-        radial-gradient(circle at 78% 4%, rgba(244, 201, 93, 0.12), transparent 26%),
-        radial-gradient(circle at 22% 42%, rgba(104, 202, 147, 0.055), transparent 28%),
+        linear-gradient(var(--guide-grid) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(90deg, var(--guide-grid) 1px, transparent 1px) 0 0 / 48px 48px,
+        radial-gradient(circle at 88% 4%, var(--ds-gold-soft), transparent 27%),
+        radial-gradient(circle at 17% 38%, rgba(102, 226, 207, 0.055), transparent 24%),
         var(--ds-bg);
       font-family: var(--ds-font-body);
       font-size: var(--ds-type-reading);
@@ -87,9 +87,9 @@
       display: flex;
       flex-direction: column;
       padding: 28px 20px 20px;
-      border-right: 1px solid var(--ds-line);
+      border-right: 1px solid var(--ds-paper-soft);
       background: rgba(5, 7, 11, 0.82);
-      backdrop-filter: blur(24px) saturate(1.2);
+      backdrop-filter: var(--ds-blur);
     }
 
     .guide-brand {
@@ -177,7 +177,7 @@
       align-items: end;
       gap: 48px;
       padding: 84px 0 56px;
-      border-bottom: 1px solid var(--ds-line);
+      border-bottom: 1px solid var(--ds-paper-soft);
     }
 
     .guide-kicker,
@@ -199,7 +199,7 @@
       width: 22px;
       height: 1px;
       background: var(--ds-gold);
-      box-shadow: 0 0 12px rgba(244, 201, 93, 0.45);
+      box-shadow: 0 0 12px var(--ds-gold-strong);
       content: "";
     }
 
@@ -234,8 +234,8 @@
       border: 1px solid var(--ds-gold-border);
       border-radius: var(--ds-radius-card);
       background:
-        radial-gradient(circle at 78% 18%, rgba(244, 201, 93, 0.25), transparent 36%),
-        rgba(17, 20, 25, 0.88);
+        radial-gradient(circle at 78% 18%, var(--ds-gold-muted), transparent 36%),
+        var(--ds-surface-strong);
       box-shadow: var(--ds-shadow-card);
     }
 
@@ -243,7 +243,7 @@
       position: absolute;
       top: 21px;
       right: 23px;
-      color: rgba(244, 201, 93, 0.20);
+      color: var(--ds-gold-muted);
       font-family: var(--ds-font-display);
       font-size: 92px;
       font-weight: 700;
@@ -283,7 +283,7 @@
       padding: 14px;
       border: 1px solid var(--ds-line);
       border-radius: var(--ds-radius-control);
-      background: rgba(255, 255, 255, 0.025);
+      background: var(--ds-white-veil);
     }
 
     .guide-fact strong { font-family: var(--ds-font-display); font-size: 20px; line-height: 24px; }
@@ -325,7 +325,7 @@
       border-left: 2px solid var(--ds-gold);
       border-radius: 0 var(--ds-radius-control) var(--ds-radius-control) 0;
       color: var(--ds-text-secondary);
-      background: rgba(244, 201, 93, 0.07);
+      background: var(--ds-gold-veil);
       font-size: var(--ds-type-meta);
       line-height: var(--ds-leading-body);
     }
@@ -372,14 +372,14 @@
       border: 1px solid var(--ds-line);
       border-radius: 10px;
       color: var(--ds-text-secondary);
-      background: rgba(255, 255, 255, 0.025);
+      background: var(--ds-white-veil);
       font-size: 11px;
       cursor: pointer;
     }
 
     .copy-token:hover,
     .copy-token:focus-visible { border-color: var(--ds-gold-border); color: var(--ds-gold); outline: 0; }
-    .copy-token.is-copied { color: var(--ds-success); border-color: rgba(104, 202, 147, 0.35); }
+    .copy-token.is-copied { color: var(--ds-success); border-color: color-mix(in srgb, var(--ds-success) 44%, transparent); }
 
     .guide-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
     .guide-card {
@@ -389,7 +389,7 @@
       border: 1px solid var(--ds-line);
       border-radius: var(--ds-radius-card);
       background: var(--guide-panel);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+      box-shadow: inset 0 1px 0 var(--ds-white-veil);
     }
     .guide-card.wide { grid-column: span 8; }
     .guide-card.full { grid-column: 1 / -1; }
@@ -400,12 +400,76 @@
     .swatch-color { height: 76px; margin: -20px -20px 18px; border-bottom: 1px solid var(--ds-line); }
     .swatch-meta { display: flex; align-items: end; justify-content: space-between; gap: 12px; }
     .swatch-meta code { color: var(--ds-text-tertiary); font-size: 11px; }
+    .opacity-scale { grid-column: 1 / -1; }
+    .opacity-scale-list { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin-top: 18px; }
+    .opacity-scale-item { min-width: 0; overflow: hidden; border: 1px solid var(--ds-paper-soft); border-radius: var(--ds-radius-control); background: var(--ds-bg-raised); }
+    .opacity-scale-item i { height: 54px; display: block; background: var(--opacity-color); }
+    .opacity-scale-item span { display: grid; gap: 2px; padding: 9px; color: var(--ds-text-tertiary); font-size: var(--ds-type-min); line-height: var(--ds-leading-min); }
+    .opacity-scale-item strong { color: var(--ds-text-primary); font-size: var(--ds-type-caption); }
 
     .spacing-demo { display: grid; gap: 12px; margin-top: 18px; }
     .spacing-row { display: grid; grid-template-columns: 50px minmax(0, 1fr) 42px; align-items: center; gap: 12px; font-size: 12px; }
     .spacing-row span:first-child { color: var(--ds-text-secondary); }
     .spacing-bar { height: 8px; border-radius: 99px; background: linear-gradient(90deg, var(--ds-gold), var(--ds-gold-deep)); }
     .spacing-row code { color: var(--ds-text-tertiary); text-align: right; }
+
+    .component-sources {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .component-source {
+      position: relative;
+      min-width: 0;
+      min-height: 168px;
+      display: grid;
+      align-content: end;
+      overflow: hidden;
+      padding: 18px;
+      border: 1px solid var(--ds-line);
+      border-radius: var(--ds-radius-card);
+      background: var(--ds-bg-raised);
+    }
+
+    .component-source::before {
+      position: absolute;
+      top: -34px;
+      right: -30px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--ds-gold-muted), transparent 68%);
+      content: "";
+    }
+
+    .component-source.is-community::before {
+      background: radial-gradient(circle, rgba(102, 226, 207, 0.11), transparent 68%);
+    }
+
+    .component-source code,
+    .component-source strong,
+    .component-source p { position: relative; }
+
+    .component-source code {
+      color: var(--ds-gold);
+      font-size: var(--ds-type-min);
+      line-height: var(--ds-leading-min);
+    }
+
+    .component-source strong {
+      margin-top: 8px;
+      font-size: var(--ds-type-card-title);
+      line-height: var(--ds-leading-card-title);
+    }
+
+    .component-source p {
+      margin: 5px 0 0;
+      color: var(--ds-text-secondary);
+      font-size: var(--ds-type-caption);
+      line-height: var(--ds-leading-caption);
+    }
 
     .component-stage {
       display: grid;
@@ -415,7 +479,7 @@
       border: 1px solid var(--ds-line);
       border-radius: var(--ds-radius-card);
       background:
-        radial-gradient(circle at 90% 10%, rgba(244, 201, 93, 0.075), transparent 28%),
+        radial-gradient(circle at 90% 10%, var(--ds-gold-veil), transparent 28%),
         var(--guide-code);
     }
 
@@ -428,9 +492,7 @@
     .heading-component-example > small { display: block; margin-bottom: 8px; color: var(--ds-text-tertiary); font-size: 11px; }
     .heading-component-code { margin: 0; padding: 14px; overflow-x: auto; border-radius: var(--ds-radius-control); color: var(--ds-text-secondary); background: rgba(0, 0, 0, 0.32); font-size: 11px; line-height: 18px; white-space: pre; }
 
-    .demo-buttons,
-    .demo-tabs,
-    .demo-badges { display: flex; flex-wrap: wrap; gap: 10px; }
+    .demo-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
 
     .demo-button {
       min-height: 44px;
@@ -439,48 +501,152 @@
       justify-content: center;
       padding: 0 18px;
       border: 1px solid var(--ds-line);
-      border-radius: var(--ds-radius-control);
+      border-radius: var(--ds-radius-pill);
       color: var(--ds-text-primary);
-      background: rgba(255, 255, 255, 0.055);
+      background: var(--ds-white-veil);
+      box-shadow: inset 0 1px 0 var(--ds-white-soft);
       font-size: var(--ds-type-label);
       font-weight: 600;
       line-height: var(--ds-leading-control);
+      cursor: pointer;
+      transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
     }
 
-    .demo-button.primary { border-color: var(--ds-gold); color: var(--ds-ink); background: var(--ds-gold); }
+    .demo-button:hover { border-color: var(--ds-gold-border); }
+    .demo-button:active { transform: scale(0.98); }
+    .demo-button.primary { border-color: var(--ds-gold-border); color: var(--ds-ink); background: linear-gradient(135deg, var(--ds-gold-bright), var(--ds-gold)); }
+    .demo-button.ghost { border-color: transparent; color: var(--ds-text-secondary); background: transparent; box-shadow: none; }
     .demo-button.compact { min-height: 36px; padding: 0 14px; }
-    .demo-button[disabled] { color: var(--ds-text-tertiary); background: rgba(255, 255, 255, 0.025); opacity: 0.62; }
+    .demo-button.icon { width: 44px; padding: 0; border-radius: 50%; }
+    .demo-button.icon::before { width: 15px; height: 15px; border: 1.5px solid currentColor; border-radius: 50%; content: ""; box-shadow: 7px -6px 0 -5px currentColor; }
+    .demo-button[disabled] { color: var(--ds-text-tertiary); background: var(--ds-white-veil); opacity: 0.62; }
 
-    .demo-tab {
-      min-height: 34px;
-      display: inline-flex;
-      align-items: center;
-      padding: 0 16px;
-      border-radius: var(--ds-radius-control);
-      color: var(--ds-text-secondary);
-      background: rgba(255, 255, 255, 0.05);
-      font-size: var(--ds-type-label);
-      font-weight: 600;
+    .demo-home-filter-shell {
+      display: grid;
+      gap: 16px;
+      overflow: hidden;
     }
 
-    .demo-tab.active { color: var(--ds-ink); background: var(--ds-gold); }
-
-    .demo-badge {
-      min-height: 24px;
-      display: inline-flex;
+    .demo-home-filter-tabs {
+      --guide-home-glide-x: 4px;
+      --guide-home-glide-y: 4px;
+      --guide-home-glide-w: 56px;
+      --guide-home-glide-h: 32px;
+      --guide-home-glide-radius: var(--ds-radius-pill);
+      position: relative;
+      width: fit-content;
+      max-width: 100%;
+      min-height: 40px;
+      display: flex;
       align-items: center;
-      padding: 0 9px;
+      gap: 4px;
+      padding: 4px;
+      overflow-x: auto;
+      overflow-y: hidden;
       border-radius: var(--ds-radius-pill);
-      color: var(--ds-text-secondary);
-      background: rgba(255, 255, 255, 0.06);
-      font-size: var(--ds-type-min);
-      font-weight: 600;
-      line-height: var(--ds-leading-min);
+      background: rgba(12, 15, 18, 0.78);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.11);
+      backdrop-filter: blur(16px) saturate(1.12);
+      isolation: isolate;
+      animation: guideFeaturedFiltersIn 820ms 280ms both cubic-bezier(0.16, 1, 0.3, 1);
+      scrollbar-width: none;
     }
 
-    .demo-badge.gold { color: var(--ds-gold); background: var(--ds-gold-soft); }
-    .demo-badge.success { color: var(--ds-success); background: rgba(104, 202, 147, 0.10); }
-    .demo-badge.danger { color: var(--ds-danger); background: rgba(239, 102, 78, 0.10); }
+    .demo-home-filter-tabs::-webkit-scrollbar { display: none; }
+
+    .demo-home-filter-indicator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: var(--guide-home-glide-w);
+      height: var(--guide-home-glide-h);
+      border: 1px solid var(--ds-gold-border);
+      border-radius: var(--guide-home-glide-radius);
+      background: linear-gradient(180deg, rgba(244, 201, 93, 0.16), rgba(244, 201, 93, 0.08)), rgba(42, 34, 18, 0.9);
+      box-shadow: 0 0 0 1px rgba(244, 201, 93, 0.12), 0 8px 24px rgba(244, 201, 93, 0.12);
+      opacity: 0;
+      pointer-events: none;
+      transform: translate3d(var(--guide-home-glide-x), var(--guide-home-glide-y), 0);
+      transition:
+        transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+        width 360ms cubic-bezier(0.22, 1, 0.36, 1),
+        height 360ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 120ms ease;
+      will-change: transform, width, height;
+    }
+
+    .demo-home-filter-indicator.is-visible { opacity: 1; }
+    .demo-home-filter-indicator.is-jump { transition: none; }
+    .demo-home-filter-indicator.is-moving { animation: guideHomeGlideEmphasis 520ms cubic-bezier(0.22, 1, 0.36, 1); }
+
+    .demo-home-filter-tab {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+      min-height: 32px;
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border: 1px solid transparent;
+      border-radius: var(--ds-radius-pill);
+      color: var(--ds-warm-emphasis);
+      background: transparent;
+      box-shadow: none;
+      font-family: var(--ds-font-body);
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1;
+      text-shadow: none;
+      transform: none;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: color 180ms ease, text-shadow 220ms ease;
+    }
+
+    .demo-home-filter-tab:is(:hover, :focus-visible) { color: var(--ds-white); border-color: transparent; background: var(--ds-white-veil); outline: 0; }
+    .demo-home-filter-tab.is-active { color: var(--ds-gold); font-weight: 500; }
+
+    .demo-home-filter-feed {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(116px, 1fr));
+      gap: 8px;
+      transition: opacity 150ms ease, transform 150ms ease;
+    }
+
+    .demo-home-filter-feed.is-filtering { opacity: 0; transform: translateY(4px); }
+    .demo-home-filter-item {
+      min-height: 92px;
+      display: grid;
+      align-content: end;
+      gap: 3px;
+      padding: 12px;
+      border: 1px solid var(--ds-line);
+      border-radius: var(--ds-radius-control);
+      background: linear-gradient(145deg, var(--ds-gold-muted), rgba(102, 226, 207, 0.11)), var(--ds-bg-raised);
+    }
+
+    .demo-home-filter-item[hidden] { display: none; }
+    .demo-home-filter-item strong { font-size: var(--ds-type-caption); line-height: var(--ds-leading-caption); }
+    .demo-home-filter-item span { color: var(--ds-text-tertiary); font-size: var(--ds-type-min); line-height: var(--ds-leading-min); }
+    .demo-motion-specs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+    .demo-motion-specs div { padding: 11px; border: 1px solid var(--ds-line); border-radius: 12px; background: var(--ds-white-veil); }
+    .demo-motion-specs strong,
+    .demo-motion-specs span { display: block; }
+    .demo-motion-specs strong { color: var(--ds-gold); font-size: var(--ds-type-caption); }
+    .demo-motion-specs span { margin-top: 3px; color: var(--ds-text-tertiary); font-size: var(--ds-type-min); line-height: var(--ds-leading-min); }
+
+    @keyframes guideFeaturedFiltersIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes guideHomeGlideEmphasis {
+      0%, 100% { filter: brightness(1); }
+      48% { filter: brightness(1.35); box-shadow: 0 0 0 1px rgba(244, 201, 93, 0.3), 0 8px 28px rgba(244, 201, 93, 0.26); }
+    }
 
     .demo-field { display: grid; gap: 7px; }
     .demo-field > span { font-size: var(--ds-type-label); font-weight: 600; line-height: var(--ds-leading-control); }
@@ -492,7 +658,7 @@
       border-radius: var(--ds-radius-control);
       outline: 0;
       color: var(--ds-text-primary);
-      background: rgba(255, 255, 255, 0.045);
+      background: var(--ds-white-veil);
       font-size: var(--ds-type-reading);
       line-height: var(--ds-leading-body);
     }
@@ -501,25 +667,37 @@
     .demo-field small { color: var(--ds-text-tertiary); font-size: var(--ds-type-caption); line-height: var(--ds-leading-caption); }
 
     .demo-content-card { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; align-items: center; }
-    .demo-content-art { width: 72px; height: 72px; border-radius: var(--ds-radius-control); background: linear-gradient(145deg, rgba(244, 201, 93, 0.42), rgba(137, 167, 255, 0.12)), #14181e; }
+    .demo-content-art { width: 72px; height: 72px; border-radius: var(--ds-radius-control); background: linear-gradient(145deg, var(--ds-gold-strong), rgba(102, 226, 207, 0.11)), var(--ds-surface-strong); }
     .demo-content-copy { display: grid; gap: 3px; }
     .demo-content-copy strong { font-size: var(--ds-type-card-title); line-height: var(--ds-leading-card-title); letter-spacing: var(--ds-tracking-card-title); }
     .demo-content-copy span { color: var(--ds-text-secondary); font-size: var(--ds-type-meta); line-height: var(--ds-leading-meta); }
     .demo-content-copy small { color: var(--ds-text-tertiary); font-size: var(--ds-type-caption); line-height: var(--ds-leading-caption); }
 
     .demo-tabbar {
-      height: 72px;
+      position: relative;
+      min-height: 82px;
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      align-items: end;
-      padding: 8px 6px 10px;
-      border-radius: 18px;
-      background: #15181c;
+      align-items: stretch;
+      padding: 6px 8px 4px;
+      isolation: isolate;
+      overflow: visible;
+      background: transparent;
     }
-    .demo-tabbar-item { display: grid; justify-items: center; gap: 6px; color: var(--ds-text-tertiary); font-size: var(--ds-type-min); line-height: var(--ds-leading-min); }
+    .demo-tabbar::before {
+      position: absolute;
+      inset: -12px 0 0;
+      z-index: -1;
+      background: url("./assets/mobile/tabbar-bg-v1.svg") top center / 100% 95px no-repeat;
+      content: "";
+      filter: drop-shadow(0 -12px 22px rgba(0, 0, 0, 0.34));
+    }
+    .demo-tabbar-item { position: relative; min-height: 62px; display: grid; align-content: end; justify-items: center; gap: 7px; padding-bottom: 11px; color: var(--ds-text-tertiary); font-size: var(--ds-type-min); line-height: var(--ds-leading-min); }
     .demo-tabbar-item i { width: 20px; height: 20px; display: block; border: 1.5px solid currentColor; border-radius: 7px; }
     .demo-tabbar-item.active { color: var(--ds-gold); }
-    .demo-tabbar-item.create i { width: 38px; height: 38px; margin-top: -19px; border-color: var(--ds-gold); border-radius: 50%; box-shadow: 0 0 16px rgba(244, 201, 93, 0.24); }
+    .demo-tabbar-item.active::after { position: absolute; bottom: 8px; left: 50%; width: 24px; height: 3px; border-radius: var(--ds-radius-pill); background: var(--ds-gold); box-shadow: 0 0 12px var(--ds-gold-muted); content: ""; transform: translateX(-50%); }
+    .demo-tabbar-item.create { gap: 1px; }
+    .demo-tabbar-item.create i { width: 46px; height: 46px; margin-top: -20px; overflow: hidden; border: 0; border-radius: 50%; background: url("./assets/mobile/ai-creation-spark-v3.webp") center / cover no-repeat; box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4); }
 
     .registry-tools { display: flex; gap: 10px; margin-bottom: 18px; }
     .registry-search {
@@ -530,7 +708,7 @@
       border-radius: var(--ds-radius-control);
       outline: 0;
       color: var(--ds-text-primary);
-      background: rgba(255, 255, 255, 0.035);
+      background: var(--ds-white-veil);
       font-size: var(--ds-type-reading);
     }
     .registry-search:focus { border-color: var(--ds-gold-border); box-shadow: var(--ds-focus-ring); }
@@ -543,7 +721,7 @@
       padding: 18px;
       border: 1px solid var(--ds-line);
       border-radius: var(--ds-radius-control);
-      background: rgba(255, 255, 255, 0.025);
+      background: var(--ds-white-veil);
     }
     .registry-item[hidden] { display: none; }
     .registry-item header { display: flex; align-items: start; justify-content: space-between; gap: 14px; }
@@ -587,7 +765,7 @@
       background:
         linear-gradient(45deg, rgba(255,255,255,.02) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.02) 75%),
         linear-gradient(45deg, rgba(255,255,255,.02) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.02) 75%),
-        #080b0f;
+        var(--ds-bg-raised);
       background-position: 0 0, 12px 12px;
       background-size: 24px 24px;
     }
@@ -595,13 +773,13 @@
       width: 390px;
       height: 720px;
       overflow: hidden;
-      border: 8px solid #22262c;
+      border: 8px solid var(--ds-surface-hover);
       border-radius: 32px;
-      background: #020305;
+      background: var(--ds-bg);
       box-shadow: 0 36px 90px rgba(0, 0, 0, 0.55);
       transition: width 180ms ease;
     }
-    .preview-device iframe { width: 100%; height: 100%; display: block; border: 0; background: #020305; }
+    .preview-device iframe { width: 100%; height: 100%; display: block; border: 0; background: var(--ds-bg); }
 
     .coverage { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
     .coverage a {
@@ -612,7 +790,7 @@
       padding: 12px 14px;
       border: 1px solid var(--ds-line);
       border-radius: var(--ds-radius-control);
-      background: rgba(255, 255, 255, 0.025);
+      background: var(--ds-white-veil);
     }
     .coverage a:hover { border-color: var(--ds-gold-border); background: var(--ds-gold-soft); }
     .coverage strong { font-size: 13px; line-height: 19px; }
@@ -629,7 +807,7 @@
       border: 1px solid var(--ds-line);
       border-radius: var(--ds-radius-control);
       color: var(--ds-text-secondary);
-      background: rgba(255, 255, 255, 0.025);
+      background: var(--ds-white-veil);
       font-size: 13px;
       line-height: 20px;
       counter-increment: rule;
@@ -658,7 +836,7 @@
       bottom: 22px;
       z-index: 300;
       padding: 11px 14px;
-      border: 1px solid rgba(104, 202, 147, 0.3);
+      border: 1px solid color-mix(in srgb, var(--ds-success) 32%, transparent);
       border-radius: 12px;
       color: var(--ds-success);
       background: rgba(10, 15, 13, 0.94);
@@ -720,13 +898,17 @@
       .guide-main { padding-inline: 16px; }
       .guide-hero p { font-size: 14px; line-height: 24px; }
       .guide-fact-row { grid-template-columns: 1fr; }
+      .component-sources { grid-template-columns: 1fr; }
       .guide-section h2 { font-size: 32px; }
       .type-row { grid-template-columns: 1fr; gap: 12px; }
-      .type-sample { padding: 14px; border-radius: 12px; background: rgba(255, 255, 255, 0.025); }
+      .type-sample { padding: 14px; border-radius: 12px; background: var(--ds-white-veil); }
       .type-meta { display: grid; }
       .guide-card,
       .guide-card.wide { grid-column: 1 / -1; }
       .heading-component-examples { grid-template-columns: 1fr; }
+      .demo-home-filter-feed,
+      .demo-motion-specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .opacity-scale-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .coverage { grid-template-columns: 1fr; }
       .preview-open { width: 100%; margin-left: 0; }
       .preview-canvas { place-items: start; padding: 14px; }
@@ -734,6 +916,15 @@
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+      .demo-home-filter-tabs { animation: none !important; }
+      .demo-home-filter-indicator {
+        transition:
+          transform 220ms ease-out,
+          width 180ms ease-out,
+          height 180ms ease-out,
+          opacity 120ms ease !important;
+      }
+      .demo-home-filter-indicator.is-moving { animation: guideHomeGlideEmphasis 220ms ease-out !important; }
     }
   </style>
 </head>
@@ -755,7 +946,7 @@
         <a href="#coverage">07 · 覆盖范围</a>
         <a href="#rules">08 · 落地规则</a>
       </nav>
-      <div class="guide-rail-foot"><strong>规范版本 1.1</strong><span>更新于 2026-08-25</span><span>基准视口 390 × 844</span></div>
+      <div class="guide-rail-foot"><strong>规范版本 1.4</strong><span>更新于 2026-08-26</span><span>基准视口 390 × 844</span></div>
     </aside>
 
     <main id="main" class="guide-main">
@@ -763,12 +954,12 @@
         <div>
           <span class="guide-kicker">Mobile design language</span>
           <h1>让每个页面<br><span>说同一种语言。</span></h1>
-          <p>以首页 tabbar 的 11px 文案为硬性最小字号，统一 24 个移动端 H5 页面的标题、正文、辅助说明、控件与状态文字。规范同时记录现有组件类名，设计和开发共用同一套 token。</p>
+          <p>以移动首页与社区为唯一范围，统一两页的标题、正文、按钮、内容卡、首页爆款作品筛选与底部导航。规范只记录这两页实际使用的组件类名，设计和开发共用同一套 token。</p>
         </div>
         <div class="guide-hero-aside">
-          <article class="guide-baseline-card"><span>HARD MINIMUM</span><strong>11px / 16px</strong><small>仅用于 tabbar 与密集微标签</small></article>
+          <article class="guide-baseline-card"><span>HARD MINIMUM</span><strong>11px / 16px</strong><small>仅用于 TabBar 与非阅读型微标签</small></article>
           <div class="guide-fact-row">
-            <div class="guide-fact"><strong>24</strong><span>移动页面</span></div>
+            <div class="guide-fact"><strong>2</strong><span>规范页面</span></div>
             <div class="guide-fact"><strong>12</strong><span>语义文字角色</span></div>
             <div class="guide-fact"><strong>1×</strong><span>共享 token 源</span></div>
           </div>
@@ -781,14 +972,14 @@
           <p>字号相同不代表作用相同。每段文字先确定任务：导航、阅读、操作、标题或数据展示，再选择对应 role。禁止为了“塞下”内容临时新增 10px、13.5px、15.5px 等散值。</p>
         </div>
         <div class="guide-grid">
-          <article class="guide-card"><h3>11px 是底线，不是正文</h3><p>tabbar 是本项目已确认的视觉基准。普通说明文字从 12px 起，正文统一 14px，避免把整站压成密集小字。</p></article>
+          <article class="guide-card"><h3>11px 是底线，不是正文</h3><p>TabBar 与非阅读型微标签可使用 11px。首页爆款筛选使用 13px；普通说明从 12px 起，正文统一 14px。</p></article>
           <article class="guide-card"><h3>一个角色，一个 token</h3><p>页面标题、区块标题、卡片标题和正文分别使用固定变量；旧组件通过兼容层映射，不在页面内重写字号。</p></article>
           <article class="guide-card"><h3>层级靠组合，不只靠大小</h3><p>字号、字重、行高、颜色和间距共同表达层级。辅助信息使用次级颜色，不用无限缩小字号。</p></article>
           <article class="guide-card"><h3>中文优先可读</h3><p>正文保持 1.57 倍行高，标题使用轻度负字距。长中文不使用全大写式宽字距，数字用等宽特性。</p></article>
-          <article class="guide-card"><h3>控件保持可触达</h3><p>字号最小 14px，常规控件高度 44px；紧凑按钮 36px 仅用于低优先级行内操作。</p></article>
-          <article class="guide-card"><h3>视觉大字允许例外</h3><p>活动主视觉、积分数字和邀请奖励属于表达性文字，可大于常规层级；仍必须使用 display 字体与数字规则。</p></article>
+          <article class="guide-card"><h3>控件保持可触达</h3><p>常规按钮文字 14px、高度 44px；紧凑按钮 36px。首页爆款筛选项视觉高度 32px，外层轨道最小高度 40px。</p></article>
+          <article class="guide-card"><h3>视觉大字允许例外</h3><p>首页 Banner 与社区重点内容可使用表达性大字；仍必须遵循展示字体、对比度和移动端安全宽度。</p></article>
         </div>
-        <div class="guide-note" style="margin-top:16px"><b>!</b><span><strong>事实：</strong>现有首页 tabbar 最终样式为 11px。<strong>规范决策：</strong>11px 只允许用于非阅读型微文案；这不是平台或 WCAG 对字号的强制结论。</span></div>
+        <div class="guide-note" style="margin-top:16px"><b>!</b><span><strong>事实：</strong>底部 TabBar 使用 11px；首页爆款作品筛选使用 13px、32px 选项高度与 40px 轨道高度。<strong>规范决策：</strong>旧版通用 Tab 不再收录，首页筛选是本规范唯一的 Tab 组件。</span></div>
       </section>
 
       <section id="typography" class="guide-section">
@@ -797,33 +988,38 @@
           <p>以下 12 个角色覆盖导航、说明、正文、控件、标题和数据。点击变量名可复制；新组件必须从这里选，不再创建页面专属字号。</p>
         </div>
         <div class="type-table" aria-label="移动端文字层级表">
-          <div class="type-row"><div class="type-role"><strong>最小字 / Micro</strong><code>--ds-type-min</code></div><p class="type-sample is-min">首页　社区　AI创作　活动　我的</p><div class="type-meta"><b>11 / 16 · Medium</b><span>tabbar、微标签、角标</span></div><button class="copy-token" data-copy="var(--ds-type-min)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>最小字 / Micro</strong><code>--ds-type-min</code></div><p class="type-sample is-min">首页　社区　AI创作　活动　我的</p><div class="type-meta"><b>11 / 16 · Medium</b><span>TabBar、微标签、角标</span></div><button class="copy-token" data-copy="var(--ds-type-min)">复制 token</button></div>
           <div class="type-row"><div class="type-role"><strong>辅助说明 / Caption</strong><code>--ds-type-caption</code></div><p class="type-sample is-caption">3 分钟前 · 内容由 AI 生成</p><div class="type-meta"><b>12 / 18 · Regular</b><span>时间、帮助、卡片说明</span></div><button class="copy-token" data-copy="var(--ds-type-caption)">复制 token</button></div>
-          <div class="type-row"><div class="type-role"><strong>元信息 / Meta</strong><code>--ds-type-meta</code></div><p class="type-sample is-meta">Seedance 2.0 · 视频生成</p><div class="type-meta"><b>13 / 19 · Regular</b><span>作者、模型、状态信息</span></div><button class="copy-token" data-copy="var(--ds-type-meta)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>元信息 / Meta</strong><code>--ds-type-meta</code></div><p class="type-sample is-meta">图片生成 · 视频生成 · Prompt</p><div class="type-meta"><b>13 / 19 · Regular</b><span>首页筛选、作者、内容状态</span></div><button class="copy-token" data-copy="var(--ds-type-meta)">复制 token</button></div>
           <div class="type-row"><div class="type-role"><strong>正文 / Body</strong><code>--ds-type-reading</code></div><p class="type-sample is-body">描述创作目标、画面内容和期望风格，让信息自然换行并保持稳定阅读节奏。</p><div class="type-meta"><b>14 / 22 · Regular</b><span>详情、表单说明、评论</span></div><button class="copy-token" data-copy="var(--ds-type-reading)">复制 token</button></div>
-          <div class="type-row"><div class="type-role"><strong>控件文字 / Label</strong><code>--ds-type-label</code></div><p class="type-sample is-label">立即生成　查看详情　确认兑换</p><div class="type-meta"><b>14 / 20 · Semibold</b><span>按钮、输入标签、tab</span></div><button class="copy-token" data-copy="var(--ds-type-label)">复制 token</button></div>
-          <div class="type-row"><div class="type-role"><strong>重点正文 / Emphasis</strong><code>--ds-type-emphasis</code></div><p class="type-sample is-emphasis">本次生成预计消耗 20 积分</p><div class="type-meta"><b>15 / 21 · Semibold</b><span>关键提示、摘要</span></div><button class="copy-token" data-copy="var(--ds-type-emphasis)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>控件文字 / Label</strong><code>--ds-type-label</code></div><p class="type-sample is-label">发布闪念　查看作品　全部教程</p><div class="type-meta"><b>14 / 20 · Semibold</b><span>按钮、输入标签、重要选择</span></div><button class="copy-token" data-copy="var(--ds-type-label)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>重点正文 / Emphasis</strong><code>--ds-type-emphasis</code></div><p class="type-sample is-emphasis">本周社区热门创作精选</p><div class="type-meta"><b>15 / 21 · Semibold</b><span>关键提示、摘要</span></div><button class="copy-token" data-copy="var(--ds-type-emphasis)">复制 token</button></div>
           <div class="type-row"><div class="type-role"><strong>卡片标题 / Card title</strong><code>--ds-type-card-title</code></div><p class="type-sample is-card">森境微光</p><div class="type-meta"><b>16 / 23 · Semibold</b><span>列表卡片、消息、菜单</span></div><button class="copy-token" data-copy="var(--ds-type-card-title)">复制 token</button></div>
-          <div class="type-row"><div class="type-role"><strong>导航标题 / Nav title</strong><code>--ds-type-nav-title</code></div><p class="type-sample is-nav">投稿详情</p><div class="type-meta"><b>17 / 24 · Semibold</b><span>二级页顶部标题</span></div><button class="copy-token" data-copy="var(--ds-type-nav-title)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>导航标题 / Nav title</strong><code>--ds-type-nav-title</code></div><p class="type-sample is-nav">社区</p><div class="type-meta"><b>17 / 24 · Semibold</b><span>页面顶部标题</span></div><button class="copy-token" data-copy="var(--ds-type-nav-title)">复制 token</button></div>
           <div class="type-row"><div class="type-role"><strong>区块标题 / Section</strong><code>--ds-type-section-title</code></div><p class="type-sample is-section">爆款作品</p><div class="type-meta"><b>20 / 28 · Bold</b><span>内容区、分组标题</span></div><button class="copy-token" data-copy="var(--ds-type-section-title)">复制 token</button></div>
-          <div class="type-row"><div class="type-role"><strong>页面标题 / Page</strong><code>--ds-type-page-title</code></div><p class="type-sample is-page">开始你的创作</p><div class="type-meta"><b>24 / 32 · Bold</b><span>页面首屏主标题</span></div><button class="copy-token" data-copy="var(--ds-type-page-title)">复制 token</button></div>
-          <div class="type-row"><div class="type-role"><strong>主视觉标题 / Hero</strong><code>--ds-type-hero-title</code></div><p class="type-sample is-hero">让灵感变成作品</p><div class="type-meta"><b>30 / 38 · Bold</b><span>Hero、活动、邀请</span></div><button class="copy-token" data-copy="var(--ds-type-hero-title)">复制 token</button></div>
-          <div class="type-row"><div class="type-role"><strong>数据展示 / Number</strong><code>--ds-type-number</code></div><p class="type-sample is-number">2,860</p><div class="type-meta"><b>36 / 40 · Bold</b><span>积分、奖励、核心数据</span></div><button class="copy-token" data-copy="var(--ds-type-number)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>页面标题 / Page</strong><code>--ds-type-page-title</code></div><p class="type-sample is-page">发现创作灵感</p><div class="type-meta"><b>24 / 32 · Bold</b><span>页面首屏主标题</span></div><button class="copy-token" data-copy="var(--ds-type-page-title)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>主视觉标题 / Hero</strong><code>--ds-type-hero-title</code></div><p class="type-sample is-hero">让灵感被更多人看见</p><div class="type-meta"><b>30 / 38 · Bold</b><span>首页 Banner、社区重点内容</span></div><button class="copy-token" data-copy="var(--ds-type-hero-title)">复制 token</button></div>
+          <div class="type-row"><div class="type-role"><strong>数据展示 / Number</strong><code>--ds-type-number</code></div><p class="type-sample is-number">2,860</p><div class="type-meta"><b>36 / 40 · Bold</b><span>浏览、喜欢、核心数据</span></div><button class="copy-token" data-copy="var(--ds-type-number)">复制 token</button></div>
         </div>
       </section>
 
       <section id="foundations" class="guide-section">
         <div class="guide-section-head">
           <div><span class="guide-section-kicker">03 / Foundations</span><h2>颜色、间距<br>与形状。</h2></div>
-          <p>黑色建立沉浸空间，暖金只承担主动作和当前状态。文字颜色按 primary / secondary / tertiary 三层使用，不通过降低字号制造弱层级。</p>
+          <p>颜色与 Web 端 `design-tokens.css` 使用同一语义：背景从 #05070B 起步，以抬升背景和透明表面建立深度；暖金负责主动作与选中，薄荷色仅作系统提示。中性色统一使用六档透明度。</p>
         </div>
         <div class="guide-grid">
-          <article class="guide-card swatch"><div class="swatch-color" style="background:#05070b"></div><div class="swatch-meta"><div><h3>背景 / BG</h3><code>#05070B</code></div><button class="copy-token" data-copy="var(--ds-bg)">复制</button></div></article>
-          <article class="guide-card swatch"><div class="swatch-color" style="background:#141618"></div><div class="swatch-meta"><div><h3>表面 / Surface</h3><code>#141618 · 92%</code></div><button class="copy-token" data-copy="var(--ds-surface-strong)">复制</button></div></article>
-          <article class="guide-card swatch"><div class="swatch-color" style="background:#fffaf0"></div><div class="swatch-meta"><div><h3>主文字 / Text</h3><code>#FFFAF0</code></div><button class="copy-token" data-copy="var(--ds-text)">复制</button></div></article>
-          <article class="guide-card swatch"><div class="swatch-color" style="background:#f4c95d"></div><div class="swatch-meta"><div><h3>品牌金 / Gold</h3><code>#F4C95D</code></div><button class="copy-token" data-copy="var(--ds-gold)">复制</button></div></article>
-          <article class="guide-card swatch"><div class="swatch-color" style="background:#68ca93"></div><div class="swatch-meta"><div><h3>成功 / Success</h3><code>#68CA93</code></div><button class="copy-token" data-copy="var(--ds-success)">复制</button></div></article>
-          <article class="guide-card swatch"><div class="swatch-color" style="background:#ef664e"></div><div class="swatch-meta"><div><h3>危险 / Danger</h3><code>#EF664E</code></div><button class="copy-token" data-copy="var(--ds-danger)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:var(--ds-bg)"></div><div class="swatch-meta"><div><h3>背景 / Background</h3><code>#05070B</code></div><button class="copy-token" data-copy="var(--ds-bg)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:var(--ds-bg-raised)"></div><div class="swatch-meta"><div><h3>抬升背景 / Raised</h3><code>#0B0F13</code></div><button class="copy-token" data-copy="var(--ds-bg-raised)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:var(--ds-surface-strong)"></div><div class="swatch-meta"><div><h3>强表面 / Surface</h3><code>rgba(20,22,24,.92)</code></div><button class="copy-token" data-copy="var(--ds-surface-strong)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:var(--ds-text)"></div><div class="swatch-meta"><div><h3>主文字 / Text</h3><code>#FFFAF0</code></div><button class="copy-token" data-copy="var(--ds-text)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:var(--ds-gold)"></div><div class="swatch-meta"><div><h3>主题金 / Warm Gold</h3><code>#F4C95D</code></div><button class="copy-token" data-copy="var(--ds-gold)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:var(--ds-gold-bright)"></div><div class="swatch-meta"><div><h3>亮金 / Gold Bright</h3><code>#FFE58A</code></div><button class="copy-token" data-copy="var(--ds-gold-bright)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:var(--ds-gold-deep)"></div><div class="swatch-meta"><div><h3>深金 / Gold Deep</h3><code>#D8AA52</code></div><button class="copy-token" data-copy="var(--ds-gold-deep)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:var(--ds-mint)"></div><div class="swatch-meta"><div><h3>系统薄荷 / Mint</h3><code>#66E2CF</code></div><button class="copy-token" data-copy="var(--ds-mint)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:var(--ds-success)"></div><div class="swatch-meta"><div><h3>成功 / Success</h3><code>#68CA93</code></div><button class="copy-token" data-copy="var(--ds-success)">复制</button></div></article>
+          <article class="guide-card swatch"><div class="swatch-color" style="background:var(--ds-danger)"></div><div class="swatch-meta"><div><h3>危险 / Danger</h3><code>#EF664E</code></div><button class="copy-token" data-copy="var(--ds-danger)">复制</button></div></article>
+          <article class="guide-card opacity-scale"><h3>中性色透明度</h3><p>与 Web 端统一使用 5% / 11% / 24% / 44% / 66% / 84%。暖白用于文字，纸白用于边界，纯白用于玻璃高光。</p><div class="opacity-scale-list"><div class="opacity-scale-item" style="--opacity-color:var(--ds-warm-veil)"><i></i><span><strong>05</strong>Veil</span></div><div class="opacity-scale-item" style="--opacity-color:var(--ds-warm-soft)"><i></i><span><strong>11</strong>Soft</span></div><div class="opacity-scale-item" style="--opacity-color:var(--ds-warm-muted)"><i></i><span><strong>24</strong>Muted</span></div><div class="opacity-scale-item" style="--opacity-color:var(--ds-warm-strong)"><i></i><span><strong>44</strong>Strong</span></div><div class="opacity-scale-item" style="--opacity-color:var(--ds-warm-emphasis)"><i></i><span><strong>66</strong>Emphasis</span></div><div class="opacity-scale-item" style="--opacity-color:var(--ds-warm-solid)"><i></i><span><strong>84</strong>Solid</span></div></div></article>
           <article class="guide-card wide"><h3>4px 间距系统</h3><p>页面横向留白固定 16px；组件内部优先 8 / 12 / 16 / 20 / 24px。</p><div class="spacing-demo"><div class="spacing-row"><span>space-1</span><i class="spacing-bar" style="width:4px"></i><code>4</code></div><div class="spacing-row"><span>space-2</span><i class="spacing-bar" style="width:8px"></i><code>8</code></div><div class="spacing-row"><span>space-3</span><i class="spacing-bar" style="width:12px"></i><code>12</code></div><div class="spacing-row"><span>space-4</span><i class="spacing-bar" style="width:16px"></i><code>16</code></div><div class="spacing-row"><span>space-6</span><i class="spacing-bar" style="width:24px"></i><code>24</code></div><div class="spacing-row"><span>space-8</span><i class="spacing-bar" style="width:32px"></i><code>32</code></div></div></article>
           <article class="guide-card"><h3>圆角层级</h3><p>控件 14px、卡片 20px、弹层 28px、胶囊 999px。不要按页面创建 13px、17px 等近似值。</p><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px"><i style="height:70px;border:1px solid var(--ds-line);border-radius:14px;background:rgba(255,255,255,.04)"></i><i style="height:70px;border:1px solid var(--ds-line);border-radius:28px;background:rgba(255,255,255,.04)"></i></div></article>
         </div>
@@ -832,48 +1028,48 @@
       <section id="components" class="guide-section">
         <div class="guide-section-head">
           <div><span class="guide-section-kicker">04 / Components</span><h2>通用组件<br>与文字映射。</h2></div>
-          <p>组件示例使用与页面相同的语义 token。类名沿用现有实现，便于设计标注直接对应代码。</p>
+          <p>组件只来自移动首页与社区。类名、尺寸和交互沿用当前页面实现，让设计标注、状态说明与页面代码一一对应。</p>
         </div>
+
+        <div class="component-sources" aria-label="组件设计来源页">
+          <a class="component-source is-home" href="./mobile-home.html" target="_blank" rel="noopener"><code>mobile-home.html</code><strong>首页 · 内容发现</strong><p>提供品牌区、Banner、快捷入口、爆款作品筛选、作品卡与一级 TabBar。</p></a>
+          <a class="component-source is-community" href="./mobile-community.html" target="_blank" rel="noopener"><code>mobile-community.html</code><strong>社区 · 内容交流</strong><p>提供社区精选、闪念内容、教程推荐、发布动作、媒体卡与一级 TabBar。</p></a>
+        </div>
+
         <div class="guide-grid">
-          <article class="guide-card full"><h3>展示标题</h3><p>首页完整形态与其他页面一级内容区共用同一组件。Feature 保留英文胶囊和入场动效；Compact 只收紧布局，不用于顶部导航、表单、卡片、弹窗或状态标题。</p><div class="component-stage"><div class="component-label"><code>.mobile-display-heading</code><span>Feature / Compact</span></div><div class="heading-component-examples"><div class="heading-component-example"><small>Feature · 首页与重点内容</small><div class="mobile-display-heading mobile-display-heading--feature" data-mobile-display-heading><div class="mobile-display-heading__content"><h2 class="mobile-display-heading__title"><span class="mobile-display-heading__accent">爆款</span>作品</h2><span class="mobile-display-heading__kicker">COMMUNITY CURATION</span></div></div></div><div class="heading-component-example"><small>Compact · 一级内容区</small><div class="mobile-section-heading mobile-display-heading mobile-display-heading--compact" data-mobile-display-heading><h2 class="mobile-display-heading__title"><span class="mobile-display-heading__accent">活动</span>任务</h2><a href="#components">查看全部</a></div></div></div><pre class="heading-component-code">&lt;div class=&quot;mobile-display-heading mobile-display-heading--feature&quot; data-mobile-display-heading&gt;
+          <article class="guide-card full"><h3>展示标题</h3><p>Feature 用于首页爆款作品等重点内容，保留英文 kicker 与入场动效；Compact 用于社区内容区，收紧上下间距并可带右侧文字动作。</p><div class="component-stage"><div class="component-label"><code>.mobile-display-heading</code><span>Feature / Compact</span></div><div class="heading-component-examples"><div class="heading-component-example"><small>Feature · 首页重点内容</small><div class="mobile-display-heading mobile-display-heading--feature" data-mobile-display-heading><div class="mobile-display-heading__content"><h2 class="mobile-display-heading__title"><span class="mobile-display-heading__accent">爆款</span>作品</h2><span class="mobile-display-heading__kicker">COMMUNITY CURATION</span></div></div></div><div class="heading-component-example"><small>Compact · 社区内容区</small><div class="mobile-section-heading mobile-display-heading mobile-display-heading--compact" data-mobile-display-heading><h2 class="mobile-display-heading__title"><span class="mobile-display-heading__accent">闪念</span>热议</h2><a href="#components">查看全部</a></div></div></div><pre class="heading-component-code">&lt;div class=&quot;mobile-display-heading mobile-display-heading--feature&quot; data-mobile-display-heading&gt;
   &lt;div class=&quot;mobile-display-heading__content&quot;&gt;
     &lt;h2 class=&quot;mobile-display-heading__title&quot;&gt;&lt;span class=&quot;mobile-display-heading__accent&quot;&gt;爆款&lt;/span&gt;作品&lt;/h2&gt;
     &lt;span class=&quot;mobile-display-heading__kicker&quot;&gt;COMMUNITY CURATION&lt;/span&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre></div></article>
-          <article class="guide-card wide"><h3>按钮</h3><p>主按钮每屏尽量只有一个；文字统一 Label 14/20 Semibold。</p><div class="component-stage"><div class="component-label"><code>.mobile-button · .primary · .compact</code><span>44 / 36px</span></div><div class="demo-buttons"><button class="demo-button primary">立即生成</button><button class="demo-button">查看详情</button><button class="demo-button compact">去完成</button><button class="demo-button" disabled>暂不可用</button></div></div></article>
-          <article class="guide-card"><h3>筛选与标签</h3><p>筛选项使用 Label；徽标可使用最小字，但只放短词。</p><div class="component-stage"><div class="component-label"><code>.mobile-filter-tab</code><span>34px</span></div><div class="demo-tabs"><span class="demo-tab active">全部</span><span class="demo-tab">图片生成</span><span class="demo-tab">视频生成</span></div><div class="demo-badges"><span class="demo-badge gold">进行中</span><span class="demo-badge success">已完成</span><span class="demo-badge danger">已结束</span></div></div></article>
-          <article class="guide-card"><h3>表单</h3><p>标签 14px，输入正文 14px，帮助说明 12px。</p><div class="component-stage"><label class="demo-field"><span>作品名称</span><input class="demo-input" placeholder="请输入作品名称"><small>最多 30 个字，不使用 11px 说明文字</small></label></div></article>
-          <article class="guide-card"><h3>内容卡片</h3><p>标题 16px、元信息 13px、辅助说明 12px。</p><div class="component-stage"><div class="component-label"><code>.mobile-work-card</code><span>Card title</span></div><div class="demo-content-card"><span class="demo-content-art"></span><span class="demo-content-copy"><strong>森境微光</strong><span>Flux Pro 1.1 · 图片生成</span><small>3 分钟前</small></span></div></div></article>
-          <article class="guide-card wide"><h3>底部导航</h3><p>首页 tabbar 是全站最小字号基准：11/16 Medium。选中态靠颜色和指示器，不靠放大文字。</p><div class="component-stage"><div class="component-label"><code>.mobile-bottom-nav · .mobile-nav-item</code><span>72px + safe area</span></div><div class="demo-tabbar"><span class="demo-tabbar-item active"><i></i>首页</span><span class="demo-tabbar-item"><i></i>社区</span><span class="demo-tabbar-item create"><i></i>AI创作</span><span class="demo-tabbar-item"><i></i>活动</span><span class="demo-tabbar-item"><i></i>我的</span></div></div></article>
+          <article class="guide-card full"><h3>首页 · 爆款作品筛选 Tab</h3><p>这是规范中唯一保留的 Tab。选中态不是金色实体按钮，而是半透明暖金滑块；文字使用 13px，选项高度 32px、轨道最小高度 40px。点击或使用方向键体验完整切换。</p><div class="component-stage"><div class="component-label"><code>.mobile-home-filter-tabs · .mobile-home-filter-tab · .mobile-home-filter-indicator</code><span>Scrollable · animated</span></div><div class="demo-home-filter-shell"><div class="demo-home-filter-tabs" role="tablist" aria-label="爆款作品内容类型" data-home-hot-tabs><span class="demo-home-filter-indicator" aria-hidden="true"></span><button class="demo-home-filter-tab is-active" type="button" role="tab" aria-selected="true" tabindex="0" data-filter="all">全部</button><button class="demo-home-filter-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-filter="manga">短剧漫剧</button><button class="demo-home-filter-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-filter="text">文本内容</button><button class="demo-home-filter-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-filter="image">图片生成</button><button class="demo-home-filter-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-filter="video">视频生成</button><button class="demo-home-filter-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-filter="prompt">Prompt</button></div><div class="demo-home-filter-feed" aria-live="polite"><article class="demo-home-filter-item" data-content-type="manga"><strong>山海对决</strong><span>短剧漫剧</span></article><article class="demo-home-filter-item" data-content-type="text"><strong>雨夜来信</strong><span>文本内容</span></article><article class="demo-home-filter-item" data-content-type="image"><strong>森境微光</strong><span>图片生成</span></article><article class="demo-home-filter-item" data-content-type="video"><strong>天门漫游</strong><span>视频生成</span></article><article class="demo-home-filter-item" data-content-type="prompt"><strong>云上疗愈</strong><span>Prompt</span></article></div><div class="demo-motion-specs" aria-label="筛选动画规格"><div><strong>入场 820ms</strong><span>延迟 280ms · ease-out</span></div><div><strong>滑动 520ms</strong><span>cubic-bezier(.22,1,.36,1)</span></div><div><strong>尺寸 360ms</strong><span>宽高同步适配标签</span></div><div><strong>内容 150ms</strong><span>淡出后更新筛选结果</span></div><div><strong>减少动态</strong><span>取消入场 · 滑动 220ms · 尺寸 180ms</span></div></div></div></div></article>
+          <article class="guide-card wide"><h3>按钮</h3><p>首页和社区的主要动作使用胶囊按钮。主按钮每个操作区域只保留一个；次按钮、文字按钮和图标按钮共享 44px 触控基线。</p><div class="component-stage"><div class="component-label"><code>.mobile-button · .mobile-community-outline-action · .mobile-community-text-action</code><span>44 / 36px</span></div><div class="demo-buttons"><button class="demo-button primary" type="button">发布闪念</button><button class="demo-button" type="button">发闪念</button><button class="demo-button ghost" type="button">全部教程 →</button><button class="demo-button compact" type="button">查看作品</button><button class="demo-button icon" type="button" aria-label="搜索社区"></button><button class="demo-button" type="button" disabled>暂不可用</button></div></div></article>
+          <article class="guide-card"><h3>社区发布输入</h3><p>社区发布弹层使用 14px 标签与正文、12px 帮助文字；输入框须有清晰焦点态和可见的字数限制。</p><div class="component-stage"><label class="demo-field"><span>分享一个闪念</span><input class="demo-input" placeholder="记录灵感、观点或创作过程"><small>最多 300 个字，不使用 11px 说明文字</small></label></div></article>
+          <article class="guide-card"><h3>内容与媒体卡</h3><p>首页作品与社区内容共享标题、元信息和时间层级，布局可按媒介变化，但语义文字不改字号。</p><div class="component-stage"><div class="component-label"><code>.mobile-work-card · .mobile-community-card · .mobile-flash-post-card</code><span>Card title / Meta</span></div><div class="demo-content-card"><span class="demo-content-art"></span><span class="demo-content-copy"><strong>森境微光</strong><span>社区精选 · 图片作品</span><small>3 分钟前 · 128 次喜欢</small></span></div></div></article>
+          <article class="guide-card full"><h3>底部导航</h3><p>五项是一级页面唯一主导航。中央 AI 创作入口单独上浮；普通项保持 11/16 Medium，选中态使用暖金与底部指示器，不放大文字。</p><div class="component-stage"><div class="component-label"><code>.mobile-bottom-nav · .mobile-nav-item · .mobile-nav-create</code><span>72px + safe area</span></div><div class="demo-tabbar"><span class="demo-tabbar-item active"><i></i>首页</span><span class="demo-tabbar-item"><i></i>社区</span><span class="demo-tabbar-item create"><i></i>AI创作</span><span class="demo-tabbar-item"><i></i>活动</span><span class="demo-tabbar-item"><i></i>我的</span></div></div></article>
         </div>
       </section>
 
       <section id="registry" class="guide-section">
         <div class="guide-section-head">
-          <div><span class="guide-section-kicker">05 / Registry</span><h2>现有组件<br>全部归档。</h2></div>
-          <p>这里收录已在 24 个页面中复用的组件族。搜索业务名或 CSS 类名，快速确认它应采用哪种文字角色。</p>
+          <div><span class="guide-section-kicker">05 / Registry</span><h2>两页组件<br>明确归档。</h2></div>
+          <p>这里只收录首页与社区实际使用的组件族。搜索业务名或 CSS 类名，快速确认对应的页面来源和文字角色。</p>
         </div>
-        <div class="registry-tools"><input id="registry-search" class="registry-search" type="search" placeholder="搜索：标题、按钮、积分、mobile-filter-tab…" aria-label="搜索组件"></div>
+        <div class="registry-tools"><input id="registry-search" class="registry-search" type="search" placeholder="搜索：首页、社区、Banner、作品卡…" aria-label="搜索组件"></div>
         <div id="registry-list" class="registry">
-          <article class="registry-item" data-keywords="导航 顶部 标题 返回 topbar page title"><header><h3>顶部导航</h3><span>Nav title 17</span></header><p>二级页面返回、标题与右侧动作。标题居中，超长单行省略。</p><code>.mobile-topbar · .mobile-page-title · .mobile-back-button</code></article>
-          <article class="registry-item" data-keywords="底部 导航 tabbar nav item create"><header><h3>底部 TabBar</h3><span>Minimum 11</span></header><p>五项一级导航与中央 AI 创作入口，11px 为全站硬下限。</p><code>.mobile-bottom-nav · .mobile-nav-item · .mobile-nav-create</code></article>
-          <article class="registry-item" data-keywords="标题 页面 区块 heading section display feature compact"><header><h3>展示标题</h3><span>Feature / Compact</span></header><p>首页重点标题和一级内容区共用；强调字与英文 kicker 可选，不覆盖导航、表单、卡片、弹窗或状态标题。</p><code>.mobile-display-heading · .mobile-display-heading--feature · .mobile-display-heading--compact</code></article>
-          <article class="registry-item" data-keywords="按钮 button primary secondary compact action"><header><h3>按钮</h3><span>Label 14</span></header><p>主、次、紧凑三种规格；常规触控高度不小于 44px。</p><code>.mobile-button · .primary · .secondary · .compact</code></article>
-          <article class="registry-item" data-keywords="筛选 tab chip secondary tabs"><header><h3>筛选与页签</h3><span>Label 14</span></header><p>横向筛选、二级分段与选择 chip，选中态使用暖金。</p><code>.mobile-filter-tabs · .mobile-filter-tab · .mobile-secondary-tabs · .mobile-chip</code></article>
-          <article class="registry-item" data-keywords="表单 input textarea field prompt generator profile"><header><h3>表单与输入</h3><span>Body / Label</span></header><p>输入、选择、提示词和个人资料表单，帮助文字不得低于 12px。</p><code>.mobile-field · .mobile-prompt-input · .mobile-generator-form · .mobile-profile-form</code></article>
-          <article class="registry-item" data-keywords="作品 card work feed community flash"><header><h3>内容卡片</h3><span>Card title 16</span></header><p>首页作品、社区动态、闪念与作者内容卡片。</p><code>.mobile-work-card · .mobile-feed-card · .mobile-community-card · .mobile-flash-post-card</code></article>
-          <article class="registry-item" data-keywords="活动 campaign task growth submission"><header><h3>活动与任务</h3><span>Hero / Card</span></header><p>活动卡片、任务列表、进度与投稿条目。</p><code>.mobile-activity-card · .mobile-campaign-hero · .mobile-task-row · .mobile-submission-row</code></article>
-          <article class="registry-item" data-keywords="创作 create mode composer setting history generation"><header><h3>AI 创作</h3><span>Page / Body</span></header><p>创作模式、输入区、参数设置、历史和任务状态。</p><code>.mobile-create-mode · .mobile-create-composer · .mobile-create-setting-panel · .mobile-history-row</code></article>
-          <article class="registry-item" data-keywords="生成 generation progress result state spinner"><header><h3>生成状态</h3><span>Number / Body</span></header><p>生成中、进度、成功结果与去向提示。</p><code>.mobile-generation-stage · .mobile-inline-generation · .mobile-generation-result-panel</code></article>
-          <article class="registry-item" data-keywords="详情 detail media comment author action bar"><header><h3>作品详情</h3><span>Hero / Body</span></header><p>图片/视频媒体、作者、正文、评论和底部动作。</p><code>.mobile-detail-media · .mobile-author-block · .mobile-comment · .mobile-action-bar</code></article>
-          <article class="registry-item" data-keywords="积分 points balance record stats"><header><h3>积分系统</h3><span>Number / Meta</span></header><p>积分余额、统计、获得入口和记录列表。数字启用 tabular-nums。</p><code>.mobile-points-hero · .mobile-points-stats · .mobile-points-row · .mobile-points-record-summary</code></article>
-          <article class="registry-item" data-keywords="商城 exchange product confirm records sheet"><header><h3>商城与兑换</h3><span>Card / Label</span></header><p>商品卡、确认弹层、成功状态与兑换记录。</p><code>.mobile-exchange-card · .mobile-exchange-sheet · .mobile-exchange-record-card</code></article>
-          <article class="registry-item" data-keywords="邀请 invite reward progress pass share"><header><h3>邀请有礼</h3><span>Hero / Number</span></header><p>邀请函、奖励、进度和分享动作；主视觉允许表达性大字。</p><code>.mobile-invite-pass · .mobile-invite-reward · .mobile-invite-progress · .mobile-invite-action-bar</code></article>
-          <article class="registry-item" data-keywords="个人中心 my profile benefit metrics menu"><header><h3>个人中心</h3><span>Card / Number</span></header><p>资料、统计、内容入口、权益和设置菜单。</p><code>.mobile-my-profile-row · .mobile-my-redesign-stats · .mobile-my-redesign-card</code></article>
-          <article class="registry-item" data-keywords="消息 message notification icon list"><header><h3>消息中心</h3><span>Card / Caption</span></header><p>消息标题、摘要、时间与未读状态。</p><code>.mobile-message-list · .mobile-message-icon</code></article>
-          <article class="registry-item" data-keywords="弹层 sheet modal bottom toast walkthrough"><header><h3>弹层与反馈</h3><span>Body / Label</span></header><p>底部弹层、确认、Toast 和走查面板。</p><code>.mobile-bottom-sheet · .mobile-sheet-panel · .mobile-toast · .mobile-walkthrough</code></article>
-          <article class="registry-item" data-keywords="空状态 empty error success danger status"><header><h3>状态与空页面</h3><span>Body / Caption</span></header><p>空内容、错误、成功和危险反馈，语义色不能替代文字说明。</p><code>.mobile-empty-filter · .mobile-inline-state · .mobile-field-error</code></article>
+          <article class="registry-item" data-keywords="首页 品牌 banner carousel slide"><header><h3>首页品牌与 Banner</h3><span>Hero / Body</span></header><p>首页品牌识别、轮播容器和 Banner 内容页。</p><code>.mobile-home-brand · .mobile-banner-carousel · .mobile-banner-slide</code></article>
+          <article class="registry-item" data-keywords="首页 快捷入口 shortcut icon"><header><h3>首页快捷入口</h3><span>Label / Caption</span></header><p>图标、标签和可点击入口保持统一尺寸与间距。</p><code>.mobile-home-shortcuts · .mobile-home-shortcut · .mobile-home-shortcut-icon</code></article>
+          <article class="registry-item" data-keywords="首页 社区 标题 heading section display feature compact"><header><h3>展示标题</h3><span>Feature / Compact</span></header><p>首页重点标题使用 Feature，社区内容区使用 Compact。</p><code>.mobile-display-heading · .mobile-display-heading--feature · .mobile-display-heading--compact</code></article>
+          <article class="registry-item" data-keywords="首页 爆款 筛选 tab indicator animation glide"><header><h3>爆款作品筛选 Tab</h3><span>Meta 13</span></header><p>本规范唯一 Tab：半透明轨道、滑动指示器、键盘切换和内容淡出更新。</p><code>.mobile-home-filter-tabs · .mobile-home-filter-tab · .mobile-home-filter-indicator</code></article>
+          <article class="registry-item" data-keywords="首页 社区 作品 内容 媒体 card work media"><header><h3>内容与媒体卡</h3><span>Card title 16</span></header><p>首页作品、社区精选和社区媒体内容共享文字层级。</p><code>.mobile-work-card · .mobile-community-card · .mobile-community-media</code></article>
+          <article class="registry-item" data-keywords="社区 精选 feature highlight"><header><h3>社区精选</h3><span>Hero / Card</span></header><p>社区重点内容、媒体封面与内容摘要。</p><code>.mobile-community-feature · .mobile-community-feature-shade · .mobile-community-feature-copy</code></article>
+          <article class="registry-item" data-keywords="社区 闪念 post flash hot media grid"><header><h3>社区闪念</h3><span>Body / Caption</span></header><p>热门闪念、发布者信息、正文与多媒体网格。</p><code>.mobile-community-hot-post · .mobile-flash-post-card · .mobile-flash-media-grid</code></article>
+          <article class="registry-item" data-keywords="社区 教程 tutorial row feature"><header><h3>社区教程推荐</h3><span>Card / Meta</span></header><p>教程主卡与紧凑列表行，标题和元信息保持同一层级。</p><code>.mobile-community-tutorial-feature · .mobile-community-tutorial-row</code></article>
+          <article class="registry-item" data-keywords="社区 按钮 action outline text primary button"><header><h3>社区操作按钮</h3><span>Label 14</span></header><p>发布、查看全部和次级操作，常规触控区不小于 44px。</p><code>.mobile-button.primary · .mobile-community-outline-action · .mobile-community-text-action</code></article>
+          <article class="registry-item" data-keywords="社区 发布 输入 sheet editor flash compose"><header><h3>社区发布弹层</h3><span>Body / Label</span></header><p>闪念编辑、附件操作、提交按钮与底部安全区。</p><code>.mobile-flash-compose-sheet · .mobile-flash-compose-editor · .mobile-sheet-panel</code></article>
+          <article class="registry-item" data-keywords="底部 导航 tabbar nav item create 首页 社区"><header><h3>底部 TabBar</h3><span>Minimum 11</span></header><p>首页和社区共享五项一级导航与中央 AI 创作入口。</p><code>.mobile-bottom-nav · .mobile-nav-item · .mobile-nav-create</code></article>
+          <article class="registry-item" data-keywords="首页 空状态 筛选 filtering empty feed"><header><h3>首页筛选反馈</h3><span>Body / Motion</span></header><p>筛选切换、结果淡出与无匹配内容状态。</p><code>.mobile-home-masonry.is-filtering · .mobile-empty-filter</code></article>
         </div>
         <p id="registry-empty" class="guide-note" hidden style="margin-top:12px"><b>?</b><span>没有匹配的组件。可搜索业务名、中文用途或 CSS 类名。</span></p>
       </section>
@@ -881,18 +1077,12 @@
       <section id="preview" class="guide-section">
         <div class="guide-section-head">
           <div><span class="guide-section-kicker">06 / Preview</span><h2>用真实页面<br>检查规范。</h2></div>
-          <p>预览直接加载现有 H5 页面，不是重画的示意图。切换页面和常用移动宽度，检查标题、正文、辅助文字、按钮与 tabbar 的层级是否连续。</p>
+          <p>预览直接加载首页与社区现有 H5 页面，不是重画示意图。切换页面和常用移动宽度，检查标题、正文、按钮、媒体卡与底部导航的层级是否连续。</p>
         </div>
         <div class="preview-toolbar">
           <select id="preview-page" class="preview-select" aria-label="选择预览页面">
             <option value="mobile-home.html">首页 · 内容与 TabBar</option>
             <option value="mobile-community.html">社区 · 卡片与元信息</option>
-            <option value="mobile-create.html">AI 创作 · 页面与输入</option>
-            <option value="mobile-activity.html">活动 · 卡片与状态</option>
-            <option value="mobile-points.html">积分中心 · 数字与区块</option>
-            <option value="mobile-my.html">个人中心 · 菜单与统计</option>
-            <option value="mobile-image-detail.html">作品详情 · 正文与评论</option>
-            <option value="mobile-profile-edit.html">编辑资料 · 表单</option>
           </select>
           <div class="preview-sizes" aria-label="预览宽度">
             <button class="preview-size" data-width="360">360</button>
@@ -906,34 +1096,12 @@
 
       <section id="coverage" class="guide-section">
         <div class="guide-section-head">
-          <div><span class="guide-section-kicker">07 / Coverage</span><h2>24 个页面<br>统一覆盖。</h2></div>
-          <p>全部页面共享 `mobile-design-tokens.css` 与 `mobile-h5.css`。点击任一页面可单独打开走查。</p>
+          <div><span class="guide-section-kicker">07 / Coverage</span><h2>2 个页面<br>明确覆盖。</h2></div>
+          <p>首页与社区共享 `mobile-design-tokens.css`、`mobile-display-heading.css` 与 `mobile-h5.css`。点击页面可单独打开走查。</p>
         </div>
         <div class="coverage">
           <a href="./mobile-home.html" target="_blank"><strong>首页</strong><span>mobile-home.html</span></a>
           <a href="./mobile-community.html" target="_blank"><strong>社区</strong><span>mobile-community.html</span></a>
-          <a href="./mobile-create.html" target="_blank"><strong>AI 创作</strong><span>mobile-create.html</span></a>
-          <a href="./mobile-activity.html" target="_blank"><strong>活动中心</strong><span>mobile-activity.html</span></a>
-          <a href="./mobile-my.html" target="_blank"><strong>个人中心</strong><span>mobile-my.html</span></a>
-          <a href="./mobile-image-detail.html" target="_blank"><strong>图片详情</strong><span>mobile-image-detail.html</span></a>
-          <a href="./mobile-video-detail.html" target="_blank"><strong>视频详情</strong><span>mobile-video-detail.html</span></a>
-          <a href="./mobile-create-image.html" target="_blank"><strong>图片生成</strong><span>mobile-create-image.html</span></a>
-          <a href="./mobile-create-video.html" target="_blank"><strong>视频生成</strong><span>mobile-create-video.html</span></a>
-          <a href="./mobile-generation-progress.html" target="_blank"><strong>生成中</strong><span>mobile-generation-progress.html</span></a>
-          <a href="./mobile-generation-result.html" target="_blank"><strong>生成结果</strong><span>mobile-generation-result.html</span></a>
-          <a href="./mobile-campaign-detail.html" target="_blank"><strong>生图挑战</strong><span>mobile-campaign-detail.html</span></a>
-          <a href="./mobile-activity-detail.html" target="_blank"><strong>活动详情</strong><span>mobile-activity-detail.html</span></a>
-          <a href="./mobile-submission-detail.html" target="_blank"><strong>投稿详情</strong><span>mobile-submission-detail.html</span></a>
-          <a href="./mobile-my-submissions.html" target="_blank"><strong>我的投稿</strong><span>mobile-my-submissions.html</span></a>
-          <a href="./mobile-tasks.html" target="_blank"><strong>新手任务</strong><span>mobile-tasks.html</span></a>
-          <a href="./mobile-invite.html" target="_blank"><strong>邀请有礼</strong><span>mobile-invite.html</span></a>
-          <a href="./mobile-points.html" target="_blank"><strong>积分中心</strong><span>mobile-points.html</span></a>
-          <a href="./mobile-points-records.html" target="_blank"><strong>积分记录</strong><span>mobile-points-records.html</span></a>
-          <a href="./mobile-exchange.html" target="_blank"><strong>AI 商城</strong><span>mobile-exchange.html</span></a>
-          <a href="./mobile-exchange-records.html" target="_blank"><strong>兑换记录</strong><span>mobile-exchange-records.html</span></a>
-          <a href="./mobile-messages.html" target="_blank"><strong>消息中心</strong><span>mobile-messages.html</span></a>
-          <a href="./mobile-profile-edit.html" target="_blank"><strong>编辑资料</strong><span>mobile-profile-edit.html</span></a>
-          <a href="./mobile-my-works.html" target="_blank"><strong>我的作品</strong><span>mobile-my-works.html</span></a>
         </div>
       </section>
 
@@ -944,17 +1112,17 @@
         </div>
         <ol class="rule-list">
           <li><span><strong>先选语义 role，再写组件。</strong>不要根据单张设计图目测一个新字号。</span></li>
-          <li><span><strong>11px 只给 tabbar 与短微标签。</strong>时间、帮助、卡片副标题至少 12px，正文 14px。</span></li>
-          <li><span><strong>同一组件跨页面不得改字号。</strong>差异应由内容、状态或布局解决，不创建页面专属覆盖。</span></li>
+          <li><span><strong>11px 只给 TabBar 与微标签。</strong>首页爆款作品筛选固定 13px；时间、帮助、卡片副标题至少 12px，正文 14px。</span></li>
+          <li><span><strong>首页筛选不与其他 Tab 混用。</strong>只复用 `.mobile-home-filter-tab` 及其指示器、键盘行为和动效参数。</span></li>
           <li><span><strong>按钮和输入标签统一 14/20 Semibold。</strong>常规触控区至少 44px，紧凑操作至少 36px。</span></li>
           <li><span><strong>长文本必须用正文行高。</strong>详情、评论、规则和说明使用 14/22，不压缩成 Caption。</span></li>
           <li><span><strong>弱层级优先调整颜色。</strong>Primary、Secondary、Tertiary 三层足够，不用透明度叠加到不可读。</span></li>
-          <li><span><strong>数字启用 tabular-nums。</strong>积分、奖励、进度和统计保持对齐；表达性大字可超出 36px。</span></li>
+          <li><span><strong>数字启用 tabular-nums。</strong>浏览、喜欢与内容统计保持对齐；表达性大字可超出 36px。</span></li>
           <li><span><strong>验收 360 / 390 / 430 三档。</strong>检查无横向滚动、标题不碰撞、正文不截断、tabbar 不变形。</span></li>
         </ol>
       </section>
 
-      <footer class="guide-footer"><strong>多元拾光 Mobile UI System v1.1</strong><br>设计令牌：mobile-design-tokens.css · 展示标题：mobile-display-heading.css · 页面兼容层：mobile-h5.css · 范围：24 个移动端 H5 原型</footer>
+      <footer class="guide-footer"><strong>多元拾光 Mobile UI System v1.4</strong><br>更新于 2026-08-26 · 颜色基线：Web design-tokens.css · 页面基线：移动首页与社区 · 设计令牌：mobile-design-tokens.css · 范围：2 个移动端 H5 原型</footer>
     </main>
   </div>
   <div id="guide-toast" class="guide-toast" role="status" aria-live="polite">已复制 token</div>
@@ -990,6 +1158,87 @@
           }
         });
       });
+
+      const homeHotTabs = document.querySelector('[data-home-hot-tabs]');
+      if (homeHotTabs) {
+        const tabs = [...homeHotTabs.querySelectorAll('[role="tab"]')];
+        const indicator = homeHotTabs.querySelector('.demo-home-filter-indicator');
+        const feed = homeHotTabs.closest('.demo-home-filter-shell').querySelector('.demo-home-filter-feed');
+        const items = [...feed.querySelectorAll('[data-content-type]')];
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let indicatorReady = false;
+        let indicatorTimer;
+        let filterTimer;
+
+        const moveIndicator = (target, immediate = false) => {
+          if (!target || !indicator) return;
+          requestAnimationFrame(() => {
+            const jump = immediate || !indicatorReady;
+            indicator.classList.toggle('is-jump', jump);
+            homeHotTabs.style.setProperty('--guide-home-glide-x', `${target.offsetLeft}px`);
+            homeHotTabs.style.setProperty('--guide-home-glide-y', `${target.offsetTop}px`);
+            homeHotTabs.style.setProperty('--guide-home-glide-w', `${target.offsetWidth}px`);
+            homeHotTabs.style.setProperty('--guide-home-glide-h', `${target.offsetHeight}px`);
+            homeHotTabs.style.setProperty('--guide-home-glide-radius', getComputedStyle(target).borderRadius);
+            indicator.classList.add('is-visible');
+
+            if (!jump) {
+              clearTimeout(indicatorTimer);
+              indicator.classList.remove('is-moving');
+              void indicator.offsetWidth;
+              indicator.classList.add('is-moving');
+              indicatorTimer = setTimeout(() => indicator.classList.remove('is-moving'), 540);
+            }
+
+            requestAnimationFrame(() => indicator.classList.remove('is-jump'));
+            indicatorReady = true;
+          });
+        };
+
+        const filterFeed = (filter) => {
+          clearTimeout(filterTimer);
+          feed.classList.add('is-filtering');
+          feed.setAttribute('aria-busy', 'true');
+          filterTimer = setTimeout(() => {
+            items.forEach((item) => { item.hidden = filter !== 'all' && item.dataset.contentType !== filter; });
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+              feed.classList.remove('is-filtering');
+              feed.removeAttribute('aria-busy');
+            }));
+          }, reducedMotion.matches ? 0 : 150);
+        };
+
+        const selectTab = (target, moveFocus = false) => {
+          if (!target) return;
+          tabs.forEach((tab) => {
+            const active = tab === target;
+            tab.classList.toggle('is-active', active);
+            tab.setAttribute('aria-selected', String(active));
+            tab.tabIndex = active ? 0 : -1;
+          });
+          moveIndicator(target);
+          filterFeed(target.dataset.filter);
+          if (moveFocus) target.focus();
+        };
+
+        homeHotTabs.addEventListener('click', (event) => selectTab(event.target.closest('[role="tab"]')));
+        homeHotTabs.addEventListener('keydown', (event) => {
+          if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+          const current = tabs.indexOf(event.target);
+          if (current < 0) return;
+          event.preventDefault();
+          let next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : current + (event.key === 'ArrowRight' ? 1 : -1);
+          next = (next + tabs.length) % tabs.length;
+          tabs[next].focus({ preventScroll: true });
+          tabs[next].scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+          selectTab(tabs[next]);
+        });
+
+        const resetIndicator = () => moveIndicator(tabs.find((tab) => tab.classList.contains('is-active')), true);
+        if (document.fonts?.ready) document.fonts.ready.then(resetIndicator);
+        else resetIndicator();
+        window.addEventListener('resize', resetIndicator);
+      }
 
       const registrySearch = document.querySelector('#registry-search');
       const registryItems = [...document.querySelectorAll('.registry-item')];

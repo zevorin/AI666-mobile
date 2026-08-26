@@ -288,11 +288,46 @@
     if (label && idle && active) label.textContent = pressed ? active : idle;
   };
 
+  const mobileLikeCelebrationTimers = new WeakMap();
+  const clearMobileLikeCelebration = (button) => {
+    const activeTimer = mobileLikeCelebrationTimers.get(button);
+    if (activeTimer) window.clearTimeout(activeTimer);
+    mobileLikeCelebrationTimers.delete(button);
+    button.classList.remove("is-like-celebrating");
+    button.querySelector(".mobile-like-burst")?.remove();
+  };
+
+  const celebrateMobileLike = (button) => {
+    clearMobileLikeCelebration(button);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const icon = button.querySelector(".mobile-like-icon");
+    if (!icon) return;
+
+    const burst = document.createElement("span");
+    burst.className = "mobile-like-burst";
+    burst.setAttribute("aria-hidden", "true");
+    for (let index = 0; index < 8; index += 1) {
+      const particle = document.createElement("span");
+      particle.className = "mobile-like-particle";
+      burst.appendChild(particle);
+    }
+
+    icon.appendChild(burst);
+    void icon.offsetWidth;
+    button.classList.add("is-like-celebrating");
+    const cleanupTimer = window.setTimeout(() => clearMobileLikeCelebration(button), 680);
+    mobileLikeCelebrationTimers.set(button, cleanupTimer);
+  };
+
   document.querySelectorAll("[data-mobile-toggle]").forEach((button) => {
     button.addEventListener("click", () => {
       const pressed = button.getAttribute("aria-pressed") === "true";
       button.setAttribute("aria-pressed", pressed ? "false" : "true");
       updatePressedLabel(button, !pressed);
+      if (button.matches("[data-mobile-like-action]")) {
+        if (pressed) clearMobileLikeCelebration(button);
+        else celebrateMobileLike(button);
+      }
       showToast(pressed ? (button.dataset.offMessage || "已取消") : (button.dataset.onMessage || "已完成"));
     });
   });
@@ -373,17 +408,17 @@
   }, { passive: true });
 
   const appbar = document.querySelector("[data-mobile-appbar]");
-  let appbarFrame = 0;
-  const syncAppbar = () => {
-    appbarFrame = 0;
-    appbar?.classList.toggle("is-scrolled", window.scrollY > 8);
-  };
-  const requestAppbarSync = () => {
-    if (appbarFrame) return;
-    appbarFrame = window.requestAnimationFrame(syncAppbar);
-  };
-  syncAppbar();
-  window.addEventListener("scroll", requestAppbarSync, { passive: true });
+  if (appbar && "IntersectionObserver" in window) {
+    const appbarSentinel = document.createElement("span");
+    appbarSentinel.className = "mobile-appbar-sentinel";
+    appbarSentinel.setAttribute("aria-hidden", "true");
+    appbar.before(appbarSentinel);
+    const appbarObserver = new IntersectionObserver(([entry]) => {
+      appbar.classList.toggle("is-scrolled", !entry.isIntersecting);
+    }, { threshold: 0 });
+    appbarObserver.observe(appbarSentinel);
+    window.addEventListener("pagehide", () => appbarObserver.disconnect(), { once: true });
+  }
 
   document.querySelectorAll("[data-mobile-focus-target]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -1316,12 +1351,18 @@
     const createModeInput = createComposer.querySelector("[data-mobile-create-mode-input]");
     const createAttachment = createComposer.querySelector("[data-mobile-create-attachment]");
     const createInputRow = createComposer.querySelector(".mobile-create-input-row");
+    const createReferenceRow = createComposer.querySelector("[data-mobile-create-reference-row]");
+    const createReferencePreview = createComposer.querySelector("[data-mobile-create-reference-preview]");
     const createSettingsSummary = createComposer.querySelector("[data-mobile-create-settings-summary]");
     const createSettingsCost = createComposer.querySelector("[data-mobile-create-settings-cost]");
+    const createModelIcon = createComposer.querySelector("[data-mobile-create-model-icon]");
     const createEmpty = createWorkspace.querySelector("[data-mobile-create-empty]");
     const createSource = createWorkspace.querySelector("[data-mobile-create-source]");
-    const settingsSheet = document.querySelector("[data-mobile-create-settings-sheet]");
+    const modelPopover = document.querySelector("[data-mobile-create-model-popover]");
+    const modelTrigger = createComposer.querySelector("[data-mobile-create-model-open]");
+    const modelTitle = modelPopover?.querySelector("[data-mobile-create-model-title]");
     const historySheet = document.querySelector("[data-mobile-create-history-sheet]");
+    const previewDialog = document.querySelector("[data-mobile-create-preview-dialog]");
     const requestedCreateMode = params.get("mode");
     const createState = {
       mode: ["image", "script", "video"].includes(requestedCreateMode) ? requestedCreateMode : "image",
@@ -1380,6 +1421,22 @@
       sheet.classList.toggle("is-open", open);
       sheet.setAttribute("aria-hidden", open ? "false" : "true");
     };
+    const setCreateModelPopover = (open, { returnFocus = true } = {}) => {
+      if (!modelPopover || !modelTrigger) return;
+      const wasOpen = modelPopover.classList.contains("is-open");
+      if (!open && !wasOpen) return;
+      modelPopover.classList.toggle("is-open", open);
+      modelPopover.setAttribute("aria-hidden", open ? "false" : "true");
+      modelTrigger.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) {
+        requestAnimationFrame(() => {
+          const activePanel = modelPopover.querySelector("[data-mobile-create-setting-panel]:not([hidden])");
+          (activePanel?.querySelector(".mobile-model-card.is-selected") || activePanel?.querySelector(".mobile-model-card"))?.focus();
+        });
+      } else if (returnFocus) {
+        modelTrigger.focus();
+      }
+    };
     const syncCreatePrompt = () => {
       if (!createPrompt) return;
       createPrompt.style.height = "auto";
@@ -1389,14 +1446,16 @@
     };
     const syncCreateSummary = () => {
       const state = createState[createState.mode];
-      if (createSettingsSummary) {
-        createSettingsSummary.textContent = createState.mode === "video"
-          ? `${state.model} / ${state.ratio} / ${state.duration}`
-          : createState.mode === "script"
-            ? `${state.model} · ${state.format}`
-            : `${state.model} · ${state.ratio}`;
-      }
-      if (createSettingsCost) createSettingsCost.textContent = `预计消耗 ${state.cost} 积分`;
+      if (createSettingsSummary) createSettingsSummary.textContent = state.model;
+      if (createSettingsCost) createSettingsCost.textContent = String(state.cost);
+      createComposer.querySelectorAll("[data-mobile-create-parameter]").forEach((button) => {
+        const key = button.dataset.mobileCreateParameter;
+        const visible = (key === "ratio" && createState.mode !== "script") || (key === "duration" && createState.mode === "video");
+        button.hidden = !visible;
+        const label = button.querySelector(`[data-mobile-create-parameter-label="${key}"]`);
+        if (label && visible) label.textContent = state[key];
+        if (visible) button.title = key === "duration" ? `视频时长：${state[key]}` : `画面比例：${state[key]}`;
+      });
     };
     const syncCreateMode = (mode) => {
       createState.mode = ["image", "script", "video"].includes(mode) ? mode : "image";
@@ -1415,22 +1474,34 @@
         syncCreatePrompt();
       }
       if (createAttachment) {
-        createAttachment.hidden = createState.mode === "script";
         const attachmentLabel = createAttachment.classList.contains("is-selected")
           ? (createState.mode === "video" ? "移除首帧图片" : "移除参考图")
           : (createState.mode === "video" ? "添加首帧图片" : "添加参考图");
         createAttachment.setAttribute("aria-label", attachmentLabel);
         createAttachment.setAttribute("title", attachmentLabel);
       }
+      if (createReferenceRow) createReferenceRow.hidden = createState.mode === "script";
+      if (createModelIcon) {
+        createModelIcon.src = createState.mode === "video"
+          ? "../../resources/icons/remixicon/svg/model/video.svg"
+          : createState.mode === "script"
+            ? "../../resources/icons/remixicon/svg/model/text.svg"
+            : "../../resources/icons/remixicon/svg/model/pic.svg";
+      }
       createInputRow?.classList.toggle("is-script", createState.mode === "script");
+      createInputRow?.classList.toggle("is-video", createState.mode === "video");
       createComposer.querySelectorAll("[data-mobile-create-mode]").forEach((button) => {
         const selected = button.dataset.mobileCreateMode === createState.mode;
-        button.classList.toggle("is-selected", selected);
+        button.classList.toggle("is-active", selected);
+        button.setAttribute("aria-selected", selected ? "true" : "false");
         button.setAttribute("aria-pressed", selected ? "true" : "false");
       });
       document.querySelectorAll("[data-mobile-create-setting-panel]").forEach((panel) => {
         panel.hidden = panel.dataset.mobileCreateSettingPanel !== createState.mode;
       });
+      if (modelTitle) {
+        modelTitle.textContent = createState.mode === "video" ? "视频模型" : createState.mode === "script" ? "剧本模型" : "图片模型";
+      }
       syncCreateSummary();
     };
     const renderCreateSource = () => {
@@ -1474,6 +1545,16 @@
         createPrompt.setSelectionRange(prompt.length, prompt.length);
       });
     });
+    createWorkspace.querySelectorAll("[data-mobile-create-filter]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const options = (button.dataset.filterOptions || "").split("|").filter(Boolean);
+        const label = button.querySelector("span");
+        if (!label || !options.length) return;
+        const nextIndex = (options.indexOf(label.textContent.trim()) + 1) % options.length;
+        label.textContent = options[nextIndex];
+        showToast(`已切换为${options[nextIndex]}`);
+      });
+    });
     document.querySelectorAll("[data-mobile-create-choice-group]").forEach((group) => {
       group.querySelectorAll("[data-mobile-create-choice]").forEach((button) => {
         button.addEventListener("click", () => {
@@ -1483,6 +1564,21 @@
           else createState[createState.mode][key] = button.dataset.mobileCreateChoice;
           syncCreateSummary();
         });
+      });
+    });
+    const createParameterOptions = {
+      ratio: ["1:1", "16:9", "9:16"],
+      duration: ["5 秒", "8 秒", "10 秒"],
+    };
+    createComposer.querySelectorAll("[data-mobile-create-parameter]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const key = button.dataset.mobileCreateParameter;
+        const options = createParameterOptions[key];
+        const state = createState[createState.mode];
+        if (!options || !(key in state)) return;
+        const currentIndex = options.indexOf(state[key]);
+        state[key] = options[(currentIndex + 1) % options.length];
+        syncCreateSummary();
       });
     });
     document.querySelectorAll("[data-mobile-create-setting-panel]").forEach((panel) => {
@@ -1502,6 +1598,7 @@
           createState[mode].model = selectedModel;
           createState[mode].cost = selectedCost;
           syncCreateSummary();
+          setCreateModelPopover(false);
         });
       });
     });
@@ -1512,17 +1609,18 @@
       createAttachment.setAttribute("title", createAttachment.getAttribute("aria-label"));
       showToast(selected ? (createState.mode === "video" ? "已添加首帧图片" : "已添加参考图") : "已移除图片");
     });
-    document.querySelector("[data-mobile-create-settings-open]")?.addEventListener("click", () => setCreateSheet(settingsSheet, true));
-    document.querySelectorAll("[data-mobile-create-settings-close]").forEach((button) => button.addEventListener("click", () => setCreateSheet(settingsSheet, false)));
+    createReferencePreview?.addEventListener("click", () => showToast("参考图已带入当前创作"));
+    modelTrigger?.addEventListener("click", () => setCreateModelPopover(true));
+    document.querySelectorAll("[data-mobile-create-model-close]").forEach((button) => button.addEventListener("click", () => setCreateModelPopover(false)));
     document.querySelector("[data-mobile-create-history-open]")?.addEventListener("click", () => setCreateSheet(historySheet, true));
     document.querySelectorAll("[data-mobile-create-history-close]").forEach((button) => button.addEventListener("click", () => setCreateSheet(historySheet, false)));
     createPrompt?.addEventListener("input", syncCreatePrompt);
     const createTaskStates = {
-      queue: { status: "排队中 · 18%", title: (kind) => `正在等待${kind}生成`, meta: (model) => `${model} · 任务后台继续`, action: "刷新状态" },
-      running: { status: "生成中 · 68%", title: (kind) => `正在生成${kind}`, meta: (model) => `${model} · 任务后台继续`, action: "刷新状态" },
-      success: { status: "生成成功", title: (kind) => `${kind}已生成`, meta: (model) => `${model} · 点击预览查看结果`, action: "查看结果" },
-      failed: { status: "生成失败", title: () => "请调整提示词后重试", meta: () => "本次未生成作品", action: "返回修改" },
-      unknown: { status: "状态待确认", title: (kind) => `${kind}任务仍在处理`, meta: (model) => `${model} · 可稍后刷新`, action: "刷新状态" },
+      queue: { status: "排队中", progress: "18%", meta: "正在等待生成资源" },
+      running: { status: "生成中", progress: "68%", meta: "任务会在后台继续" },
+      success: { status: "生成完成", progress: "100%", meta: "点击预览查看结果" },
+      failed: { status: "生成失败", progress: "", meta: "本次未生成作品" },
+      unknown: { status: "状态待确认", progress: "", meta: "可稍后再次查看" },
     };
     const createResultUrl = (mode, model) => {
       const query = new URLSearchParams({ mode });
@@ -1535,19 +1633,53 @@
       if (sourceType) query.set("source", sourceType);
       window.history.replaceState(null, "", `${window.location.pathname}?${query.toString()}`);
     };
+    let activeCreateTask = null;
+    const setPreviewDialog = (open) => {
+      if (!previewDialog) return;
+      previewDialog.classList.toggle("is-open", open);
+      previewDialog.setAttribute("aria-hidden", open ? "false" : "true");
+      document.body.classList.toggle("has-create-preview", open);
+    };
     const appendCreateTask = (submittedPrompt, initialState = "running", { scroll = false, restored = false } = {}) => {
       const taskMode = createState.mode;
       const taskKind = taskMode === "video" ? "视频" : taskMode === "script" ? "剧本" : "图片";
-      const taskModel = restored && params.get("model") ? params.get("model") : createState[taskMode].model;
+      const taskSettings = createState[taskMode];
+      const taskModel = restored && params.get("model") ? params.get("model") : taskSettings.model;
       let taskState = createTaskStates[initialState] ? initialState : "running";
       const createThread = createWorkspace.querySelector(".mobile-create-thread");
+      const now = new Date();
+      const pad = (value) => String(value).padStart(2, "0");
+
+      activeCreateTask?.remove?.();
+
       const userTurn = document.createElement("article");
       userTurn.className = "mobile-create-turn is-user";
+      const taskDate = document.createElement("h2");
+      taskDate.className = "mobile-create-task-date";
+      taskDate.textContent = `${now.getMonth() + 1}.${pad(now.getDate())}`;
+      const submissionHead = document.createElement("div");
+      submissionHead.className = "mobile-create-submission-head";
+      const submissionThumb = document.createElement("img");
+      submissionThumb.className = "mobile-create-submission-thumb";
+      submissionThumb.src = taskMode === "video" ? "../../assets/image_assets/4.png" : taskMode === "script" ? "../../assets/image_assets/17.png" : "../../assets/image_assets/15.jpg";
+      submissionThumb.alt = `${taskKind}创作参考`;
+      const submissionCopy = document.createElement("div");
+      submissionCopy.className = "mobile-create-submission-copy";
+      const submissionChips = document.createElement("div");
+      submissionChips.className = "mobile-create-submission-chips";
+      [taskModel, taskSettings.ratio, taskSettings.duration, `${taskSettings.cost} 积分`].filter(Boolean).forEach((text) => {
+        const chip = document.createElement("span");
+        chip.textContent = text;
+        submissionChips.append(chip);
+      });
       const userPrompt = document.createElement("p");
       userPrompt.textContent = submittedPrompt;
-      const userMeta = document.createElement("small");
-      userMeta.textContent = taskMode === "script" ? "剧本创作" : `${taskKind}生成`;
-      userTurn.append(userPrompt, userMeta);
+      submissionCopy.append(submissionChips, userPrompt);
+      submissionHead.append(submissionThumb, submissionCopy);
+      const submittedAt = document.createElement("time");
+      submittedAt.dateTime = now.toISOString();
+      submittedAt.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+      userTurn.append(taskDate, submissionHead, submittedAt);
 
       const taskTurn = document.createElement("article");
       taskTurn.className = "mobile-create-turn is-task";
@@ -1555,15 +1687,21 @@
       const taskPreview = document.createElement("button");
       taskPreview.className = `mobile-create-task-preview${taskMode === "video" ? " is-video" : taskMode === "script" ? " is-script" : ""}`;
       taskPreview.type = "button";
-      taskPreview.hidden = true;
       const taskPreviewContent = document.createElement(taskMode === "script" ? "article" : "img");
       if (taskMode === "script") {
         taskPreviewContent.className = "mobile-create-script-preview";
         taskPreviewContent.innerHTML = "<span>Markdown 预览</span><strong>雨夜霓虹街头 · 分镜设定</strong><p>主角在雨幕中确认追踪者，镜头切入手部道具和远处剪影。</p><ul><li>人物与冲突已拆解</li><li>三段分镜节奏已生成</li></ul>";
       } else {
-        taskPreviewContent.src = taskMode === "video" ? "../../assets/image_assets/4.png" : "../../assets/image_assets/15.jpg";
+        taskPreviewContent.src = taskMode === "video" ? "../../assets/image_assets/4.png" : "../../assets/image_assets/15-mobile-result-v2.png";
         taskPreviewContent.alt = `${taskKind}生成结果预览`;
       }
+      const taskProgress = document.createElement("span");
+      taskProgress.className = "mobile-create-task-progress";
+      const taskProgressCopy = document.createElement("span");
+      const taskProgressStatus = document.createElement("strong");
+      const taskProgressValue = document.createElement("span");
+      taskProgressCopy.append(taskProgressStatus, document.createTextNode(" "), taskProgressValue);
+      taskProgress.append(taskProgressCopy);
       const taskPreviewLabel = document.createElement("span");
       taskPreviewLabel.className = "mobile-create-task-preview-label";
       const taskPreviewIcon = document.createElement("img");
@@ -1571,84 +1709,84 @@
       taskPreviewIcon.src = "../../resources/icons/remixicon/svg/System/eye-line.svg";
       taskPreviewIcon.alt = "";
       taskPreviewLabel.append(taskPreviewIcon, document.createTextNode("查看结果"));
-      taskPreview.append(taskPreviewContent, taskPreviewLabel);
+      taskPreview.append(taskPreviewContent, taskProgress, taskPreviewLabel);
 
-      const taskIcon = document.createElement("span");
-      taskIcon.className = "mobile-create-task-icon";
-      const taskIconImage = document.createElement("img");
-      taskIconImage.className = "mobile-icon";
-      taskIconImage.src = "../../resources/icons/remixicon/svg/Design/magic-line.svg";
-      taskIconImage.alt = "";
-      taskIcon.append(taskIconImage);
-      const taskCopy = document.createElement("span");
-      taskCopy.className = "mobile-create-task-copy";
-      const taskStatus = document.createElement("small");
-      taskStatus.className = "mobile-create-task-status";
-      const taskTitle = document.createElement("strong");
+      const taskSummary = document.createElement("div");
+      taskSummary.className = "mobile-create-task-summary";
+      const taskStatus = document.createElement("strong");
       const taskMeta = document.createElement("span");
-      taskCopy.append(taskStatus, taskTitle, taskMeta);
-      const taskAction = document.createElement("button");
-      taskAction.className = "mobile-create-task-action";
-      taskAction.type = "button";
-      const taskActionIcon = document.createElement("img");
-      taskActionIcon.className = "mobile-icon";
-      taskActionIcon.alt = "";
-      taskAction.append(taskActionIcon);
-      taskTurn.append(taskPreview, taskIcon, taskCopy, taskAction);
+      taskSummary.append(taskStatus, taskMeta);
+      const taskActions = document.createElement("div");
+      taskActions.className = "mobile-create-task-actions";
+      const editAction = document.createElement("button");
+      editAction.type = "button";
+      editAction.innerHTML = '<img class="mobile-icon" src="../../resources/icons/remixicon/svg/Document/file-edit-line.svg" alt=""><span>重新编辑</span>';
+      const regenerateAction = document.createElement("button");
+      regenerateAction.type = "button";
+      regenerateAction.innerHTML = '<img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/refresh-line.svg" alt=""><span>重新生成</span>';
+      taskActions.append(editAction, regenerateAction);
+      taskTurn.append(taskPreview, taskSummary, taskActions);
 
       const openTaskResult = () => {
         if (taskState !== "success") {
-          showToast("生成完成后可查看结果");
+          taskState = "success";
+          renderCreateTask();
+          showToast("生成完成，可点击查看结果");
           return;
         }
-        window.location.href = createResultUrl(taskMode, taskModel);
+        if (taskMode === "image" && previewDialog) setPreviewDialog(true);
+        else window.location.href = createResultUrl(taskMode, taskModel);
       };
       const renderCreateTask = () => {
         const state = createTaskStates[taskState];
         taskTurn.dataset.state = taskState;
         taskStatus.textContent = state.status;
-        const scriptStateTitles = {
-          queue: "正在等待剧本创作",
-          running: "正在拆解故事与分镜",
-          success: "剧本已生成",
-          failed: "请调整故事设定后重试",
-          unknown: "剧本任务仍在处理",
-        };
-        taskTitle.textContent = taskMode === "script" ? scriptStateTitles[taskState] : state.title(taskKind);
-        taskMeta.textContent = state.meta(taskModel);
-        taskPreview.hidden = taskState !== "success";
-        taskActionIcon.src = taskState === "success"
-          ? "../../resources/icons/remixicon/svg/System/eye-line.svg"
-          : "../../resources/icons/remixicon/svg/System/refresh-line.svg";
-        taskAction.setAttribute("aria-label", state.action);
+        taskMeta.textContent = `${taskModel} · ${state.meta}`;
+        taskProgressStatus.textContent = state.status;
+        taskProgressValue.textContent = state.progress;
+        taskPreviewLabel.hidden = taskState !== "success";
+        taskPreview.setAttribute("aria-label", taskState === "success" ? "查看生成结果" : "更新生成状态");
         syncCreateTaskUrl({ mode: taskMode, state: taskState, prompt: submittedPrompt, model: taskModel });
       };
-      taskPreview.addEventListener("click", openTaskResult);
-      taskAction.addEventListener("click", () => {
-        if (taskState === "success") {
-          openTaskResult();
-          return;
-        }
-        if (taskState === "failed") {
-          createPrompt.value = submittedPrompt;
-          syncCreatePrompt();
-          createPrompt.focus();
-          showToast("已恢复原提示词");
-          return;
-        }
-        taskState = "success";
+      const removeTask = () => {
+        userTurn.remove();
+        taskTurn.remove();
+        document.body.classList.remove("has-create-task");
+        if (createEmpty) createEmpty.hidden = false;
+        createPrompt.placeholder = createState.mode === "script" ? "人物关系、核心冲突或短片想法" : createState.mode === "video" ? "画面内容、镜头运动和节奏" : "主体、场景、风格、光线和构图";
+        window.history.replaceState(null, "", window.location.pathname);
+        activeCreateTask = null;
+      };
+      const editTask = () => {
+        setPreviewDialog(false);
+        removeTask();
+        createPrompt.value = submittedPrompt;
+        syncCreatePrompt();
+        createPrompt.focus();
+        showToast("已恢复原提示词");
+      };
+      const regenerateTask = () => {
+        setPreviewDialog(false);
+        taskState = "running";
         renderCreateTask();
-        showToast("生成完成，可点击结果预览");
-      });
+        taskTurn.scrollIntoView({ behavior: "smooth", block: "center" });
+        showToast("已重新发起生成");
+      };
+      taskPreview.addEventListener("click", openTaskResult);
+      editAction.addEventListener("click", editTask);
+      regenerateAction.addEventListener("click", regenerateTask);
       renderCreateTask();
       if (createEmpty) createEmpty.hidden = true;
+      document.body.classList.add("has-create-task");
       if (createThread) {
         const turnAnchor = createThread.querySelector("[data-mobile-create-empty]");
         createThread.insertBefore(userTurn, turnAnchor);
         createThread.insertBefore(taskTurn, turnAnchor);
       }
       createPrompt.value = "";
+      createPrompt.placeholder = "继续描述你的想法";
       syncCreatePrompt();
+      activeCreateTask = { remove: removeTask, edit: editTask, regenerate: regenerateTask, complete: openTaskResult };
       if (scroll) taskTurn.scrollIntoView({ behavior: "auto", block: "center" });
     };
     createComposer.addEventListener("submit", (event) => {
@@ -1662,9 +1800,28 @@
       appendCreateTask(submittedPrompt, "running", { scroll: true });
       showToast(createState.mode === "script" ? "剧本创作任务已创建" : "生成任务已创建");
     });
+    document.querySelectorAll("[data-mobile-create-preview-close]").forEach((button) => {
+      button.addEventListener("click", () => setPreviewDialog(false));
+    });
+    document.querySelectorAll("[data-mobile-create-preview-action]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const action = button.dataset.mobileCreatePreviewAction;
+        if (action === "edit") activeCreateTask?.edit?.();
+        else if (action === "regenerate") activeCreateTask?.regenerate?.();
+        else if (action === "favorite") {
+          const selected = button.classList.toggle("is-selected");
+          showToast(selected ? "已收藏生成结果" : "已取消收藏");
+        } else if (action === "delete") {
+          setPreviewDialog(false);
+          activeCreateTask?.remove?.();
+          showToast("已从当前记录移除");
+        } else if (action === "hd") showToast("当前预览已是高清版本");
+      });
+    });
     document.addEventListener("keydown", (event) => {
       if (event.key !== "Escape") return;
-      setCreateSheet(settingsSheet, false);
+      setPreviewDialog(false);
+      setCreateModelPopover(false);
       setCreateSheet(historySheet, false);
     });
     const restoredModel = params.get("model");
@@ -1954,7 +2111,7 @@
       if (image) image.hidden = true;
       if (video) video.hidden = false;
       if (title) title.textContent = "海灯守望";
-      if (meta) meta.textContent = `${resultModel || "Seedance 2.0"} · 16:9 · 8 秒`;
+      if (meta) meta.textContent = `${resultModel || "Seedance 2.0"} · 16:9 / 8 秒`;
       if (prompt) prompt.textContent = "暮色中的海边灯塔被潮湿薄雾包围，远处海浪反射出零碎的冷蓝色月光。镜头从礁石与翻涌浪花开始，缓慢向上抬升并绕过塔身，掠过被海风吹动的旧旗与斑驳墙面。最后灯塔暖黄色光束点亮，在雾中旋转扫过海面，画面停留在光束与远方船影交汇的瞬间，整体保持克制、孤独又温暖的电影质感。";
     }
     if (resultMode === "script") {
