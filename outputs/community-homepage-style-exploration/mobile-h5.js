@@ -1355,20 +1355,20 @@
     const createReferencePreview = createComposer.querySelector("[data-mobile-create-reference-preview]");
     const createSettingsSummary = createComposer.querySelector("[data-mobile-create-settings-summary]");
     const createSettingsCost = createComposer.querySelector("[data-mobile-create-settings-cost]");
-    const createModelIcon = createComposer.querySelector("[data-mobile-create-model-icon]");
     const createEmpty = createWorkspace.querySelector("[data-mobile-create-empty]");
     const createSource = createWorkspace.querySelector("[data-mobile-create-source]");
     const modelPopover = document.querySelector("[data-mobile-create-model-popover]");
     const modelTrigger = createComposer.querySelector("[data-mobile-create-model-open]");
-    const modelTitle = modelPopover?.querySelector("[data-mobile-create-model-title]");
+    const createModeTabs = createComposer.querySelector("[data-mobile-create-mode-tabs]");
+    const createModeButtons = [...(createModeTabs?.querySelectorAll("[data-mobile-create-mode]") || [])];
     const historySheet = document.querySelector("[data-mobile-create-history-sheet]");
     const previewDialog = document.querySelector("[data-mobile-create-preview-dialog]");
     const requestedCreateMode = params.get("mode");
     const createState = {
       mode: ["image", "script", "video"].includes(requestedCreateMode) ? requestedCreateMode : "image",
-      image: { model: "Flux Pro 1.1", cost: 20, ratio: "1:1" },
+      image: { model: "Flux Pro 1.1", cost: 20, resolution: "2K", ratio: "1:1" },
       script: { model: "gemini-3-flash-preview", cost: 8, format: "Markdown 文本" },
-      video: { model: "Seedance 2.0", cost: 64, ratio: "16:9", duration: "8 秒" },
+      video: { model: "Seedance 2.0", cost: 64, resolution: "720p", ratio: "16:9", duration: "8秒" },
     };
     const sourceType = params.get("source") || "";
     const sourceData = {
@@ -1423,10 +1423,10 @@
     };
     const setCreateModelPopover = (open, { returnFocus = true } = {}) => {
       if (!modelPopover || !modelTrigger) return;
-      const wasOpen = modelPopover.classList.contains("is-open");
+      const wasOpen = modelPopover.open;
       if (!open && !wasOpen) return;
+      modelPopover.open = open;
       modelPopover.classList.toggle("is-open", open);
-      modelPopover.setAttribute("aria-hidden", open ? "false" : "true");
       modelTrigger.setAttribute("aria-expanded", open ? "true" : "false");
       if (open) {
         requestAnimationFrame(() => {
@@ -1437,10 +1437,60 @@
         modelTrigger.focus();
       }
     };
+    const createModeReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let createModeIndicator = null;
+    let createModeIndicatorReady = false;
+    let createModeIndicatorTimer = 0;
+    const moveCreateModeIndicator = (tab, immediate = false) => {
+      if (!createModeTabs || !createModeIndicator || !tab) return;
+      window.requestAnimationFrame(() => {
+        if (!tab.offsetWidth || !tab.offsetHeight) return;
+        const jump = immediate || !createModeIndicatorReady;
+        createModeIndicator.classList.toggle("is-jump", jump);
+        createModeTabs.style.setProperty("--mobile-home-glide-x", `${tab.offsetLeft}px`);
+        createModeTabs.style.setProperty("--mobile-home-glide-y", `${tab.offsetTop}px`);
+        createModeTabs.style.setProperty("--mobile-home-glide-width", `${tab.offsetWidth}px`);
+        createModeTabs.style.setProperty("--mobile-home-glide-height", `${tab.offsetHeight}px`);
+        createModeTabs.style.setProperty("--mobile-home-glide-radius", getComputedStyle(tab).borderRadius);
+        createModeIndicator.classList.add("is-visible");
+        createModeIndicatorReady = true;
+        window.clearTimeout(createModeIndicatorTimer);
+        createModeIndicator.classList.remove("is-moving");
+        if (!jump) {
+          void createModeIndicator.offsetWidth;
+          createModeIndicator.classList.add("is-moving");
+          createModeIndicatorTimer = window.setTimeout(() => createModeIndicator.classList.remove("is-moving"), createModeReduceMotion.matches ? 240 : 540);
+        }
+        if (jump) window.requestAnimationFrame(() => createModeIndicator.classList.remove("is-jump"));
+      });
+    };
+    if (createModeTabs && createModeButtons.length > 1) {
+      createModeIndicator = document.createElement("span");
+      createModeIndicator.className = "mobile-home-filter-indicator";
+      createModeIndicator.setAttribute("aria-hidden", "true");
+      createModeTabs.prepend(createModeIndicator);
+      createModeButtons.forEach((button, index) => {
+        button.tabIndex = button.classList.contains("is-active") ? 0 : -1;
+        button.addEventListener("keydown", (event) => {
+          if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+          event.preventDefault();
+          let nextIndex = index;
+          if (event.key === "Home") nextIndex = 0;
+          if (event.key === "End") nextIndex = createModeButtons.length - 1;
+          if (event.key === "ArrowRight") nextIndex = (index + 1) % createModeButtons.length;
+          if (event.key === "ArrowLeft") nextIndex = (index - 1 + createModeButtons.length) % createModeButtons.length;
+          const nextButton = createModeButtons[nextIndex];
+          nextButton.focus({ preventScroll: true });
+          nextButton.click();
+        });
+      });
+      window.addEventListener("resize", () => moveCreateModeIndicator(createModeButtons.find((button) => button.classList.contains("is-active")), true), { passive: true });
+      document.fonts?.ready.then(() => moveCreateModeIndicator(createModeButtons.find((button) => button.classList.contains("is-active")), true));
+    }
     const syncCreatePrompt = () => {
       if (!createPrompt) return;
       createPrompt.style.height = "auto";
-      createPrompt.style.height = `${Math.min(createPrompt.scrollHeight, 96)}px`;
+      createPrompt.style.height = `${Math.min(createPrompt.scrollHeight, 120)}px`;
       if (createCount) createCount.textContent = String(createPrompt.value.length);
       if (createPrompt.value.trim() && createError) createError.textContent = "";
     };
@@ -1448,14 +1498,42 @@
       const state = createState[createState.mode];
       if (createSettingsSummary) createSettingsSummary.textContent = state.model;
       if (createSettingsCost) createSettingsCost.textContent = String(state.cost);
-      createComposer.querySelectorAll("[data-mobile-create-parameter]").forEach((button) => {
-        const key = button.dataset.mobileCreateParameter;
-        const visible = (key === "ratio" && createState.mode !== "script") || (key === "duration" && createState.mode === "video");
-        button.hidden = !visible;
-        const label = button.querySelector(`[data-mobile-create-parameter-label="${key}"]`);
-        if (label && visible) label.textContent = state[key];
-        if (visible) button.title = key === "duration" ? `视频时长：${state[key]}` : `画面比例：${state[key]}`;
+      const ratioIconMap = {
+        "1:1": "../../resources/icons/lucide/square.svg",
+        "16:9": "../../resources/icons/lucide/rectangle-horizontal.svg",
+        "9:16": "../../resources/icons/lucide/rectangle-vertical.svg",
+      };
+      createComposer.querySelectorAll("[data-mobile-create-parameter]").forEach((control) => {
+        const key = control.dataset.mobileCreateParameter;
+        const stateKey = key.endsWith("-resolution") ? "resolution" : key;
+        const visible = key === "ratio"
+          ? createState.mode !== "script"
+          : key === "duration"
+            ? createState.mode === "video"
+            : key === "image-resolution"
+              ? createState.mode === "image"
+              : key === "video-resolution" && createState.mode === "video";
+        control.hidden = !visible;
+        if (!visible) control.open = false;
+        const label = control.querySelector(`[data-mobile-create-parameter-label="${stateKey}"]`);
+        if (label && visible) {
+          const ratioText = label.querySelector("[data-mobile-create-ratio-value]");
+          if (ratioText) ratioText.textContent = state[stateKey];
+          else label.textContent = state[stateKey];
+          const ratioIcon = label.querySelector("[data-mobile-create-ratio-icon]");
+          if (ratioIcon) ratioIcon.src = ratioIconMap[state[stateKey]] || ratioIconMap["1:1"];
+        }
+        const group = control.querySelector("[data-mobile-create-choice-group]");
+        group?.querySelectorAll("[data-mobile-create-choice]").forEach((option) => {
+          const selected = option.dataset.mobileCreateChoice === state[stateKey];
+          option.classList.toggle("is-selected", selected);
+          option.setAttribute("aria-pressed", selected ? "true" : "false");
+        });
       });
+      const durationInput = createComposer.querySelector("[data-mobile-create-duration-input]");
+      if (durationInput && createState.mode === "video") durationInput.value = String(parseInt(state.duration, 10));
+      const durationValue = createComposer.querySelector("[data-mobile-create-duration-value]");
+      if (durationValue && createState.mode === "video") durationValue.textContent = state.duration;
     };
     const syncCreateMode = (mode) => {
       createState.mode = ["image", "script", "video"].includes(mode) ? mode : "image";
@@ -1481,27 +1559,22 @@
         createAttachment.setAttribute("title", attachmentLabel);
       }
       if (createReferenceRow) createReferenceRow.hidden = createState.mode === "script";
-      if (createModelIcon) {
-        createModelIcon.src = createState.mode === "video"
-          ? "../../resources/icons/remixicon/svg/model/video.svg"
-          : createState.mode === "script"
-            ? "../../resources/icons/remixicon/svg/model/text.svg"
-            : "../../resources/icons/remixicon/svg/model/pic.svg";
-      }
       createInputRow?.classList.toggle("is-script", createState.mode === "script");
       createInputRow?.classList.toggle("is-video", createState.mode === "video");
-      createComposer.querySelectorAll("[data-mobile-create-mode]").forEach((button) => {
+      let activeModeTab = null;
+      createModeButtons.forEach((button) => {
         const selected = button.dataset.mobileCreateMode === createState.mode;
         button.classList.toggle("is-active", selected);
         button.setAttribute("aria-selected", selected ? "true" : "false");
         button.setAttribute("aria-pressed", selected ? "true" : "false");
+        button.tabIndex = selected ? 0 : -1;
+        if (selected) activeModeTab = button;
       });
+      moveCreateModeIndicator(activeModeTab);
       document.querySelectorAll("[data-mobile-create-setting-panel]").forEach((panel) => {
         panel.hidden = panel.dataset.mobileCreateSettingPanel !== createState.mode;
       });
-      if (modelTitle) {
-        modelTitle.textContent = createState.mode === "video" ? "视频模型" : createState.mode === "script" ? "剧本模型" : "图片模型";
-      }
+      setCreateModelPopover(false, { returnFocus: false });
       syncCreateSummary();
     };
     const renderCreateSource = () => {
@@ -1526,7 +1599,7 @@
       syncCreatePrompt();
     };
 
-    createComposer.querySelectorAll("[data-mobile-create-mode]").forEach((button) => {
+    createModeButtons.forEach((button) => {
       button.addEventListener("click", () => {
         syncCreateMode(button.dataset.mobileCreateMode);
         renderCreateSource();
@@ -1560,26 +1633,17 @@
         button.addEventListener("click", () => {
           group.querySelectorAll("[data-mobile-create-choice]").forEach((item) => item.classList.toggle("is-selected", item === button));
           const key = group.dataset.mobileCreateChoiceGroup;
-          if (key === "video-ratio") createState.video.ratio = button.dataset.mobileCreateChoice;
-          else createState[createState.mode][key] = button.dataset.mobileCreateChoice;
+          const targetMode = key.startsWith("video-") ? "video" : key.startsWith("image-") ? "image" : createState.mode;
+          const stateKey = key.endsWith("-resolution") ? "resolution" : key === "video-ratio" ? "ratio" : key;
+          createState[targetMode][stateKey] = button.dataset.mobileCreateChoice;
+          group.closest("details")?.removeAttribute("open");
           syncCreateSummary();
         });
       });
     });
-    const createParameterOptions = {
-      ratio: ["1:1", "16:9", "9:16"],
-      duration: ["5 秒", "8 秒", "10 秒"],
-    };
-    createComposer.querySelectorAll("[data-mobile-create-parameter]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const key = button.dataset.mobileCreateParameter;
-        const options = createParameterOptions[key];
-        const state = createState[createState.mode];
-        if (!options || !(key in state)) return;
-        const currentIndex = options.indexOf(state[key]);
-        state[key] = options[(currentIndex + 1) % options.length];
-        syncCreateSummary();
-      });
+    createComposer.querySelector("[data-mobile-create-duration-input]")?.addEventListener("input", (event) => {
+      createState.video.duration = `${event.currentTarget.value}秒`;
+      syncCreateSummary();
     });
     document.querySelectorAll("[data-mobile-create-setting-panel]").forEach((panel) => {
       panel.querySelectorAll("[data-mobile-create-model]").forEach((button) => {
@@ -1610,8 +1674,29 @@
       showToast(selected ? (createState.mode === "video" ? "已添加首帧图片" : "已添加参考图") : "已移除图片");
     });
     createReferencePreview?.addEventListener("click", () => showToast("参考图已带入当前创作"));
-    modelTrigger?.addEventListener("click", () => setCreateModelPopover(true));
-    document.querySelectorAll("[data-mobile-create-model-close]").forEach((button) => button.addEventListener("click", () => setCreateModelPopover(false)));
+    modelPopover?.addEventListener("toggle", () => {
+      const open = modelPopover.open;
+      modelPopover.classList.toggle("is-open", open);
+      modelTrigger?.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) {
+        createComposer.querySelectorAll(".mobile-create-selector[open]").forEach((selector) => {
+          if (selector !== modelPopover) selector.open = false;
+        });
+      }
+    });
+    createComposer.querySelectorAll(".mobile-create-selector").forEach((selector) => {
+      if (selector === modelPopover) return;
+      selector.addEventListener("toggle", () => {
+        if (!selector.open) return;
+        createComposer.querySelectorAll(".mobile-create-selector[open]").forEach((item) => {
+          if (item !== selector) item.open = false;
+        });
+      });
+    });
+    document.addEventListener("pointerdown", (event) => {
+      if (event.target.closest(".mobile-create-selector")) return;
+      createComposer.querySelectorAll(".mobile-create-selector[open]").forEach((selector) => { selector.open = false; });
+    });
     document.querySelector("[data-mobile-create-history-open]")?.addEventListener("click", () => setCreateSheet(historySheet, true));
     document.querySelectorAll("[data-mobile-create-history-close]").forEach((button) => button.addEventListener("click", () => setCreateSheet(historySheet, false)));
     createPrompt?.addEventListener("input", syncCreatePrompt);
@@ -1667,7 +1752,7 @@
       submissionCopy.className = "mobile-create-submission-copy";
       const submissionChips = document.createElement("div");
       submissionChips.className = "mobile-create-submission-chips";
-      [taskModel, taskSettings.ratio, taskSettings.duration, `${taskSettings.cost} 积分`].filter(Boolean).forEach((text) => {
+      [taskModel, taskSettings.resolution, taskSettings.ratio, taskSettings.duration, `${taskSettings.cost} 积分`].filter(Boolean).forEach((text) => {
         const chip = document.createElement("span");
         chip.textContent = text;
         submissionChips.append(chip);
@@ -1822,6 +1907,7 @@
       if (event.key !== "Escape") return;
       setPreviewDialog(false);
       setCreateModelPopover(false);
+      createComposer.querySelectorAll(".mobile-create-selector[open]").forEach((selector) => { selector.open = false; });
       setCreateSheet(historySheet, false);
     });
     const restoredModel = params.get("model");

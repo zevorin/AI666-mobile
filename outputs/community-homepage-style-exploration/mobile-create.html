@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#05070b">
   <title>多元拾光 · AIGC 生成</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260826-generation-taste-v4">
-  <script src="./mobile-h5.js?v=20260826-generation-taste-v4" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260828-create-controls-v7">
+  <script src="./mobile-h5.js?v=20260828-create-controls-v7" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="create">
   <div class="mobile-shell mobile-primary-shell mobile-create-shell">
@@ -46,10 +46,10 @@
       <input type="hidden" name="mode" value="image" data-mobile-create-mode-input>
       <input type="hidden" name="state" value="running">
       <div class="mobile-create-composer-tools">
-        <div class="mobile-filter-tabs mobile-create-mode-tabs" role="tablist" aria-label="创作类型">
-          <button class="mobile-filter-tab" type="button" role="tab" data-mobile-create-mode="video" aria-selected="false" aria-pressed="false">视频生成</button>
-          <button class="mobile-filter-tab is-active" type="button" role="tab" data-mobile-create-mode="image" aria-selected="true" aria-pressed="true">图片生成</button>
-          <button class="mobile-filter-tab" type="button" role="tab" data-mobile-create-mode="script" aria-selected="false" aria-pressed="false">剧本创作</button>
+        <div class="mobile-filter-tabs mobile-home-filter-tabs mobile-create-mode-tabs" role="tablist" aria-label="创作类型" data-mobile-create-mode-tabs>
+          <button class="mobile-filter-tab mobile-home-filter-tab" type="button" role="tab" data-mobile-create-mode="video" aria-selected="false" aria-pressed="false">视频生成</button>
+          <button class="mobile-filter-tab mobile-home-filter-tab is-active" type="button" role="tab" data-mobile-create-mode="image" aria-selected="true" aria-pressed="true">图片生成</button>
+          <button class="mobile-filter-tab mobile-home-filter-tab" type="button" role="tab" data-mobile-create-mode="script" aria-selected="false" aria-pressed="false">剧本创作</button>
         </div>
       </div>
       <div class="mobile-create-input-row">
@@ -69,23 +69,77 @@
         </div>
         <textarea id="mobile-create-prompt" name="prompt" rows="3" maxlength="1000" data-mobile-create-prompt placeholder="描述你想生成的图片">修改一个 IP 人物举着手表示很棒的样子，作出棒的手势</textarea>
         <div class="mobile-create-input-actions">
-          <button class="mobile-create-settings-button" type="button" data-mobile-create-model-open aria-controls="mobile-create-model-popover" aria-expanded="false">
-            <img class="mobile-create-model-icon" data-mobile-create-model-icon src="../../resources/icons/remixicon/svg/model/pic.svg" alt="">
-            <span class="mobile-create-settings-copy">
-              <strong data-mobile-create-settings-summary>Flux Pro 1.1</strong>
-            </span>
-            <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-down-s-line.svg" alt="">
-          </button>
-          <button class="mobile-create-parameter-button" type="button" data-mobile-create-parameter="ratio" aria-label="切换画面比例">
-            <span data-mobile-create-parameter-label="ratio">1:1</span>
-          </button>
-          <button class="mobile-create-parameter-button" type="button" data-mobile-create-parameter="duration" aria-label="切换视频时长" hidden>
-            <span data-mobile-create-parameter-label="duration">8 秒</span>
-          </button>
-          <span class="mobile-create-cost-chip"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Finance/coins-line.svg" alt=""><span data-mobile-create-settings-cost>20</span></span>
-          <button class="mobile-create-send" type="submit" aria-label="发起生成">
-            <span class="mobile-create-send-arrow" aria-hidden="true">↑</span>
-          </button>
+          <div class="mobile-create-selector-row is-primary">
+            <details id="mobile-create-model-popover" class="mobile-create-selector mobile-create-model-popover" data-mobile-create-model-popover>
+            <summary class="mobile-create-settings-button" data-mobile-create-model-open aria-controls="mobile-create-model-menu" aria-expanded="false">
+              <span class="mobile-create-settings-copy"><strong data-mobile-create-settings-summary>Flux Pro 1.1</strong></span>
+            </summary>
+            <div id="mobile-create-model-menu" class="mobile-create-selector-menu mobile-create-model-menu" aria-label="创作模型选择">
+              <section class="mobile-create-setting-panel" data-mobile-create-setting-panel="image">
+                <div class="mobile-model-list" role="group" aria-label="图片生成模型">
+                  <button class="mobile-model-card is-selected" type="button" data-mobile-create-model="Flux Pro 1.1" data-mobile-create-cost="20" aria-pressed="true"><span class="mobile-model-radio" aria-hidden="true"></span><span class="mobile-model-card-copy"><strong>Flux Pro 1.1</strong><span>图片生成 / 图片编辑</span></span></button>
+                  <button class="mobile-model-card" type="button" data-mobile-create-model="GPT Image 2" data-mobile-create-cost="35" aria-pressed="false"><span class="mobile-model-radio" aria-hidden="true"></span><span class="mobile-model-card-copy"><strong>GPT Image 2</strong><span>图片生成 / 局部编辑</span></span></button>
+                  <button class="mobile-model-card" type="button" data-mobile-create-model="Nano Banana Pro" data-mobile-create-cost="18" aria-pressed="false"><span class="mobile-model-radio" aria-hidden="true"></span><span class="mobile-model-card-copy"><strong>Nano Banana Pro</strong><span>快速概念图</span></span></button>
+                </div>
+              </section>
+              <section class="mobile-create-setting-panel" data-mobile-create-setting-panel="script" hidden>
+                <div class="mobile-model-list" role="group" aria-label="剧本创作模型">
+                  <button class="mobile-model-card is-selected" type="button" data-mobile-create-model="gemini-3-flash-preview" data-mobile-create-cost="8" aria-pressed="true"><span class="mobile-model-radio" aria-hidden="true"></span><span class="mobile-model-card-copy"><strong>gemini-3-flash-preview</strong><span>故事设定 / 分镜大纲</span></span></button>
+                  <button class="mobile-model-card" type="button" data-mobile-create-model="kimi-k2.6" data-mobile-create-cost="10" aria-pressed="false"><span class="mobile-model-radio" aria-hidden="true"></span><span class="mobile-model-card-copy"><strong>kimi-k2.6</strong><span>长文本梳理</span></span></button>
+                  <button class="mobile-model-card" type="button" data-mobile-create-model="gpt-5.5" data-mobile-create-cost="12" aria-pressed="false"><span class="mobile-model-radio" aria-hidden="true"></span><span class="mobile-model-card-copy"><strong>gpt-5.5</strong><span>对白和节奏优化</span></span></button>
+                  <button class="mobile-model-card" type="button" data-mobile-create-model="deepseek-v4-pro" data-mobile-create-cost="9" aria-pressed="false"><span class="mobile-model-radio" aria-hidden="true"></span><span class="mobile-model-card-copy"><strong>deepseek-v4-pro</strong><span>剧情拆解</span></span></button>
+                </div>
+              </section>
+              <section class="mobile-create-setting-panel" data-mobile-create-setting-panel="video" hidden>
+                <div class="mobile-model-list" role="group" aria-label="视频生成模型">
+                  <button class="mobile-model-card is-selected" type="button" data-mobile-create-model="Seedance 2.0" data-mobile-create-cost="64" aria-pressed="true"><span class="mobile-model-radio" aria-hidden="true"></span><span class="mobile-model-card-copy"><strong>Seedance 2.0</strong><span>多模态参考与运镜控制</span></span></button>
+                  <button class="mobile-model-card" type="button" data-mobile-create-model="Kling 3.0" data-mobile-create-cost="48" aria-pressed="false"><span class="mobile-model-radio" aria-hidden="true"></span><span class="mobile-model-card-copy"><strong>Kling 3.0</strong><span>人物一致性与叙事镜头</span></span></button>
+                  <button class="mobile-model-card" type="button" data-mobile-create-model="Grok Video 3" data-mobile-create-cost="36" aria-pressed="false"><span class="mobile-model-radio" aria-hidden="true"></span><span class="mobile-model-card-copy"><strong>Grok Video 3</strong><span>视频与音频联合生成</span></span></button>
+                </div>
+              </section>
+            </div>
+            </details>
+            <details class="mobile-create-selector mobile-create-parameter-select" data-mobile-create-parameter="image-resolution">
+            <summary aria-label="选择分辨率"><b data-mobile-create-parameter-label="resolution">2K</b></summary>
+            <div class="mobile-create-selector-menu mobile-create-setting-menu" data-mobile-create-choice-group="image-resolution" aria-label="图片分辨率选择">
+              <button type="button" data-mobile-create-choice="1K">1K</button>
+              <button class="is-selected" type="button" data-mobile-create-choice="2K">2K</button>
+              <button type="button" data-mobile-create-choice="4K">4K</button>
+            </div>
+            </details>
+            <details class="mobile-create-selector mobile-create-parameter-select" data-mobile-create-parameter="video-resolution" hidden>
+            <summary aria-label="选择视频分辨率"><b data-mobile-create-parameter-label="resolution">720p</b></summary>
+            <div class="mobile-create-selector-menu mobile-create-setting-menu" data-mobile-create-choice-group="video-resolution" aria-label="视频分辨率选择">
+              <button type="button" data-mobile-create-choice="470p">470p</button>
+              <button class="is-selected" type="button" data-mobile-create-choice="720p">720p</button>
+              <button type="button" data-mobile-create-choice="1080p">1080p</button>
+            </div>
+            </details>
+          </div>
+          <div class="mobile-create-selector-row is-secondary">
+            <details class="mobile-create-selector mobile-create-parameter-select mobile-create-ratio-select" data-mobile-create-parameter="ratio">
+            <summary aria-label="选择画面比例"><b data-mobile-create-parameter-label="ratio"><i data-mobile-create-ratio-value>1:1</i></b></summary>
+            <div class="mobile-create-selector-menu mobile-create-ratio-menu" data-mobile-create-choice-group="ratio" aria-label="画面比例选择">
+              <button class="is-selected" type="button" data-mobile-create-choice="1:1"><img src="../../resources/icons/lucide/square.svg" alt=""><b>1:1</b></button>
+              <button type="button" data-mobile-create-choice="16:9"><img src="../../resources/icons/lucide/rectangle-horizontal.svg" alt=""><b>16:9</b></button>
+              <button type="button" data-mobile-create-choice="9:16"><img src="../../resources/icons/lucide/rectangle-vertical.svg" alt=""><b>9:16</b></button>
+            </div>
+            </details>
+            <details class="mobile-create-selector mobile-create-parameter-select mobile-create-duration-select" data-mobile-create-parameter="duration" hidden>
+            <summary aria-label="选择视频时长"><b data-mobile-create-parameter-label="duration">8秒</b></summary>
+            <div class="mobile-create-selector-menu mobile-create-duration-menu">
+              <label for="mobile-create-duration">视频时长 <b data-mobile-create-duration-value>8 秒</b></label>
+              <input id="mobile-create-duration" type="range" min="4" max="20" step="1" value="8" data-mobile-create-duration-input>
+              <span><i>4 秒</i><i>20 秒</i></span>
+            </div>
+            </details>
+            <div class="mobile-create-submit-cluster">
+              <span class="mobile-create-cost-chip"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Finance/coins-line.svg" alt=""><span data-mobile-create-settings-cost>20</span></span>
+              <button class="mobile-create-send" type="submit" aria-label="发起生成">
+                <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Business/send-plane-line.svg" alt="">
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="mobile-create-composer-meta">
@@ -94,40 +148,6 @@
     </form>
 
   </div>
-
-  <section id="mobile-create-model-popover" class="mobile-create-model-popover" data-mobile-create-model-popover aria-hidden="true">
-    <button class="mobile-create-model-backdrop" type="button" data-mobile-create-model-close aria-label="关闭模型选择"></button>
-    <div class="mobile-create-model-panel" role="dialog" aria-modal="true" aria-labelledby="mobile-create-model-title">
-      <header class="mobile-create-model-head">
-        <div><span>创作模型</span><h2 id="mobile-create-model-title" data-mobile-create-model-title>图片模型</h2></div>
-        <button class="mobile-icon-button" type="button" data-mobile-create-model-close aria-label="关闭模型选择"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button>
-      </header>
-      <div class="mobile-create-model-scroll">
-        <section class="mobile-create-setting-panel" data-mobile-create-setting-panel="image">
-          <div class="mobile-model-list" role="group" aria-label="图片生成模型">
-            <button class="mobile-model-card is-selected" type="button" data-mobile-create-model="Flux Pro 1.1" data-mobile-create-cost="20" aria-pressed="true"><img src="../../assets/image_assets/15.jpg" alt=""><span class="mobile-model-card-copy"><strong>Flux Pro 1.1</strong><span>预计消耗 20 积分</span></span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/checkbox-circle-fill.svg" alt="已选择"></button>
-            <button class="mobile-model-card" type="button" data-mobile-create-model="GPT Image 2" data-mobile-create-cost="35" aria-pressed="false"><img src="../../assets/image_assets/3.png" alt=""><span class="mobile-model-card-copy"><strong>GPT Image 2</strong><span>预计消耗 35 积分</span></span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/checkbox-circle-fill.svg" alt=""></button>
-            <button class="mobile-model-card" type="button" data-mobile-create-model="Nano Banana Pro" data-mobile-create-cost="18" aria-pressed="false"><img src="../../assets/image_assets/18.png" alt=""><span class="mobile-model-card-copy"><strong>Nano Banana Pro</strong><span>预计消耗 18 积分</span></span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/checkbox-circle-fill.svg" alt=""></button>
-          </div>
-        </section>
-        <section class="mobile-create-setting-panel" data-mobile-create-setting-panel="script" hidden>
-          <div class="mobile-model-list" role="group" aria-label="剧本创作模型">
-            <button class="mobile-model-card is-selected" type="button" data-mobile-create-model="gemini-3-flash-preview" data-mobile-create-cost="8" aria-pressed="true"><img src="../../assets/image_assets/17.png" alt=""><span class="mobile-model-card-copy"><strong>gemini-3-flash-preview</strong><span>故事设定 / 分镜大纲 · 预计消耗 8 积分</span></span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/checkbox-circle-fill.svg" alt="已选择"></button>
-            <button class="mobile-model-card" type="button" data-mobile-create-model="kimi-k2.6" data-mobile-create-cost="10" aria-pressed="false"><img src="../../assets/image_assets/18.png" alt=""><span class="mobile-model-card-copy"><strong>kimi-k2.6</strong><span>长文本梳理 · 预计消耗 10 积分</span></span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/checkbox-circle-fill.svg" alt=""></button>
-            <button class="mobile-model-card" type="button" data-mobile-create-model="gpt-5.5" data-mobile-create-cost="12" aria-pressed="false"><img src="../../assets/image_assets/3.png" alt=""><span class="mobile-model-card-copy"><strong>gpt-5.5</strong><span>对白和节奏优化 · 预计消耗 12 积分</span></span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/checkbox-circle-fill.svg" alt=""></button>
-            <button class="mobile-model-card" type="button" data-mobile-create-model="deepseek-v4-pro" data-mobile-create-cost="9" aria-pressed="false"><img src="../../assets/image_assets/11.png" alt=""><span class="mobile-model-card-copy"><strong>deepseek-v4-pro</strong><span>剧情拆解 · 预计消耗 9 积分</span></span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/checkbox-circle-fill.svg" alt=""></button>
-          </div>
-        </section>
-        <section class="mobile-create-setting-panel" data-mobile-create-setting-panel="video" hidden>
-          <div class="mobile-model-list" role="group" aria-label="视频生成模型">
-            <button class="mobile-model-card is-selected" type="button" data-mobile-create-model="Seedance 2.0" data-mobile-create-cost="64" aria-pressed="true"><img src="../../assets/image_assets/4.png" alt=""><span class="mobile-model-card-copy"><strong>Seedance 2.0</strong><span>预计消耗 64 积分</span></span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/checkbox-circle-fill.svg" alt="已选择"></button>
-            <button class="mobile-model-card" type="button" data-mobile-create-model="Kling 3.0" data-mobile-create-cost="48" aria-pressed="false"><img src="../../assets/image_assets/17.png" alt=""><span class="mobile-model-card-copy"><strong>Kling 3.0</strong><span>预计消耗 48 积分</span></span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/checkbox-circle-fill.svg" alt=""></button>
-            <button class="mobile-model-card" type="button" data-mobile-create-model="Grok Video 3" data-mobile-create-cost="36" aria-pressed="false"><img src="../../assets/image_assets/11.png" alt=""><span class="mobile-model-card-copy"><strong>Grok Video 3</strong><span>预计消耗 36 积分</span></span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/checkbox-circle-fill.svg" alt=""></button>
-          </div>
-        </section>
-      </div>
-    </div>
-  </section>
 
   <section class="mobile-create-preview-dialog" data-mobile-create-preview-dialog aria-hidden="true">
     <button class="mobile-create-preview-backdrop" type="button" data-mobile-create-preview-close aria-label="关闭结果预览"></button>
@@ -169,8 +189,8 @@
       <section class="mobile-rule-card"><strong>页面目的</strong><p>用同一对话式工作台承接图片生成、剧本创作与视频生成；灵感输入是主入口，模式、参考素材、模型和参数作为就近设置。</p></section>
       <section class="mobile-rule-card"><strong>同款上下文</strong><p>从图片或视频详情进入时展示来源作品，带入媒体类型、提示词、模型与允许复用的参数；剧本创作从故事设定开始，用户确认后才发起创作。</p></section>
       <section class="mobile-rule-card"><strong>输入层级</strong><p>页面作为独立全屏工作台，不显示一级 TabBar；顶部提供返回、记录筛选和生成记录。图片与视频在同一输入面板内展示参考素材，剧本模式隐藏附件入口。</p></section>
-      <section class="mobile-rule-card"><strong>图片参数</strong><p>图片生成仅展示当前真实支持的模型与画面比例；当前不提供分辨率选择，也不在设置摘要中展示分辨率。</p></section>
-      <section class="mobile-rule-card"><strong>模型与积分</strong><p>点击输入区当前模型打开轻量弹窗；图片、剧本和视频模型均可单选，切换后同步更新模型与预计积分。图片比例、视频比例和时长在输入区就近切换。</p></section>
+      <section class="mobile-rule-card"><strong>图片参数</strong><p>图片生成展示当前可用模型、1K / 2K / 4K 分辨率与画面比例；视频模式展示 470p / 720p / 1080p 分辨率、比例与 4–20 秒时长。</p></section>
+      <section class="mobile-rule-card"><strong>模型与积分</strong><p>模型、分辨率、比例与时长统一使用 Web 端描边胶囊和向上展开菜单；模型保持单选并同步更新预计积分，比例项使用横、竖、方形图标辅助识别。</p></section>
       <section class="mobile-rule-card"><strong>全局创作入口</strong><p>底部创作入口是全局发布动作，点击后先选择 AIGC 生成或发布闪念；当前页承接 AIGC 生成，发布闪念进入社区闪念频道的编辑层。</p></section>
       <section class="mobile-rule-card"><strong>记录承接</strong><p>生成记录从标题右侧入口打开底部层；进行中记录恢复原任务，成功记录进入对应结果或作品详情。</p></section>
       <section class="mobile-rule-card"><strong>状态承接</strong><p>发起创作后按日期展示本次参数、提示词与任务卡；处理中可刷新为完成态，图片完成后进入同页沉浸预览，剧本与视频沿用独立结果页。</p></section>
