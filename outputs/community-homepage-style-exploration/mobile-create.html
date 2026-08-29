@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#05070b">
   <title>多元拾光 · AIGC 生成</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260829-unified-result-detail-v1">
-  <script src="./mobile-h5.js?v=20260829-unified-result-detail-v1" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-create-collapse-pill-v2">
+  <script src="./mobile-h5.js?v=20260830-create-collapse-pill-v2" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="create">
   <div class="mobile-shell mobile-primary-shell mobile-create-shell">
@@ -54,6 +54,13 @@
     <form class="mobile-create-composer" data-mobile-create-composer action="./mobile-create.html" method="get">
       <input type="hidden" name="mode" value="image" data-mobile-create-mode-input>
       <input type="hidden" name="state" value="running">
+      <button class="mobile-create-composer-toggle" type="button" data-mobile-create-composer-toggle aria-controls="mobile-create-prompt" aria-expanded="false" aria-label="展开创作输入框" hidden>
+        <span class="mobile-create-composer-toggle-copy">
+          <strong>继续创作</strong>
+          <small>展开输入框</small>
+        </span>
+        <img class="mobile-icon mobile-create-composer-toggle-arrow" src="../../resources/icons/remixicon/svg/Arrows/arrow-up-line.svg" alt="">
+      </button>
       <div class="mobile-create-composer-tools">
         <div class="mobile-filter-tabs mobile-home-filter-tabs mobile-create-mode-tabs" role="tablist" aria-label="创作类型" data-mobile-create-mode-tabs>
           <button class="mobile-filter-tab mobile-home-filter-tab" type="button" role="tab" data-mobile-create-mode="video" aria-selected="false" aria-pressed="false">视频生成</button>

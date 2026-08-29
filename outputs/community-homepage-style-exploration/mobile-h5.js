@@ -1539,6 +1539,7 @@
     const modelTrigger = createComposer.querySelector("[data-mobile-create-model-open]");
     const createModeTabs = createComposer.querySelector("[data-mobile-create-mode-tabs]");
     const createModeButtons = [...(createModeTabs?.querySelectorAll("[data-mobile-create-mode]") || [])];
+    const createComposerToggle = createComposer.querySelector("[data-mobile-create-composer-toggle]");
     const historySheet = document.querySelector("[data-mobile-create-history-sheet]");
     const previewDialog = document.querySelector("[data-mobile-create-preview-dialog]");
     const requestedCreateMode = params.get("mode");
@@ -1597,6 +1598,23 @@
     const createReferences = { image: [], video: [] };
     const retiredCreateReferenceUrls = new Set();
     let createReferenceSequence = 0;
+
+    const setCreateComposerCollapsed = (collapsed, { focus = false } = {}) => {
+      const nextCollapsed = Boolean(collapsed);
+      createComposer.classList.toggle("is-collapsed", nextCollapsed);
+      document.body.classList.toggle("has-create-composer-collapsed", nextCollapsed);
+      if (createComposerToggle) {
+        createComposerToggle.hidden = !nextCollapsed;
+        createComposerToggle.setAttribute("aria-expanded", nextCollapsed ? "false" : "true");
+      }
+      if (!nextCollapsed && focus) {
+        window.requestAnimationFrame(() => createPrompt?.focus({ preventScroll: true }));
+      }
+    };
+
+    createComposerToggle?.addEventListener("click", () => {
+      setCreateComposerCollapsed(false, { focus: true });
+    });
 
     if (sourceType === "same-work") {
       ["image", "video"].forEach((mode) => {
@@ -2282,6 +2300,7 @@
         document.body.classList.toggle("has-create-task", hasRemainingTasks);
         if (createEmpty) createEmpty.hidden = hasRemainingTasks;
         if (!hasRemainingTasks) {
+          setCreateComposerCollapsed(false);
           createPrompt.placeholder = createState.mode === "script" ? "人物关系、核心冲突或短片想法" : createState.mode === "video" ? "画面内容、镜头运动和节奏" : "主体、场景、风格、光线和构图";
           window.history.replaceState(null, "", window.location.pathname);
         }
@@ -2307,6 +2326,7 @@
       playSubmissionEntrance();
       createPrompt.value = "";
       syncCreatePrompt();
+      setCreateComposerCollapsed(true);
       activeCreateTask = taskController;
       if (scroll) taskTurn.scrollIntoView({ behavior: "auto", block: "center" });
     };
