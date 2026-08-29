@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#05070b">
   <title>多元拾光 · AIGC 生成</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260828-create-controls-v7">
-  <script src="./mobile-h5.js?v=20260828-create-controls-v7" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260829-unified-result-detail-v1">
+  <script src="./mobile-h5.js?v=20260829-unified-result-detail-v1" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="create">
   <div class="mobile-shell mobile-primary-shell mobile-create-shell">
@@ -34,9 +34,18 @@
         </article>
 
         <div class="mobile-create-empty" data-mobile-create-empty>
-          <span class="mobile-create-empty-icon" aria-hidden="true"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Design/magic-line.svg" alt=""></span>
-          <h2>输入提示词，生成你想要的内容</h2>
-          <p>支持图片、剧本与视频创作</p>
+          <div class="mobile-create-empty-art" aria-hidden="true">
+            <img src="assets/mobile/aigc-inspiration-planet-v1.webp" alt="">
+          </div>
+          <div class="mobile-create-empty-copy">
+            <span class="mobile-create-empty-kicker">
+              <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Others/shining-2-fill.svg" alt="">
+              <span>AI 灵感工作台</span>
+              <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Others/shining-2-fill.svg" alt="">
+            </span>
+            <h2>输入提示词，生成你想要的内容</h2>
+            <p>支持图片、剧本与视频创作，激发无限灵感</p>
+          </div>
         </div>
 
       </section>
@@ -54,20 +63,13 @@
       </div>
       <div class="mobile-create-input-row">
         <div class="mobile-create-reference-row" data-mobile-create-reference-row>
-          <button class="mobile-create-reference-preview" type="button" data-mobile-create-reference-preview aria-label="查看参考图">
-            <img src="../../assets/image_assets/15.jpg" alt="当前参考图">
-            <span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Document/file-edit-line.svg" alt=""></span>
-          </button>
-          <button class="mobile-create-reference-add" type="button" data-mobile-create-attachment aria-label="添加参考图" aria-pressed="false">
+          <div class="mobile-create-reference-list" data-mobile-create-reference-list role="list" aria-label="已添加的参考图"></div>
+          <button class="mobile-create-reference-add" type="button" data-mobile-create-attachment aria-label="添加参考图">
             <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Media/image-add-line.svg" alt="">
-            <span>添加</span>
           </button>
+          <input type="file" accept="image/*" data-mobile-create-reference-input multiple hidden>
         </div>
-        <div class="mobile-create-input-head">
-          <label for="mobile-create-prompt" data-mobile-create-prompt-label>描述画面</label>
-          <span><b data-mobile-create-prompt-count>0</b>/<span data-mobile-create-prompt-limit>1000</span></span>
-        </div>
-        <textarea id="mobile-create-prompt" name="prompt" rows="3" maxlength="1000" data-mobile-create-prompt placeholder="描述你想生成的图片">修改一个 IP 人物举着手表示很棒的样子，作出棒的手势</textarea>
+        <textarea id="mobile-create-prompt" name="prompt" rows="3" maxlength="1000" data-mobile-create-prompt aria-label="描述画面" placeholder="描述你想生成的图片"></textarea>
         <div class="mobile-create-input-actions">
           <div class="mobile-create-selector-row is-primary">
             <details id="mobile-create-model-popover" class="mobile-create-selector mobile-create-model-popover" data-mobile-create-model-popover>
@@ -135,8 +137,8 @@
             </details>
             <div class="mobile-create-submit-cluster">
               <span class="mobile-create-cost-chip"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Finance/coins-line.svg" alt=""><span data-mobile-create-settings-cost>20</span></span>
-              <button class="mobile-create-send" type="submit" aria-label="发起生成">
-                <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Business/send-plane-line.svg" alt="">
+              <button class="mobile-create-send" type="submit" aria-label="发起生成" disabled>
+                <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-up-line.svg" alt="">
               </button>
             </div>
           </div>
@@ -154,15 +156,21 @@
     <div class="mobile-create-preview-stage" role="dialog" aria-modal="true" aria-label="生成结果预览">
       <button class="mobile-create-preview-close" type="button" data-mobile-create-preview-close aria-label="关闭结果预览"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button>
       <div class="mobile-create-preview-media">
-        <img data-mobile-create-preview-image src="../../assets/image_assets/15-mobile-result-v2.png" width="1122" height="1402" alt="图片生成结果大图">
+        <img data-mobile-create-preview-image data-mobile-create-preview-content="image" src="../../assets/image_assets/15-mobile-result-v2.png" width="1122" height="1402" alt="图片生成结果大图">
+        <video data-mobile-create-preview-content="video" src="../../assets/video_assets/sd2_gen.mp4" poster="../../assets/image_assets/4.png" controls muted playsinline preload="metadata" aria-label="视频生成结果" hidden></video>
+        <article class="mobile-create-preview-script" data-mobile-create-preview-content="script" aria-label="剧本生成结果" hidden>
+          <span>Markdown 剧本</span>
+          <h2>雨夜霓虹街头 · 分镜设定</h2>
+          <p>少年在雨幕中确认自己正在被跟踪，手中的关键道具一旦暴露，整条街区都会陷入危险。</p>
+          <section><h3>第一幕 · 追踪</h3><p>远景建立霓虹街区，镜头缓慢推近。少年借橱窗反射观察身后的黑色身影。</p></section>
+          <section><h3>第二幕 · 暴露</h3><p>切入手部特写，道具在掌心短暂发光。追踪者加快脚步，雨声与呼吸声逐渐增强。</p></section>
+          <section><h3>第三幕 · 选择</h3><p>少年停在巷口，在隐藏道具与保护路人之间做出决定，画面停在他抬眼的瞬间。</p></section>
+        </article>
       </div>
       <div class="mobile-create-preview-toolbar" aria-label="结果操作">
-        <a href="../../assets/image_assets/15-mobile-result-v2.png" download aria-label="保存图片"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Business/bookmark-line.svg" alt=""><span>保存</span></a>
-        <button type="button" data-mobile-create-preview-action="edit"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Document/file-edit-line.svg" alt=""><span>编辑</span></button>
-        <button type="button" data-mobile-create-preview-action="regenerate"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/refresh-line.svg" alt=""><span>重生成</span></button>
-        <button type="button" data-mobile-create-preview-action="hd"><strong>HD</strong><span>高清</span></button>
-        <button type="button" data-mobile-create-preview-action="favorite"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Health &amp; Medical/heart-3-line.svg" alt=""><span>收藏</span></button>
-        <button type="button" data-mobile-create-preview-action="delete"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""><span>删除</span></button>
+        <button type="button" data-mobile-create-preview-action="regenerate"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Device/restart-line.svg" alt=""><span>再次生成</span></button>
+        <button type="button" data-mobile-create-preview-action="publish"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Business/send-plane-2-line.svg" alt=""><span>发布到社区</span></button>
+        <button type="button" data-mobile-create-preview-action="activity"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Document/file-check-line.svg" alt=""><span>投稿活动</span></button>
       </div>
     </div>
   </section>
@@ -191,10 +199,10 @@
       <section class="mobile-rule-card"><strong>输入层级</strong><p>页面作为独立全屏工作台，不显示一级 TabBar；顶部提供返回、记录筛选和生成记录。图片与视频在同一输入面板内展示参考素材，剧本模式隐藏附件入口。</p></section>
       <section class="mobile-rule-card"><strong>图片参数</strong><p>图片生成展示当前可用模型、1K / 2K / 4K 分辨率与画面比例；视频模式展示 470p / 720p / 1080p 分辨率、比例与 4–20 秒时长。</p></section>
       <section class="mobile-rule-card"><strong>模型与积分</strong><p>模型、分辨率、比例与时长统一使用 Web 端描边胶囊和向上展开菜单；模型保持单选并同步更新预计积分，比例项使用横、竖、方形图标辅助识别。</p></section>
-      <section class="mobile-rule-card"><strong>全局创作入口</strong><p>底部创作入口是全局发布动作，点击后先选择 AIGC 生成或发布闪念；当前页承接 AIGC 生成，发布闪念进入社区闪念频道的编辑层。</p></section>
+      <section class="mobile-rule-card"><strong>全局创作入口</strong><p>底部创作入口是全局发布动作，点击后先选择 AIGC 生成或发布闪念；当前页承接 AIGC 生成，发布闪念进入独立全屏编辑页。</p></section>
       <section class="mobile-rule-card"><strong>记录承接</strong><p>生成记录从标题右侧入口打开底部层；进行中记录恢复原任务，成功记录进入对应结果或作品详情。</p></section>
-      <section class="mobile-rule-card"><strong>状态承接</strong><p>发起创作后按日期展示本次参数、提示词与任务卡；处理中可刷新为完成态，图片完成后进入同页沉浸预览，剧本与视频沿用独立结果页。</p></section>
-      <section class="mobile-rule-card"><strong>验收</strong><p>360/390/430 宽度下输入区不被安全区或键盘遮挡；顶部筛选、三模式切换、模型弹窗、参数、重新编辑、重新生成和图片预览均可操作；不自动扣减积分。</p></section>
+      <section class="mobile-rule-card"><strong>状态承接</strong><p>发起创作后按日期展示本次参数、提示词与任务卡；处理中可刷新为完成态，图片、视频与剧本完成后统一进入同页沉浸结果详情。</p></section>
+      <section class="mobile-rule-card"><strong>验收</strong><p>360/390/430 宽度下输入区不被安全区或键盘遮挡；顶部筛选、三模式切换、模型弹窗、参数、重新生成和三种结果详情均可操作；不自动扣减积分。</p></section>
     </div>
   </aside>
   <div class="mobile-toast" data-mobile-toast role="status" aria-live="polite"></div>

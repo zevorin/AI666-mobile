@@ -96,6 +96,98 @@
     window.requestAnimationFrame(() => window.requestAnimationFrame(playHomeEntrance));
   }
 
+  const playCreateEntrance = () => {
+    if (body.dataset.mobilePage !== "create") return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduceMotion.matches || typeof Element.prototype.animate !== "function") {
+      body.dataset.mobileCreateEntrance = "reduced";
+      return;
+    }
+
+    const animations = [];
+    const animateEntrance = (element, keyframes, delay, duration = 460) => {
+      if (!element || element.hidden || element.getClientRects().length === 0) return;
+      try {
+        const animation = element.animate(keyframes, {
+          delay,
+          duration,
+          easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+          fill: "backwards",
+        });
+        animations.push(animation);
+      } catch {
+        // Progressive enhancement: unsupported animation details must never hide content.
+      }
+    };
+
+    body.dataset.mobileCreateEntrance = "running";
+
+    document.querySelectorAll(".mobile-create-topbar > *").forEach((element, index) => {
+      animateEntrance(
+        element,
+        [
+          { opacity: 0, transform: "translate3d(0, -6px, 0)" },
+          { opacity: 1, transform: "translate3d(0, 0, 0)" },
+        ],
+        20 + index * 50,
+        380,
+      );
+    });
+
+    animateEntrance(
+      document.querySelector(".mobile-create-empty-art"),
+      [
+        { opacity: 0, transform: "translate3d(0, 10px, 0) scale(0.988)" },
+        { opacity: 1, transform: "translate3d(0, 0, 0) scale(1)" },
+      ],
+      110,
+      540,
+    );
+    animateEntrance(
+      document.querySelector(".mobile-create-empty-copy"),
+      [
+        { opacity: 0, transform: "translate3d(0, 9px, 0)" },
+        { opacity: 1, transform: "translate3d(0, 0, 0)" },
+      ],
+      190,
+      460,
+    );
+    animateEntrance(
+      document.querySelector(".mobile-create-source:not([hidden])"),
+      [
+        { opacity: 0, transform: "translate3d(0, 8px, 0)" },
+        { opacity: 1, transform: "translate3d(0, 0, 0)" },
+      ],
+      150,
+      440,
+    );
+    document.querySelectorAll(".mobile-create-turn").forEach((element, index) => {
+      animateEntrance(
+        element,
+        [
+          { opacity: 0, transform: "translate3d(0, 8px, 0)" },
+          { opacity: 1, transform: "translate3d(0, 0, 0)" },
+        ],
+        150 + index * 55,
+        440,
+      );
+    });
+    animateEntrance(
+      document.querySelector(".mobile-create-composer"),
+      [
+        { opacity: 0 },
+        { opacity: 1 },
+      ],
+      270,
+      500,
+    );
+
+    Promise.allSettled(animations.map((animation) => animation.finished)).then(() => {
+      body.dataset.mobileCreateEntrance = "complete";
+    });
+  };
+
   const profileCoverVideo = document.querySelector("[data-mobile-profile-cover-video]");
   if (profileCoverVideo) {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -172,7 +264,7 @@
             <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-aigc-flat-v1.png" width="512" height="512" alt=""></span>
             <span class="mobile-create-action-copy"><strong>AIGC 生成</strong><small>把灵感变成作品</small></span>
           </a>
-          <a class="mobile-create-action-option is-flash" href="./mobile-community.html?module=flash&amp;compose=1">
+          <a class="mobile-create-action-option is-flash" href="./mobile-compose-flash.html">
             <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-flash-flat-v1.png" width="512" height="512" alt=""></span>
             <span class="mobile-create-action-copy"><strong>发布闪念</strong><small>记录此刻的创作想法</small></span>
           </a>
@@ -676,112 +768,6 @@
     });
   });
   if (communityTabs.length) setCommunityModule(params.get("compose") === "1" ? "flash" : (params.get("module") || "recommend"));
-
-  const flashComposeSheet = document.querySelector("[data-mobile-flash-compose-sheet]");
-  const flashComposeForm = document.querySelector("[data-mobile-flash-compose]");
-  if (flashComposeSheet && flashComposeForm) {
-    const flashContent = flashComposeForm.querySelector("[data-mobile-flash-compose-content]");
-    const flashCounter = flashComposeForm.querySelector("[data-mobile-flash-compose-counter]");
-    const flashMediaInput = flashComposeForm.querySelector("[data-mobile-flash-media-input]");
-    const flashMediaAdd = flashComposeForm.querySelector("[data-mobile-flash-media-add]");
-    const flashMediaCounter = flashComposeForm.querySelector("[data-mobile-flash-media-counter]");
-    const flashMediaList = flashComposeForm.querySelector("[data-mobile-flash-media-list]");
-    const flashPublish = flashComposeForm.querySelector("[data-mobile-flash-publish]");
-    const flashStatus = flashComposeForm.querySelector("[data-mobile-flash-compose-status]");
-    const flashMediaFiles = [];
-    const flashMediaLimit = 4;
-    const flashImageTypes = new Set(["image/png", "image/jpeg", "image/webp"]);
-    const flashVideoTypes = new Set(["video/mp4", "video/webm", "video/quicktime"]);
-    const setFlashComposeSheet = (open, updateUrl = true) => {
-      flashComposeSheet.classList.toggle("is-open", open);
-      flashComposeSheet.setAttribute("aria-hidden", open ? "false" : "true");
-      if (!open && updateUrl) {
-        const url = new URL(window.location.href);
-        url.searchParams.delete("compose");
-        history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
-      }
-      if (open) window.setTimeout(() => flashContent?.focus(), 180);
-    };
-    document.querySelectorAll("[data-mobile-flash-compose-open]").forEach((button) => button.addEventListener("click", () => {
-      const url = new URL(window.location.href);
-      url.searchParams.set("compose", "1");
-      history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
-      setFlashComposeSheet(true, false);
-    }));
-    const canPublishFlash = () => Boolean(flashContent?.value.trim() || flashMediaFiles.length);
-    const refreshFlashCompose = () => {
-      if (flashCounter && flashContent) flashCounter.textContent = `${flashContent.value.length}/600`;
-      if (flashMediaCounter) flashMediaCounter.textContent = `${flashMediaFiles.length}/4`;
-      if (flashPublish) flashPublish.disabled = !canPublishFlash();
-      if (flashMediaAdd) flashMediaAdd.disabled = flashMediaFiles.length >= flashMediaLimit;
-      if (canPublishFlash() && flashStatus) flashStatus.textContent = "";
-    };
-    const renderFlashMedia = () => {
-      if (!flashMediaList) return;
-      flashMediaList.replaceChildren();
-      flashMediaFiles.forEach((item, index) => {
-        const holder = document.createElement("div");
-        holder.className = "mobile-flash-compose-media-item";
-        const preview = document.createElement(item.kind === "video" ? "video" : "img");
-        preview.src = item.url;
-        if (item.kind === "video") {
-          preview.muted = true;
-          preview.playsInline = true;
-          preview.setAttribute("aria-label", item.file.name);
-        } else preview.alt = item.file.name;
-        const remove = document.createElement("button");
-        remove.className = "mobile-flash-compose-media-remove";
-        remove.type = "button";
-        remove.setAttribute("aria-label", `移除 ${item.file.name}`);
-        remove.innerHTML = '<img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt="">';
-        remove.addEventListener("click", () => {
-          const [removed] = flashMediaFiles.splice(index, 1);
-          if (removed?.url) URL.revokeObjectURL(removed.url);
-          renderFlashMedia();
-        });
-        holder.append(preview, remove);
-        flashMediaList.append(holder);
-      });
-      refreshFlashCompose();
-    };
-    flashContent?.addEventListener("input", refreshFlashCompose);
-    flashMediaAdd?.addEventListener("click", () => flashMediaInput?.click());
-    flashMediaInput?.addEventListener("change", () => {
-      const selectedFiles = [...(flashMediaInput.files || [])];
-      for (const file of selectedFiles) {
-        if (flashMediaFiles.length >= flashMediaLimit) break;
-        const isImage = flashImageTypes.has(file.type);
-        const isVideo = flashVideoTypes.has(file.type);
-        if (!isImage && !isVideo) {
-          if (flashStatus) flashStatus.textContent = "文件格式不支持";
-          continue;
-        }
-        flashMediaFiles.push({ file, kind: isVideo ? "video" : "image", url: URL.createObjectURL(file) });
-      }
-      flashMediaInput.value = "";
-      renderFlashMedia();
-    });
-    flashComposeSheet.querySelectorAll("[data-mobile-flash-compose-close]").forEach((button) => button.addEventListener("click", () => setFlashComposeSheet(false)));
-    flashComposeForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      if (!canPublishFlash()) {
-        if (flashStatus) flashStatus.textContent = "正文或媒体至少填写一项";
-        return;
-      }
-      if (flashPublish) {
-        flashPublish.disabled = true;
-        flashPublish.textContent = "发布中…";
-      }
-      window.setTimeout(() => {
-        showToast("闪念已提交，正在审核中");
-        setFlashComposeSheet(false);
-        if (flashPublish) flashPublish.textContent = "发布闪念";
-      }, 420);
-    });
-    if (params.get("compose") === "1") setFlashComposeSheet(true, false);
-    window.addEventListener("beforeunload", () => flashMediaFiles.forEach((item) => URL.revokeObjectURL(item.url)));
-    refreshFlashCompose();
-  }
 
   const tutorialSheet = document.querySelector("[data-mobile-tutorial-sheet]");
   const setTutorialSheet = (open, sourceButton = null) => {
@@ -1312,6 +1298,200 @@
     showToast("评论已发布");
   });
 
+  const flashPageForm = document.querySelector("[data-mobile-flash-page-form]");
+  if (flashPageForm) {
+    const content = flashPageForm.querySelector("[data-mobile-flash-page-content]");
+    const contentCounter = flashPageForm.querySelector("[data-mobile-flash-page-counter]");
+    const mediaInput = flashPageForm.querySelector("[data-mobile-flash-page-media-input]");
+    const mediaAdd = flashPageForm.querySelector("[data-mobile-flash-page-media-add]");
+    const mediaList = flashPageForm.querySelector("[data-mobile-flash-page-media-list]");
+    const mediaCount = flashPageForm.querySelector("[data-mobile-flash-page-media-count]");
+    const topicInput = flashPageForm.querySelector("[data-mobile-flash-page-topic-input]");
+    const topicAdd = flashPageForm.querySelector("[data-mobile-flash-page-topic-add]");
+    const topicList = flashPageForm.querySelector("[data-mobile-flash-page-topic-list]");
+    const topicCount = flashPageForm.querySelector("[data-mobile-flash-page-topic-count]");
+    const category = flashPageForm.querySelector("[data-mobile-flash-page-category]");
+    const status = flashPageForm.querySelector("[data-mobile-flash-page-status]");
+    const submit = flashPageForm.querySelector("[data-mobile-flash-page-submit]");
+    const mediaFiles = [];
+    const topics = [];
+    const mediaLimit = 6;
+    const topicLimit = 5;
+    const maxFileSize = 50 * 1024 * 1024;
+    let isPublishing = false;
+
+    const setFlashPageStatus = (message, tone = "") => {
+      if (!status) return;
+      status.textContent = message;
+      status.classList.toggle("is-error", tone === "error");
+      status.classList.toggle("is-success", tone === "success");
+    };
+
+    const syncFlashPage = () => {
+      const hasContent = Boolean(content?.value.trim());
+      if (contentCounter && content) contentCounter.textContent = `${content.value.length}/600`;
+      if (mediaCount) mediaCount.textContent = `${mediaFiles.length}/6`;
+      if (topicCount) topicCount.textContent = `${topics.length}/5`;
+      if (mediaAdd) mediaAdd.disabled = mediaFiles.length >= mediaLimit;
+      if (topicAdd) topicAdd.disabled = !topicInput?.value.trim() || topics.length >= topicLimit;
+      if (submit) submit.disabled = !hasContent || isPublishing;
+    };
+
+    const renderFlashPageMedia = () => {
+      if (!mediaList || !mediaAdd) return;
+      mediaList.replaceChildren();
+      mediaFiles.forEach((item, index) => {
+        const holder = document.createElement("div");
+        holder.className = "mobile-flash-page-media-item";
+
+        const preview = document.createElement(item.kind === "video" ? "video" : "img");
+        preview.src = item.url;
+        if (item.kind === "video") {
+          preview.muted = true;
+          preview.playsInline = true;
+          preview.preload = "metadata";
+          preview.setAttribute("aria-label", item.file.name);
+        } else {
+          preview.alt = item.file.name;
+        }
+
+        const kind = document.createElement("span");
+        kind.className = "mobile-flash-page-media-kind";
+        kind.textContent = item.kind === "video" ? "视频" : "图片";
+
+        const remove = document.createElement("button");
+        remove.className = "mobile-flash-page-media-remove";
+        remove.type = "button";
+        remove.setAttribute("aria-label", `移除 ${item.file.name}`);
+        remove.innerHTML = '<img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt="">';
+        remove.addEventListener("click", () => {
+          const [removed] = mediaFiles.splice(index, 1);
+          if (removed?.url) URL.revokeObjectURL(removed.url);
+          renderFlashPageMedia();
+          setFlashPageStatus("媒体已移除");
+        });
+
+        holder.append(preview, kind, remove);
+        mediaList.append(holder);
+      });
+      mediaList.append(mediaAdd);
+      syncFlashPage();
+    };
+
+    const renderFlashPageTopics = () => {
+      if (!topicList) return;
+      topicList.replaceChildren();
+      topics.forEach((topic, index) => {
+        const tag = document.createElement("span");
+        tag.className = "mobile-flash-page-topic-tag";
+        const label = document.createElement("span");
+        label.textContent = `#${topic}`;
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.setAttribute("aria-label", `删除话题 ${topic}`);
+        remove.innerHTML = '<img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt="">';
+        remove.addEventListener("click", () => {
+          topics.splice(index, 1);
+          renderFlashPageTopics();
+          topicInput?.focus();
+          setFlashPageStatus(`已删除“${topic}”话题`);
+        });
+        tag.append(label, remove);
+        topicList.append(tag);
+      });
+      syncFlashPage();
+    };
+
+    const addFlashPageTopic = () => {
+      const value = topicInput?.value.trim().replace(/^#+/, "").trim() || "";
+      if (!value) return;
+      if (topics.some((topic) => topic.toLocaleLowerCase() === value.toLocaleLowerCase())) {
+        setFlashPageStatus(`“${value}”话题已存在`, "error");
+        return;
+      }
+      if (topics.length >= topicLimit) {
+        setFlashPageStatus("最多可添加 5 个话题", "error");
+        return;
+      }
+      topics.push(value);
+      topicInput.value = "";
+      renderFlashPageTopics();
+      setFlashPageStatus(`已添加“${value}”话题`);
+    };
+
+    content?.addEventListener("input", () => {
+      syncFlashPage();
+      setFlashPageStatus(content.value.trim() ? "内容会在社区内公开展示" : "先写下一点内容，再发布闪念");
+    });
+    mediaAdd?.addEventListener("click", () => mediaInput?.click());
+    mediaInput?.addEventListener("change", () => {
+      const selectedFiles = [...(mediaInput.files || [])];
+      let added = 0;
+      let rejectedMessage = "";
+      for (const file of selectedFiles) {
+        if (mediaFiles.length >= mediaLimit) {
+          rejectedMessage = "最多可添加 6 个媒体文件";
+          break;
+        }
+        if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) {
+          rejectedMessage = "仅支持图片或视频文件";
+          continue;
+        }
+        if (file.size > maxFileSize) {
+          rejectedMessage = `${file.name} 超过 50MB`;
+          continue;
+        }
+        mediaFiles.push({
+          file,
+          kind: file.type.startsWith("video/") ? "video" : "image",
+          url: URL.createObjectURL(file),
+        });
+        added += 1;
+      }
+      mediaInput.value = "";
+      renderFlashPageMedia();
+      if (rejectedMessage) setFlashPageStatus(rejectedMessage, "error");
+      else if (added) setFlashPageStatus(`已添加 ${added} 个媒体文件`);
+    });
+    topicInput?.addEventListener("input", syncFlashPage);
+    topicInput?.addEventListener("keydown", (event) => {
+      if (event.isComposing) return;
+      if (event.key === "Enter") {
+        event.preventDefault();
+        addFlashPageTopic();
+      } else if (event.key === "Backspace" && !topicInput.value && topics.length) {
+        topics.pop();
+        renderFlashPageTopics();
+      }
+    });
+    topicAdd?.addEventListener("click", addFlashPageTopic);
+    category?.addEventListener("change", () => {
+      const selected = category.options[category.selectedIndex]?.textContent || "当前";
+      setFlashPageStatus(`内容将发布到“${selected}”分类`);
+    });
+    flashPageForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!content?.value.trim()) {
+        setFlashPageStatus("请先写下闪念内容", "error");
+        content?.focus();
+        return;
+      }
+      isPublishing = true;
+      syncFlashPage();
+      const submitLabel = submit?.querySelector("[data-mobile-flash-page-submit-label]");
+      if (submitLabel) submitLabel.textContent = "发布中…";
+      setFlashPageStatus("正在发布闪念…");
+      window.setTimeout(() => {
+        isPublishing = false;
+        setFlashPageStatus("闪念已发布", "success");
+        showToast("闪念已提交，正在审核中");
+        window.setTimeout(() => window.location.assign("./mobile-community.html?module=flash"), 480);
+      }, 520);
+    });
+    window.addEventListener("pagehide", () => mediaFiles.forEach((item) => URL.revokeObjectURL(item.url)));
+    syncFlashPage();
+  }
+
   document.querySelectorAll("[data-mobile-back]").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.preventDefault();
@@ -1336,7 +1516,6 @@
     setWalkthrough(false);
     setCreateActionSheet(false);
     setInviteRulesSheet(false);
-    document.querySelector("[data-mobile-flash-compose-sheet]")?.querySelector("[data-mobile-flash-compose-close]")?.click();
     setTutorialSheet(false);
   });
 
@@ -1344,15 +1523,14 @@
   const createComposer = document.querySelector("[data-mobile-create-composer]");
   if (createWorkspace && createComposer) {
     const createPrompt = createComposer.querySelector("[data-mobile-create-prompt]");
-    const createPromptLabel = createComposer.querySelector("[data-mobile-create-prompt-label]");
-    const createCount = createComposer.querySelector("[data-mobile-create-prompt-count]");
-    const createLimit = createComposer.querySelector("[data-mobile-create-prompt-limit]");
+    const createSend = createComposer.querySelector(".mobile-create-send");
     const createError = createComposer.querySelector("[data-mobile-create-error]");
     const createModeInput = createComposer.querySelector("[data-mobile-create-mode-input]");
     const createAttachment = createComposer.querySelector("[data-mobile-create-attachment]");
     const createInputRow = createComposer.querySelector(".mobile-create-input-row");
     const createReferenceRow = createComposer.querySelector("[data-mobile-create-reference-row]");
-    const createReferencePreview = createComposer.querySelector("[data-mobile-create-reference-preview]");
+    const createReferenceList = createComposer.querySelector("[data-mobile-create-reference-list]");
+    const createReferenceInput = createComposer.querySelector("[data-mobile-create-reference-input]");
     const createSettingsSummary = createComposer.querySelector("[data-mobile-create-settings-summary]");
     const createSettingsCost = createComposer.querySelector("[data-mobile-create-settings-cost]");
     const createEmpty = createWorkspace.querySelector("[data-mobile-create-empty]");
@@ -1414,6 +1592,87 @@
         cover: "../../assets/image_assets/activity-live-prompt.png",
         prompt: "",
       },
+    };
+    const createReferenceLimits = { image: 4, video: 1 };
+    const createReferences = { image: [], video: [] };
+    const retiredCreateReferenceUrls = new Set();
+    let createReferenceSequence = 0;
+
+    if (sourceType === "same-work") {
+      ["image", "video"].forEach((mode) => {
+        const sourceReference = sourceData[`${sourceType}:${mode}`];
+        if (!sourceReference?.cover) return;
+        createReferences[mode].push({
+          id: `source-${mode}`,
+          name: sourceReference.title,
+          url: sourceReference.cover,
+          isObjectUrl: false,
+        });
+      });
+    }
+
+    const activeCreateReferences = () => createReferences[createState.mode] || [];
+
+    const renderCreateReferences = () => {
+      if (!createReferenceList) return;
+      const references = activeCreateReferences();
+      const limit = createReferenceLimits[createState.mode] || 0;
+      const target = createState.mode === "video" ? "首帧图片" : "参考图";
+      createReferenceList.replaceChildren();
+      createReferenceList.hidden = references.length === 0;
+      createReferenceList.setAttribute("aria-label", `已添加的${target}`);
+      if (createReferenceInput) createReferenceInput.multiple = createState.mode === "image";
+      references.forEach((reference, index) => {
+        const item = document.createElement("div");
+        item.className = "mobile-create-reference-item";
+        item.dataset.mobileCreateReferenceId = reference.id;
+        item.setAttribute("role", "listitem");
+
+        const image = document.createElement("img");
+        image.className = "mobile-create-reference-preview";
+        image.src = reference.url;
+        image.alt = `${target} ${index + 1}：${reference.name}`;
+
+        const remove = document.createElement("button");
+        remove.className = "mobile-create-reference-remove";
+        remove.type = "button";
+        remove.dataset.mobileCreateReferenceRemove = reference.id;
+        remove.setAttribute("aria-label", `删除${target} ${index + 1}：${reference.name}`);
+        remove.innerHTML = '<img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt="">';
+
+        item.append(image, remove);
+        createReferenceList.append(item);
+      });
+      if (createAttachment) {
+        const atLimit = references.length >= limit;
+        createAttachment.hidden = atLimit || createState.mode === "script";
+        createAttachment.classList.toggle("is-selected", references.length > 0);
+        const label = createState.mode === "video"
+          ? "添加首帧图片"
+          : references.length
+            ? `继续添加参考图，已选择 ${references.length}/${limit} 张`
+            : `添加参考图，最多 ${limit} 张`;
+        createAttachment.setAttribute("aria-label", label);
+        createAttachment.setAttribute("title", label);
+      }
+      createReferenceRow?.setAttribute("data-reference-count", String(references.length));
+    };
+
+    const openCreateReferencePicker = () => {
+      if (!createReferenceInput) return;
+      if (activeCreateReferences().length >= (createReferenceLimits[createState.mode] || 0)) return;
+      createReferenceInput.value = "";
+      createReferenceInput.click();
+    };
+
+    const removeCreateReference = (referenceId) => {
+      const references = activeCreateReferences();
+      const index = references.findIndex((reference) => reference.id === referenceId);
+      if (index < 0) return;
+      const [removed] = references.splice(index, 1);
+      if (removed.isObjectUrl) retiredCreateReferenceUrls.add(removed.url);
+      renderCreateReferences();
+      showToast(createState.mode === "video" ? "已删除首帧图片" : `已删除参考图，当前 ${references.length} 张`);
     };
 
     const setCreateSheet = (sheet, open) => {
@@ -1491,7 +1750,7 @@
       if (!createPrompt) return;
       createPrompt.style.height = "auto";
       createPrompt.style.height = `${Math.min(createPrompt.scrollHeight, 120)}px`;
-      if (createCount) createCount.textContent = String(createPrompt.value.length);
+      if (createSend) createSend.disabled = !createPrompt.value.trim();
       if (createPrompt.value.trim() && createError) createError.textContent = "";
     };
     const syncCreateSummary = () => {
@@ -1540,27 +1799,20 @@
       if (createModeInput) createModeInput.value = createState.mode;
       if (createPrompt) {
         const promptConfig = {
-          image: { label: "描述画面", placeholder: "主体、场景、风格、光线和构图", limit: 1000 },
-          script: { label: "写下故事设定", placeholder: "人物关系、核心冲突或短片想法", limit: 5000 },
-          video: { label: "描述镜头", placeholder: "画面内容、镜头运动和节奏", limit: 1000 },
+          image: { ariaLabel: "描述画面", placeholder: "主体、场景、风格、光线和构图", limit: 1000 },
+          script: { ariaLabel: "写下故事设定", placeholder: "人物关系、核心冲突或短片想法", limit: 5000 },
+          video: { ariaLabel: "描述镜头", placeholder: "画面内容、镜头运动和节奏", limit: 1000 },
         }[createState.mode];
-        if (createPromptLabel) createPromptLabel.textContent = promptConfig.label;
+        createPrompt.setAttribute("aria-label", promptConfig.ariaLabel);
         createPrompt.placeholder = promptConfig.placeholder;
         createPrompt.maxLength = promptConfig.limit;
         if (createPrompt.value.length > promptConfig.limit) createPrompt.value = createPrompt.value.slice(0, promptConfig.limit);
-        if (createLimit) createLimit.textContent = String(promptConfig.limit);
         syncCreatePrompt();
-      }
-      if (createAttachment) {
-        const attachmentLabel = createAttachment.classList.contains("is-selected")
-          ? (createState.mode === "video" ? "移除首帧图片" : "移除参考图")
-          : (createState.mode === "video" ? "添加首帧图片" : "添加参考图");
-        createAttachment.setAttribute("aria-label", attachmentLabel);
-        createAttachment.setAttribute("title", attachmentLabel);
       }
       if (createReferenceRow) createReferenceRow.hidden = createState.mode === "script";
       createInputRow?.classList.toggle("is-script", createState.mode === "script");
       createInputRow?.classList.toggle("is-video", createState.mode === "video");
+      renderCreateReferences();
       let activeModeTab = null;
       createModeButtons.forEach((button) => {
         const selected = button.dataset.mobileCreateMode === createState.mode;
@@ -1666,14 +1918,43 @@
         });
       });
     });
-    createAttachment?.addEventListener("click", () => {
-      const selected = createAttachment.classList.toggle("is-selected");
-      createAttachment.setAttribute("aria-pressed", selected ? "true" : "false");
-      createAttachment.setAttribute("aria-label", selected ? (createState.mode === "video" ? "移除首帧图片" : "移除参考图") : (createState.mode === "video" ? "添加首帧图片" : "添加参考图"));
-      createAttachment.setAttribute("title", createAttachment.getAttribute("aria-label"));
-      showToast(selected ? (createState.mode === "video" ? "已添加首帧图片" : "已添加参考图") : "已移除图片");
+    createAttachment?.addEventListener("click", openCreateReferencePicker);
+    createReferenceList?.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element)) return;
+      const remove = event.target.closest("[data-mobile-create-reference-remove]");
+      if (!remove || !createReferenceList.contains(remove)) return;
+      removeCreateReference(remove.dataset.mobileCreateReferenceRemove);
     });
-    createReferencePreview?.addEventListener("click", () => showToast("参考图已带入当前创作"));
+    createReferenceInput?.addEventListener("change", () => {
+      const imageFiles = Array.from(createReferenceInput.files || []).filter((file) => !file.type || file.type.startsWith("image/"));
+      if (!imageFiles.length) {
+        createReferenceInput.value = "";
+        showToast("请选择图片文件");
+        return;
+      }
+      const references = activeCreateReferences();
+      const limit = createReferenceLimits[createState.mode] || 0;
+      const acceptedFiles = imageFiles.slice(0, Math.max(0, limit - references.length));
+      acceptedFiles.forEach((file) => {
+        references.push({
+          id: `local-${Date.now()}-${createReferenceSequence += 1}`,
+          name: file.name,
+          url: URL.createObjectURL(file),
+          isObjectUrl: true,
+        });
+      });
+      createReferenceInput.value = "";
+      renderCreateReferences();
+      if (createState.mode === "video") showToast("已添加首帧图片");
+      else if (acceptedFiles.length) showToast(`已添加 ${acceptedFiles.length} 张参考图，当前 ${references.length}/${limit} 张`);
+      if (imageFiles.length > acceptedFiles.length) showToast(createState.mode === "video" ? "首帧图片只能添加 1 张" : `最多可添加 ${limit} 张参考图`);
+    });
+    window.addEventListener("pagehide", () => {
+      Object.values(createReferences).flat().forEach((reference) => {
+        if (reference.isObjectUrl) URL.revokeObjectURL(reference.url);
+      });
+      retiredCreateReferenceUrls.forEach((url) => URL.revokeObjectURL(url));
+    }, { once: true });
     modelPopover?.addEventListener("toggle", () => {
       const open = modelPopover.open;
       modelPopover.classList.toggle("is-open", open);
@@ -1703,7 +1984,7 @@
     const createTaskStates = {
       queue: { status: "排队中", progress: "18%", meta: "正在等待生成资源" },
       running: { status: "生成中", progress: "68%", meta: "任务会在后台继续" },
-      success: { status: "生成完成", progress: "100%", meta: "点击预览查看结果" },
+      success: { status: "生成成功", progress: "100%", meta: "已自动存入生成记录，点击预览查看结果" },
       failed: { status: "生成失败", progress: "", meta: "本次未生成作品" },
       unknown: { status: "状态待确认", progress: "", meta: "可稍后再次查看" },
     };
@@ -1719,37 +2000,146 @@
       window.history.replaceState(null, "", `${window.location.pathname}?${query.toString()}`);
     };
     let activeCreateTask = null;
-    const setPreviewDialog = (open) => {
+    let previewEntranceAnimations = [];
+    let previewEntranceSequence = 0;
+    const cancelPreviewEntrance = () => {
+      previewEntranceAnimations.forEach((animation) => animation.cancel());
+      previewEntranceAnimations = [];
+    };
+    const playPreviewEntrance = (previewContent, sourceRect = null, sourceRadius = "14px") => {
+      if (!previewDialog || window.matchMedia("(prefers-reduced-motion: reduce)").matches || typeof Element.prototype.animate !== "function") return;
+
+      const closeButton = previewDialog.querySelector("[data-mobile-create-preview-close]:not(.mobile-create-preview-backdrop)");
+      const toolbar = previewDialog.querySelector(".mobile-create-preview-toolbar");
+      const toolbarButtons = [...(toolbar?.querySelectorAll("[data-mobile-create-preview-action]") || [])];
+      const sequence = previewEntranceSequence += 1;
+      const animateItem = (element, keyframes, options) => {
+        if (!element) return;
+        try {
+          const animation = element.animate(keyframes, {
+            easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+            fill: "backwards",
+            ...options,
+          });
+          previewEntranceAnimations.push(animation);
+        } catch {
+          // Progressive enhancement: the detail remains fully visible without motion.
+        }
+      };
+
+      if (previewContent) {
+        const targetRect = previewContent.getBoundingClientRect();
+        const hasGeometry = sourceRect && sourceRect.width > 0 && sourceRect.height > 0 && targetRect.width > 0 && targetRect.height > 0;
+        if (hasGeometry) {
+          const translateX = sourceRect.left - targetRect.left;
+          const translateY = sourceRect.top - targetRect.top;
+          const scaleX = sourceRect.width / targetRect.width;
+          const scaleY = sourceRect.height / targetRect.height;
+          animateItem(previewContent, [
+            {
+              opacity: 0.84,
+              borderRadius: sourceRadius,
+              transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scaleX}, ${scaleY})`,
+              transformOrigin: "top left",
+            },
+            {
+              opacity: 1,
+              borderRadius: getComputedStyle(previewContent).borderRadius,
+              transform: "translate3d(0, 0, 0) scale(1, 1)",
+              transformOrigin: "top left",
+            },
+          ], { duration: 560 });
+        } else {
+          animateItem(previewContent, [
+            { opacity: 0, transform: "scale(0.96)" },
+            { opacity: 1, transform: "scale(1)" },
+          ], { duration: 480 });
+        }
+      }
+
+      animateItem(closeButton, [
+        { opacity: 0, transform: "scale(0.92)" },
+        { opacity: 1, transform: "scale(1)" },
+      ], { delay: 190, duration: 340 });
+      animateItem(toolbar, [
+        { opacity: 0, transform: "translate3d(0, 10px, 0) scale(0.985)" },
+        { opacity: 1, transform: "translate3d(0, 0, 0) scale(1)" },
+      ], { delay: 270, duration: 430 });
+      toolbarButtons.forEach((button, index) => {
+        animateItem(button, [
+          { opacity: 0, transform: "translate3d(0, 6px, 0)" },
+          { opacity: 1, transform: "translate3d(0, 0, 0)" },
+        ], { delay: 340 + index * 70, duration: 360 });
+      });
+
+      previewDialog.dataset.mobilePreviewEntrance = "running";
+      Promise.allSettled(previewEntranceAnimations.map((animation) => animation.finished)).then(() => {
+        if (sequence === previewEntranceSequence && previewDialog.classList.contains("is-open")) {
+          previewDialog.dataset.mobilePreviewEntrance = "complete";
+        }
+      });
+    };
+    const setPreviewDialog = (open, sourcePreview = null, requestedMode = "image") => {
       if (!previewDialog) return;
+      const previewMode = ["image", "video", "script"].includes(requestedMode) ? requestedMode : "image";
+      const sourceContent = sourcePreview?.querySelector(":scope > :first-child") || sourcePreview;
+      const sourceRect = open && sourceContent instanceof Element ? sourceContent.getBoundingClientRect() : null;
+      const sourceRadius = open && sourceContent instanceof Element ? getComputedStyle(sourceContent).borderRadius : "14px";
+      cancelPreviewEntrance();
+      previewEntranceSequence += 1;
+      let previewContent = null;
+      if (open) {
+        previewDialog.querySelectorAll("[data-mobile-create-preview-content]").forEach((content) => {
+          const selected = content.dataset.mobileCreatePreviewContent === previewMode;
+          content.hidden = !selected;
+          if (selected) previewContent = content;
+        });
+        const previewStage = previewDialog.querySelector(".mobile-create-preview-stage");
+        previewStage?.setAttribute("aria-label", `${previewMode === "video" ? "视频" : previewMode === "script" ? "剧本" : "图片"}生成结果预览`);
+      }
       previewDialog.classList.toggle("is-open", open);
       previewDialog.setAttribute("aria-hidden", open ? "false" : "true");
       document.body.classList.toggle("has-create-preview", open);
+      if (open) playPreviewEntrance(previewContent, sourceRect, sourceRadius);
+      else {
+        previewDialog.querySelectorAll("video").forEach((video) => video.pause());
+        delete previewDialog.dataset.mobilePreviewEntrance;
+      }
     };
     const appendCreateTask = (submittedPrompt, initialState = "running", { scroll = false, restored = false } = {}) => {
       const taskMode = createState.mode;
       const taskKind = taskMode === "video" ? "视频" : taskMode === "script" ? "剧本" : "图片";
       const taskSettings = createState[taskMode];
       const taskModel = restored && params.get("model") ? params.get("model") : taskSettings.model;
+      const taskReferences = activeCreateReferences().map(({ name, url }) => ({ name, url }));
       let taskState = createTaskStates[initialState] ? initialState : "running";
       const createThread = createWorkspace.querySelector(".mobile-create-thread");
       const now = new Date();
       const pad = (value) => String(value).padStart(2, "0");
 
-      activeCreateTask?.remove?.();
-
       const userTurn = document.createElement("article");
       userTurn.className = "mobile-create-turn is-user";
+      const taskHeading = document.createElement("div");
+      taskHeading.className = "mobile-create-task-heading";
       const taskDate = document.createElement("h2");
       taskDate.className = "mobile-create-task-date";
       taskDate.textContent = `${now.getMonth() + 1}.${pad(now.getDate())}`;
-      const submissionHead = document.createElement("div");
-      submissionHead.className = "mobile-create-submission-head";
-      const submissionThumb = document.createElement("img");
-      submissionThumb.className = "mobile-create-submission-thumb";
-      submissionThumb.src = taskMode === "video" ? "../../assets/image_assets/4.png" : taskMode === "script" ? "../../assets/image_assets/17.png" : "../../assets/image_assets/15.jpg";
-      submissionThumb.alt = `${taskKind}创作参考`;
-      const submissionCopy = document.createElement("div");
-      submissionCopy.className = "mobile-create-submission-copy";
+      const submittedAt = document.createElement("time");
+      submittedAt.dateTime = now.toISOString();
+      submittedAt.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+      taskHeading.append(taskDate, submittedAt);
+
+      const submissionReferences = document.createElement("div");
+      submissionReferences.className = "mobile-create-submission-references";
+      submissionReferences.setAttribute("aria-label", taskMode === "video" ? "本次使用的首帧图片" : "本次使用的参考图");
+      taskReferences.forEach((reference, index) => {
+        const image = document.createElement("img");
+        image.className = "mobile-create-submission-thumb";
+        image.src = reference.url;
+        image.alt = `${taskMode === "video" ? "首帧图片" : "参考图"} ${index + 1}：${reference.name}`;
+        submissionReferences.append(image);
+      });
+
       const submissionChips = document.createElement("div");
       submissionChips.className = "mobile-create-submission-chips";
       [taskModel, taskSettings.resolution, taskSettings.ratio, taskSettings.duration, `${taskSettings.cost} 积分`].filter(Boolean).forEach((text) => {
@@ -1758,13 +2148,11 @@
         submissionChips.append(chip);
       });
       const userPrompt = document.createElement("p");
+      userPrompt.className = "mobile-create-submission-prompt";
       userPrompt.textContent = submittedPrompt;
-      submissionCopy.append(submissionChips, userPrompt);
-      submissionHead.append(submissionThumb, submissionCopy);
-      const submittedAt = document.createElement("time");
-      submittedAt.dateTime = now.toISOString();
-      submittedAt.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
-      userTurn.append(taskDate, submissionHead, submittedAt);
+      userTurn.append(taskHeading);
+      if (taskReferences.length) userTurn.append(submissionReferences);
+      userTurn.append(submissionChips, userPrompt);
 
       const taskTurn = document.createElement("article");
       taskTurn.className = "mobile-create-turn is-task";
@@ -1798,57 +2186,106 @@
 
       const taskSummary = document.createElement("div");
       taskSummary.className = "mobile-create-task-summary";
+      taskSummary.setAttribute("role", "status");
+      taskSummary.setAttribute("aria-live", "polite");
+      const taskStatusIcon = document.createElement("img");
+      taskStatusIcon.className = "mobile-icon mobile-create-task-status-icon";
+      taskStatusIcon.src = "../../resources/icons/remixicon/svg/System/checkbox-circle-fill.svg";
+      taskStatusIcon.alt = "";
+      taskStatusIcon.hidden = true;
       const taskStatus = document.createElement("strong");
       const taskMeta = document.createElement("span");
-      taskSummary.append(taskStatus, taskMeta);
-      const taskActions = document.createElement("div");
-      taskActions.className = "mobile-create-task-actions";
-      const editAction = document.createElement("button");
-      editAction.type = "button";
-      editAction.innerHTML = '<img class="mobile-icon" src="../../resources/icons/remixicon/svg/Document/file-edit-line.svg" alt=""><span>重新编辑</span>';
-      const regenerateAction = document.createElement("button");
-      regenerateAction.type = "button";
-      regenerateAction.innerHTML = '<img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/refresh-line.svg" alt=""><span>重新生成</span>';
-      taskActions.append(editAction, regenerateAction);
-      taskTurn.append(taskPreview, taskSummary, taskActions);
+      taskSummary.append(taskStatusIcon, taskStatus, taskMeta);
+      taskTurn.append(taskPreview, taskSummary);
 
+      const playSubmissionEntrance = () => {
+        if (restored || window.matchMedia("(prefers-reduced-motion: reduce)").matches || typeof Element.prototype.animate !== "function") return;
+
+        const animations = [];
+        const animateItem = (element, keyframes, delay, duration = 380) => {
+          if (!element) return;
+          try {
+            const animation = element.animate(keyframes, {
+              delay,
+              duration,
+              easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+              fill: "backwards",
+            });
+            animations.push(animation);
+          } catch {
+            // Progressive enhancement: submitted content remains visible if motion is unavailable.
+          }
+        };
+        const riseIn = [
+          { opacity: 0, transform: "translate3d(0, 7px, 0)" },
+          { opacity: 1, transform: "translate3d(0, 0, 0)" },
+        ];
+        const imageIn = [
+          { opacity: 0, transform: "scale(0.96)" },
+          { opacity: 1, transform: "scale(1)" },
+        ];
+
+        let nextDelay = 0;
+        animateItem(taskHeading, riseIn, nextDelay, 360);
+        nextDelay += 62;
+        [...submissionReferences.children].forEach((reference) => {
+          animateItem(reference, imageIn, nextDelay, 360);
+          nextDelay += 38;
+        });
+        [...submissionChips.children].forEach((chip) => {
+          animateItem(chip, riseIn, nextDelay, 360);
+          nextDelay += 34;
+        });
+        nextDelay += 18;
+        animateItem(userPrompt, riseIn, nextDelay, 400);
+        animateItem(taskTurn, [{ opacity: 0 }, { opacity: 1 }], nextDelay + 82, 420);
+
+        Promise.allSettled(animations.map((animation) => animation.finished)).then(() => {
+          taskTurn.dataset.submissionEntrance = "complete";
+        });
+      };
+
+      let taskController = null;
       const openTaskResult = () => {
+        activeCreateTask = taskController;
         if (taskState !== "success") {
           taskState = "success";
           renderCreateTask();
           showToast("生成完成，可点击查看结果");
           return;
         }
-        if (taskMode === "image" && previewDialog) setPreviewDialog(true);
+        if (previewDialog) setPreviewDialog(true, taskPreview, taskMode);
         else window.location.href = createResultUrl(taskMode, taskModel);
       };
       const renderCreateTask = () => {
+        const previousState = taskTurn.dataset.state || "";
         const state = createTaskStates[taskState];
+        taskTurn.classList.remove("is-completing");
         taskTurn.dataset.state = taskState;
         taskStatus.textContent = state.status;
-        taskMeta.textContent = `${taskModel} · ${state.meta}`;
+        taskMeta.textContent = taskState === "success" ? state.meta : `${taskModel} · ${state.meta}`;
+        taskStatusIcon.hidden = taskState !== "success";
         taskProgressStatus.textContent = state.status;
         taskProgressValue.textContent = state.progress;
         taskPreviewLabel.hidden = taskState !== "success";
         taskPreview.setAttribute("aria-label", taskState === "success" ? "查看生成结果" : "更新生成状态");
         syncCreateTaskUrl({ mode: taskMode, state: taskState, prompt: submittedPrompt, model: taskModel });
+        if (taskState === "success" && previousState && previousState !== "success") {
+          void taskTurn.offsetWidth;
+          taskTurn.classList.add("is-completing");
+        }
       };
       const removeTask = () => {
         userTurn.remove();
         taskTurn.remove();
-        document.body.classList.remove("has-create-task");
-        if (createEmpty) createEmpty.hidden = false;
-        createPrompt.placeholder = createState.mode === "script" ? "人物关系、核心冲突或短片想法" : createState.mode === "video" ? "画面内容、镜头运动和节奏" : "主体、场景、风格、光线和构图";
-        window.history.replaceState(null, "", window.location.pathname);
-        activeCreateTask = null;
-      };
-      const editTask = () => {
-        setPreviewDialog(false);
-        removeTask();
-        createPrompt.value = submittedPrompt;
-        syncCreatePrompt();
-        createPrompt.focus();
-        showToast("已恢复原提示词");
+        const hasRemainingTasks = Boolean(createThread?.querySelector("[data-mobile-create-task]"));
+        document.body.classList.toggle("has-create-task", hasRemainingTasks);
+        if (createEmpty) createEmpty.hidden = hasRemainingTasks;
+        if (!hasRemainingTasks) {
+          createPrompt.placeholder = createState.mode === "script" ? "人物关系、核心冲突或短片想法" : createState.mode === "video" ? "画面内容、镜头运动和节奏" : "主体、场景、风格、光线和构图";
+          window.history.replaceState(null, "", window.location.pathname);
+        }
+        if (activeCreateTask === taskController) activeCreateTask = null;
       };
       const regenerateTask = () => {
         setPreviewDialog(false);
@@ -1857,9 +2294,8 @@
         taskTurn.scrollIntoView({ behavior: "smooth", block: "center" });
         showToast("已重新发起生成");
       };
+      taskController = { remove: removeTask, regenerate: regenerateTask, complete: openTaskResult };
       taskPreview.addEventListener("click", openTaskResult);
-      editAction.addEventListener("click", editTask);
-      regenerateAction.addEventListener("click", regenerateTask);
       renderCreateTask();
       if (createEmpty) createEmpty.hidden = true;
       document.body.classList.add("has-create-task");
@@ -1868,10 +2304,10 @@
         createThread.insertBefore(userTurn, turnAnchor);
         createThread.insertBefore(taskTurn, turnAnchor);
       }
+      playSubmissionEntrance();
       createPrompt.value = "";
-      createPrompt.placeholder = "继续描述你的想法";
       syncCreatePrompt();
-      activeCreateTask = { remove: removeTask, edit: editTask, regenerate: regenerateTask, complete: openTaskResult };
+      activeCreateTask = taskController;
       if (scroll) taskTurn.scrollIntoView({ behavior: "auto", block: "center" });
     };
     createComposer.addEventListener("submit", (event) => {
@@ -1891,16 +2327,9 @@
     document.querySelectorAll("[data-mobile-create-preview-action]").forEach((button) => {
       button.addEventListener("click", () => {
         const action = button.dataset.mobileCreatePreviewAction;
-        if (action === "edit") activeCreateTask?.edit?.();
-        else if (action === "regenerate") activeCreateTask?.regenerate?.();
-        else if (action === "favorite") {
-          const selected = button.classList.toggle("is-selected");
-          showToast(selected ? "已收藏生成结果" : "已取消收藏");
-        } else if (action === "delete") {
-          setPreviewDialog(false);
-          activeCreateTask?.remove?.();
-          showToast("已从当前记录移除");
-        } else if (action === "hd") showToast("当前预览已是高清版本");
+        if (action === "regenerate") activeCreateTask?.regenerate?.();
+        else if (action === "publish") showToast("作品已提交发布");
+        else if (action === "activity") window.location.assign("./mobile-campaign-detail.html#mobile-campaign-participation");
       });
     });
     document.addEventListener("keydown", (event) => {
@@ -1930,7 +2359,8 @@
     }
     syncCreateMode(createState.mode);
     renderCreateSource();
-    const restoredPrompt = params.get("prompt") || (params.get("state")
+    const restoredTaskState = params.get("state");
+    const restoredPrompt = params.get("prompt") || (restoredTaskState
       ? (createState.mode === "video"
         ? "雷云中金龙与白虎对峙，镜头环绕战场。"
         : createState.mode === "script"
@@ -1940,10 +2370,11 @@
     if (restoredPrompt) {
       createPrompt.value = restoredPrompt;
       syncCreatePrompt();
-      appendCreateTask(restoredPrompt, params.get("state") || "running", { restored: true });
+      if (restoredTaskState) appendCreateTask(restoredPrompt, restoredTaskState, { restored: true });
     } else {
       syncCreatePrompt();
     }
+    playCreateEntrance();
   }
 
   const campaignChoiceSheet = document.querySelector("[data-mobile-campaign-choice-sheet]");

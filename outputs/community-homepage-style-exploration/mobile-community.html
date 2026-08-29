@@ -36,7 +36,7 @@
         <section class="mobile-community-recommend-section mobile-community-recommend-flash" aria-labelledby="mobile-community-hot-title">
           <header class="mobile-community-recommend-head mobile-display-heading mobile-display-heading--compact" data-mobile-display-heading>
             <div class="mobile-display-heading__content"><h2 id="mobile-community-hot-title" class="mobile-display-heading__title">闪念正在热议</h2><span class="mobile-display-heading__kicker">最新讨论</span></div>
-            <button class="mobile-community-outline-action" type="button" data-mobile-flash-compose-open>发闪念</button>
+            <a class="mobile-community-outline-action" href="./mobile-compose-flash.html">发闪念</a>
           </header>
           <article class="mobile-community-hot-post">
             <header class="mobile-flash-post-head"><img src="../../assets/web/image_assets/nav-avatar-ai-creator-v1.webp" alt=""><div><strong>南舟</strong><span>18 分钟前</span></div></header>
@@ -146,29 +146,6 @@
       <a class="mobile-nav-item" href="./mobile-my.html"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/User & Faces/user-line.svg" alt=""><span>我的</span></a>
   </nav>
 
-  <section id="mobile-flash-compose-sheet" class="mobile-bottom-sheet mobile-flash-compose-sheet" data-mobile-flash-compose-sheet aria-hidden="true">
-    <button class="mobile-sheet-backdrop" type="button" data-mobile-flash-compose-close aria-label="关闭发布闪念"></button>
-    <div class="mobile-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="mobile-flash-compose-title">
-      <header class="mobile-sheet-head"><h2 id="mobile-flash-compose-title">发布闪念</h2><button class="mobile-icon-button" type="button" data-mobile-flash-compose-close aria-label="关闭发布闪念"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button></header>
-      <form class="mobile-flash-compose-form" data-mobile-flash-compose>
-        <div class="mobile-sheet-scroll mobile-flash-compose-scroll">
-          <div class="mobile-flash-compose-editor">
-            <textarea maxlength="600" rows="7" data-mobile-flash-compose-content placeholder="写下此刻的想法…" aria-label="闪念内容"></textarea>
-            <span data-mobile-flash-compose-counter>0/600</span>
-          </div>
-          <div class="mobile-flash-compose-media-bar">
-            <button type="button" data-mobile-flash-media-add><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Media/image-add-line.svg" alt=""><span>添加图片或视频</span></button>
-            <span data-mobile-flash-media-counter>0/4</span>
-          </div>
-          <input class="mobile-flash-media-input" type="file" accept="image/png,image/jpeg,image/webp,video/mp4,video/webm,video/quicktime" multiple data-mobile-flash-media-input>
-          <div class="mobile-flash-compose-media-list" data-mobile-flash-media-list></div>
-          <p class="mobile-field-error" data-mobile-flash-compose-status aria-live="polite"></p>
-        </div>
-        <div class="mobile-flash-compose-action"><button class="mobile-button primary" type="submit" data-mobile-flash-publish disabled>发布闪念</button></div>
-      </form>
-    </div>
-  </section>
-
   <section id="mobile-tutorial-detail-sheet" class="mobile-bottom-sheet mobile-tutorial-detail-sheet" data-mobile-tutorial-sheet aria-hidden="true">
     <button class="mobile-sheet-backdrop" type="button" data-mobile-tutorial-close aria-label="关闭教程预览"></button>
     <div class="mobile-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="mobile-tutorial-detail-title">
@@ -191,7 +168,7 @@
       <section class="mobile-rule-card"><strong>页面骨架</strong><p>社区首层为推荐、AIGC、闪念、教程四个频道；推荐页只承担聚合分发，AIGC、闪念和教程仍维护各自完整列表与详情上下文，底部五项承担一级导航。</p></section>
       <section class="mobile-rule-card"><strong>内容一致</strong><p>推荐页按精选作品、热议闪念、最新教程组织首屏；AIGC 使用双列瀑布流，闪念使用单列帖子流，教程使用连续列表并在原页打开预览层，不回落桌面页面。</p></section>
       <section class="mobile-rule-card"><strong>状态</strong><p>频道和 AIGC 类型筛选均在当前页完成；地址参数记录当前频道，返回时恢复频道、筛选与列表位置。</p></section>
-      <section class="mobile-rule-card"><strong>发布闪念</strong><p>底部创作入口先选择创作方式；发布闪念进入闪念频道并打开编辑层，正文最多 600 字、媒体最多 4 个，正文或媒体至少填写一项。静态原型只演示提交状态，不写入真实内容。</p></section>
+      <section class="mobile-rule-card"><strong>发布闪念</strong><p>底部创作入口先选择创作方式；发布闪念进入独立全屏编辑页，正文最多 600 字、媒体最多 6 个、话题最多 5 个，并支持选择内容分类。静态原型只演示提交状态，不写入真实内容。</p></section>
       <section class="mobile-rule-card"><strong>验收</strong><p>四个频道切换后只展示对应内容；推荐页三类入口均可到达其频道或详情；教程预览关闭后保留社区位置；AIGC 筛选不影响其他频道；底部导航不遮挡内容；360/390/430 无横向溢出。</p></section>
     </div>
   </aside>
