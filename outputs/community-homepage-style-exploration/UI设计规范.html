@@ -1138,7 +1138,7 @@
             <header class="page-pattern-head"><div><span class="page-pattern-eyebrow">Immersive detail</span><h3>作品详情</h3></div><span class="page-pattern-index">02</span></header>
             <p>详情页围绕一个作品建立连续阅读和互动。媒体是第一视觉对象，标题与话题先于作者出现；图片和视频共享信息结构与底部动作。</p>
             <div class="page-pattern-flow" aria-label="作品详情结构顺序"><span>沉浸媒体</span><span>标题与话题</span><span>作者</span><span>创作信息</span><span>评论</span><span>固定动作栏</span></div>
-            <dl class="page-pattern-specs"><div><dt>页面骨架</dt><dd>无顶栏 · 左上浮动返回</dd></div><div><dt>媒体规则</dt><dd>原始比例 · 主体不裁切</dd></div><div><dt>底部动作</dt><dd>76px + safe area</dd></div><div><dt>输入规则</dt><dd>评论输入 16px · 键盘可见</dd></div></dl>
+            <dl class="page-pattern-specs"><div><dt>页面骨架</dt><dd>统一二级顶栏 · 52px</dd></div><div><dt>媒体规则</dt><dd>原始比例 · 主体不裁切</dd></div><div><dt>底部动作</dt><dd>76px + safe area</dd></div><div><dt>输入规则</dt><dd>评论输入 16px · 键盘可见</dd></div></dl>
             <div class="page-pattern-rules"><div class="page-pattern-rule"><b>必须</b><span>视频保留播放、进度、静音与全屏；一键同款只带入可复用参数，由用户确认后生成。</span></div><div class="page-pattern-rule is-avoid"><b>避免</b><span>用顶部导航挤压媒体、让动作栏遮住正文，或在同款入口自动生成、自动扣减积分。</span></div></div>
             <div class="page-pattern-links"><a href="./mobile-image-detail.html" target="_blank" rel="noopener">图片详情 ↗</a><a href="./mobile-video-detail.html" target="_blank" rel="noopener">视频详情 ↗</a></div>
           </article>
@@ -1163,7 +1163,7 @@
         </div>
 
         <div class="pattern-shared" aria-label="四类页面共享规则">
-          <article><strong>导航分层</strong><p>首页与社区使用五项 TabBar；详情使用浮动返回；AIGC 使用独立顶栏。不要混用。</p></article>
+          <article><strong>导航分层</strong><p>首页与社区使用五项 TabBar；所有二级页面统一使用 52px 顶栏、居中标题与 44px 操作区。</p></article>
           <article><strong>安全区优先</strong><p>固定底栏、动作栏和输入器都叠加 safe-area；键盘出现后主操作仍可见。</p></article>
           <article><strong>状态不跳页</strong><p>筛选、评论、生成任务优先在当前上下文反馈；跨页返回时恢复选择与滚动位置。</p></article>
           <article><strong>动作可逆</strong><p>同款、生成和发布先确认参数；积分只展示预估，不因进入页面或切换选项自动扣减。</p></article>
@@ -1217,7 +1217,7 @@
           <article class="registry-item" data-keywords="社区 教程 tutorial row feature"><header><h3>社区教程推荐</h3><span>Card / Meta</span></header><p>教程主卡与紧凑列表行，标题和元信息保持同一层级。</p><code>.mobile-community-tutorial-feature · .mobile-community-tutorial-row</code></article>
           <article class="registry-item" data-keywords="社区 按钮 action outline text primary button"><header><h3>社区操作按钮</h3><span>Label 14</span></header><p>发布、查看全部和次级操作，常规触控区不小于 44px。</p><code>.mobile-button.primary · .mobile-community-outline-action · .mobile-community-text-action</code></article>
           <article class="registry-item" data-keywords="社区 发布 输入 page editor flash compose"><header><h3>全屏闪念发布页</h3><span>Body / Label</span></header><p>宇航员头图、闪念编辑、媒体、话题、分类与底部安全区。</p><code>.mobile-flash-compose-page · .mobile-flash-page-editor · .mobile-flash-page-action</code></article>
-          <article class="registry-item" data-keywords="详情 图片 视频 媒体 返回 immersive detail"><header><h3>作品详情媒体层</h3><span>Media / Back</span></header><p>图片与视频按原比例展示，左上浮动返回，不增加占高顶栏。</p><code>.mobile-detail-media · .mobile-detail-back-button</code></article>
+          <article class="registry-item" data-keywords="详情 图片 视频 媒体 返回 immersive detail"><header><h3>作品详情媒体层</h3><span>Media / Appbar</span></header><p>图片与视频按原比例展示，使用共享二级导航栏承接返回与页面标题。</p><code>.mobile-detail-media · .mobile-topbar-detail</code></article>
           <article class="registry-item" data-keywords="详情 作者 prompt 创作信息 评论 action bar 一键同款"><header><h3>详情信息与动作</h3><span>Page / Body / Label</span></header><p>标题、作者、创作信息、评论与固定互动动作保持统一顺序。</p><code>.mobile-detail-copy · .mobile-author-block · .mobile-prompt-card · .mobile-comments-preview · .mobile-action-bar</code></article>
           <article class="registry-item" data-keywords="aigc 生成 创作 输入 composer 模式 prompt reference"><header><h3>AIGC 创作输入器</h3><span>Body 16 / Label</span></header><p>模式、参考素材、提示词与发送动作固定在安全区上方。</p><code>.mobile-create-composer · .mobile-create-mode-tabs · .mobile-create-reference-row · .mobile-create-send</code></article>
           <article class="registry-item" data-keywords="aigc 模型 参数 比例 分辨率 时长 积分 selector"><header><h3>AIGC 模型与参数</h3><span>Caption / Control</span></header><p>模型单选，参数随模式显隐，预计积分与当前选择同步。</p><code>.mobile-create-model-popover · .mobile-model-card · .mobile-create-parameter-select · .mobile-create-cost-chip</code></article>

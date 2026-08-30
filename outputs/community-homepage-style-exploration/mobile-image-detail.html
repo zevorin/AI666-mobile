@@ -11,7 +11,11 @@
 </head>
 <body class="mobile-h5-body" data-mobile-page="image-detail">
   <div class="mobile-shell has-action-bar">
-    <button class="mobile-back-button mobile-detail-back-button" type="button" data-mobile-back data-fallback="./mobile-community.html" aria-label="返回社区"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-left-s-line.svg" alt=""></button>
+    <header class="mobile-topbar mobile-topbar-detail" data-mobile-appbar>
+      <button class="mobile-back-button" type="button" data-mobile-back data-fallback="./mobile-community.html" aria-label="返回社区"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-left-s-line.svg" alt=""></button>
+      <span class="mobile-page-title">作品详情</span>
+      <span class="mobile-topbar-placeholder" aria-hidden="true"></span>
+    </header>
 
     <main id="main">
       <figure class="mobile-detail-media image" style="margin:0"><img src="../../assets/image_assets/15.jpg" alt="凤冠神女逆光国风角色作品"></figure>
@@ -58,7 +62,7 @@
     <div class="mobile-walkthrough-head"><h2>图片详情走查规则</h2><button class="mobile-icon-button" type="button" data-mobile-walkthrough-close aria-label="关闭走查规则"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button></div>
     <div class="mobile-rule-grid">
       <section class="mobile-rule-card"><strong>主对象</strong><p>所有媒体、作者、标题和互动属于同一社区作品；媒体后先展示标题与话题，再展示作者信息，活动标签不改变作品身份。</p></section>
-      <section class="mobile-rule-card"><strong>返回操作</strong><p>详情页不显示顶部导航栏，返回按钮固定在左上角；点赞、评论、收藏、分享和一键同款统一进入底部动作栏。</p></section>
+      <section class="mobile-rule-card"><strong>返回操作</strong><p>详情页使用统一二级导航栏返回社区；点赞、评论、收藏、分享和一键同款统一进入底部动作栏。</p></section>
       <section class="mobile-rule-card"><strong>互动</strong><p>点赞、评论、收藏、分享和一键同款集中在详情；点击评论或回复后，仅在当前页面底部显示评论输入框与发送按钮，不展开评论抽屉。</p></section>
       <section class="mobile-rule-card"><strong>一键同款</strong><p>进入移动创作并带入可复用信息，用户仍需确认参数，不自动生成或扣减积分。</p></section>
       <section class="mobile-rule-card"><strong>验收</strong><p>图片按原始比例铺满可用宽度且不裁切；标题话题位于作者前；评论输入框字号为 16px 且键盘不遮挡输入；返回社区后恢复原列表位置；底部动作不遮挡正文。</p></section>

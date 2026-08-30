@@ -11,7 +11,11 @@
 </head>
 <body class="mobile-h5-body" data-mobile-page="video-detail">
   <div class="mobile-shell has-action-bar">
-    <button class="mobile-back-button mobile-detail-back-button" type="button" data-mobile-back data-fallback="./mobile-community.html" aria-label="返回社区"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-left-s-line.svg" alt=""></button>
+    <header class="mobile-topbar mobile-topbar-detail" data-mobile-appbar>
+      <button class="mobile-back-button" type="button" data-mobile-back data-fallback="./mobile-community.html" aria-label="返回社区"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-left-s-line.svg" alt=""></button>
+      <span class="mobile-page-title">作品详情</span>
+      <span class="mobile-topbar-placeholder" aria-hidden="true"></span>
+    </header>
 
     <main id="main">
       <figure class="mobile-detail-media video" style="margin:0"><video src="../../assets/video_assets/sd2_gen.mp4" poster="../../assets/image_assets/4.png" controls muted playsinline preload="metadata" aria-label="海灯守望生成视频"></video></figure>
@@ -58,7 +62,7 @@
     <div class="mobile-walkthrough-head"><h2>视频详情走查规则</h2><button class="mobile-icon-button" type="button" data-mobile-walkthrough-close aria-label="关闭走查规则"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button></div>
     <div class="mobile-rule-grid">
       <section class="mobile-rule-card"><strong>媒体优先</strong><p>视频首屏不被顶部栏或底部动作遮挡；媒体后先展示标题与话题，再展示作者信息，并保留原生播放、暂停、进度、静音和全屏能力。</p></section>
-      <section class="mobile-rule-card"><strong>返回操作</strong><p>详情页不显示顶部导航栏，返回按钮固定在左上角；点击评论或回复后，仅在当前页面底部显示评论输入框与发送按钮，不展开评论抽屉。</p></section>
+      <section class="mobile-rule-card"><strong>返回操作</strong><p>详情页使用统一二级导航栏返回社区；点击评论或回复后，仅在当前页面底部显示评论输入框与发送按钮，不展开评论抽屉。</p></section>
       <section class="mobile-rule-card"><strong>失败状态</strong><p>真实开发需覆盖加载失败、转码中、素材不可用和重试；不能只显示黑色视频框。</p></section>
       <section class="mobile-rule-card"><strong>一键同款</strong><p>进入视频创作并带入可复用信息，用户确认后才生成，不自动扣减积分。</p></section>
       <section class="mobile-rule-card"><strong>验收</strong><p>390×844 首屏视频控制可达；标题话题位于作者前；评论输入框字号为 16px 且键盘不遮挡输入；正文和评论可滚动；横竖素材不裁掉主体；返回恢复列表位置。</p></section>

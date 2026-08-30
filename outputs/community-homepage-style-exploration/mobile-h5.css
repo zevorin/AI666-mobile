@@ -24,6 +24,7 @@
   --mobile-radius: var(--ds-radius-control);
   --mobile-radius-lg: var(--ds-radius-control);
   --mobile-side: 16px;
+  --mobile-page-gutter: var(--mobile-side);
   --mobile-font-min: var(--ds-type-min);
   --mobile-topbar-height: 52px;
   --mobile-tabbar-height: 72px;
@@ -1873,28 +1874,6 @@ video {
   position: relative;
   width: 100%;
   background: #090c10;
-}
-
-.mobile-detail-back-button {
-  position: fixed;
-  top: calc(env(safe-area-inset-top, 0px) + 12px);
-  left: max(var(--mobile-side), calc((100vw - 480px) / 2 + var(--mobile-side)));
-  z-index: 80;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(5, 7, 11, 0.58);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
-  backdrop-filter: blur(12px);
-}
-
-.mobile-detail-back-button:hover {
-  background: rgba(5, 7, 11, 0.76);
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  .mobile-detail-back-button {
-    background: #11151b;
-    backdrop-filter: none;
-  }
 }
 
 .mobile-detail-media.image {
@@ -22215,4 +22194,116 @@ body[data-mobile-page="profile-field-edit"] .mobile-profile-field-edit-content {
   .mobile-profile-cell {
     padding-inline: 15px;
   }
+}
+
+/* Shared page frame: one outer gutter and one secondary navigation treatment. */
+body.mobile-h5-body .mobile-topbar.mobile-topbar-detail {
+  position: sticky;
+  top: 0;
+  z-index: 72;
+  min-height: calc(var(--mobile-topbar-height) + env(safe-area-inset-top, 0px));
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  align-items: end;
+  gap: 8px;
+  padding: env(safe-area-inset-top, 0px) var(--ds-space-3) 0;
+  border: 0;
+  background: rgba(5, 7, 11, 0.92);
+  box-shadow: inset 0 -1px 0 rgba(255, 250, 240, 0.075);
+  backdrop-filter: blur(20px) saturate(135%);
+}
+
+body.mobile-h5-body .mobile-topbar.mobile-topbar-detail.is-scrolled {
+  border: 0;
+  background: rgba(5, 7, 11, 0.97);
+  box-shadow: inset 0 -1px 0 rgba(255, 250, 240, 0.09), 0 12px 28px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(20px) saturate(135%);
+}
+
+body.mobile-h5-body .mobile-topbar.mobile-topbar-detail > .mobile-page-title {
+  min-height: var(--mobile-topbar-height);
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: var(--ds-text-primary);
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-type-nav-title);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-nav-title);
+  letter-spacing: var(--ds-tracking-nav-title);
+  text-align: center;
+  opacity: 1;
+  transform: none;
+}
+
+body.mobile-h5-body .mobile-topbar.mobile-topbar-detail > :is(.mobile-back-button, .mobile-topbar-actions),
+body.mobile-h5-body .mobile-topbar.mobile-topbar-detail > .mobile-topbar-placeholder {
+  align-self: end;
+  margin: 0;
+}
+
+body.mobile-h5-body .mobile-topbar.mobile-topbar-detail > .mobile-back-button {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.mobile-h5-body[data-mobile-page="points"] .mobile-topbar.mobile-topbar-detail {
+  grid-template-columns: 64px minmax(0, 1fr) 64px;
+}
+
+:is(
+  .mobile-content,
+  .mobile-task-content,
+  .mobile-campaign-content,
+  .mobile-create-workspace,
+  .mobile-generation-history-main,
+  .mobile-flash-page-content,
+  .mobile-invite-content,
+  .mobile-result-content,
+  .mobile-detail-body
+) {
+  padding-right: var(--mobile-page-gutter);
+  padding-left: var(--mobile-page-gutter);
+}
+
+.mobile-tutorial-hero,
+.mobile-tutorial-article,
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-content,
+body[data-mobile-page="profile-field-edit"] .mobile-profile-field-edit-content {
+  padding-right: var(--mobile-page-gutter);
+  padding-left: var(--mobile-page-gutter);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  body.mobile-h5-body .mobile-topbar.mobile-topbar-detail,
+  body.mobile-h5-body .mobile-topbar.mobile-topbar-detail.is-scrolled {
+    background: #080a0d;
+    backdrop-filter: none;
+  }
+}
+
+/* Activity details use a denser participation action without affecting other fixed bars. */
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card > .mobile-button {
+  min-height: 38px;
+  padding-inline: 16px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-single-action-bar {
+  min-height: calc(60px + env(safe-area-inset-bottom, 0px));
+  padding: 8px var(--mobile-page-gutter) calc(8px + env(safe-area-inset-bottom, 0px));
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-single-action-bar .mobile-action-primary {
+  min-height: 44px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shell.has-action-bar {
+  padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
 }
