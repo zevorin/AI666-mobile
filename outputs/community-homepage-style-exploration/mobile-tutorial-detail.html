@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05070b">
+  <title>教程详情 - 多元拾光</title>
+  <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-community-tutorial-page-v1">
+  <script src="./mobile-h5.js?v=20260830-community-tutorial-page-v1" defer></script>
+</head>
+<body class="mobile-h5-body" data-mobile-page="tutorial-detail">
+  <div class="mobile-shell">
+    <header class="mobile-topbar mobile-topbar-detail" data-mobile-appbar>
+      <button class="mobile-back-button" type="button" data-mobile-back data-fallback="./mobile-community.html?module=tutorial" aria-label="返回教程列表"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-left-s-line.svg" alt=""></button>
+      <span class="mobile-page-title">教程详情</span>
+      <span class="mobile-topbar-placeholder" aria-hidden="true"></span>
+    </header>
+
+    <main id="main" class="mobile-tutorial-page">
+      <figure class="mobile-tutorial-hero">
+        <img data-mobile-tutorial-page-image src="../../assets/image_assets/tutorial-cover-TU000101.jpg" alt="OMate API 配置教程封面">
+      </figure>
+
+      <article class="mobile-tutorial-article">
+        <p class="mobile-tutorial-meta" data-mobile-tutorial-page-meta>官方教程 · 8 分钟</p>
+        <h1 data-mobile-tutorial-page-title>第十五期：OMate API 配置教程</h1>
+        <p class="mobile-tutorial-lead" data-mobile-tutorial-page-summary>快速完成模型 API 接入与常用参数配置，并通过首次对话确认连接状态。</p>
+
+        <section class="mobile-tutorial-goals" aria-labelledby="mobile-tutorial-goals-title">
+          <h2 id="mobile-tutorial-goals-title">本节你将完成</h2>
+          <ol data-mobile-tutorial-page-steps>
+            <li>确认模型服务地址和可用模型。</li>
+            <li>在目标工具中填写 API 地址与访问凭证。</li>
+            <li>发起测试对话并处理常见连接错误。</li>
+          </ol>
+        </section>
+
+        <section class="mobile-tutorial-section">
+          <h2>开始前准备</h2>
+          <p>准备好可用的模型服务地址、访问凭证与目标工具。请妥善保管访问凭证，不要在截图、评论或公开内容中展示完整密钥。</p>
+        </section>
+
+        <section class="mobile-tutorial-section">
+          <h2>操作提示</h2>
+          <p data-mobile-tutorial-page-tip>完成配置后先发送一条简短测试消息。若连接失败，请依次检查服务地址、模型名称和访问凭证是否准确。</p>
+        </section>
+      </article>
+    </main>
+  </div>
+
+  <button class="mobile-walkthrough-trigger" type="button" data-mobile-walkthrough-open aria-controls="mobile-walkthrough">走查</button>
+  <aside id="mobile-walkthrough" class="mobile-walkthrough" data-mobile-walkthrough aria-hidden="true">
+    <div class="mobile-walkthrough-head"><h2>教程详情走查规则</h2><button class="mobile-icon-button" type="button" data-mobile-walkthrough-close aria-label="关闭走查规则"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button></div>
+    <div class="mobile-rule-grid">
+      <section class="mobile-rule-card"><strong>页面形态</strong><p>教程使用独立全屏页面，不使用底部弹出层；顶部固定显示“教程详情”和返回操作。</p></section>
+      <section class="mobile-rule-card"><strong>内容一致</strong><p>封面、标题、时长、摘要与步骤根据社区中点击的教程切换，保持同一教程对象。</p></section>
+      <section class="mobile-rule-card"><strong>返回操作</strong><p>优先返回进入详情前的社区位置；没有可返回历史时回到社区教程频道。</p></section>
+      <section class="mobile-rule-card"><strong>验收</strong><p>从推荐教程和三个教程列表 cell 均可进入本页；360/390/430 宽度无横向溢出，正文可完整滚动。</p></section>
+    </div>
+  </aside>
+</body>
+</html>

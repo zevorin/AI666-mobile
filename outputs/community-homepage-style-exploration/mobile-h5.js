@@ -827,28 +827,65 @@
     window.setTimeout(() => document.body.classList.remove("is-community-entering"), 900);
   }
 
-  const tutorialSheet = document.querySelector("[data-mobile-tutorial-sheet]");
-  const setTutorialSheet = (open, sourceButton = null) => {
-    if (!tutorialSheet) return;
-    tutorialSheet.classList.toggle("is-open", open);
-    tutorialSheet.setAttribute("aria-hidden", open ? "false" : "true");
-    if (open && sourceButton) {
-      const title = sourceButton.dataset.tutorialTitle || "教程预览";
-      const meta = sourceButton.dataset.tutorialMeta || "官方教程";
-      const image = sourceButton.dataset.tutorialImage || "../../assets/image_assets/tutorial-cover-TU000101.jpg";
-      const titleNode = tutorialSheet.querySelector("[data-mobile-tutorial-title]");
-      const metaNode = tutorialSheet.querySelector("[data-mobile-tutorial-meta]");
-      const imageNode = tutorialSheet.querySelector("[data-mobile-tutorial-image]");
-      if (titleNode) titleNode.textContent = title;
-      if (metaNode) metaNode.textContent = meta;
-      if (imageNode) {
-        imageNode.src = image;
-        imageNode.alt = `${title}封面`;
-      }
+  if (body.dataset.mobilePage === "tutorial-detail") {
+    const tutorials = {
+      "visual-story": {
+        title: "从灵感到成片：AI 视觉叙事",
+        meta: "官方教程 · 8 分钟",
+        image: "../../assets/web/tutorials/01-TU2026073119110104956000083.png",
+        summary: "从一个清晰的视觉主题出发，拆解叙事节奏、关键画面与镜头衔接，完成可持续迭代的 AI 影像方案。",
+        steps: ["确定故事主题与核心情绪。", "将叙事拆成关键画面与镜头节奏。", "统一角色和场景后完成成片检查。"],
+        tip: "先用少量关键帧验证视觉方向，再补充转场和运动。每轮只调整一个变量，更容易判断变化是否有效。",
+      },
+      omate: {
+        title: "第十五期：OMate API 配置教程",
+        meta: "官方教程 · 8 分钟",
+        image: "../../assets/image_assets/tutorial-cover-TU000101.jpg",
+        summary: "快速完成模型 API 接入与常用参数配置，并通过首次对话确认连接状态。",
+        steps: ["确认模型服务地址和可用模型。", "在 OMate 中填写 API 地址与访问凭证。", "发起测试对话并处理常见连接错误。"],
+        tip: "完成配置后先发送一条简短测试消息。若连接失败，请依次检查服务地址、模型名称和访问凭证是否准确。",
+      },
+      lobechat: {
+        title: "第十四期：LobeChat API 配置教程",
+        meta: "官方教程 · 10 分钟",
+        image: "../../assets/image_assets/tutorial-cover-TU000102.jpg",
+        summary: "从模型选择到首次对话，完成 LobeChat 的服务接入与基础参数配置。",
+        steps: ["进入 LobeChat 模型服务设置。", "填写服务地址、访问凭证与模型名称。", "保存配置并完成首次对话测试。"],
+        tip: "如果模型列表未显示预期模型，请核对服务商类型和模型名称；保存后重新打开对话，再进行连接测试。",
+      },
+      sillytavern: {
+        title: "第十三期：SillyTavern API 配置教程",
+        meta: "官方教程 · 12 分钟",
+        image: "../../assets/image_assets/tutorial-cover-TU000103.jpg",
+        summary: "配置角色对话所需的模型连接，并完成上下文与生成参数的基础检查。",
+        steps: ["选择兼容的 API 来源与模型。", "填写连接信息并设置基础生成参数。", "载入角色卡并检查首轮回复。"],
+        tip: "首次测试建议保留默认生成参数。确认连接稳定后，再逐项调整上下文长度、温度和回复长度。",
+      },
+    };
+    const tutorial = tutorials[params.get("id")] || tutorials.omate;
+    const titleNode = document.querySelector("[data-mobile-tutorial-page-title]");
+    const metaNode = document.querySelector("[data-mobile-tutorial-page-meta]");
+    const imageNode = document.querySelector("[data-mobile-tutorial-page-image]");
+    const summaryNode = document.querySelector("[data-mobile-tutorial-page-summary]");
+    const stepsNode = document.querySelector("[data-mobile-tutorial-page-steps]");
+    const tipNode = document.querySelector("[data-mobile-tutorial-page-tip]");
+    if (titleNode) titleNode.textContent = tutorial.title;
+    if (metaNode) metaNode.textContent = tutorial.meta;
+    if (imageNode) {
+      imageNode.src = tutorial.image;
+      imageNode.alt = `${tutorial.title}封面`;
     }
-  };
-  document.querySelectorAll("[data-mobile-tutorial-open]").forEach((button) => button.addEventListener("click", () => setTutorialSheet(true, button)));
-  tutorialSheet?.querySelectorAll("[data-mobile-tutorial-close]").forEach((button) => button.addEventListener("click", () => setTutorialSheet(false)));
+    if (summaryNode) summaryNode.textContent = tutorial.summary;
+    if (stepsNode) {
+      stepsNode.replaceChildren(...tutorial.steps.map((step) => {
+        const item = document.createElement("li");
+        item.textContent = step;
+        return item;
+      }));
+    }
+    if (tipNode) tipNode.textContent = tutorial.tip;
+    document.title = `${tutorial.title} - 多元拾光`;
+  }
 
   const myContentTabs = [...document.querySelectorAll("[data-mobile-my-tab]")];
   const myContentPanels = [...document.querySelectorAll("[data-mobile-my-panel]")];
@@ -874,11 +911,124 @@
     window.addEventListener("hashchange", () => setMyContentTab(window.location.hash.slice(1) || "works"));
   }
 
-  document.querySelector("[data-mobile-profile-form]")?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    showToast("资料已保存");
-    window.setTimeout(() => window.location.assign("./mobile-my.html"), 650);
-  });
+  const profileStorageKey = "mobile-profile:fields";
+  const profileFieldConfig = {
+    nickname: {
+      label: "昵称",
+      value: "拾光创作者",
+      maxLength: 20,
+      note: "最多 20 个字符",
+      inputMode: "text",
+    },
+    bio: {
+      label: "个人简介",
+      value: "用 AI 记录每一次灵感。",
+      maxLength: 80,
+      note: "最多 80 个字符",
+      multiline: true,
+    },
+    phone: {
+      label: "手机号",
+      value: "138****5678",
+      maxLength: 20,
+      note: "手机号将继续以脱敏方式展示",
+      inputMode: "tel",
+    },
+    wechat: {
+      label: "微信号",
+      value: "微信账号",
+      maxLength: 32,
+      note: "请输入需要绑定的微信号",
+      inputMode: "text",
+    },
+  };
+
+  const readProfileFields = () => {
+    const defaults = Object.fromEntries(Object.entries(profileFieldConfig).map(([key, item]) => [key, item.value]));
+    try {
+      const stored = JSON.parse(window.localStorage.getItem(profileStorageKey) || "null");
+      return stored && typeof stored === "object" ? { ...defaults, ...stored } : defaults;
+    } catch (error) {
+      console.warn("Unable to restore profile fields", error);
+      return defaults;
+    }
+  };
+
+  const writeProfileFields = (fields) => {
+    try {
+      window.localStorage.setItem(profileStorageKey, JSON.stringify(fields));
+      return true;
+    } catch (error) {
+      console.warn("Unable to save profile fields", error);
+      return false;
+    }
+  };
+
+  const formatProfileFieldValue = (field, value) => {
+    if (field !== "phone") return value;
+    const digits = String(value).replace(/\D/g, "");
+    return digits.length >= 7 ? `${digits.slice(0, 3)}****${digits.slice(-4)}` : value;
+  };
+
+  if (body.dataset.mobilePage === "profile-edit") {
+    const fields = readProfileFields();
+    document.querySelectorAll("[data-mobile-profile-cell]").forEach((cell) => {
+      const value = cell.querySelector("[data-mobile-profile-value]");
+      const field = cell.dataset.mobileProfileCell;
+      if (value && fields[field]) value.textContent = formatProfileFieldValue(field, fields[field]);
+    });
+    if (params.get("saved") && profileFieldConfig[params.get("saved")]) {
+      window.requestAnimationFrame(() => showToast(`${profileFieldConfig[params.get("saved")].label}已保存`));
+      history.replaceState(null, "", window.location.pathname);
+    }
+  }
+
+  const profileFieldForm = document.querySelector("[data-mobile-profile-field-form]");
+  if (profileFieldForm) {
+    const field = profileFieldConfig[params.get("field")] ? params.get("field") : "nickname";
+    const config = profileFieldConfig[field];
+    const fields = readProfileFields();
+    const title = document.querySelector("[data-mobile-profile-editor-title]");
+    const label = document.querySelector("[data-mobile-profile-editor-label]");
+    const note = document.querySelector("[data-mobile-profile-editor-note]");
+    const input = document.querySelector("[data-mobile-profile-editor-input]");
+    const textarea = document.querySelector("[data-mobile-profile-editor-textarea]");
+    const editor = config.multiline ? textarea : input;
+
+    if (title) title.textContent = `编辑${config.label}`;
+    if (label) label.textContent = config.label;
+    if (note) note.textContent = config.note;
+    if (input) {
+      input.hidden = Boolean(config.multiline);
+      input.maxLength = config.maxLength;
+      input.inputMode = config.inputMode || "text";
+    }
+    if (textarea) {
+      textarea.hidden = !config.multiline;
+      textarea.maxLength = config.maxLength;
+    }
+    if (editor) editor.value = fields[field] || config.value;
+    document.title = `编辑${config.label} - 多元拾光`;
+
+    profileFieldForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const value = editor?.value.trim();
+      if (!value) {
+        showToast(`请输入${config.label}`);
+        editor?.focus();
+        return;
+      }
+      const nextFields = { ...readProfileFields(), [field]: value };
+      if (!writeProfileFields(nextFields)) {
+        showToast("保存失败，请重试");
+        return;
+      }
+      showToast(`${config.label}已保存`);
+      window.setTimeout(() => window.location.assign(`./mobile-profile-edit.html?saved=${field}`), 360);
+    });
+
+    window.requestAnimationFrame(() => editor?.focus({ preventScroll: true }));
+  }
 
   const activityDetail = document.querySelector("[data-mobile-activity-detail]");
   if (activityDetail) {
@@ -924,10 +1074,19 @@
     const promptChoiceSheet = document.querySelector("[data-mobile-prompt-choice-sheet]");
     const promptPublishSheet = document.querySelector("[data-mobile-prompt-publish-sheet]");
     const promptPublishForm = document.querySelector("[data-mobile-prompt-publish-form]");
+    let promptParticipationTrigger = null;
     const setPromptSheet = (sheet, open) => {
       if (!sheet) return;
       sheet.classList.toggle("is-open", open);
       sheet.setAttribute("aria-hidden", open ? "false" : "true");
+      body.classList.toggle("is-participation-sheet-open", Boolean(
+        document.querySelector("[data-mobile-prompt-choice-sheet].is-open, [data-mobile-prompt-publish-sheet].is-open")
+      ));
+      if (open) {
+        window.setTimeout(() => {
+          sheet.querySelector(".mobile-create-action-option, [data-mobile-prompt-publish-title-input]")?.focus();
+        }, 220);
+      }
     };
     const bindings = {
       "[data-mobile-activity-title]": data.title,
@@ -951,6 +1110,7 @@
       if (resolvedActivityKey === "prompt") {
         action.addEventListener("click", (event) => {
           event.preventDefault();
+          promptParticipationTrigger = action;
           setPromptSheet(promptChoiceSheet, true);
         });
       }
@@ -960,12 +1120,18 @@
       taskList.innerHTML = data.tasks.map((task) => `<article><span class="mobile-status-badge">待完成</span><div><h3>${task.name}</h3><p>${task.description}</p></div><strong>${task.reward}</strong></article>`).join("");
     }
     if (promptChoiceSheet && promptPublishSheet && promptPublishForm) {
-      promptChoiceSheet.querySelectorAll("[data-mobile-prompt-choice-close]").forEach((button) => button.addEventListener("click", () => setPromptSheet(promptChoiceSheet, false)));
+      promptChoiceSheet.querySelectorAll("[data-mobile-prompt-choice-close]").forEach((button) => button.addEventListener("click", () => {
+        setPromptSheet(promptChoiceSheet, false);
+        promptParticipationTrigger?.focus();
+      }));
       promptChoiceSheet.querySelector("[data-mobile-prompt-direct-publish]")?.addEventListener("click", () => {
         setPromptSheet(promptChoiceSheet, false);
         setPromptSheet(promptPublishSheet, true);
       });
-      promptPublishSheet.querySelectorAll("[data-mobile-prompt-publish-close]").forEach((button) => button.addEventListener("click", () => setPromptSheet(promptPublishSheet, false)));
+      promptPublishSheet.querySelectorAll("[data-mobile-prompt-publish-close]").forEach((button) => button.addEventListener("click", () => {
+        setPromptSheet(promptPublishSheet, false);
+        promptParticipationTrigger?.focus();
+      }));
       const promptTitle = promptPublishForm.querySelector("[data-mobile-prompt-publish-title-input]");
       const promptContent = promptPublishForm.querySelector("[data-mobile-prompt-publish-content]");
       const promptModel = promptPublishForm.querySelector("[data-mobile-prompt-publish-model]");
@@ -1004,8 +1170,10 @@
       });
       document.addEventListener("keydown", (event) => {
         if (event.key !== "Escape") return;
+        const wasOpen = promptChoiceSheet.classList.contains("is-open") || promptPublishSheet.classList.contains("is-open");
         setPromptSheet(promptChoiceSheet, false);
         setPromptSheet(promptPublishSheet, false);
+        if (wasOpen) promptParticipationTrigger?.focus();
       });
     }
     document.title = `${data.title} - 多元拾光`;
@@ -1597,7 +1765,6 @@
     setWalkthrough(false);
     setCreateActionSheet(false);
     setInviteRulesSheet(false);
-    setTutorialSheet(false);
   });
 
   const createWorkspace = document.querySelector("[data-mobile-create-workspace]");
@@ -2696,17 +2863,35 @@
     const campaignUploadDescription = campaignUploadForm.querySelector("[data-mobile-campaign-upload-description]");
     const campaignUploadError = campaignUploadForm.querySelector("[data-mobile-campaign-upload-error]");
     let campaignUploadObjectUrl = "";
+    let campaignParticipationTrigger = null;
     const setCampaignSheet = (sheet, open) => {
       sheet.classList.toggle("is-open", open);
       sheet.setAttribute("aria-hidden", open ? "false" : "true");
+      body.classList.toggle("is-participation-sheet-open", Boolean(
+        document.querySelector("[data-mobile-campaign-choice-sheet].is-open, [data-mobile-campaign-upload-sheet].is-open")
+      ));
+      if (open) {
+        window.setTimeout(() => {
+          sheet.querySelector(".mobile-create-action-option, [data-mobile-campaign-upload-input]")?.focus();
+        }, 220);
+      }
     };
-    document.querySelectorAll("[data-mobile-campaign-participate]").forEach((button) => button.addEventListener("click", () => setCampaignSheet(campaignChoiceSheet, true)));
-    campaignChoiceSheet.querySelectorAll("[data-mobile-campaign-choice-close]").forEach((button) => button.addEventListener("click", () => setCampaignSheet(campaignChoiceSheet, false)));
+    document.querySelectorAll("[data-mobile-campaign-participate]").forEach((button) => button.addEventListener("click", () => {
+      campaignParticipationTrigger = button;
+      setCampaignSheet(campaignChoiceSheet, true);
+    }));
+    campaignChoiceSheet.querySelectorAll("[data-mobile-campaign-choice-close]").forEach((button) => button.addEventListener("click", () => {
+      setCampaignSheet(campaignChoiceSheet, false);
+      campaignParticipationTrigger?.focus();
+    }));
     campaignChoiceSheet.querySelector("[data-mobile-campaign-direct-upload]")?.addEventListener("click", () => {
       setCampaignSheet(campaignChoiceSheet, false);
       setCampaignSheet(campaignUploadSheet, true);
     });
-    campaignUploadSheet.querySelectorAll("[data-mobile-campaign-upload-close]").forEach((button) => button.addEventListener("click", () => setCampaignSheet(campaignUploadSheet, false)));
+    campaignUploadSheet.querySelectorAll("[data-mobile-campaign-upload-close]").forEach((button) => button.addEventListener("click", () => {
+      setCampaignSheet(campaignUploadSheet, false);
+      campaignParticipationTrigger?.focus();
+    }));
     campaignUploadInput?.addEventListener("change", () => {
       const file = campaignUploadInput.files?.[0];
       if (!file) return;
@@ -2744,8 +2929,10 @@
     });
     document.addEventListener("keydown", (event) => {
       if (event.key !== "Escape") return;
+      const wasOpen = campaignChoiceSheet.classList.contains("is-open") || campaignUploadSheet.classList.contains("is-open");
       setCampaignSheet(campaignChoiceSheet, false);
       setCampaignSheet(campaignUploadSheet, false);
+      if (wasOpen) campaignParticipationTrigger?.focus();
     });
   }
 

@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#05070b">
   <title>多元拾光 · 移动社区</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-community-entrance-v7">
-  <script src="./mobile-h5.js?v=20260830-community-entrance-v5" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-community-tutorial-page-v1">
+  <script src="./mobile-h5.js?v=20260830-community-tutorial-page-v1" defer></script>
 </head>
 <body class="mobile-h5-body is-community-entering" data-mobile-page="community">
   <div class="mobile-shell mobile-primary-shell has-bottom-nav">
@@ -60,9 +60,9 @@
             <div class="mobile-display-heading__content"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Document/book-open-line.svg" alt=""><h2 id="mobile-community-tutorial-title" class="mobile-display-heading__title">官方教程推荐</h2><span class="mobile-display-heading__kicker">最新教程</span></div>
             <button class="mobile-community-text-action" type="button" data-mobile-community-open-module="tutorial">全部教程<img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt=""></button>
           </header>
-          <button class="mobile-community-tutorial-feature" type="button" aria-label="打开教程：从灵感到成片，AI 视觉叙事" data-mobile-tutorial-open data-tutorial-title="从灵感到成片：AI 视觉叙事" data-tutorial-meta="官方教程 · 8 分钟" data-tutorial-image="../../assets/web/tutorials/01-TU2026073119110104956000083.png">
+          <a class="mobile-community-tutorial-feature" href="./mobile-tutorial-detail.html?id=visual-story" aria-label="查看教程：从灵感到成片，AI 视觉叙事">
             <img src="../../assets/web/tutorials/01-TU2026073119110104956000083.png" alt="AI 视觉叙事官方教程封面">
-          </button>
+          </a>
         </section>
       </section>
 
@@ -123,15 +123,15 @@
 
       <section id="mobile-community-panel-tutorial" class="mobile-community-panel mobile-community-inner-panel" role="tabpanel" aria-labelledby="mobile-community-tab-tutorial" data-mobile-community-panel="tutorial" hidden>
         <div class="mobile-community-tutorial-list" aria-label="官方教程列表">
-          <button class="mobile-community-tutorial-row" type="button" data-mobile-tutorial-open data-tutorial-title="第十五期：OMate API 配置教程" data-tutorial-meta="官方教程 · 8 分钟" data-tutorial-image="../../assets/image_assets/tutorial-cover-TU000101.jpg">
+          <a class="mobile-community-tutorial-row" href="./mobile-tutorial-detail.html?id=omate">
             <img src="../../assets/image_assets/tutorial-cover-TU000101.jpg" alt="OMate API 配置教程封面"><span><small>官方教程</small><strong>第十五期：OMate API 配置教程</strong><em>快速完成模型 API 接入与常用参数配置</em></span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt="">
-          </button>
-          <button class="mobile-community-tutorial-row" type="button" data-mobile-tutorial-open data-tutorial-title="第十四期：LobeChat API 配置教程" data-tutorial-meta="官方教程 · 10 分钟" data-tutorial-image="../../assets/image_assets/tutorial-cover-TU000102.jpg">
+          </a>
+          <a class="mobile-community-tutorial-row" href="./mobile-tutorial-detail.html?id=lobechat">
             <img src="../../assets/image_assets/tutorial-cover-TU000102.jpg" alt="LobeChat API 配置教程封面"><span><small>官方教程</small><strong>第十四期：LobeChat API 配置教程</strong><em>从模型选择到首次对话的完整配置步骤</em></span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt="">
-          </button>
-          <button class="mobile-community-tutorial-row" type="button" data-mobile-tutorial-open data-tutorial-title="第十三期：SillyTavern API 配置教程" data-tutorial-meta="官方教程 · 12 分钟" data-tutorial-image="../../assets/image_assets/tutorial-cover-TU000103.jpg">
+          </a>
+          <a class="mobile-community-tutorial-row" href="./mobile-tutorial-detail.html?id=sillytavern">
             <img src="../../assets/image_assets/tutorial-cover-TU000103.jpg" alt="SillyTavern API 配置教程封面"><span><small>官方教程</small><strong>第十三期：SillyTavern API 配置教程</strong><em>配置角色对话并完成连接检查</em></span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt="">
-          </button>
+          </a>
         </div>
       </section>
     </main>
@@ -146,30 +146,16 @@
       <a class="mobile-nav-item" href="./mobile-my.html"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/User & Faces/user-line.svg" alt=""><span>我的</span></a>
   </nav>
 
-  <section id="mobile-tutorial-detail-sheet" class="mobile-bottom-sheet mobile-tutorial-detail-sheet" data-mobile-tutorial-sheet aria-hidden="true">
-    <button class="mobile-sheet-backdrop" type="button" data-mobile-tutorial-close aria-label="关闭教程预览"></button>
-    <div class="mobile-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="mobile-tutorial-detail-title">
-      <header class="mobile-sheet-head"><h2 id="mobile-tutorial-detail-title" data-mobile-tutorial-title>教程预览</h2><button class="mobile-icon-button" type="button" data-mobile-tutorial-close aria-label="关闭教程预览"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button></header>
-      <div class="mobile-sheet-scroll mobile-tutorial-detail-scroll">
-        <img data-mobile-tutorial-image src="../../assets/image_assets/tutorial-cover-TU000101.jpg" alt="教程封面">
-        <p data-mobile-tutorial-meta>官方教程</p>
-        <h3>本节你将完成</h3>
-        <ol><li>确认模型服务地址和可用模型。</li><li>在目标工具中填写 API 地址与访问凭证。</li><li>发起测试对话并处理常见连接错误。</li></ol>
-        <p class="mobile-tutorial-detail-note">教程内容在当前页面内预览，关闭后会回到刚才的社区位置。</p>
-      </div>
-    </div>
-  </section>
-
   <button class="mobile-walkthrough-trigger" type="button" data-mobile-walkthrough-open aria-controls="mobile-walkthrough">走查</button>
   <aside id="mobile-walkthrough" class="mobile-walkthrough" data-mobile-walkthrough aria-hidden="true">
     <div class="mobile-walkthrough-head"><h2>移动社区走查规则</h2><button class="mobile-icon-button" type="button" data-mobile-walkthrough-close aria-label="关闭走查规则"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button></div>
     <div class="mobile-rule-grid">
       <section class="mobile-rule-card"><strong>页面目的</strong><p>社区推荐页聚合作品、闪念和官方教程，帮助用户先发现内容，再进入对应频道继续浏览、讨论或学习；继续使用 Web 端同一作品、帖子与教程对象。</p></section>
       <section class="mobile-rule-card"><strong>页面骨架</strong><p>社区首层为推荐、AIGC、闪念、教程四个频道；推荐页只承担聚合分发，AIGC、闪念和教程仍维护各自完整列表与详情上下文，底部五项承担一级导航。</p></section>
-      <section class="mobile-rule-card"><strong>内容一致</strong><p>推荐页按精选作品、热议闪念、最新教程组织首屏；AIGC 使用双列瀑布流，闪念使用单列帖子流，教程使用连续列表并在原页打开预览层，不回落桌面页面。</p></section>
+      <section class="mobile-rule-card"><strong>内容一致</strong><p>推荐页按精选作品、热议闪念、最新教程组织首屏；AIGC 使用双列瀑布流，闪念使用单列帖子流，教程使用连续列表并进入移动端独立详情页。</p></section>
       <section class="mobile-rule-card"><strong>状态</strong><p>频道和 AIGC 类型筛选均在当前页完成；地址参数记录当前频道，返回时恢复频道、筛选与列表位置。</p></section>
       <section class="mobile-rule-card"><strong>发布闪念</strong><p>底部创作入口先选择创作方式；发布闪念进入独立全屏编辑页，正文最多 600 字、媒体最多 6 个、话题最多 5 个，并支持选择内容分类。静态原型只演示提交状态，不写入真实内容。</p></section>
-      <section class="mobile-rule-card"><strong>验收</strong><p>四个频道切换后只展示对应内容；推荐页三类入口均可到达其频道或详情；教程预览关闭后保留社区位置；AIGC 筛选不影响其他频道；底部导航不遮挡内容；360/390/430 无横向溢出。</p></section>
+      <section class="mobile-rule-card"><strong>验收</strong><p>四个频道切换后只展示对应内容；推荐页三类入口均可到达其频道或详情；教程 cell 进入带标题与返回操作的独立页面；AIGC 筛选不影响其他频道；底部导航不遮挡内容；360/390/430 无横向溢出。</p></section>
     </div>
   </aside>
   <div class="mobile-toast" data-mobile-toast role="status" aria-live="polite"></div>

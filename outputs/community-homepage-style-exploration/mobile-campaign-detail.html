@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#05070b">
   <title>生图挑战 - 多元拾光</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-campaign-theme-v3">
-  <script src="./mobile-h5.js?v=20260824-create-panel-v13" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-participation-choice-v1">
+  <script src="./mobile-h5.js?v=20260830-participation-choice-v1" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="campaign-detail">
   <div class="mobile-shell has-action-bar">
@@ -85,15 +85,24 @@
     </div>
   </div>
 
-  <section id="mobile-campaign-choice-sheet" class="mobile-bottom-sheet mobile-create-action-sheet" data-mobile-campaign-choice-sheet aria-hidden="true">
+  <section id="mobile-campaign-choice-sheet" class="mobile-bottom-sheet mobile-create-action-sheet mobile-participation-choice-sheet" data-mobile-campaign-choice-sheet aria-hidden="true">
     <button class="mobile-sheet-backdrop" type="button" data-mobile-campaign-choice-close aria-label="关闭参与方式选择"></button>
-    <div class="mobile-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="mobile-campaign-choice-title">
-      <header class="mobile-sheet-head"><h2 id="mobile-campaign-choice-title">选择参与方式</h2><button class="mobile-icon-button" type="button" data-mobile-campaign-choice-close aria-label="关闭参与方式选择"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button></header>
-      <p class="mobile-result-destination-note">继续生成新作品，或直接上传已经准备好的原创图片；两种方式都会保留本次活动上下文。</p>
+    <div class="mobile-create-action-panel mobile-participation-choice-panel" role="dialog" aria-modal="true" aria-labelledby="mobile-campaign-choice-title" aria-describedby="mobile-campaign-choice-note">
+      <header class="mobile-participation-choice-head">
+        <div><span>参与生图挑战</span><h2 id="mobile-campaign-choice-title">选择创作方式</h2><p id="mobile-campaign-choice-note">从新灵感开始，或提交已经完成的作品</p></div>
+        <button class="mobile-participation-choice-close" type="button" data-mobile-campaign-choice-close aria-label="关闭参与方式选择"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button>
+      </header>
       <div class="mobile-create-action-list">
-        <a class="mobile-create-action-option" href="./mobile-create.html?source=campaign&amp;mode=image"><span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Design/magic-line.svg" alt=""></span><strong>AIGC 生成</strong><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt=""></a>
-        <button class="mobile-create-action-option" type="button" data-mobile-campaign-direct-upload><span><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/upload-2-line.svg" alt=""></span><strong>直接上传已有作品</strong><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt=""></button>
+        <a class="mobile-create-action-option is-aigc" href="./mobile-create.html?source=campaign&amp;mode=image">
+          <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-aigc-flat-v1.png" width="512" height="512" alt=""></span>
+          <span class="mobile-create-action-copy"><strong>生成新作品</strong><small>进入 AIGC 图片工作台</small></span>
+        </a>
+        <button class="mobile-create-action-option is-flash" type="button" data-mobile-campaign-direct-upload>
+          <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-upload-image-flat-v1.png" width="512" height="512" alt=""></span>
+          <span class="mobile-create-action-copy"><strong>上传已有作品</strong><small>提交准备好的原创图片</small></span>
+        </button>
       </div>
+      <p class="mobile-participation-choice-foot"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/checkbox-circle-line.svg" alt="">两种方式都会自动关联本次活动</p>
     </div>
   </section>
 

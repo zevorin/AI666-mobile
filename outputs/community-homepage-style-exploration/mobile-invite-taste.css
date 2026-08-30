@@ -60,9 +60,15 @@ body[data-mobile-page="invite"] .mobile-invite-top-link {
 }
 
 body[data-mobile-page="invite"] .mobile-invite-top-link {
+  width: 44px;
+  min-height: var(--mobile-topbar-height);
+  display: grid;
+  place-items: center end;
+  align-self: end;
   color: var(--invite-gold);
   font-size: 13px;
   font-weight: 700;
+  line-height: 20px;
 }
 
 body[data-mobile-page="invite"] .mobile-page-title {
@@ -222,8 +228,8 @@ body[data-mobile-page="invite"] .mobile-invite-pass-copy {
 }
 
 body[data-mobile-page="invite"] .mobile-invite-brand-mark {
-  width: 38px;
-  height: 38px;
+  width: 46px;
+  height: 46px;
   filter: brightness(0) saturate(100%);
   opacity: 0.76;
 }
@@ -356,43 +362,122 @@ body[data-mobile-page="invite"] .mobile-invite-seal-label {
 }
 
 body[data-mobile-page="invite"] .mobile-invite-reward {
-  min-height: 66px;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
+  position: relative;
+  min-height: 112px;
+  grid-template-columns: minmax(0, 1fr) minmax(132px, 0.92fr);
+  align-items: stretch;
   justify-items: stretch;
-  gap: 14px;
-  padding: 12px 14px;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
   border: 1px solid var(--invite-line);
   border-radius: var(--invite-radius);
-  background: var(--invite-surface-soft);
+  background:
+    radial-gradient(circle at 18% 18%, rgba(233, 199, 122, 0.12), transparent 38%),
+    linear-gradient(135deg, rgba(255, 250, 240, 0.075), rgba(255, 250, 240, 0.025));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035), 0 14px 36px rgba(0, 0, 0, 0.16);
   text-align: left;
 }
 
-body[data-mobile-page="invite"] .mobile-invite-reward p {
-  color: var(--invite-muted);
-  font-size: 13px;
-  line-height: 20px;
+body[data-mobile-page="invite"] .mobile-invite-reward-total {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  gap: 5px;
+  padding: 18px 18px 17px;
 }
 
-body[data-mobile-page="invite"] .mobile-invite-reward p strong {
-  margin: 0 4px;
+body[data-mobile-page="invite"] .mobile-invite-reward-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--invite-muted);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.12em;
+}
+
+body[data-mobile-page="invite"] .mobile-invite-reward-eyebrow i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--invite-gold-bright);
+  box-shadow: 0 0 0 4px rgba(233, 199, 122, 0.1), 0 0 14px rgba(247, 221, 161, 0.7);
+}
+
+body[data-mobile-page="invite"] .mobile-invite-reward-total p {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  line-height: 1;
+}
+
+body[data-mobile-page="invite"] .mobile-invite-reward-total p strong {
+  margin: 0;
   color: var(--invite-gold-bright);
   font-family: var(--ds-font-display);
-  font-size: 25px;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 44px;
+  letter-spacing: -0.035em;
+  text-shadow: 0 4px 22px rgba(233, 199, 122, 0.18);
+}
+
+body[data-mobile-page="invite"] .mobile-invite-reward-total p small {
+  color: var(--invite-muted);
+  font-size: 12px;
   font-weight: 700;
 }
 
-body[data-mobile-page="invite"] .mobile-invite-reward span {
-  max-width: 110px;
-  color: var(--invite-faint);
-  font-size: 11px;
-  line-height: 16px;
-  text-align: right;
+body[data-mobile-page="invite"] .mobile-invite-reward-next {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  padding: 16px 14px 15px 17px;
+  background: rgba(5, 7, 11, 0.22);
 }
 
-body[data-mobile-page="invite"] .mobile-invite-reward span b {
+body[data-mobile-page="invite"] .mobile-invite-reward-next > span {
+  color: var(--invite-faint);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 0.08em;
+}
+
+body[data-mobile-page="invite"] .mobile-invite-reward-next > strong {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-family: var(--ds-font-display);
+  line-height: 1;
+}
+
+body[data-mobile-page="invite"] .mobile-invite-reward-next > strong b {
   color: var(--invite-success);
-  font-size: 15px;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+body[data-mobile-page="invite"] .mobile-invite-reward-next > strong small {
+  color: rgba(117, 207, 151, 0.72);
+  font-family: var(--ds-font-body);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+body[data-mobile-page="invite"] .mobile-invite-reward-next p {
+  color: var(--invite-muted);
+  font-size: 10px;
+  line-height: 15px;
+  white-space: nowrap;
 }
 
 body[data-mobile-page="invite"] .mobile-invite-flow {
@@ -715,8 +800,19 @@ body[data-mobile-page="invite"] .mobile-invite-rules-list p {
   }
 
   body[data-mobile-page="invite"] .mobile-invite-reward {
-    gap: 8px;
-    padding-inline: 11px;
+    grid-template-columns: minmax(0, 1fr) 130px;
+  }
+
+  body[data-mobile-page="invite"] .mobile-invite-reward-total {
+    padding-inline: 14px 10px;
+  }
+
+  body[data-mobile-page="invite"] .mobile-invite-reward-total p strong {
+    font-size: 38px;
+  }
+
+  body[data-mobile-page="invite"] .mobile-invite-reward-next {
+    padding-inline: 14px 10px;
   }
 
   body[data-mobile-page="invite"] .mobile-invite-action-row {

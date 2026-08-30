@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0d0e">
+  <title>编辑资料 - 多元拾光</title>
+  <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-profile-reference-v5">
+  <script src="./mobile-h5.js?v=20260830-profile-cell-edit-v1" defer></script>
+</head>
+<body class="mobile-h5-body" data-mobile-page="profile-field-edit">
+  <div class="mobile-shell">
+    <header class="mobile-topbar mobile-topbar-detail" data-mobile-appbar>
+      <button class="mobile-back-button" type="button" data-mobile-back data-fallback="./mobile-profile-edit.html" aria-label="返回编辑个人资料"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-left-s-line.svg" alt=""></button>
+      <h1 class="mobile-page-title" data-mobile-profile-editor-title>编辑资料</h1><span class="mobile-topbar-placeholder" aria-hidden="true"></span>
+    </header>
+    <main id="main" class="mobile-task-content mobile-profile-field-edit-content">
+      <form class="mobile-profile-field-form" data-mobile-profile-field-form>
+        <label class="mobile-profile-field-editor">
+          <span data-mobile-profile-editor-label>资料</span>
+          <input data-mobile-profile-editor-input type="text" autocomplete="off">
+          <textarea data-mobile-profile-editor-textarea maxlength="80" hidden></textarea>
+        </label>
+        <p class="mobile-profile-field-note" data-mobile-profile-editor-note></p>
+        <button class="mobile-button primary" type="submit">保存</button>
+      </form>
+    </main>
+  </div>
+  <div class="mobile-toast" data-mobile-toast role="status" aria-live="polite"></div>
+</body>
+</html>
