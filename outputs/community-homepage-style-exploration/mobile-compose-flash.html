@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#05070b">
   <title>发布闪念 - 多元拾光</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-flash-compose-v9">
-  <script src="./mobile-h5.js?v=20260829-flash-compose-v3" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-flash-compose-v10">
+  <script src="./mobile-h5.js?v=20260830-flash-compose-v4" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="flash-compose">
   <div class="mobile-shell mobile-flash-compose-page has-action-bar">
@@ -16,7 +16,7 @@
     </button>
     <div class="mobile-flash-compose-banner">
       <div class="mobile-flash-compose-banner-copy">
-        <strong>留下刚刚发生的灵感</strong>
+        <strong>发布闪念</strong>
         <span>一个方法、一次试错，都值得被看见。</span>
       </div>
     </div>
@@ -25,11 +25,9 @@
       <main id="main" class="mobile-flash-page-content">
         <div class="mobile-flash-compose-stage">
           <section class="mobile-flash-page-section mobile-flash-page-editor" aria-labelledby="mobile-flash-content-label">
-            <div class="mobile-flash-page-section-head">
-              <label id="mobile-flash-content-label" for="mobile-flash-content">闪念内容</label>
-              <span data-mobile-flash-page-counter>0 / 600</span>
-            </div>
-            <textarea id="mobile-flash-content" maxlength="600" rows="7" placeholder="分享一个刚冒出来的想法" aria-describedby="mobile-flash-compose-status" data-mobile-flash-page-content></textarea>
+            <label id="mobile-flash-content-label" class="mobile-visually-hidden" for="mobile-flash-content">闪念内容</label>
+            <textarea id="mobile-flash-content" maxlength="600" rows="7" placeholder="分享一个刚冒出来的想法" aria-describedby="mobile-flash-content-counter mobile-flash-compose-status" data-mobile-flash-page-content autofocus></textarea>
+            <span id="mobile-flash-content-counter" class="mobile-flash-page-editor-counter" data-mobile-flash-page-counter>0 / 600</span>
           </section>
 
           <section class="mobile-flash-page-section mobile-flash-page-media" aria-labelledby="mobile-flash-media-title">

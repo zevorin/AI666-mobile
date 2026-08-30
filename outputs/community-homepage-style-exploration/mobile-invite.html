@@ -7,7 +7,9 @@
   <title>邀请有礼 - 多元拾光</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
   <link rel="stylesheet" href="./mobile-h5.css?v=20260825-display-heading-v3">
+    <link rel="stylesheet" href="./mobile-invite-taste.css?v=20260830-taste-redesign-v7">
   <script src="./mobile-h5.js?v=20260824-create-panel-v13" defer></script>
+  <script src="./mobile-invite-pag.js?v=20260830-login-pag-v1" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="invite">
   <div class="mobile-shell has-action-bar mobile-invite-shell">
@@ -21,24 +23,31 @@
 
     <main id="main" class="mobile-invite-content">
       <section class="mobile-invite-intro" aria-labelledby="mobile-invite-title">
-        <h1 id="mobile-invite-title">把这束灵感，<br>递给下一位创作者</h1>
+        <h1 id="mobile-invite-title">
+          <span data-title-line="把这束灵感">把这束灵感</span>
+          <span data-title-line="递给下一位创作者">递给下一位创作者</span>
+        </h1>
         <p>好友注册并完成首次创作，双方各得 <strong>30 积分</strong></p>
       </section>
 
       <section class="mobile-invite-pass" aria-label="多元拾光创作者邀请函">
-        <img class="mobile-invite-pass-art" src="./assets/mobile/invite-pass-background.webp" alt="">
+        <img class="mobile-invite-pass-art" src="./assets/mobile/invite-envelope-open-v1.png" alt="">
+        <span class="mobile-invite-astronaut" data-mobile-invite-pag data-pag-src="./assets/mobile/invite-login-astronaut.pag" aria-hidden="true">
+          <canvas class="mobile-invite-astronaut-canvas" data-mobile-invite-pag-canvas></canvas>
+          <img class="mobile-invite-astronaut-fallback" src="./assets/mobile/invite-login-astronaut-fallback.png" alt="">
+        </span>
         <div class="mobile-invite-pass-copy">
           <img class="mobile-invite-brand-mark" src="./assets/brand/duoyuan-shiguang-logo-mark-reverse.svg" alt="">
           <span>多元拾光 · 创作者邀请函</span>
           <strong data-mobile-invite-code>SG20A666</strong>
-          <button type="button" data-mobile-copy-invite-code>
+          <button class="mobile-button compact" type="button" data-mobile-copy-invite-code>
             <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Document/file-copy-line.svg" alt="">
             复制邀请码
           </button>
         </div>
         <div class="mobile-invite-seal" aria-label="3 位好友已加入">
-          <strong>3</strong>
-          <span>位好友<br>已加入</span>
+          <span class="mobile-invite-seal-count"><strong>3</strong><small>位好友</small></span>
+          <span class="mobile-invite-seal-label">已加入</span>
         </div>
       </section>
 
@@ -70,24 +79,25 @@
         </article>
       </section>
 
+      <button class="mobile-invite-rules-link" type="button" data-mobile-invite-rules-open>
+        查看邀请规则
+        <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt="">
+      </button>
+
     </main>
   </div>
 
   <div class="mobile-action-bar mobile-invite-action-bar" aria-label="邀请操作">
     <div class="mobile-invite-action-row">
-      <button class="mobile-action-primary" type="button" data-mobile-share>
+      <button class="mobile-action-primary mobile-button primary" type="button" data-mobile-share>
         <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Business/send-plane-line.svg" alt="">
         发送邀请函
       </button>
-      <button class="mobile-invite-more-share" type="button" data-mobile-share aria-label="更多分享方式">
+      <button class="mobile-invite-more-share mobile-button secondary" type="button" data-mobile-share aria-label="分享">
         <img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/share-forward-line.svg" alt="">
-        <span>更多分享</span>
+        <span>分享</span>
       </button>
     </div>
-    <button class="mobile-invite-rules-link" type="button" data-mobile-invite-rules-open>
-      查看邀请规则
-      <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt="">
-    </button>
   </div>
 
   <section class="mobile-bottom-sheet mobile-invite-rules-sheet" data-mobile-invite-rules-sheet aria-hidden="true">

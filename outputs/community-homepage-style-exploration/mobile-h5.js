@@ -918,7 +918,9 @@
         ],
       },
     };
-    const data = activityData[activityKey] || activityData.prompt;
+    const resolvedActivityKey = activityData[activityKey] ? activityKey : "prompt";
+    const data = activityData[resolvedActivityKey];
+    document.body.dataset.mobileActivityTheme = resolvedActivityKey;
     const promptChoiceSheet = document.querySelector("[data-mobile-prompt-choice-sheet]");
     const promptPublishSheet = document.querySelector("[data-mobile-prompt-publish-sheet]");
     const promptPublishForm = document.querySelector("[data-mobile-prompt-publish-form]");
@@ -946,7 +948,7 @@
       action.textContent = "";
       if (icon) action.append(icon);
       action.append(data.actionLabel);
-      if (activityKey === "prompt") {
+      if (resolvedActivityKey === "prompt") {
         action.addEventListener("click", (event) => {
           event.preventDefault();
           setPromptSheet(promptChoiceSheet, true);
@@ -1560,6 +1562,15 @@
     });
     window.addEventListener("pagehide", () => mediaFiles.forEach((item) => URL.revokeObjectURL(item.url)));
     syncFlashPage();
+    window.requestAnimationFrame(() => {
+      if (!content || document.visibilityState !== "visible") return;
+      try {
+        content.focus({ preventScroll: true });
+      } catch {
+        content.focus();
+      }
+      content.setSelectionRange(content.value.length, content.value.length);
+    });
   }
 
   document.querySelectorAll("[data-mobile-back]").forEach((button) => {
@@ -2248,7 +2259,15 @@
       const taskProgressStatus = document.createElement("strong");
       const taskProgressValue = document.createElement("span");
       taskProgressCopy.append(taskProgressStatus, document.createTextNode(" "), taskProgressValue);
-      taskProgress.append(taskProgressCopy);
+      const taskProgressTrack = document.createElement("span");
+      taskProgressTrack.className = "mobile-create-task-progress-track";
+      taskProgressTrack.setAttribute("role", "progressbar");
+      taskProgressTrack.setAttribute("aria-valuemin", "0");
+      taskProgressTrack.setAttribute("aria-valuemax", "100");
+      taskProgressTrack.setAttribute("aria-valuenow", "0");
+      const taskProgressFill = document.createElement("i");
+      taskProgressTrack.append(taskProgressFill);
+      taskProgress.append(taskProgressCopy, taskProgressTrack);
       const taskPreviewLabel = document.createElement("span");
       taskPreviewLabel.className = "mobile-create-task-preview-label";
       const taskPreviewIcon = document.createElement("img");
@@ -2319,15 +2338,64 @@
         });
       };
 
+      const taskProgressTimeline = [
+        { at: 0, value: 0 },
+        { at: 430, value: 30 },
+        { at: 680, value: 30 },
+        { at: 1100, value: 60 },
+        { at: 1350, value: 60 },
+        { at: 1770, value: 90 },
+        { at: 2070, value: 90 },
+        { at: 2350, value: 100 },
+        { at: 3000, value: 100 },
+      ];
+      const taskProgressDuration = taskProgressTimeline.at(-1).at;
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let taskProgressPercent = taskState === "running" ? (restored ? 68 : 0) : Number.parseFloat(createTaskStates[taskState].progress) || 0;
+      let taskProgressFrame = 0;
+      let taskProgressTimer = 0;
+      let taskProgressMilestoneTimers = [];
       let taskController = null;
+      const stopTaskProgress = () => {
+        if (taskProgressFrame) window.cancelAnimationFrame(taskProgressFrame);
+        if (taskProgressTimer) window.clearTimeout(taskProgressTimer);
+        taskProgressMilestoneTimers.forEach((timer) => window.clearTimeout(timer));
+        taskProgressFrame = 0;
+        taskProgressTimer = 0;
+        taskProgressMilestoneTimers = [];
+      };
+      const progressAtElapsedTime = (elapsedTime) => {
+        const clampedTime = Math.min(taskProgressDuration, Math.max(0, elapsedTime));
+        for (let index = 1; index < taskProgressTimeline.length; index += 1) {
+          const previousPoint = taskProgressTimeline[index - 1];
+          const currentPoint = taskProgressTimeline[index];
+          if (clampedTime > currentPoint.at) continue;
+          if (currentPoint.value === previousPoint.value) return currentPoint.value;
+          const segmentProgress = (clampedTime - previousPoint.at) / (currentPoint.at - previousPoint.at);
+          return previousPoint.value + (currentPoint.value - previousPoint.value) * segmentProgress;
+        }
+        return 100;
+      };
+      const elapsedTimeForProgress = (progress) => {
+        const clampedProgress = Math.min(100, Math.max(0, progress));
+        for (let index = 1; index < taskProgressTimeline.length; index += 1) {
+          const previousPoint = taskProgressTimeline[index - 1];
+          const currentPoint = taskProgressTimeline[index];
+          if (clampedProgress > currentPoint.value || currentPoint.value === previousPoint.value) continue;
+          const segmentProgress = (clampedProgress - previousPoint.value) / (currentPoint.value - previousPoint.value);
+          return previousPoint.at + (currentPoint.at - previousPoint.at) * segmentProgress;
+        }
+        return taskProgressTimeline.at(-2).at;
+      };
+      const syncTaskProgress = () => {
+        const roundedProgress = Math.round(Math.min(100, Math.max(0, taskProgressPercent)));
+        taskProgressValue.textContent = `${roundedProgress}%`;
+        taskProgressTrack.setAttribute("aria-valuenow", String(roundedProgress));
+        taskTurn.style.setProperty("--mobile-create-progress", String(roundedProgress / 100));
+      };
       const openTaskResult = () => {
         activeCreateTask = taskController;
-        if (taskState !== "success") {
-          taskState = "success";
-          renderCreateTask();
-          showToast("生成完成，可点击查看结果");
-          return;
-        }
+        if (taskState !== "success") return;
         setPreviewDialog(true, taskPreview, taskMode);
       };
       const renderCreateTask = () => {
@@ -2339,16 +2407,62 @@
         taskMeta.textContent = taskState === "success" ? state.meta : `${taskModel} · ${state.meta}`;
         taskStatusIcon.hidden = taskState !== "success";
         taskProgressStatus.textContent = state.status;
-        taskProgressValue.textContent = state.progress;
+        if (taskState !== "running") taskProgressPercent = Number.parseFloat(state.progress) || 0;
+        syncTaskProgress();
         taskPreviewLabel.hidden = taskState !== "success";
-        taskPreview.setAttribute("aria-label", taskState === "success" ? "查看生成结果" : "更新生成状态");
+        taskPreview.setAttribute("aria-label", taskState === "success" ? "查看生成结果" : "生成中，请稍候");
+        taskPreview.setAttribute("aria-disabled", taskState === "success" ? "false" : "true");
         syncCreateTaskUrl({ mode: taskMode, state: taskState, prompt: submittedPrompt, model: taskModel });
         if (taskState === "success" && previousState && previousState !== "success") {
           void taskTurn.offsetWidth;
           taskTurn.classList.add("is-completing");
         }
       };
+      const completeTaskProgress = () => {
+        stopTaskProgress();
+        if (taskState !== "running") return;
+        taskProgressPercent = 100;
+        syncTaskProgress();
+        taskState = "success";
+        renderCreateTask();
+        showToast("生成完成，可点击查看结果");
+      };
+      const startTaskProgress = (startPercent = 0) => {
+        stopTaskProgress();
+        taskProgressPercent = Math.min(100, Math.max(0, startPercent));
+        syncTaskProgress();
+        const initialElapsedTime = elapsedTimeForProgress(taskProgressPercent);
+        const remainingDuration = taskProgressDuration - initialElapsedTime;
+        if (remainingDuration <= 0) {
+          completeTaskProgress();
+          return;
+        }
+        taskProgressTimer = window.setTimeout(completeTaskProgress, remainingDuration);
+        if (reducedMotion) {
+          taskProgressMilestoneTimers = taskProgressTimeline
+            .filter((point, index) => point.at > initialElapsedTime && point.value !== taskProgressTimeline[index - 1]?.value)
+            .map((point) => window.setTimeout(() => {
+              if (taskState !== "running") return;
+              taskProgressPercent = point.value;
+              syncTaskProgress();
+            }, point.at - initialElapsedTime));
+          return;
+        }
+
+        const startedAt = performance.now() - initialElapsedTime;
+        const updateProgress = (now) => {
+          if (taskState !== "running") {
+            stopTaskProgress();
+            return;
+          }
+          taskProgressPercent = progressAtElapsedTime(now - startedAt);
+          syncTaskProgress();
+          if (taskProgressPercent < 100) taskProgressFrame = window.requestAnimationFrame(updateProgress);
+        };
+        taskProgressFrame = window.requestAnimationFrame(updateProgress);
+      };
       const removeTask = () => {
+        stopTaskProgress();
         userTurn.remove();
         taskTurn.remove();
         const hasRemainingTasks = Boolean(createThread?.querySelector("[data-mobile-create-task]"));
@@ -2364,7 +2478,9 @@
       const regenerateTask = () => {
         setPreviewDialog(false);
         taskState = "running";
+        taskProgressPercent = 0;
         renderCreateTask();
+        startTaskProgress(0);
         taskTurn.scrollIntoView({ behavior: "smooth", block: "center" });
         showToast("已重新发起生成");
       };
@@ -2379,6 +2495,7 @@
         createThread.insertBefore(taskTurn, turnAnchor);
       }
       playSubmissionEntrance();
+      if (taskState === "running") startTaskProgress(taskProgressPercent);
       createPrompt.value = "";
       syncCreatePrompt();
       setCreateComposerCollapsed(true);

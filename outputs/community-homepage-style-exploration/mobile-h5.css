@@ -10930,15 +10930,16 @@ body[data-mobile-page="flash-compose"] .mobile-flash-compose-page {
 }
 
 .mobile-flash-page-editor {
-  padding: 17px 16px 10px;
+  position: relative;
+  padding: 17px 16px 32px;
 }
 
 .mobile-flash-page-editor textarea {
   width: 100%;
   display: block;
   min-height: 156px;
-  margin-top: 8px;
-  padding: 0;
+  margin: 0;
+  padding: 0 0 24px;
   resize: none;
   border: 0;
   border-radius: 0;
@@ -10949,6 +10950,17 @@ body[data-mobile-page="flash-compose"] .mobile-flash-compose-page {
   font-size: 16px;
   line-height: 1.68;
   letter-spacing: -0.012em;
+}
+
+.mobile-flash-page-editor-counter {
+  position: absolute;
+  right: 16px;
+  bottom: 11px;
+  color: rgba(255, 250, 240, 0.46);
+  font-size: 12px;
+  font-weight: 580;
+  line-height: 20px;
+  pointer-events: none;
 }
 
 .mobile-flash-page-editor textarea::placeholder,
@@ -18849,17 +18861,39 @@ body[data-mobile-page="create"] .mobile-create-task-preview {
 }
 
 .mobile-create-task-progress::before {
-  width: 72px;
-  height: 2px;
-  border-radius: var(--ds-radius-pill);
-  background: var(--ds-gold);
-  box-shadow: none;
-  transform-origin: left center;
-  animation: mobile-create-progress-sweep 1.5s cubic-bezier(0.16, 1, 0.3, 1) infinite alternate;
+  display: none;
+  animation: none;
 }
 
 .mobile-create-task-progress strong {
   color: rgba(255, 250, 240, 0.88);
+}
+
+.mobile-create-task-progress-track {
+  width: min(148px, 68%);
+  height: 4px;
+  display: block;
+  overflow: hidden;
+  margin: 0 auto;
+  border: 1px solid rgba(255, 250, 240, 0.08);
+  border-radius: var(--ds-radius-pill);
+  background: rgba(255, 250, 240, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.28);
+}
+
+.mobile-create-task-progress-track > i {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #cda84f, var(--ds-gold-bright));
+  box-shadow: 0 0 12px rgba(244, 201, 93, 0.34);
+  transform: scaleX(var(--mobile-create-progress, 0));
+  transform-origin: left center;
+}
+
+body[data-mobile-page="create"] .mobile-create-turn.is-task[data-state="running"] .mobile-create-task-progress-track > i {
+  will-change: transform;
 }
 
 body[data-mobile-page="create"] .mobile-create-task-preview-label {
@@ -20046,5 +20080,1685 @@ body.mobile-h5-body [role="tablist"].mobile-tabs-style-b > [role="tab"]:is(.is-a
   body[data-mobile-page="community"].is-community-entering .mobile-community-module-tabs,
   body[data-mobile-page="community"].is-community-entering .mobile-community-panel:not([hidden]) {
     animation: mobileCommunityFade 140ms ease-out both !important;
+  }
+}
+
+/* Newbie activity detail: shared campaign rhythm with a task-first growth path. */
+body[data-mobile-page="tasks"] .mobile-shell {
+  background:
+    radial-gradient(circle at 92% 4%, rgba(47, 92, 218, 0.17), transparent 26%),
+    radial-gradient(circle at 2% 42%, rgba(199, 223, 34, 0.055), transparent 24%),
+    var(--ds-bg);
+}
+
+body[data-mobile-page="tasks"] .mobile-campaign-content.mobile-newbie-detail {
+  gap: 16px;
+  padding-top: 12px;
+  padding-bottom: calc(42px + env(safe-area-inset-bottom, 0px));
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero {
+  border-color: rgba(90, 125, 229, 0.28);
+  background: linear-gradient(150deg, rgba(13, 22, 45, 0.96), rgba(7, 10, 17, 0.98));
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(137, 167, 255, 0.035) inset;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-cover {
+  aspect-ratio: 1916 / 821;
+  overflow: hidden;
+  background: #071020;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-cover::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 42%;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(180deg, transparent, rgba(4, 8, 17, 0.38));
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-cover > img {
+  object-fit: contain;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-cover > span {
+  z-index: 1;
+  min-height: 26px;
+  padding-inline: 10px;
+  color: #111708;
+  background: #c7df22;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-summary {
+  padding: 17px 18px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-eyebrow {
+  margin: 0 0 5px;
+  color: rgba(199, 223, 34, 0.74);
+  font-family: var(--ds-font-display);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 0.15em;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-summary h1 {
+  font-size: 24px;
+  font-weight: var(--ds-weight-bold);
+  line-height: 32px;
+  letter-spacing: -0.045em;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-summary > div {
+  margin-top: 7px;
+  color: var(--ds-text-secondary);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-summary strong {
+  color: var(--ds-gold);
+  font-size: var(--ds-type-caption);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px 16px;
+  padding: 18px;
+  border-color: rgba(199, 223, 34, 0.17);
+  background:
+    linear-gradient(135deg, rgba(199, 223, 34, 0.075), transparent 54%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+  box-shadow: var(--ds-shadow-card);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-copy {
+  min-width: 0;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-kicker {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--ds-text-muted);
+  font-size: var(--ds-type-min);
+  line-height: var(--ds-leading-min);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-copy h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin: 0;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-copy h2 strong {
+  color: #d7ee39;
+  font-family: var(--ds-font-display);
+  font-size: 30px;
+  line-height: 36px;
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-copy h2 span {
+  color: var(--ds-text-primary);
+  font-size: 14px;
+  font-weight: var(--ds-weight-semibold);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-card > .mobile-button {
+  min-height: 44px;
+  padding-inline: 16px;
+  color: #111708;
+  background: #c7df22;
+  box-shadow: 0 8px 18px rgba(118, 143, 20, 0.14);
+  font-size: var(--ds-type-meta);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-card > .mobile-progress-track {
+  grid-column: 1 / -1;
+  height: 6px;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.085);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-card > .mobile-progress-track span {
+  min-width: 0;
+  background: linear-gradient(90deg, #9fbd16, #d7ee39);
+  box-shadow: 0 0 14px rgba(199, 223, 34, 0.28);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-unlock-note {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: -2px 0 0;
+  color: var(--ds-text-muted);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-unlock-note .mobile-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  opacity: 0.58;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-detail > .mobile-section {
+  margin-top: 10px;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-description {
+  padding: 16px;
+  border-color: rgba(90, 125, 229, 0.16);
+  background: linear-gradient(145deg, rgba(41, 73, 163, 0.075), rgba(255, 255, 255, 0.018));
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-description h3 {
+  font-size: 15px;
+  font-weight: var(--ds-weight-semibold);
+  letter-spacing: -0.02em;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-description p {
+  color: var(--ds-text-secondary);
+  font-size: var(--ds-type-reading);
+  line-height: var(--ds-leading-body);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-list > li {
+  position: relative;
+  min-height: 126px;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  align-items: start;
+  gap: 0 12px;
+  padding: 15px;
+  border: 1px solid rgba(255, 250, 240, 0.10);
+  border-radius: var(--ds-radius-control);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.046), rgba(255, 255, 255, 0.014));
+  box-shadow: var(--ds-shadow-card);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-index {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(137, 167, 255, 0.22);
+  border-radius: 50%;
+  color: #a9beff;
+  background: rgba(48, 83, 180, 0.14);
+  font-family: var(--ds-font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-copy {
+  min-width: 0;
+  padding-top: 1px;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-copy h3,
+body[data-mobile-page="tasks"] .mobile-newbie-task-copy p {
+  margin: 0;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-copy h3 {
+  color: var(--ds-text-primary);
+  font-size: var(--ds-type-card-title);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-card-title);
+  letter-spacing: var(--ds-tracking-card-title);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-copy p {
+  margin-top: 5px;
+  color: var(--ds-text-muted);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-action {
+  grid-column: 2;
+  min-height: 44px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-action > strong {
+  align-self: center;
+  color: var(--ds-gold);
+  font-size: var(--ds-type-caption);
+  font-weight: var(--ds-weight-semibold);
+  white-space: nowrap;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-action > span,
+body[data-mobile-page="tasks"] .mobile-newbie-task-action > .mobile-button {
+  min-width: 76px;
+  min-height: 44px;
+  padding-inline: 14px;
+  border: 1px solid rgba(255, 250, 240, 0.11);
+  border-radius: var(--ds-radius-pill);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-action > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ds-text-faint);
+  background: rgba(255, 255, 255, 0.025);
+  font-size: var(--ds-type-meta);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-control);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-action > .mobile-button {
+  color: var(--ds-text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+  font-size: var(--ds-type-meta);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-action > .mobile-button:active {
+  border-color: rgba(199, 223, 34, 0.24);
+  color: #d7ee39;
+  background: rgba(199, 223, 34, 0.07);
+}
+
+@media (max-width: 374px) {
+  body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-summary {
+    padding-inline: 16px;
+  }
+
+  body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-summary > div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  body[data-mobile-page="tasks"] .mobile-newbie-progress-card {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  body[data-mobile-page="tasks"] .mobile-newbie-progress-card > .mobile-button {
+    padding-inline: 13px;
+  }
+
+  body[data-mobile-page="tasks"] .mobile-newbie-task-list > li {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 0 10px;
+    padding: 14px;
+  }
+
+  body[data-mobile-page="tasks"] .mobile-newbie-task-index {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Campaign details V2: shared detail structure; V3 below supplies banner-led themes. */
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"]) .mobile-shell {
+  background:
+    radial-gradient(circle at 94% 3%, rgba(47, 92, 218, 0.16), transparent 27%),
+    radial-gradient(circle at 2% 46%, rgba(137, 167, 255, 0.05), transparent 24%),
+    var(--ds-bg);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-content.mobile-shared-campaign-detail {
+  gap: 16px;
+  padding-top: 12px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero {
+  border-color: rgba(90, 125, 229, 0.28);
+  background: linear-gradient(150deg, rgba(13, 22, 45, 0.96), rgba(7, 10, 17, 0.98));
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(137, 167, 255, 0.035) inset;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-cover {
+  aspect-ratio: 1916 / 821;
+  overflow: hidden;
+  background: #071020;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-cover::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 36%;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(180deg, transparent, rgba(4, 8, 17, 0.26));
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-cover > img {
+  display: block;
+  object-fit: contain;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-cover > span {
+  z-index: 1;
+  min-height: 26px;
+  padding-inline: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-summary {
+  padding: 17px 18px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-summary h1 {
+  color: var(--ds-text-primary);
+  font-size: 24px;
+  font-weight: var(--ds-weight-bold);
+  line-height: 32px;
+  letter-spacing: -0.045em;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-summary > div {
+  min-height: 22px;
+  margin-top: 5px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-summary strong {
+  margin-left: auto;
+  color: var(--ds-gold);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px 16px;
+  padding: 18px;
+  border-color: rgba(90, 125, 229, 0.2);
+  background:
+    linear-gradient(135deg, rgba(48, 83, 180, 0.105), transparent 56%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+  box-shadow: var(--ds-shadow-card);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-copy {
+  min-width: 0;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-copy > span {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--ds-text-muted);
+  font-size: var(--ds-type-min);
+  line-height: var(--ds-leading-min);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-copy h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 0;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-copy h2 strong {
+  color: #a9beff;
+  font-family: var(--ds-font-display);
+  font-size: 28px;
+  line-height: 36px;
+  font-variant-numeric: tabular-nums;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-copy h2 small {
+  color: var(--ds-text-primary);
+  font-size: 14px;
+  font-weight: var(--ds-weight-semibold);
+  line-height: 20px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card > .mobile-button {
+  min-height: 44px;
+  padding-inline: 18px;
+  box-shadow: 0 8px 18px rgba(244, 201, 93, 0.12);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card > .mobile-progress-track {
+  grid-column: 1 / -1;
+  height: 6px;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.085);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card > .mobile-progress-track span {
+  min-width: 0;
+  background: linear-gradient(90deg, #6685e3, #a9beff);
+  box-shadow: 0 0 14px rgba(137, 167, 255, 0.25);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-note {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: -2px 0 0;
+  color: var(--ds-text-muted);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-note .mobile-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  opacity: 0.58;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-detail > .mobile-section {
+  margin-top: 10px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  :is(.mobile-campaign-copy, .mobile-campaign-rule-list, .mobile-campaign-task-list article) {
+  border-color: rgba(90, 125, 229, 0.17);
+  background: linear-gradient(145deg, rgba(41, 73, 163, 0.07), rgba(255, 255, 255, 0.016));
+  box-shadow: var(--ds-shadow-card);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-copy {
+  padding: 16px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-copy h3 {
+  font-size: 15px;
+  font-weight: var(--ds-weight-semibold);
+  line-height: 22px;
+  letter-spacing: -0.02em;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-copy :is(p, ol) {
+  color: var(--ds-text-secondary);
+  font-size: var(--ds-type-reading);
+  line-height: var(--ds-leading-body);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-task-list {
+  gap: 12px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-task-list article {
+  min-height: 92px;
+  gap: 12px;
+  padding: 14px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-task-list h3 {
+  color: var(--ds-text-primary);
+  font-size: var(--ds-type-card-title);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-card-title);
+  letter-spacing: var(--ds-tracking-card-title);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-task-list p {
+  color: var(--ds-text-muted);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-task-list .mobile-status-badge {
+  border-color: rgba(137, 167, 255, 0.22);
+  color: #a9beff;
+  background: rgba(48, 83, 180, 0.14);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-work-grid img {
+  border: 1px solid rgba(90, 125, 229, 0.18);
+  box-shadow: var(--ds-shadow-card);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-single-action-bar {
+  border-top-color: rgba(90, 125, 229, 0.18);
+  background: rgba(7, 11, 22, 0.92);
+}
+
+@media (max-width: 374px) {
+  body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+    .mobile-shared-campaign-hero .mobile-campaign-summary {
+    padding-inline: 16px;
+  }
+
+  body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+    .mobile-campaign-progress-card {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+    .mobile-campaign-progress-card > .mobile-button {
+    padding-inline: 15px;
+  }
+
+  body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+    .mobile-campaign-task-list article {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+    .mobile-campaign-task-list article > strong {
+    grid-column: 2;
+    margin-top: -2px;
+  }
+}
+
+/* Campaign theme V3: shared geometry, activity-specific color sampled from each banner. */
+body[data-mobile-page="activity-detail"] {
+  --campaign-accent: #a77bb9;
+  --campaign-accent-bright: #c9a5d6;
+  --campaign-accent-rgb: 167, 123, 185;
+  --campaign-secondary-rgb: 208, 168, 130;
+  --campaign-action: #d6aa77;
+  --campaign-action-bright: #efca9b;
+  --campaign-action-rgb: 214, 170, 119;
+  --campaign-hero-start: #28182e;
+  --campaign-hero-end: #0c0a0f;
+  --campaign-fixed-bar: rgba(21, 13, 25, 0.94);
+}
+
+body[data-mobile-page="activity-detail"][data-mobile-activity-theme="seven-day"] {
+  --campaign-accent: #ef8d52;
+  --campaign-accent-bright: #ffad75;
+  --campaign-accent-rgb: 239, 141, 82;
+  --campaign-secondary-rgb: 103, 76, 171;
+  --campaign-action: #ef8d52;
+  --campaign-action-bright: #ffb17d;
+  --campaign-action-rgb: 239, 141, 82;
+  --campaign-hero-start: #161c31;
+  --campaign-hero-end: #080b14;
+  --campaign-fixed-bar: rgba(12, 14, 25, 0.94);
+}
+
+body[data-mobile-page="campaign-detail"] {
+  --campaign-accent: #df8168;
+  --campaign-accent-bright: #f1a087;
+  --campaign-accent-rgb: 223, 129, 104;
+  --campaign-secondary-rgb: 55, 83, 83;
+  --campaign-action: #df8168;
+  --campaign-action-bright: #f3a181;
+  --campaign-action-rgb: 223, 129, 104;
+  --campaign-hero-start: #271714;
+  --campaign-hero-end: #09100f;
+  --campaign-fixed-bar: rgba(20, 14, 13, 0.94);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"]) .mobile-shell {
+  background:
+    radial-gradient(circle at 94% 3%, rgba(var(--campaign-accent-rgb), 0.15), transparent 27%),
+    radial-gradient(circle at 2% 46%, rgba(var(--campaign-secondary-rgb), 0.055), transparent 24%),
+    var(--ds-bg);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero {
+  border-color: rgba(var(--campaign-accent-rgb), 0.30);
+  background: linear-gradient(150deg, var(--campaign-hero-start), var(--campaign-hero-end));
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(var(--campaign-accent-rgb), 0.045) inset;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-cover {
+  background: var(--campaign-hero-end);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-cover > span {
+  color: #1b110c;
+  background: var(--campaign-action-bright);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-summary {
+  border-top-color: rgba(var(--campaign-accent-rgb), 0.13);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-summary strong {
+  color: var(--campaign-action-bright);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card {
+  border-color: rgba(var(--campaign-accent-rgb), 0.24);
+  background:
+    linear-gradient(135deg, rgba(var(--campaign-accent-rgb), 0.115), transparent 56%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-copy h2 strong {
+  color: var(--campaign-accent-bright);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card > .mobile-button,
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-single-action-bar .mobile-action-primary {
+  color: #1b110c;
+  background: linear-gradient(135deg, var(--campaign-action-bright), var(--campaign-action));
+  box-shadow: 0 8px 20px rgba(var(--campaign-action-rgb), 0.16);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card > .mobile-progress-track span {
+  background: linear-gradient(90deg, var(--campaign-accent), var(--campaign-accent-bright));
+  box-shadow: 0 0 14px rgba(var(--campaign-accent-rgb), 0.26);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-section-heading h2::before {
+  background: var(--campaign-accent);
+  box-shadow: 0 0 18px rgba(var(--campaign-accent-rgb), 0.20);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  :is(.mobile-campaign-copy, .mobile-campaign-rule-list, .mobile-campaign-task-list article) {
+  border-color: rgba(var(--campaign-accent-rgb), 0.19);
+  background: linear-gradient(145deg, rgba(var(--campaign-accent-rgb), 0.078), rgba(255, 255, 255, 0.014));
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-rule-list > div + div {
+  border-top-color: rgba(var(--campaign-accent-rgb), 0.13);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  :is(
+    .mobile-campaign-rule-list strong,
+    .mobile-campaign-task-list article > strong,
+    .mobile-section-heading h2 small
+  ) {
+  color: var(--campaign-action-bright);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-task-list .mobile-status-badge {
+  border-color: rgba(var(--campaign-accent-rgb), 0.28);
+  color: var(--campaign-accent-bright);
+  background: rgba(var(--campaign-accent-rgb), 0.14);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-work-grid img {
+  border-color: rgba(var(--campaign-accent-rgb), 0.22);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-single-action-bar {
+  border-top-color: rgba(var(--campaign-accent-rgb), 0.22);
+  background: var(--campaign-fixed-bar);
+}
+
+/* Profile edit and AI store: targeted mobile hierarchy refresh. */
+body:is([data-mobile-page="profile-edit"], [data-mobile-page="exchange"]) .mobile-shell {
+  background:
+    radial-gradient(circle at 92% 3%, rgba(244, 201, 93, 0.105), transparent 25%),
+    radial-gradient(circle at 4% 46%, rgba(244, 201, 93, 0.035), transparent 28%),
+    var(--ds-bg);
+}
+
+body:is([data-mobile-page="profile-edit"], [data-mobile-page="exchange"]) .mobile-topbar {
+  border-bottom-color: rgba(255, 250, 240, 0.075);
+  background: rgba(5, 7, 11, 0.9);
+  backdrop-filter: blur(20px) saturate(135%);
+}
+
+body:is([data-mobile-page="profile-edit"], [data-mobile-page="exchange"])
+  :is(button, a):active {
+  transform: scale(0.985);
+}
+
+/* Profile edit: separate identity, editable fields and account state. */
+body[data-mobile-page="profile-edit"] .mobile-task-content {
+  display: grid;
+  gap: 18px;
+  padding-top: 16px;
+  padding-bottom: calc(34px + env(safe-area-inset-bottom, 0px));
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form {
+  display: grid;
+  gap: 14px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-form-section {
+  border-color: rgba(255, 250, 240, 0.105);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.052), rgba(255, 255, 255, 0.016));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035), 0 18px 42px rgba(0, 0, 0, 0.2);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-avatar-edit {
+  min-height: 132px;
+  grid-template-columns: 88px minmax(0, 1fr);
+  place-items: center start;
+  gap: 18px;
+  overflow: hidden;
+  padding: 20px;
+  background:
+    radial-gradient(circle at 18% 50%, rgba(244, 201, 93, 0.115), transparent 32%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.052), rgba(255, 255, 255, 0.014));
+}
+
+body[data-mobile-page="profile-edit"] .mobile-avatar-edit img {
+  width: 88px;
+  height: 88px;
+  border: 1px solid rgba(244, 201, 93, 0.58);
+  box-shadow: 0 0 0 6px rgba(244, 201, 93, 0.055), 0 16px 34px rgba(0, 0, 0, 0.3);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-avatar-edit button {
+  min-width: 112px;
+  min-height: 44px;
+  padding-inline: 18px;
+  border-color: rgba(244, 201, 93, 0.34);
+  color: var(--ds-gold-bright);
+  background: rgba(244, 201, 93, 0.075);
+  font-size: var(--ds-type-label);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-control);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-form-section:nth-of-type(2) {
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-form-section:nth-of-type(2) .mobile-field {
+  gap: 9px;
+  margin-top: 0 !important;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-field > span {
+  color: rgba(255, 250, 240, 0.76);
+  font-size: var(--ds-type-label);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-field :is(input, textarea) {
+  min-height: 48px;
+  padding: 13px 14px;
+  border-color: rgba(255, 250, 240, 0.12);
+  background: rgba(3, 5, 8, 0.68);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-field textarea {
+  min-height: 112px;
+  line-height: var(--ds-leading-body);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-field :is(input, textarea):focus {
+  border-color: rgba(244, 201, 93, 0.64);
+  box-shadow: var(--ds-focus-ring), inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-button {
+  width: 100%;
+  min-height: 50px;
+  margin-top: 2px;
+  font-size: var(--ds-type-body-strong);
+  box-shadow: var(--ds-shadow-control), 0 14px 30px rgba(244, 201, 93, 0.08);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-section {
+  gap: 4px;
+  padding: 16px 18px 4px;
+  border-color: rgba(255, 250, 240, 0.105);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.012));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 18px 42px rgba(0, 0, 0, 0.18);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-section-heading {
+  min-height: 42px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-section-heading h2 {
+  font-size: var(--ds-type-body-lg);
+  line-height: var(--ds-leading-body-lg);
+  letter-spacing: -0.025em;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-row {
+  min-height: 74px;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  gap: 12px;
+  border-top-color: rgba(255, 250, 240, 0.075);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-icon {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(244, 201, 93, 0.11);
+  background: rgba(244, 201, 93, 0.065);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-icon.is-wechat {
+  border-color: rgba(104, 202, 147, 0.14);
+  background: rgba(104, 202, 147, 0.065);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-copy strong {
+  font-size: var(--ds-type-reading);
+  line-height: var(--ds-leading-body);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-copy small {
+  color: rgba(255, 250, 240, 0.54);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-status {
+  min-height: 30px;
+  gap: 5px;
+  padding-inline: 9px;
+  border: 1px solid rgba(104, 202, 147, 0.16);
+  border-radius: var(--ds-radius-pill);
+  background: rgba(104, 202, 147, 0.065);
+  font-size: var(--ds-type-caption);
+  font-weight: var(--ds-weight-semibold);
+}
+
+/* AI store: restore the authored hero and make the catalog easier to scan. */
+body[data-mobile-page="exchange"] .mobile-store-content {
+  gap: 28px;
+  padding-top: 14px;
+  padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+}
+
+body[data-mobile-page="exchange"] .mobile-store-hero {
+  min-height: 214px;
+  align-items: stretch;
+  padding: 22px;
+  border-color: rgba(244, 201, 93, 0.22);
+  background:
+    linear-gradient(90deg, rgba(4, 6, 9, 0.98) 0%, rgba(4, 6, 9, 0.91) 45%, rgba(4, 6, 9, 0.12) 100%),
+    radial-gradient(circle at 76% 36%, rgba(244, 201, 93, 0.12), transparent 34%),
+    url("../../assets/web/image_assets/member-store-hero-blackgold-v1.png") 76% 48% / cover no-repeat;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045), 0 22px 50px rgba(0, 0, 0, 0.3);
+}
+
+body[data-mobile-page="exchange"] .mobile-store-hero::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 34%, rgba(0, 0, 0, 0.13));
+}
+
+body[data-mobile-page="exchange"] .mobile-store-hero-copy {
+  z-index: 2;
+  width: 58%;
+  align-content: center;
+  justify-items: start;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-hero h1 {
+  font-size: 30px;
+  font-weight: var(--ds-weight-bold);
+  line-height: 36px;
+  letter-spacing: -0.045em;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-hero p {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-top: 13px;
+  color: rgba(255, 250, 240, 0.62);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body[data-mobile-page="exchange"] .mobile-store-hero p strong {
+  margin-left: 0;
+  color: var(--ds-gold-bright);
+  font-family: var(--ds-font-display);
+  font-size: 26px;
+  font-weight: var(--ds-weight-bold);
+  line-height: 30px;
+  letter-spacing: -0.035em;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-record-entry {
+  min-height: 42px;
+  gap: 7px;
+  margin-top: 16px;
+  padding-inline: 12px;
+  border-color: rgba(244, 201, 93, 0.29);
+  color: var(--ds-gold-bright);
+  background: rgba(7, 9, 12, 0.72);
+  font-size: var(--ds-type-caption);
+  font-weight: var(--ds-weight-semibold);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+}
+
+body[data-mobile-page="exchange"] .mobile-store-content > .mobile-section {
+  margin-top: 0;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-content .mobile-section-heading {
+  min-height: 32px;
+  margin-bottom: 14px;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-content .mobile-section-heading h2 {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.035em;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-content .mobile-section-heading h2::before {
+  display: none;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-content .mobile-section-heading span {
+  min-width: 38px;
+  min-height: 28px;
+  display: inline-grid;
+  place-items: center;
+  padding-inline: 9px;
+  border: 1px solid rgba(255, 250, 240, 0.1);
+  border-radius: var(--ds-radius-pill);
+  color: rgba(255, 250, 240, 0.58);
+  background: rgba(255, 255, 255, 0.035);
+  font-size: var(--ds-type-caption);
+}
+
+body[data-mobile-page="exchange"] .mobile-store-grid {
+  gap: 10px;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-card {
+  position: relative;
+  min-height: 206px;
+  overflow: hidden;
+  padding: 15px;
+  border-color: rgba(255, 250, 240, 0.1);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(244, 201, 93, 0.07), transparent 43%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.047), rgba(255, 255, 255, 0.014));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035), 0 16px 36px rgba(0, 0, 0, 0.2);
+}
+
+body[data-mobile-page="exchange"] .mobile-store-card small {
+  color: rgba(255, 250, 240, 0.5);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body[data-mobile-page="exchange"] .mobile-store-card h3 {
+  min-height: 44px;
+  margin: 9px 0 14px;
+  color: rgba(255, 250, 240, 0.94);
+  font-size: var(--ds-type-reading);
+  font-weight: var(--ds-weight-semibold);
+  line-height: 20px;
+  letter-spacing: -0.015em;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-card p {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin: auto 0 0;
+  color: var(--ds-gold-bright);
+  font-family: var(--ds-font-display);
+  font-size: 21px;
+  font-weight: var(--ds-weight-bold);
+  line-height: 26px;
+  letter-spacing: -0.025em;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-card p span {
+  color: rgba(255, 250, 240, 0.5);
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-type-caption);
+  font-weight: var(--ds-weight-regular);
+  letter-spacing: 0;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-card button {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 14px;
+  border-color: rgba(244, 201, 93, 0.36);
+  border-radius: var(--ds-radius-pill);
+  font-size: var(--ds-type-label);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-control);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34), 0 9px 20px rgba(244, 201, 93, 0.08);
+}
+
+body[data-mobile-page="exchange"] .mobile-store-card button:disabled {
+  border-color: rgba(255, 250, 240, 0.08);
+  color: rgba(255, 250, 240, 0.42);
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: none;
+}
+
+body[data-mobile-page="exchange"] .mobile-exchange-sheet .mobile-sheet-panel {
+  border-color: rgba(255, 250, 240, 0.11);
+  background: rgba(10, 13, 17, 0.98);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045), 0 -24px 70px rgba(0, 0, 0, 0.5);
+}
+
+body[data-mobile-page="exchange"] .mobile-exchange-product-summary {
+  border-color: rgba(244, 201, 93, 0.2);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(244, 201, 93, 0.1), transparent 42%),
+    rgba(244, 201, 93, 0.035);
+}
+
+body[data-mobile-page="exchange"] .mobile-exchange-confirm-detail {
+  border-color: rgba(255, 250, 240, 0.1);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+body[data-mobile-page="exchange"] .mobile-exchange-confirm-detail > div {
+  min-height: 50px;
+}
+
+body[data-mobile-page="exchange"] .mobile-exchange-sheet-actions {
+  gap: 10px;
+  padding-top: 12px;
+  background: rgba(7, 9, 12, 0.96);
+}
+
+@media (max-width: 359px) {
+  body[data-mobile-page="profile-edit"] .mobile-task-content {
+    gap: 14px;
+    padding-inline: 12px;
+  }
+
+  body[data-mobile-page="profile-edit"] .mobile-avatar-edit {
+    grid-template-columns: 78px minmax(0, 1fr);
+    gap: 14px;
+    padding: 16px;
+  }
+
+  body[data-mobile-page="profile-edit"] .mobile-avatar-edit img {
+    width: 78px;
+    height: 78px;
+  }
+
+  body[data-mobile-page="profile-edit"] .mobile-account-binding-section {
+    padding-inline: 14px;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-content {
+    padding-inline: 12px;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-hero {
+    min-height: 204px;
+    padding: 18px;
+    background-position: center, center, 72% 48%;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-hero-copy {
+    width: 61%;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-hero h1 {
+    font-size: 27px;
+    line-height: 34px;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-card {
+    min-height: 198px;
+    padding: 12px;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-card h3 {
+    min-height: 42px;
+    font-size: 13px;
+    line-height: 19px;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-card p {
+    font-size: 19px;
+  }
+}
+
+@media (min-width: 420px) {
+  body[data-mobile-page="profile-edit"] .mobile-task-content,
+  body[data-mobile-page="exchange"] .mobile-store-content {
+    padding-inline: 20px;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-grid {
+    gap: 12px;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-hero {
+    background-position: center, center, 80% 48%;
+  }
+}
+
+/* Profile edit V2: familiar grouped settings rows with inline values. */
+body[data-mobile-page="profile-edit"] .mobile-task-content {
+  gap: 24px;
+  padding-top: 18px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form {
+  gap: 16px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-list {
+  overflow: hidden;
+  border: 1px solid rgba(255, 250, 240, 0.1);
+  border-radius: var(--ds-radius-control);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025), 0 16px 36px rgba(0, 0, 0, 0.17);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-list > .mobile-form-section {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-list .mobile-avatar-edit {
+  min-height: 78px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  justify-items: stretch;
+  gap: 16px;
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(255, 250, 240, 0.075);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-list .mobile-avatar-edit img {
+  grid-column: 2;
+  grid-row: 1;
+  width: 54px;
+  height: 54px;
+  justify-self: end;
+  border: 1px solid rgba(244, 201, 93, 0.42);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-list .mobile-avatar-edit button {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  min-height: 44px;
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: rgba(255, 250, 240, 0.86);
+  background: transparent;
+  font-size: var(--ds-type-label);
+  font-weight: var(--ds-weight-medium);
+  text-align: left;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list {
+  display: grid;
+  gap: 0;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field {
+  min-height: 64px;
+  grid-template-columns: 88px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  margin: 0 !important;
+  padding: 9px 16px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field + .mobile-field {
+  min-height: 82px;
+  border-top: 1px solid rgba(255, 250, 240, 0.075);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field:focus-within {
+  background: rgba(244, 201, 93, 0.035);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field > span {
+  color: rgba(255, 250, 240, 0.82);
+  font-size: var(--ds-type-label);
+  font-weight: var(--ds-weight-medium);
+  line-height: var(--ds-leading-control);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field :is(input, textarea) {
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 7px 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  color: rgba(255, 250, 240, 0.7);
+  background: transparent;
+  box-shadow: none;
+  text-align: right;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field input {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field textarea {
+  min-height: 58px;
+  resize: none;
+  line-height: 20px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field :is(input, textarea):focus {
+  border-bottom-color: rgba(244, 201, 93, 0.62);
+  color: var(--ds-text-primary);
+  outline: none;
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-button {
+  min-height: 48px;
+  margin-top: 0;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-section {
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-section-heading {
+  min-height: 28px;
+  padding-inline: 4px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-section-heading h2 {
+  color: rgba(255, 250, 240, 0.58);
+  font-size: var(--ds-type-caption);
+  font-weight: var(--ds-weight-medium);
+  line-height: var(--ds-leading-caption);
+  letter-spacing: 0;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-list {
+  overflow: hidden;
+  padding-inline: 16px;
+  border: 1px solid rgba(255, 250, 240, 0.1);
+  border-radius: var(--ds-radius-control);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025), 0 16px 36px rgba(0, 0, 0, 0.15);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-row {
+  min-height: 68px;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  gap: 12px;
+  border-top: 0;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-row + .mobile-account-binding-row {
+  border-top: 1px solid rgba(255, 250, 240, 0.075);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-icon {
+  width: 36px;
+  height: 36px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-status {
+  min-height: 32px;
+  padding-inline: 0;
+  border: 0;
+  background: transparent;
+}
+
+@media (max-width: 359px) {
+  body[data-mobile-page="profile-edit"] .mobile-profile-edit-list .mobile-avatar-edit,
+  body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field {
+    padding-inline: 14px;
+  }
+
+  body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field {
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  body[data-mobile-page="profile-edit"] .mobile-account-binding-list {
+    padding-inline: 14px;
+  }
+}
+
+/* Profile edit V3: reference-led portrait header, grouped rows and bottom action. */
+body[data-mobile-page="profile-edit"] .mobile-task-content {
+  position: relative;
+  gap: 22px;
+  padding-top: 12px;
+  padding-bottom: calc(124px + env(safe-area-inset-bottom, 0px));
+}
+
+body[data-mobile-page="profile-edit"] .mobile-task-content::after {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 38;
+  width: min(100%, 480px);
+  height: calc(92px + env(safe-area-inset-bottom, 0px));
+  margin-inline: auto;
+  border-top: 1px solid rgba(255, 250, 240, 0.055);
+  background: rgba(11, 13, 14, 0.96);
+  content: "";
+  pointer-events: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form {
+  gap: 16px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-avatar-edit {
+  position: relative;
+  min-height: 148px;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: start center;
+  gap: 0;
+  overflow: visible;
+  padding: 24px 0 22px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-avatar-edit > img:first-child {
+  width: 94px;
+  height: 94px;
+  border: 2px solid rgba(255, 250, 240, 0.2);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-avatar-edit > button {
+  position: absolute;
+  top: 84px;
+  left: calc(50% + 18px);
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 3px solid var(--ds-bg);
+  border-radius: 50%;
+  color: #171205;
+  background: var(--ds-gold-bright);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-avatar-edit > button > span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-avatar-edit > button > .mobile-profile-avatar-edit-icon {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 0;
+  object-fit: contain;
+  box-shadow: none;
+  filter: brightness(0) saturate(100%);
+  opacity: 0.92;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-list {
+  border: 0;
+  border-radius: var(--ds-radius-control);
+  background: rgba(255, 255, 255, 0.048);
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field {
+  min-height: 66px;
+  grid-template-columns: 88px minmax(0, 1fr) 18px;
+  gap: 10px;
+  padding: 10px 18px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field + .mobile-field {
+  min-height: 82px;
+  border-top: 0;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field + .mobile-field::before {
+  position: absolute;
+  top: 0;
+  right: 18px;
+  left: 18px;
+  height: 1px;
+  background: rgba(255, 250, 240, 0.055);
+  content: "";
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field {
+  position: relative;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field::after {
+  width: 18px;
+  height: 18px;
+  grid-column: 3;
+  grid-row: 1;
+  align-self: center;
+  background: url("../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg") center / 18px 18px no-repeat;
+  content: "";
+  filter: brightness(0) invert(1);
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field > span {
+  grid-column: 1;
+  grid-row: 1;
+  color: rgba(255, 250, 240, 0.94);
+  font-size: var(--ds-type-body-lg);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-body-lg);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field :is(input, textarea) {
+  grid-column: 2;
+  grid-row: 1;
+  min-height: 44px;
+  padding: 6px 0;
+  border: 0;
+  color: rgba(255, 250, 240, 0.78);
+  font-size: var(--ds-type-body-lg);
+  font-weight: var(--ds-weight-regular);
+  line-height: var(--ds-leading-body-lg);
+  text-align: right;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field textarea {
+  min-height: 62px;
+  align-self: center;
+  padding-block: 8px;
+  line-height: 22px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field:focus-within {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field:focus-within::after {
+  opacity: 1;
+  filter: var(--mobile-icon-gold-filter);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field :is(input, textarea):focus {
+  border: 0;
+  color: var(--ds-text-primary);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-button {
+  position: fixed;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  z-index: 42;
+  width: min(calc(100% - 32px), 448px);
+  min-height: 52px;
+  margin: 0;
+  transform: translateX(-50%);
+  font-size: var(--ds-type-body-lg);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-button:active {
+  transform: translateX(-50%) scale(0.985);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-section {
+  gap: 10px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-section-heading {
+  min-height: 24px;
+  padding-inline: 6px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-section-heading h2 {
+  color: rgba(255, 250, 240, 0.62);
+  font-size: var(--ds-type-caption);
+  font-weight: var(--ds-weight-medium);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-list {
+  padding-inline: 18px;
+  border: 0;
+  border-radius: var(--ds-radius-control);
+  background: rgba(255, 255, 255, 0.048);
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-row {
+  min-height: 68px;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  border-top: 0;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-row + .mobile-account-binding-row {
+  position: relative;
+  border-top: 0;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-row + .mobile-account-binding-row::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: rgba(255, 250, 240, 0.055);
+  content: "";
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-copy strong {
+  font-size: var(--ds-type-body-lg);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-body-lg);
+}
+
+@media (max-width: 359px) {
+  body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field {
+    grid-template-columns: 76px minmax(0, 1fr) 18px;
+    padding-inline: 14px;
+  }
+
+  body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field + .mobile-field::before {
+    right: 14px;
+    left: 14px;
+  }
+
+  body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field > span,
+  body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field :is(input, textarea),
+  body[data-mobile-page="profile-edit"] .mobile-account-binding-copy strong {
+    font-size: var(--ds-type-reading);
   }
 }

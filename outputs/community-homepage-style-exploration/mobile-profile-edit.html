@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#05070b">
   <title>编辑个人资料 - 多元拾光</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260825-display-heading-v3">
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-profile-reference-v4">
   <script src="./mobile-h5.js?v=20260824-create-panel-v13" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="profile-edit">
@@ -17,11 +17,19 @@
     </header>
     <main id="main" class="mobile-task-content">
       <form class="mobile-profile-form" data-mobile-profile-form>
-        <section class="mobile-form-section mobile-avatar-edit"><img src="../../assets/web/image_assets/nav-avatar-ai-creator-v1.webp" alt="拾光创作者头像"><button type="button" data-mobile-toast-message="请选择新的头像">更换头像</button></section>
-        <section class="mobile-form-section">
-          <label class="mobile-field" for="mobile-profile-nickname"><span>昵称</span><input id="mobile-profile-nickname" type="text" value="拾光创作者" maxlength="20"></label>
-          <label class="mobile-field" for="mobile-profile-bio" style="margin-top:12px"><span>个人简介</span><textarea id="mobile-profile-bio" maxlength="80">用 AI 记录每一次灵感。</textarea></label>
+        <section class="mobile-form-section mobile-avatar-edit">
+          <img src="../../assets/web/image_assets/nav-avatar-ai-creator-v1.webp" alt="拾光创作者头像">
+          <button type="button" data-mobile-toast-message="请选择新的头像">
+            <img class="mobile-profile-avatar-edit-icon" src="../../resources/icons/remixicon/svg/Media/image-add-line.svg" alt="">
+            <span>更换头像</span>
+          </button>
         </section>
+        <div class="mobile-profile-edit-list">
+          <section class="mobile-form-section mobile-profile-field-list">
+            <label class="mobile-field" for="mobile-profile-nickname"><span>昵称</span><input id="mobile-profile-nickname" type="text" value="拾光创作者" maxlength="20"></label>
+            <label class="mobile-field" for="mobile-profile-bio"><span>个人简介</span><textarea id="mobile-profile-bio" maxlength="80">用 AI 记录每一次灵感。</textarea></label>
+          </section>
+        </div>
         <button class="mobile-button primary" type="submit">保存</button>
       </form>
       <section class="mobile-form-section mobile-account-binding-section" aria-labelledby="mobile-account-binding-title">

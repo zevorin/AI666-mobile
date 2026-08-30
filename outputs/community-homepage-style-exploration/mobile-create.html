@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#05070b">
   <title>多元拾光 · AIGC 生成</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-tabs-v3">
-  <script src="./mobile-h5.js?v=20260830-tabs-v3" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-auto-progress-v2">
+  <script src="./mobile-h5.js?v=20260830-auto-progress-v2" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="create">
   <div class="mobile-shell mobile-primary-shell mobile-create-shell">
@@ -62,7 +62,7 @@
         <img class="mobile-icon mobile-create-composer-toggle-arrow" src="../../resources/icons/remixicon/svg/Arrows/arrow-up-line.svg" alt="">
       </button>
       <div class="mobile-create-composer-tools">
-        <div class="mobile-filter-tabs mobile-home-filter-tabs mobile-create-mode-tabs mobile-tabs-style-a" role="tablist" aria-label="创作类型" data-mobile-create-mode-tabs>
+        <div class="mobile-filter-tabs mobile-home-filter-tabs mobile-create-mode-tabs" role="tablist" aria-label="创作类型" data-mobile-create-mode-tabs>
           <button class="mobile-filter-tab mobile-home-filter-tab" type="button" role="tab" data-mobile-create-mode="video" aria-selected="false" aria-pressed="false">视频生成</button>
           <button class="mobile-filter-tab mobile-home-filter-tab is-active" type="button" role="tab" data-mobile-create-mode="image" aria-selected="true" aria-pressed="true">图片生成</button>
           <button class="mobile-filter-tab mobile-home-filter-tab" type="button" role="tab" data-mobile-create-mode="script" aria-selected="false" aria-pressed="false">剧本创作</button>
@@ -193,7 +193,7 @@
       <section class="mobile-rule-card"><strong>模型与积分</strong><p>模型、分辨率、比例与时长统一使用 Web 端描边胶囊和向上展开菜单；模型保持单选并同步更新预计积分，比例项使用横、竖、方形图标辅助识别。</p></section>
       <section class="mobile-rule-card"><strong>全局创作入口</strong><p>底部创作入口是全局发布动作，点击后先选择 AIGC 生成或发布闪念；当前页承接 AIGC 生成，发布闪念进入独立全屏编辑页。</p></section>
       <section class="mobile-rule-card"><strong>记录承接</strong><p>生成记录从标题右侧入口打开底部层；进行中记录恢复原任务，成功记录进入对应结果或作品详情。</p></section>
-      <section class="mobile-rule-card"><strong>状态承接</strong><p>发起创作后按日期展示本次参数、提示词与任务卡；处理中可刷新为完成态，图片、视频与剧本完成后统一进入同页沉浸结果详情。</p></section>
+      <section class="mobile-rule-card"><strong>状态承接</strong><p>发起创作后按日期展示本次参数、提示词与任务卡；进度在 3 秒内从 0% 自动推进至 100% 并展示结果，图片、视频与剧本完成后统一进入同页沉浸结果详情。</p></section>
       <section class="mobile-rule-card"><strong>验收</strong><p>360/390/430 宽度下输入区不被安全区或键盘遮挡；顶部筛选、三模式切换、模型弹窗、参数、重新生成和三种结果详情均可操作；不自动扣减积分。</p></section>
     </div>
   </aside>
