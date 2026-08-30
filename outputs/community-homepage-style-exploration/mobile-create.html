@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#05070b">
   <title>多元拾光 · AIGC 生成</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-create-collapse-pill-v2">
-  <script src="./mobile-h5.js?v=20260830-create-collapse-pill-v2" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-tabs-v3">
+  <script src="./mobile-h5.js?v=20260830-tabs-v3" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="create">
   <div class="mobile-shell mobile-primary-shell mobile-create-shell">
@@ -16,9 +16,9 @@
         <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-left-s-line.svg" alt="">
       </button>
       <h1 id="mobile-create-title" class="mobile-page-title">AIGC 生成</h1>
-      <button class="mobile-create-history-trigger" type="button" data-mobile-create-history-open aria-controls="mobile-create-history-sheet" aria-label="查看生成记录">
+      <a class="mobile-create-history-trigger" href="./mobile-generation-history.html" aria-label="查看生成记录">
         <img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/history-line.svg" alt="">
-      </button>
+      </a>
     </header>
 
     <main id="main" class="mobile-create-workspace" data-mobile-create-workspace>
@@ -62,7 +62,7 @@
         <img class="mobile-icon mobile-create-composer-toggle-arrow" src="../../resources/icons/remixicon/svg/Arrows/arrow-up-line.svg" alt="">
       </button>
       <div class="mobile-create-composer-tools">
-        <div class="mobile-filter-tabs mobile-home-filter-tabs mobile-create-mode-tabs" role="tablist" aria-label="创作类型" data-mobile-create-mode-tabs>
+        <div class="mobile-filter-tabs mobile-home-filter-tabs mobile-create-mode-tabs mobile-tabs-style-a" role="tablist" aria-label="创作类型" data-mobile-create-mode-tabs>
           <button class="mobile-filter-tab mobile-home-filter-tab" type="button" role="tab" data-mobile-create-mode="video" aria-selected="false" aria-pressed="false">视频生成</button>
           <button class="mobile-filter-tab mobile-home-filter-tab is-active" type="button" role="tab" data-mobile-create-mode="image" aria-selected="true" aria-pressed="true">图片生成</button>
           <button class="mobile-filter-tab mobile-home-filter-tab" type="button" role="tab" data-mobile-create-mode="script" aria-selected="false" aria-pressed="false">剧本创作</button>
@@ -178,21 +178,6 @@
         <button type="button" data-mobile-create-preview-action="regenerate"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Device/restart-line.svg" alt=""><span>再次生成</span></button>
         <button type="button" data-mobile-create-preview-action="publish"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Business/send-plane-2-line.svg" alt=""><span>发布到社区</span></button>
         <button type="button" data-mobile-create-preview-action="activity"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Document/file-check-line.svg" alt=""><span>投稿活动</span></button>
-      </div>
-    </div>
-  </section>
-
-  <section id="mobile-create-history-sheet" class="mobile-bottom-sheet mobile-create-history-sheet" data-mobile-create-history-sheet aria-hidden="true">
-    <button class="mobile-sheet-backdrop" type="button" data-mobile-create-history-close aria-label="关闭生成记录"></button>
-    <div class="mobile-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="mobile-create-history-title">
-      <header class="mobile-sheet-head"><h2 id="mobile-create-history-title">生成记录</h2><button class="mobile-icon-button" type="button" data-mobile-create-history-close aria-label="关闭生成记录"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button></header>
-      <div class="mobile-sheet-scroll">
-        <div class="mobile-history-list">
-          <a class="mobile-history-row" href="./mobile-image-detail.html"><img src="../../assets/image_assets/15.jpg" alt=""><span class="mobile-history-copy"><strong>凤冠神女</strong><small>图片生成</small></span><span class="mobile-history-state">已完成</span></a>
-          <a class="mobile-history-row" href="./mobile-generation-result.html?mode=script"><img src="../../assets/image_assets/17.png" alt=""><span class="mobile-history-copy"><strong>雨夜霓虹街头 · 分镜设定</strong><small>剧本创作</small></span><span class="mobile-history-state">已完成</span></a>
-          <a class="mobile-history-row" href="./mobile-video-detail.html"><img src="../../assets/image_assets/4.png" alt=""><span class="mobile-history-copy"><strong>海灯守望</strong><small>视频生成</small></span><span class="mobile-history-state">已完成</span></a>
-          <a class="mobile-history-row" href="./mobile-create.html?mode=video&amp;state=running&amp;prompt=%E9%9B%B7%E4%BA%91%E4%B8%AD%E9%87%91%E9%BE%99%E4%B8%8E%E7%99%BD%E8%99%8E%E5%AF%B9%E5%B3%99%EF%BC%8C%E9%95%9C%E5%A4%B4%E7%8E%AF%E7%BB%95%E6%88%98%E5%9C%BA%E3%80%82&amp;model=Seedance+2.0"><img src="../../assets/image_assets/11.png" alt=""><span class="mobile-history-copy"><strong>龙虎天劫</strong><small>视频生成</small></span><span class="mobile-history-state is-running">生成中</span></a>
-        </div>
       </div>
     </div>
   </section>

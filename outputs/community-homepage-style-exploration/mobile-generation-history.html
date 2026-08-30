@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05070b">
+  <title>生成记录 - 多元拾光</title>
+  <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-tabs-v3">
+  <script src="./mobile-h5.js?v=20260830-tabs-v3" defer></script>
+</head>
+<body class="mobile-h5-body" data-mobile-page="generation-history">
+  <div class="mobile-shell mobile-generation-history-shell">
+    <header class="mobile-topbar mobile-topbar-detail mobile-generation-history-topbar" data-mobile-appbar>
+      <button class="mobile-back-button" type="button" data-mobile-back data-fallback="./mobile-create.html" aria-label="返回 AIGC 生成">
+        <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-left-s-line.svg" alt="">
+      </button>
+      <h1 id="mobile-generation-history-title" class="mobile-page-title">生成记录</h1>
+      <span class="mobile-topbar-placeholder" aria-hidden="true"></span>
+    </header>
+
+    <main id="main" class="mobile-generation-history-main" aria-labelledby="mobile-generation-history-title">
+      <div class="mobile-generation-history-filters mobile-tabs-style-a" role="tablist" aria-label="筛选生成类型" data-mobile-generation-history-filters>
+        <button class="is-active" type="button" role="tab" data-mobile-generation-history-filter="all" aria-selected="true" aria-pressed="true">全部</button>
+        <button type="button" role="tab" data-mobile-generation-history-filter="image" aria-selected="false" aria-pressed="false">图片</button>
+        <button type="button" role="tab" data-mobile-generation-history-filter="video" aria-selected="false" aria-pressed="false">视频</button>
+        <button type="button" role="tab" data-mobile-generation-history-filter="script" aria-selected="false" aria-pressed="false">剧本</button>
+      </div>
+
+      <p class="mobile-generation-history-summary" data-mobile-generation-history-summary aria-live="polite">4 条记录</p>
+
+      <section class="mobile-generation-history-group" data-mobile-generation-history-group aria-labelledby="mobile-generation-history-today">
+        <header>
+          <h2 id="mobile-generation-history-today">今天</h2>
+          <span data-mobile-generation-history-group-count>2 条</span>
+        </header>
+        <div class="mobile-generation-history-list">
+          <a class="mobile-generation-history-row" href="./mobile-create.html?mode=video&amp;state=running&amp;prompt=%E9%9B%B7%E4%BA%91%E4%B8%AD%E9%87%91%E9%BE%99%E4%B8%8E%E7%99%BD%E8%99%8E%E5%AF%B9%E5%B3%99%EF%BC%8C%E9%95%9C%E5%A4%B4%E7%8E%AF%E7%BB%95%E6%88%98%E5%9C%BA%E3%80%82&amp;model=Seedance+2.0" data-mobile-generation-history-item data-history-kind="video">
+            <span class="mobile-generation-history-media"><img src="../../assets/image_assets/11.png" alt="龙虎天劫生成预览"></span>
+            <span class="mobile-generation-history-copy">
+              <span class="mobile-generation-history-title"><strong>龙虎天劫</strong></span>
+              <small>视频生成 / 64 积分</small>
+              <span>Seedance 2.0</span>
+            </span>
+            <em class="mobile-generation-history-state is-running">生成中</em>
+            <img class="mobile-icon mobile-generation-history-arrow" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt="">
+          </a>
+
+          <a class="mobile-generation-history-row" href="./mobile-create.html?mode=image&amp;state=success&amp;prompt=%E5%87%A4%E5%86%A0%E7%A5%9E%E5%A5%B3%E7%AB%99%E5%9C%A8%E9%87%91%E8%89%B2%E9%80%86%E5%85%89%E4%B8%AD%EF%BC%8C%E7%94%B5%E5%BD%B1%E6%84%9F%E4%BA%BA%E7%89%A9%E6%B5%B7%E6%8A%A5%E3%80%82&amp;model=Flux+Pro+1.1&amp;preview=open" data-mobile-generation-history-item data-history-kind="image">
+            <span class="mobile-generation-history-media"><img src="../../assets/image_assets/15.jpg" alt="凤冠神女生成预览"></span>
+            <span class="mobile-generation-history-copy">
+              <span class="mobile-generation-history-title"><strong>凤冠神女</strong></span>
+              <small>图片生成 / 20 积分</small>
+              <span>Flux Pro 1.1</span>
+            </span>
+            <em class="mobile-generation-history-state">已完成</em>
+            <img class="mobile-icon mobile-generation-history-arrow" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt="">
+          </a>
+        </div>
+      </section>
+
+      <section class="mobile-generation-history-group" data-mobile-generation-history-group aria-labelledby="mobile-generation-history-yesterday">
+        <header>
+          <h2 id="mobile-generation-history-yesterday">昨天</h2>
+          <span data-mobile-generation-history-group-count>2 条</span>
+        </header>
+        <div class="mobile-generation-history-list">
+          <a class="mobile-generation-history-row" href="./mobile-create.html?mode=script&amp;state=success&amp;prompt=%E9%9B%A8%E5%A4%9C%E9%9C%93%E8%99%B9%E8%A1%97%E5%A4%B4%EF%BC%8C%E5%B0%91%E5%B9%B4%E5%8F%91%E7%8E%B0%E8%87%AA%E5%B7%B1%E8%A2%AB%E8%B7%9F%E8%B8%AA%EF%BC%8C%E6%89%8B%E4%B8%AD%E8%97%8F%E7%9D%80%E4%B8%80%E4%BB%B6%E4%B8%8D%E8%83%BD%E6%9A%B4%E9%9C%B2%E7%9A%84%E5%85%B3%E9%94%AE%E9%81%93%E5%85%B7%E3%80%82&amp;model=gemini-3-flash-preview&amp;preview=open" data-mobile-generation-history-item data-history-kind="script">
+            <span class="mobile-generation-history-media"><img src="../../assets/image_assets/17.png" alt="雨夜霓虹街头剧本预览"></span>
+            <span class="mobile-generation-history-copy">
+              <span class="mobile-generation-history-title"><strong>雨夜霓虹街头 · 分镜设定</strong></span>
+              <small>剧本创作 / 8 积分</small>
+              <span>gemini-3-flash-preview</span>
+            </span>
+            <em class="mobile-generation-history-state">已完成</em>
+            <img class="mobile-icon mobile-generation-history-arrow" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt="">
+          </a>
+
+          <a class="mobile-generation-history-row" href="./mobile-create.html?mode=video&amp;state=success&amp;prompt=%E6%9A%AE%E8%89%B2%E4%B8%AD%E7%9A%84%E6%B5%B7%E8%BE%B9%E7%81%AF%E5%A1%94%E8%A2%AB%E6%BD%AE%E6%B9%BF%E8%96%84%E9%9B%BE%E5%8C%85%E5%9B%B4%EF%BC%8C%E9%95%9C%E5%A4%B4%E7%BC%93%E6%85%A2%E5%90%91%E4%B8%8A%E6%8A%AC%E5%8D%87%EF%BC%8C%E6%9C%80%E5%90%8E%E7%81%AF%E5%A1%94%E6%9A%96%E9%BB%84%E8%89%B2%E5%85%89%E6%9D%9F%E7%82%B9%E4%BA%AE%E3%80%82&amp;model=Seedance+2.0&amp;preview=open" data-mobile-generation-history-item data-history-kind="video">
+            <span class="mobile-generation-history-media"><img src="../../assets/image_assets/4.png" alt="海灯守望生成预览"></span>
+            <span class="mobile-generation-history-copy">
+              <span class="mobile-generation-history-title"><strong>海灯守望</strong></span>
+              <small>视频生成 / 64 积分</small>
+              <span>Seedance 2.0</span>
+            </span>
+            <em class="mobile-generation-history-state">已完成</em>
+            <img class="mobile-icon mobile-generation-history-arrow" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt="">
+          </a>
+        </div>
+      </section>
+
+      <section class="mobile-generation-history-empty" data-mobile-generation-history-empty hidden>
+        <img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/history-line.svg" alt="">
+        <h2>暂无此类型记录</h2>
+        <p>切换到其他类型，或返回继续创作。</p>
+        <button type="button" data-mobile-generation-history-reset>查看全部</button>
+      </section>
+    </main>
+  </div>
+
+  <button class="mobile-walkthrough-trigger" type="button" data-mobile-walkthrough-open data-mobile-walkthrough-review-only aria-controls="mobile-walkthrough">走查</button>
+  <aside id="mobile-walkthrough" class="mobile-walkthrough" data-mobile-walkthrough aria-hidden="true">
+    <div class="mobile-walkthrough-head"><h2>生成记录走查规则</h2><button class="mobile-icon-button" type="button" data-mobile-walkthrough-close aria-label="关闭走查规则"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button></div>
+    <div class="mobile-rule-grid">
+      <section class="mobile-rule-card"><strong>页面目的</strong><p>集中查看图片、视频和剧本生成任务，已完成记录恢复原任务并直接打开全屏结果预览，进行中记录恢复原任务。</p></section>
+      <section class="mobile-rule-card"><strong>信息层级</strong><p>日期负责分组，缩略图负责识别；记录依次展示标题、生成类型与积分、模型，状态固定在进入箭头左侧。</p></section>
+      <section class="mobile-rule-card"><strong>筛选</strong><p>全部、图片、视频和剧本支持点击与键盘切换，无匹配内容时展示空状态。</p></section>
+      <section class="mobile-rule-card"><strong>验收</strong><p>360、390、430 宽度下无横向滚动，标题截断不挤压状态，整行点击区域不小于 44px。</p></section>
+    </div>
+  </aside>
+  <div class="mobile-toast" data-mobile-toast role="status" aria-live="polite"></div>
+</body>
+</html>

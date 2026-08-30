@@ -79,10 +79,10 @@
   --ds-white: #fff;
 
   /* Shape — no ad-hoc radius values outside this scale. */
-  --ds-radius-control: 14px;
-  --ds-radius-work: 14px;
-  --ds-radius-card: 20px;
-  --ds-radius-modal: 28px;
+  --ds-radius-control: 12px;
+  --ds-radius-work: 12px;
+  --ds-radius-card: 12px;
+  --ds-radius-modal: 12px;
   --ds-radius-pill: 999px;
 
   /* Spacing and sizing. */

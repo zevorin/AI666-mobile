@@ -7,9 +7,56 @@
   body.dataset.mobileClean = params.get("clean") === "1" ? "true" : "false";
   if (body.dataset.mobileClean === "true") document.documentElement.classList.add("mobile-clean-document");
 
-  if (body.dataset.mobilePage === "generation-progress") {
-    window.location.replace(`./mobile-create.html${params.toString() ? `?${params.toString()}` : ""}`);
-    return;
+  if (body.dataset.mobilePage === "generation-history") {
+    const historyFilters = [...document.querySelectorAll("[data-mobile-generation-history-filter]")];
+    const historyGroups = [...document.querySelectorAll("[data-mobile-generation-history-group]")];
+    const historyItems = [...document.querySelectorAll("[data-mobile-generation-history-item]")];
+    const historySummary = document.querySelector("[data-mobile-generation-history-summary]");
+    const historyEmpty = document.querySelector("[data-mobile-generation-history-empty]");
+
+    const applyGenerationHistoryFilter = (kind = "all") => {
+      let totalVisible = 0;
+      historyItems.forEach((item) => {
+        const visible = kind === "all" || item.dataset.historyKind === kind;
+        item.hidden = !visible;
+        if (visible) totalVisible += 1;
+      });
+      historyGroups.forEach((group) => {
+        const visibleCount = [...group.querySelectorAll("[data-mobile-generation-history-item]")]
+          .filter((item) => !item.hidden).length;
+        group.hidden = visibleCount === 0;
+        const count = group.querySelector("[data-mobile-generation-history-group-count]");
+        if (count) count.textContent = `${visibleCount} 条`;
+      });
+      historyFilters.forEach((button) => {
+        const selected = button.dataset.mobileGenerationHistoryFilter === kind;
+        button.classList.toggle("is-active", selected);
+        button.setAttribute("aria-selected", String(selected));
+        button.setAttribute("aria-pressed", String(selected));
+      });
+      if (historySummary) historySummary.textContent = `${totalVisible} 条记录`;
+      if (historyEmpty) historyEmpty.hidden = totalVisible > 0;
+    };
+
+    historyFilters.forEach((button, index) => {
+      button.addEventListener("click", () => applyGenerationHistoryFilter(button.dataset.mobileGenerationHistoryFilter));
+      button.addEventListener("keydown", (event) => {
+        if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+        let nextIndex = index;
+        if (event.key === "Home") nextIndex = 0;
+        if (event.key === "End") nextIndex = historyFilters.length - 1;
+        if (event.key === "ArrowRight") nextIndex = (index + 1) % historyFilters.length;
+        if (event.key === "ArrowLeft") nextIndex = (index - 1 + historyFilters.length) % historyFilters.length;
+        historyFilters[nextIndex].focus();
+        historyFilters[nextIndex].click();
+      });
+    });
+    document.querySelector("[data-mobile-generation-history-reset]")?.addEventListener("click", () => {
+      applyGenerationHistoryFilter("all");
+      historyFilters[0]?.focus();
+    });
+    applyGenerationHistoryFilter("all");
   }
 
   const playHomeEntrance = () => {
@@ -380,6 +427,13 @@
     if (label && idle && active) label.textContent = pressed ? active : idle;
   };
 
+  const updatePressedIcon = (button, pressed) => {
+    const idle = button.dataset.idleIcon;
+    const active = button.dataset.activeIcon;
+    const icon = button.querySelector(".mobile-icon");
+    if (icon && idle && active) icon.src = pressed ? active : idle;
+  };
+
   const mobileLikeCelebrationTimers = new WeakMap();
   const clearMobileLikeCelebration = (button) => {
     const activeTimer = mobileLikeCelebrationTimers.get(button);
@@ -416,6 +470,7 @@
       const pressed = button.getAttribute("aria-pressed") === "true";
       button.setAttribute("aria-pressed", pressed ? "false" : "true");
       updatePressedLabel(button, !pressed);
+      updatePressedIcon(button, !pressed);
       if (button.matches("[data-mobile-like-action]")) {
         if (pressed) clearMobileLikeCelebration(button);
         else celebrateMobileLike(button);
@@ -767,7 +822,10 @@
       window.scrollTo({ top: 0, behavior: "auto" });
     });
   });
-  if (communityTabs.length) setCommunityModule(params.get("compose") === "1" ? "flash" : (params.get("module") || "recommend"));
+  if (communityTabs.length) {
+    setCommunityModule(params.get("compose") === "1" ? "flash" : (params.get("module") || "recommend"));
+    window.setTimeout(() => document.body.classList.remove("is-community-entering"), 900);
+  }
 
   const tutorialSheet = document.querySelector("[data-mobile-tutorial-sheet]");
   const setTutorialSheet = (open, sourceButton = null) => {
@@ -804,6 +862,7 @@
     myContentTabs.forEach((tab) => {
       const active = tab.dataset.mobileMyTab === next;
       tab.classList.toggle("is-active", active);
+      tab.setAttribute("aria-selected", String(active));
       tab.setAttribute("aria-pressed", String(active));
     });
     myContentPanels.forEach((panel) => { panel.hidden = panel.dataset.mobileMyPanel !== next; });
@@ -1255,22 +1314,32 @@
     showToast("签到成功，积分 +20");
   });
 
-  const commentSheet = document.querySelector("[data-mobile-comment-sheet]");
-  const setCommentSheet = (open) => {
-    if (!commentSheet) return;
-    commentSheet.classList.toggle("is-open", open);
-    commentSheet.setAttribute("aria-hidden", open ? "false" : "true");
-    if (open) window.setTimeout(() => commentSheet.querySelector("input")?.focus(), 180);
+  const commentComposer = document.querySelector("[data-mobile-comment-composer]");
+  const commentComposerInput = commentComposer?.querySelector("input");
+  const setCommentComposer = (open, replyName = "") => {
+    if (!commentComposer) return;
+    commentComposer.classList.toggle("is-open", open);
+    commentComposer.setAttribute("aria-hidden", open ? "false" : "true");
+    document.body.classList.toggle("has-comment-composer-open", open);
+    if (!open) {
+      if (commentComposerInput) commentComposerInput.placeholder = "写下你的看法";
+      return;
+    }
+    if (commentComposerInput) commentComposerInput.placeholder = replyName ? `回复 @${replyName}` : "写下你的看法";
+    window.setTimeout(() => commentComposerInput?.focus(), 0);
   };
-  document.querySelectorAll("[data-mobile-comments-open]").forEach((button) => button.addEventListener("click", () => setCommentSheet(true)));
-  document.querySelectorAll("[data-mobile-comments-close]").forEach((button) => button.addEventListener("click", () => setCommentSheet(false)));
+  document.querySelectorAll("[data-mobile-comments-open]").forEach((button) => button.addEventListener("click", () => setCommentComposer(true)));
 
   document.addEventListener("click", (event) => {
     const reply = event.target.closest("[data-mobile-comment-reply]");
     if (reply) {
-      setCommentSheet(true);
-      window.setTimeout(() => commentSheet?.querySelector("input")?.focus(), 180);
+      const replyName = reply.closest(".mobile-comment")?.querySelector(".mobile-comment-meta strong")?.textContent?.trim() || "";
+      setCommentComposer(true, replyName);
       return;
+    }
+
+    if (commentComposer?.classList.contains("is-open") && !event.target.closest("[data-mobile-comment-composer]") && !event.target.closest("[data-mobile-comments-open]")) {
+      setCommentComposer(false);
     }
 
     const like = event.target.closest("[data-mobile-comment-like]");
@@ -1292,10 +1361,11 @@
       article.className = "mobile-comment";
       article.innerHTML = `<img src="../../assets/image_assets/1.png" alt=""><div class="mobile-comment-copy"><div class="mobile-comment-meta"><strong>我</strong><time>刚刚</time></div><p></p><div class="mobile-comment-actions"><button type="button" data-mobile-comment-reply>回复</button><button type="button" data-mobile-comment-like data-count="0" aria-pressed="false">赞 0</button></div></div>`;
       article.querySelector("p").textContent = input.value.trim();
-      list.prepend(article);
+      list.insertBefore(article, list.querySelector(".mobile-comment"));
     }
     input.value = "";
-    showToast("评论已发布");
+    setCommentComposer(false);
+    showToast("评论已发送");
   });
 
   const flashPageForm = document.querySelector("[data-mobile-flash-page-form]");
@@ -1512,7 +1582,7 @@
 
   document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") return;
-    setCommentSheet(false);
+    setCommentComposer(false);
     setWalkthrough(false);
     setCreateActionSheet(false);
     setInviteRulesSheet(false);
@@ -1540,7 +1610,6 @@
     const createModeTabs = createComposer.querySelector("[data-mobile-create-mode-tabs]");
     const createModeButtons = [...(createModeTabs?.querySelectorAll("[data-mobile-create-mode]") || [])];
     const createComposerToggle = createComposer.querySelector("[data-mobile-create-composer-toggle]");
-    const historySheet = document.querySelector("[data-mobile-create-history-sheet]");
     const previewDialog = document.querySelector("[data-mobile-create-preview-dialog]");
     const requestedCreateMode = params.get("mode");
     const createState = {
@@ -1693,11 +1762,6 @@
       showToast(createState.mode === "video" ? "已删除首帧图片" : `已删除参考图，当前 ${references.length} 张`);
     };
 
-    const setCreateSheet = (sheet, open) => {
-      if (!sheet) return;
-      sheet.classList.toggle("is-open", open);
-      sheet.setAttribute("aria-hidden", open ? "false" : "true");
-    };
     const setCreateModelPopover = (open, { returnFocus = true } = {}) => {
       if (!modelPopover || !modelTrigger) return;
       const wasOpen = modelPopover.open;
@@ -1996,8 +2060,6 @@
       if (event.target.closest(".mobile-create-selector")) return;
       createComposer.querySelectorAll(".mobile-create-selector[open]").forEach((selector) => { selector.open = false; });
     });
-    document.querySelector("[data-mobile-create-history-open]")?.addEventListener("click", () => setCreateSheet(historySheet, true));
-    document.querySelectorAll("[data-mobile-create-history-close]").forEach((button) => button.addEventListener("click", () => setCreateSheet(historySheet, false)));
     createPrompt?.addEventListener("input", syncCreatePrompt);
     const createTaskStates = {
       queue: { status: "排队中", progress: "18%", meta: "正在等待生成资源" },
@@ -2005,12 +2067,6 @@
       success: { status: "生成成功", progress: "100%", meta: "已自动存入生成记录，点击预览查看结果" },
       failed: { status: "生成失败", progress: "", meta: "本次未生成作品" },
       unknown: { status: "状态待确认", progress: "", meta: "可稍后再次查看" },
-    };
-    const createResultUrl = (mode, model) => {
-      const query = new URLSearchParams({ mode });
-      if (model) query.set("model", model);
-      if (sourceType) query.set("source", sourceType);
-      return `./mobile-generation-result.html?${query.toString()}`;
     };
     const syncCreateTaskUrl = ({ mode, state, prompt, model }) => {
       const query = new URLSearchParams({ mode, state, prompt, model });
@@ -2272,8 +2328,7 @@
           showToast("生成完成，可点击查看结果");
           return;
         }
-        if (previewDialog) setPreviewDialog(true, taskPreview, taskMode);
-        else window.location.href = createResultUrl(taskMode, taskModel);
+        setPreviewDialog(true, taskPreview, taskMode);
       };
       const renderCreateTask = () => {
         const previousState = taskTurn.dataset.state || "";
@@ -2357,7 +2412,6 @@
       setPreviewDialog(false);
       setCreateModelPopover(false);
       createComposer.querySelectorAll(".mobile-create-selector[open]").forEach((selector) => { selector.open = false; });
-      setCreateSheet(historySheet, false);
     });
     const restoredModel = params.get("model");
     if (restoredModel) {
@@ -2390,12 +2444,129 @@
     if (restoredPrompt) {
       createPrompt.value = restoredPrompt;
       syncCreatePrompt();
-      if (restoredTaskState) appendCreateTask(restoredPrompt, restoredTaskState, { restored: true });
+      if (restoredTaskState) {
+        appendCreateTask(restoredPrompt, restoredTaskState, { restored: true });
+        if (restoredTaskState === "success" && params.get("preview") === "open") {
+          activeCreateTask?.complete?.();
+        }
+      }
     } else {
       syncCreatePrompt();
     }
     playCreateEntrance();
   }
+
+  const sharedStyleATabLists = [...document.querySelectorAll(".mobile-tabs-style-a")];
+  sharedStyleATabLists.forEach((tabList) => {
+    const buttons = [...tabList.querySelectorAll(":scope > button")];
+    if (buttons.length < 2) return;
+
+    let indicator = tabList.querySelector(":scope > .mobile-home-filter-indicator");
+    if (!indicator) {
+      indicator = document.createElement("span");
+      indicator.className = "mobile-home-filter-indicator";
+      indicator.setAttribute("aria-hidden", "true");
+      tabList.prepend(indicator);
+    }
+
+    let indicatorReady = indicator.classList.contains("is-visible");
+    let indicatorTimer = 0;
+    let moveFrame = 0;
+    let syncingSelection = false;
+
+    const visibleButtons = () => buttons.filter((button) => !button.hidden);
+    const selectedButton = () => {
+      const available = visibleButtons();
+      return available.find((button) => button.classList.contains("is-active"))
+        || available.find((button) => button.getAttribute("aria-selected") === "true")
+        || available.find((button) => button.getAttribute("aria-pressed") === "true")
+        || available[0];
+    };
+
+    const setAttributeIfChanged = (element, name, value) => {
+      if (element.getAttribute(name) !== value) element.setAttribute(name, value);
+    };
+
+    const moveIndicator = (button, immediate = false) => {
+      if (!button || button.hidden) return;
+      window.cancelAnimationFrame(moveFrame);
+      moveFrame = window.requestAnimationFrame(() => {
+        if (!button.offsetWidth || !button.offsetHeight) return;
+        const jump = immediate || !indicatorReady;
+        indicator.classList.toggle("is-jump", jump);
+        tabList.style.setProperty("--mobile-home-glide-x", `${button.offsetLeft}px`);
+        tabList.style.setProperty("--mobile-home-glide-y", `${button.offsetTop}px`);
+        tabList.style.setProperty("--mobile-home-glide-width", `${button.offsetWidth}px`);
+        tabList.style.setProperty("--mobile-home-glide-height", `${button.offsetHeight}px`);
+        tabList.style.setProperty("--mobile-home-glide-radius", getComputedStyle(button).borderRadius);
+        indicator.classList.add("is-visible");
+        indicatorReady = true;
+        window.clearTimeout(indicatorTimer);
+        indicator.classList.remove("is-moving");
+        if (!jump) {
+          void indicator.offsetWidth;
+          indicator.classList.add("is-moving");
+          indicatorTimer = window.setTimeout(() => indicator.classList.remove("is-moving"), 540);
+        }
+        if (jump) window.requestAnimationFrame(() => indicator.classList.remove("is-jump"));
+      });
+    };
+
+    const syncSelection = (button, { immediate = false } = {}) => {
+      if (!button || syncingSelection) return;
+      syncingSelection = true;
+      buttons.forEach((item) => {
+        const selected = item === button;
+        item.classList.toggle("is-active", selected);
+        if (item.matches('[role="tab"], [aria-selected]')) setAttributeIfChanged(item, "aria-selected", String(selected));
+        if (item.hasAttribute("aria-pressed")) setAttributeIfChanged(item, "aria-pressed", String(selected));
+        item.tabIndex = selected && !item.hidden ? 0 : -1;
+      });
+      syncingSelection = false;
+      moveIndicator(button, immediate);
+    };
+
+    tabList.addEventListener("click", (event) => {
+      const button = event.target.closest("button");
+      if (!button || button.parentElement !== tabList || button.hidden) return;
+      syncSelection(button);
+    });
+
+    tabList.addEventListener("keydown", (event) => {
+      if (event.defaultPrevented || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      const available = visibleButtons();
+      const current = event.target.closest("button");
+      if (!current || current.parentElement !== tabList) return;
+      const currentIndex = Math.max(0, available.indexOf(current));
+      let nextIndex = currentIndex;
+      if (event.key === "Home") nextIndex = 0;
+      if (event.key === "End") nextIndex = available.length - 1;
+      if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % available.length;
+      if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + available.length) % available.length;
+      const next = available[nextIndex];
+      if (!next) return;
+      event.preventDefault();
+      next.click();
+      next.focus();
+      next.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+    });
+
+    const stateObserver = new MutationObserver(() => {
+      if (syncingSelection) return;
+      const active = selectedButton();
+      if (active) syncSelection(active, { immediate: true });
+    });
+    buttons.forEach((button) => stateObserver.observe(button, {
+      attributes: true,
+      attributeFilter: ["class", "aria-selected", "aria-pressed", "hidden"],
+    }));
+
+    const refreshIndicator = () => moveIndicator(selectedButton(), true);
+    if (window.ResizeObserver) new ResizeObserver(refreshIndicator).observe(tabList);
+    window.addEventListener("resize", refreshIndicator, { passive: true });
+    document.fonts?.ready.then(refreshIndicator);
+    syncSelection(selectedButton(), { immediate: true });
+  });
 
   const campaignChoiceSheet = document.querySelector("[data-mobile-campaign-choice-sheet]");
   const campaignUploadSheet = document.querySelector("[data-mobile-campaign-upload-sheet]");
@@ -2458,261 +2629,6 @@
       if (event.key !== "Escape") return;
       setCampaignSheet(campaignChoiceSheet, false);
       setCampaignSheet(campaignUploadSheet, false);
-    });
-  }
-
-  document.querySelectorAll("[data-mobile-choice-group]").forEach((group) => {
-    const name = group.dataset.choiceName;
-    const form = group.closest("form");
-    const ensureValue = () => {
-      if (!name || !form) return;
-      let hidden = form.querySelector(`input[type="hidden"][name="${name}"]`);
-      if (!hidden) {
-        hidden = document.createElement("input");
-        hidden.type = "hidden";
-        hidden.name = name;
-        form.append(hidden);
-      }
-      hidden.value = group.querySelector("[data-mobile-choice].is-selected")?.dataset.mobileChoice || "";
-    };
-    ensureValue();
-    group.querySelectorAll("[data-mobile-choice]").forEach((button) => {
-      button.addEventListener("click", () => {
-        group.querySelectorAll("[data-mobile-choice]").forEach((item) => item.classList.toggle("is-selected", item === button));
-        ensureValue();
-      });
-    });
-  });
-
-  document.querySelectorAll("[data-mobile-upload]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const uploaded = button.classList.toggle("is-uploaded");
-      const label = button.querySelector("[data-mobile-upload-label]");
-      if (label) label.textContent = uploaded ? "已添加参考图" : "上传图片";
-      showToast(uploaded ? "已添加参考图" : "已移除参考图");
-    });
-  });
-
-  document.querySelectorAll("[data-mobile-prompt]").forEach((input) => {
-    const count = input.closest(".mobile-form-section")?.querySelector("[data-mobile-prompt-count]");
-    const syncCount = () => {
-      if (count) count.textContent = String(input.value.length);
-    };
-    if (params.get("prompt")) {
-      input.value = params.get("prompt");
-    } else if (params.get("source") === "same-work") {
-      input.value = body.dataset.mobilePage === "create-video"
-        ? "海边灯塔被薄雾包围，镜头缓慢抬升，最后停在灯塔亮起的瞬间。"
-        : "凤冠神女站在暗红色殿堂入口，金色逆光勾勒轮廓，电影感人物海报。";
-    }
-    syncCount();
-    input.addEventListener("input", syncCount);
-  });
-
-  document.querySelectorAll("[data-mobile-generator-form]").forEach((form) => {
-    const generationMode = form.dataset.generatorMode === "video" ? "video" : "image";
-    const generationKind = generationMode === "video" ? "视频" : "图片";
-    const generationModel = generationMode === "video" ? "Seedance 2.0" : "Flux Pro 1.1";
-    const generationSource = params.get("source") || "";
-    const taskCard = document.querySelector("[data-mobile-inline-generation]");
-    const badge = taskCard?.querySelector("[data-mobile-inline-generation-badge]");
-    const stateTitle = taskCard?.querySelector("[data-mobile-inline-generation-state]");
-    const stateMessage = taskCard?.querySelector("[data-mobile-inline-generation-message]");
-    const progress = taskCard?.querySelector("[data-mobile-inline-generation-progress]");
-    const preview = taskCard?.querySelector("[data-mobile-inline-generation-preview]");
-    const previewLabel = taskCard?.querySelector("[data-mobile-inline-generation-preview-label]");
-    const spinner = taskCard?.querySelector("[data-mobile-inline-generation-spinner]");
-    const model = taskCard?.querySelector("[data-mobile-inline-generation-model]");
-    const taskAction = taskCard?.querySelector("[data-mobile-inline-generation-action]");
-    const taskActionLabel = taskCard?.querySelector("[data-mobile-inline-generation-action-label]");
-    const submitButton = document.querySelector(`[data-mobile-generator-submit][form="${form.id}"]`);
-    const submitLabel = submitButton?.querySelector("[data-mobile-generator-submit-label]");
-    const costLabel = submitButton?.closest(".mobile-form-action-bar")?.querySelector(".mobile-cost span");
-    let generationState = params.get("state") || "";
-    const stateMap = {
-      queue: { badge: "排队中", badgeClass: "is-running", title: `正在等待${generationKind}生成`, message: "当前进度 18%", progress: 18, action: "刷新状态" },
-      running: { badge: "生成中", badgeClass: "is-running", title: `正在生成${generationKind}`, message: "已完成 68%", progress: 68, action: "刷新状态" },
-      success: { badge: "生成成功", badgeClass: "is-success", title: `${generationKind}已生成`, message: "点击结果预览进入结果页", progress: 100, action: "查看结果" },
-      failed: { badge: "生成失败", badgeClass: "is-warning", title: "生成失败", message: "内容未通过安全校验，请调整提示词", progress: 100, action: "返回修改" },
-      unknown: { badge: "状态未知", badgeClass: "is-warning", title: "状态暂不可确认", message: "任务仍在后台处理，可稍后刷新", progress: 42, action: "刷新状态" },
-    };
-    const resultUrl = () => {
-      const query = new URLSearchParams({ mode: generationMode });
-      if (generationSource) query.set("source", generationSource);
-      return `./mobile-generation-result.html?${query.toString()}`;
-    };
-    const syncTaskUrl = () => {
-      const query = new URLSearchParams(new FormData(form));
-      if (generationState) query.set("state", generationState);
-      query.set("model", generationModel);
-      if (generationSource) query.set("source", generationSource);
-      window.history.replaceState(null, "", `${window.location.pathname}?${query.toString()}`);
-    };
-    const renderTask = ({ focus = false } = {}) => {
-      if (!taskCard || !generationState) {
-        if (taskCard) taskCard.hidden = true;
-        if (submitButton) submitButton.disabled = false;
-        if (submitLabel) submitLabel.textContent = "发起生成";
-        if (costLabel) costLabel.textContent = "预计 20 积分";
-        return;
-      }
-      const data = stateMap[generationState] || stateMap.running;
-      taskCard.hidden = false;
-      taskCard.dataset.state = generationState;
-      if (badge) {
-        badge.textContent = data.badge;
-        badge.className = `mobile-status-badge ${data.badgeClass}`;
-      }
-      if (stateTitle) stateTitle.textContent = data.title;
-      if (stateMessage) stateMessage.textContent = data.message;
-      if (progress) progress.style.width = `${data.progress}%`;
-      if (model) model.textContent = `${params.get("model") || generationModel} · ${generationKind}生成`;
-      if (taskActionLabel) taskActionLabel.textContent = data.action;
-      if (spinner) spinner.hidden = generationState === "success" || generationState === "failed";
-      if (previewLabel) previewLabel.hidden = generationState !== "success";
-      if (preview) {
-        const ready = generationState === "success";
-        preview.setAttribute("aria-disabled", ready ? "false" : "true");
-        preview.setAttribute("aria-label", ready ? `查看${generationKind}生成结果` : `${generationKind}生成中，结果暂不可查看`);
-      }
-      if (submitButton) submitButton.disabled = generationState === "running" || generationState === "queue" || generationState === "unknown";
-      if (submitLabel) submitLabel.textContent = generationState === "success" ? "再次生成" : generationState === "failed" ? "调整后重试" : "生成中";
-      if (costLabel) costLabel.textContent = generationState === "success" ? "结果已生成" : generationState === "failed" ? "本次未生成" : "任务生成中";
-      if (focus) taskCard.scrollIntoView({ behavior: "auto", block: "start" });
-    };
-    const openResult = () => {
-      if (generationState !== "success") {
-        showToast("生成完成后可查看结果");
-        return;
-      }
-      window.location.href = resultUrl();
-    };
-    if (generationState) renderTask();
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const prompt = form.querySelector("[data-mobile-prompt]");
-      const error = form.querySelector("[data-mobile-generator-error]");
-      if (!prompt?.value.trim()) {
-        if (error) error.textContent = "请输入提示词";
-        prompt?.focus();
-        return;
-      }
-      if (error) error.textContent = "";
-      generationState = "running";
-      syncTaskUrl();
-      renderTask({ focus: true });
-      showToast("生成任务已创建，可留在当前页查看进度");
-    });
-    preview?.addEventListener("click", openResult);
-    taskAction?.addEventListener("click", () => {
-      if (generationState === "success") {
-        openResult();
-        return;
-      }
-      if (generationState === "failed") {
-        generationState = "";
-        syncTaskUrl();
-        renderTask();
-        form.querySelector("[data-mobile-prompt]")?.focus();
-        return;
-      }
-      generationState = "success";
-      syncTaskUrl();
-      renderTask();
-      showToast("生成完成，可点击结果预览");
-    });
-  });
-
-  const resultScreen = document.querySelector("[data-mobile-result-screen]");
-  if (resultScreen) {
-    document.documentElement.classList.add("mobile-result-document");
-    const requestedResultMode = params.get("mode");
-    const resultMode = ["image", "script", "video"].includes(requestedResultMode) ? requestedResultMode : "image";
-    const resultSource = params.get("source") || "";
-    const resultModel = params.get("model") || "";
-    const activitySources = new Set(["campaign", "competition", "prompt"]);
-    const activityResult = activitySources.has(resultSource);
-    const image = document.querySelector("[data-mobile-result-image]");
-    const video = document.querySelector("[data-mobile-result-video]");
-    const script = document.querySelector("[data-mobile-result-script]");
-    const resultMedia = document.querySelector(".mobile-result-media");
-    const title = document.querySelector("[data-mobile-result-title]");
-    const meta = document.querySelector("[data-mobile-result-meta]");
-    const prompt = document.querySelector("[data-mobile-result-prompt]");
-    const promptRegion = document.querySelector("[data-mobile-result-prompt-region]");
-    const promptToggle = document.querySelector("[data-mobile-result-prompt-toggle]");
-    const promptToggleLabel = document.querySelector("[data-mobile-result-prompt-toggle-label]");
-    const retry = document.querySelector("[data-mobile-result-retry]");
-    if (resultMode === "image" && resultModel && meta) meta.textContent = `${resultModel} · 3:4`;
-    if (resultMode === "video") {
-      if (image) image.hidden = true;
-      if (video) video.hidden = false;
-      if (title) title.textContent = "海灯守望";
-      if (meta) meta.textContent = `${resultModel || "Seedance 2.0"} · 16:9 / 8 秒`;
-      if (prompt) prompt.textContent = "暮色中的海边灯塔被潮湿薄雾包围，远处海浪反射出零碎的冷蓝色月光。镜头从礁石与翻涌浪花开始，缓慢向上抬升并绕过塔身，掠过被海风吹动的旧旗与斑驳墙面。最后灯塔暖黄色光束点亮，在雾中旋转扫过海面，画面停留在光束与远方船影交汇的瞬间，整体保持克制、孤独又温暖的电影质感。";
-    }
-    if (resultMode === "script") {
-      if (image) image.hidden = true;
-      if (video) video.hidden = true;
-      if (script) script.hidden = false;
-      resultMedia?.classList.add("is-script");
-      if (title) title.textContent = "雨夜霓虹街头 · 分镜设定";
-      if (meta) meta.textContent = `${resultModel || "gemini-3-flash-preview"} · Markdown 文本`;
-      if (prompt) prompt.textContent = "雨夜霓虹街头，少年发现自己被跟踪，手中藏着一件不能暴露的关键道具。请拆解人物关系、核心冲突、三幕节奏和可执行分镜，并保留悬念式结尾。";
-    }
-    if (retry) {
-      const retryQuery = new URLSearchParams({ mode: resultMode });
-      if (resultModel) retryQuery.set("model", resultModel);
-      if (resultSource) retryQuery.set("source", resultSource);
-      retry.href = `./mobile-create.html?${retryQuery.toString()}`;
-    }
-    promptToggle?.addEventListener("click", () => {
-      const expanded = promptToggle.getAttribute("aria-expanded") === "true";
-      promptToggle.setAttribute("aria-expanded", expanded ? "false" : "true");
-      promptRegion?.setAttribute("aria-expanded", expanded ? "false" : "true");
-      if (promptToggleLabel) promptToggleLabel.textContent = expanded ? "展开创作信息" : "收起创作信息";
-    });
-    const resultPrimary = document.querySelector("[data-mobile-result-primary]");
-    const resultPrimaryLabel = document.querySelector("[data-mobile-result-primary-label]");
-    const resultPrimaryIcon = document.querySelector("[data-mobile-result-primary-icon]");
-    const destinationSheet = document.querySelector("[data-mobile-result-destination-sheet]");
-    const destinationList = document.querySelector("[data-mobile-result-destination-list]");
-    const communityDestination = document.querySelector('[data-mobile-result-destination="community"]');
-    const activityDestination = document.querySelector('[data-mobile-result-destination="activity"]');
-    const activityDestinationLabel = document.querySelector("[data-mobile-result-activity-label]");
-    const setDestinationSheet = (open) => {
-      if (!destinationSheet) return;
-      destinationSheet.classList.toggle("is-open", open);
-      destinationSheet.setAttribute("aria-hidden", open ? "false" : "true");
-    };
-    if (activityResult) {
-      if (activityDestinationLabel) activityDestinationLabel.textContent = "提交到当前活动";
-      if (destinationList && activityDestination) destinationList.prepend(activityDestination);
-      if (resultPrimaryIcon) resultPrimaryIcon.src = "../../resources/icons/remixicon/svg/Document/file-check-line.svg";
-    }
-    destinationSheet?.querySelectorAll("[data-mobile-result-destination-close]").forEach((button) => button.addEventListener("click", () => setDestinationSheet(false)));
-    const publishResult = () => {
-      if (!resultPrimary || resultPrimary.getAttribute("aria-disabled") === "true") return;
-      setDestinationSheet(false);
-      resultPrimary.setAttribute("aria-disabled", "true");
-      if (resultPrimaryLabel) resultPrimaryLabel.textContent = "发布审核中";
-      showToast("作品已提交发布");
-    };
-    communityDestination?.addEventListener("click", publishResult);
-    activityDestination?.addEventListener("click", () => {
-      setDestinationSheet(false);
-      if (resultSource === "prompt") {
-        window.location.assign("./mobile-activity-detail.html#mobile-activity-participation");
-        return;
-      }
-      window.location.assign("./mobile-campaign-detail.html#mobile-campaign-participation");
-    });
-    resultPrimary?.addEventListener("click", () => {
-      if (resultPrimary.getAttribute("aria-disabled") === "true") {
-        showToast("作品已提交发布");
-        return;
-      }
-      setDestinationSheet(true);
     });
   }
 

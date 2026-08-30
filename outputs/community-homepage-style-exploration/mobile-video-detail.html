@@ -6,21 +6,19 @@
   <meta name="theme-color" content="#05070b">
   <title>海灯守望 · 视频详情</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260826-work-like-v2">
-  <script src="./mobile-h5.js?v=20260826-work-like-v1" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260830-detail-inline-comment-v1">
+  <script src="./mobile-h5.js?v=20260830-detail-inline-comment-v1" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="video-detail">
   <div class="mobile-shell has-action-bar">
-    <header class="mobile-topbar mobile-topbar-detail" data-mobile-appbar>
-      <button class="mobile-back-button" type="button" data-mobile-back data-fallback="./mobile-community.html" aria-label="返回社区"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-left-s-line.svg" alt=""></button>
-    </header>
+    <button class="mobile-back-button mobile-detail-back-button" type="button" data-mobile-back data-fallback="./mobile-community.html" aria-label="返回社区"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-left-s-line.svg" alt=""></button>
 
     <main id="main">
-      <div class="mobile-detail-media video"><video src="../../assets/video_assets/sd2_gen.mp4" poster="../../assets/image_assets/4.png" controls muted playsinline preload="metadata" aria-label="海灯守望生成视频"></video></div>
+      <figure class="mobile-detail-media video" style="margin:0"><video src="../../assets/video_assets/sd2_gen.mp4" poster="../../assets/image_assets/4.png" controls muted playsinline preload="metadata" aria-label="海灯守望生成视频"></video></figure>
       <div class="mobile-detail-body">
         <section class="mobile-detail-copy">
           <h1>海灯守望</h1>
-          <div class="mobile-tag-line"><span class="mobile-tag">#视频生成</span><span class="mobile-tag">#镜头语言</span><span class="mobile-tag">#海雾</span></div>
+          <div class="mobile-tag-line"><span class="mobile-tag">#视频生成</span><span class="mobile-tag">#镜头语言</span></div>
         </section>
 
         <section class="mobile-author-block" aria-label="作者信息">
@@ -34,8 +32,8 @@
           <p>薄雾笼罩的海面与灯塔，镜头从远景缓慢推进到塔顶暖光，水面反射流动，电影感，运镜平稳。</p>
         </section>
 
-        <section class="mobile-comments-preview" aria-labelledby="mobile-video-comments">
-          <header><h2 id="mobile-video-comments">评论 18</h2><button type="button" data-mobile-comments-open>查看全部</button></header>
+        <section class="mobile-comments-preview" aria-labelledby="mobile-video-comments" data-mobile-comment-list>
+          <header><h2 id="mobile-video-comments">评论 18</h2><button type="button" data-mobile-comments-open>写评论</button></header>
           <article class="mobile-comment"><img src="../../assets/image_assets/4.png" alt=""><div class="mobile-comment-copy"><div class="mobile-comment-meta"><strong>片头收藏夹</strong><time datetime="2026-08-25T17:52:00+08:00">8 分钟前</time></div><p>推进速度很稳，灯塔暖光让画面有了连续的情绪。</p><div class="mobile-comment-actions"><button type="button" data-mobile-comment-reply>回复</button><button type="button" data-mobile-comment-like data-count="13" aria-pressed="false">赞 13</button></div></div></article>
           <article class="mobile-comment"><img src="../../assets/image_assets/3.png" alt=""><div class="mobile-comment-copy"><div class="mobile-comment-meta"><strong>竹影</strong><time datetime="2026-08-25T17:32:00+08:00">28 分钟前</time></div><p>如果结尾再切一个远处船影，会更有故事钩子。</p><div class="mobile-comment-actions"><button type="button" data-mobile-comment-reply>回复</button><button type="button" data-mobile-comment-like data-count="7" aria-pressed="false">赞 7</button></div></div></article>
         </section>
@@ -43,35 +41,27 @@
     </main>
 
     <div class="mobile-action-bar" aria-label="作品互动">
-      <button class="mobile-action-button" type="button" data-mobile-toggle data-mobile-like-action aria-pressed="false" data-idle-label="146" data-active-label="147" data-on-message="已点赞" data-off-message="已取消点赞"><span class="mobile-like-icon" aria-hidden="true"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Health & Medical/heart-3-line.svg" alt=""></span><span class="mobile-visually-hidden">点赞</span><span data-action-label>146</span></button>
+      <button class="mobile-action-button" type="button" data-mobile-toggle data-mobile-like-action aria-pressed="false" data-idle-label="146" data-active-label="147" data-idle-icon="../../resources/icons/remixicon/svg/System/thumb-up-line.svg" data-active-icon="../../resources/icons/remixicon/svg/System/thumb-up-fill.svg" data-on-message="已点赞" data-off-message="已取消点赞"><span class="mobile-like-icon" aria-hidden="true"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/thumb-up-line.svg" alt=""></span><span class="mobile-visually-hidden">点赞</span><span data-action-label>146</span></button>
       <button class="mobile-action-button" type="button" data-mobile-comments-open><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Communication/chat-3-line.svg" alt=""><span>18</span></button>
-      <button class="mobile-action-button" type="button" data-mobile-toggle aria-pressed="false" data-idle-label="收藏" data-active-label="已收藏" data-on-message="已收藏到我的作品" data-off-message="已取消收藏"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Business/bookmark-line.svg" alt=""><span data-action-label>收藏</span></button>
-      <button class="mobile-action-button" type="button" data-mobile-share><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/share-forward-line.svg" alt=""><span>分享</span></button>
+      <button class="mobile-action-button" type="button" data-mobile-toggle aria-pressed="false" data-idle-label="收藏" data-active-label="已收藏" data-idle-icon="../../resources/icons/remixicon/svg/System/star-smile-line.svg" data-active-icon="../../resources/icons/remixicon/svg/System/star-smile-fill.svg" data-on-message="已收藏到我的作品" data-off-message="已取消收藏"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/star-smile-line.svg" alt=""><span data-action-label>收藏</span></button>
+      <button class="mobile-action-button" type="button" data-mobile-share><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/share-circle-line.svg" alt=""><span>分享</span></button>
       <a class="mobile-action-primary mobile-specular-button" href="./mobile-create.html?mode=video&amp;model=Seedance+2.0&amp;prompt=%E8%96%84%E9%9B%BE%E7%AC%BC%E7%BD%A9%E7%9A%84%E6%B5%B7%E9%9D%A2%E4%B8%8E%E7%81%AF%E5%A1%94%EF%BC%8C%E9%95%9C%E5%A4%B4%E4%BB%8E%E8%BF%9C%E6%99%AF%E7%BC%93%E6%85%A2%E6%8E%A8%E8%BF%9B%E5%88%B0%E5%A1%94%E9%A1%B6%E6%9A%96%E5%85%89%EF%BC%8C%E6%B0%B4%E9%9D%A2%E5%8F%8D%E5%B0%84%E6%B5%81%E5%8A%A8%EF%BC%8C%E7%94%B5%E5%BD%B1%E6%84%9F%EF%BC%8C%E8%BF%90%E9%95%9C%E5%B9%B3%E7%A8%B3%E3%80%82"><span class="mobile-specular-button__fx" aria-hidden="true"></span><span class="mobile-specular-button__label">一键同款</span></a>
     </div>
-  </div>
 
-  <section class="mobile-bottom-sheet" data-mobile-comment-sheet aria-hidden="true" aria-labelledby="mobile-video-comment-sheet-title">
-    <button class="mobile-sheet-backdrop" type="button" data-mobile-comments-close aria-label="关闭评论"></button>
-    <div class="mobile-sheet-panel">
-      <header class="mobile-sheet-head"><h2 id="mobile-video-comment-sheet-title">全部评论</h2><button class="mobile-icon-button" type="button" data-mobile-comments-close aria-label="关闭评论"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button></header>
-      <div class="mobile-sheet-scroll" data-mobile-comment-list>
-        <article class="mobile-comment"><img src="../../assets/image_assets/4.png" alt=""><div class="mobile-comment-copy"><div class="mobile-comment-meta"><strong>片头收藏夹</strong><time datetime="2026-08-25T17:52:00+08:00">8 分钟前</time></div><p>推进速度很稳，灯塔暖光让画面有了连续的情绪。</p><div class="mobile-comment-actions"><button type="button" data-mobile-comment-reply>回复</button><button type="button" data-mobile-comment-like data-count="13" aria-pressed="false">赞 13</button></div></div></article>
-        <article class="mobile-comment"><img src="../../assets/image_assets/3.png" alt=""><div class="mobile-comment-copy"><div class="mobile-comment-meta"><strong>竹影</strong><time datetime="2026-08-25T17:32:00+08:00">28 分钟前</time></div><p>如果结尾再切一个远处船影，会更有故事钩子。</p><div class="mobile-comment-actions"><button type="button" data-mobile-comment-reply>回复</button><button type="button" data-mobile-comment-like data-count="7" aria-pressed="false">赞 7</button></div></div></article>
-      </div>
-      <form class="mobile-comment-form" data-mobile-comment-form><input type="text" maxlength="200" placeholder="写下你的看法" aria-label="输入评论"><button type="submit">发布</button></form>
+    <div class="mobile-comment-composer" data-mobile-comment-composer aria-hidden="true">
+      <form class="mobile-comment-form" data-mobile-comment-form><input type="text" maxlength="200" placeholder="写下你的看法" aria-label="输入评论"><button type="submit">发送</button></form>
     </div>
-  </section>
+  </div>
 
   <button class="mobile-walkthrough-trigger" type="button" data-mobile-walkthrough-open aria-controls="mobile-walkthrough">走查</button>
   <aside id="mobile-walkthrough" class="mobile-walkthrough" data-mobile-walkthrough aria-hidden="true">
     <div class="mobile-walkthrough-head"><h2>视频详情走查规则</h2><button class="mobile-icon-button" type="button" data-mobile-walkthrough-close aria-label="关闭走查规则"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt=""></button></div>
     <div class="mobile-rule-grid">
       <section class="mobile-rule-card"><strong>媒体优先</strong><p>视频首屏不被顶部栏或底部动作遮挡；媒体后先展示标题与话题，再展示作者信息，并保留原生播放、暂停、进度、静音和全屏能力。</p></section>
-      <section class="mobile-rule-card"><strong>顶部任务栏</strong><p>详情页顶部只保留返回；点赞、评论、收藏、分享和一键同款统一进入底部动作栏，主点赞复用 Web 闪念的心形回弹与八向金色粒子动画。</p></section>
+      <section class="mobile-rule-card"><strong>返回操作</strong><p>详情页不显示顶部导航栏，返回按钮固定在左上角；点击评论或回复后，仅在当前页面底部显示评论输入框与发送按钮，不展开评论抽屉。</p></section>
       <section class="mobile-rule-card"><strong>失败状态</strong><p>真实开发需覆盖加载失败、转码中、素材不可用和重试；不能只显示黑色视频框。</p></section>
       <section class="mobile-rule-card"><strong>一键同款</strong><p>进入视频创作并带入可复用信息，用户确认后才生成，不自动扣减积分。</p></section>
-      <section class="mobile-rule-card"><strong>验收</strong><p>390×844 首屏视频控制可达；标题话题位于作者前；全部评论展开后覆盖正文与作者区域并保留媒体可见；正文和评论可滚动；横竖素材不裁掉主体；返回恢复列表位置。</p></section>
+      <section class="mobile-rule-card"><strong>验收</strong><p>390×844 首屏视频控制可达；标题话题位于作者前；评论输入框字号为 16px 且键盘不遮挡输入；正文和评论可滚动；横竖素材不裁掉主体；返回恢复列表位置。</p></section>
     </div>
   </aside>
   <div class="mobile-toast" data-mobile-toast role="status" aria-live="polite"></div>
