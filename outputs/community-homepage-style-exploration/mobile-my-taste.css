@@ -307,7 +307,6 @@ body[data-mobile-page="my"] .mobile-my-redesign-stats span {
 /* Two standalone benefit cards */
 body[data-mobile-page="my"] .mobile-my-benefits-section {
   min-width: 0;
-  padding: 8px 0 8px;
   border-bottom: 0;
 }
 
