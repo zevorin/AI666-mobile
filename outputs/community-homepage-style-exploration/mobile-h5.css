@@ -1,10 +1,10 @@
 /* CSS_MODULE_MANIFEST: ordered source modules; keep imports in cascade order. */
-@import url("./mobile-design-tokens.css?v=20260830-radius-12-v1");
+@import url("./mobile-design-tokens.css?v=20260831-button-system-v1");
 @import url("./mobile-display-heading.css?v=20260825-display-heading-v3");
 @import url("./mobile-h5-foundation.css?v=20260831-cascade-cleanup-v1");
 @import url("./mobile-h5-points-profile-legacy.css?v=20260831-cascade-cleanup-v1");
 @import url("./mobile-h5-web-parity.css?v=20260831-cascade-cleanup-v1");
-@import url("./mobile-h5-system.css?v=20260831-cascade-cleanup-v1");
+@import url("./mobile-h5-system.css?v=20260831-web-message-icons-v2");
 @import url("./mobile-h5-home-navigation.css?v=20260831-cascade-cleanup-v1");
 @import url("./mobile-h5-points-profile.css?v=20260831-cascade-cleanup-v1");
 @import url("./mobile-h5-details-community.css?v=20260831-cascade-cleanup-v1");
@@ -12,3 +12,4 @@
 @import url("./mobile-h5-tabs-community.css?v=20260831-cascade-cleanup-v1");
 @import url("./mobile-h5-campaigns.css?v=20260831-cascade-cleanup-v1");
 @import url("./mobile-h5-account-store.css?v=20260831-cascade-cleanup-v1");
+@import url("./mobile-h5-controls.css?v=20260831-button-system-v1");

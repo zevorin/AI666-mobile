@@ -1,0 +1,180 @@
+/*
+ * Shared mobile control contract.
+ *
+ * Action buttons use only three geometry levels:
+ * - compact:    36px / 12px (small card and auxiliary actions)
+ * - default:    44px / 14px (ordinary actions and touch targets)
+ * - prominent:  50px / 14px (single fixed or form-submit actions)
+ *
+ * Tabs and icon controls keep their own visual language, but reuse the same
+ * 36px compact and 44px default touch-target heights.
+ */
+
+/* Default and compact action buttons. */
+body.mobile-h5-body .mobile-button {
+  box-sizing: border-box;
+  min-height: var(--ds-button-height-default);
+  padding-inline: var(--ds-button-padding-default);
+  border-radius: var(--ds-radius-pill);
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-button-font-default);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-button-leading);
+}
+
+body.mobile-h5-body .mobile-button.compact,
+body[data-mobile-page="tasks"] .mobile-newbie-task-action > .mobile-button,
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card > .mobile-button {
+  min-height: var(--ds-button-height-compact);
+  padding-inline: var(--ds-button-padding-compact);
+  font-size: var(--ds-button-font-compact);
+  line-height: var(--ds-button-leading);
+}
+
+/* Full-width and fixed primary actions are the only prominent text buttons. */
+body.mobile-h5-body :is(
+  .mobile-action-bar,
+  .mobile-form-action-bar,
+  .mobile-single-action-bar,
+  .mobile-invite-action-bar,
+  .mobile-flash-page-action,
+  .mobile-flash-compose-action,
+  .mobile-profile-field-form
+) .mobile-action-primary,
+body.mobile-h5-body :is(
+  .mobile-action-bar,
+  .mobile-form-action-bar,
+  .mobile-single-action-bar,
+  .mobile-invite-action-bar,
+  .mobile-flash-page-action,
+  .mobile-flash-compose-action,
+  .mobile-profile-field-form
+) .mobile-button {
+  box-sizing: border-box;
+  min-height: var(--ds-button-height-prominent);
+  padding-inline: var(--ds-button-padding-prominent);
+  border-radius: var(--ds-radius-pill);
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-button-font-prominent);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-button-leading);
+}
+
+/* A primary action outside a fixed/full-width context uses the default tier. */
+body.mobile-h5-body .mobile-action-primary {
+  box-sizing: border-box;
+  min-height: var(--ds-button-height-default);
+  padding-inline: var(--ds-button-padding-default);
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-button-font-default);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-button-leading);
+}
+
+/* Preserve the detail toolbar's split layout while sharing default typography. */
+body:is([data-mobile-page="image-detail"], [data-mobile-page="video-detail"])
+  .mobile-action-primary.mobile-specular-button {
+  height: var(--ds-button-height-default);
+  min-height: var(--ds-button-height-default);
+  padding-inline: var(--ds-button-padding-compact);
+  font-size: var(--ds-button-font-default);
+  line-height: var(--ds-button-leading);
+}
+
+/* Card commerce actions are ordinary default buttons. */
+body.mobile-h5-body :is(.mobile-store-card, .mobile-exchange-card) button {
+  min-height: var(--ds-button-height-default);
+  padding-inline: var(--ds-button-padding-default);
+  font-size: var(--ds-button-font-default);
+  line-height: var(--ds-button-leading);
+}
+
+/* Compact outlined and text actions share one readable size. */
+body.mobile-h5-body :is(
+  .mobile-community-feature-action,
+  .mobile-community-outline-action,
+  .mobile-community-text-action,
+  .mobile-follow-button
+) {
+  min-height: var(--ds-button-height-compact);
+  padding-inline: var(--ds-button-padding-compact);
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-button-font-compact);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-button-leading);
+}
+
+body.mobile-h5-body .mobile-shell :is(
+  .mobile-community-feature-action,
+  .mobile-community-outline-action,
+  .mobile-community-text-action,
+  .mobile-follow-button
+) {
+  font-size: var(--ds-button-font-compact);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-button-leading);
+}
+
+body[data-mobile-page="community"] .mobile-community-hot-meta button,
+body:is([data-mobile-page="image-detail"], [data-mobile-page="video-detail"])
+  .mobile-comments-preview > header button {
+  min-height: var(--ds-button-height-default);
+  font-size: var(--ds-type-meta);
+  line-height: var(--ds-button-leading);
+}
+
+body:is([data-mobile-page="image-detail"], [data-mobile-page="video-detail"])
+  .mobile-comment-actions button,
+body[data-mobile-page="compose-flash"]
+  .mobile-flash-page-topic-entry [data-mobile-flash-page-topic-add] {
+  min-height: var(--ds-button-height-compact);
+  font-size: var(--ds-button-font-compact);
+  line-height: var(--ds-button-leading);
+}
+
+/* Detail toolbar actions use a 44px target and compact supporting text. */
+body:is([data-mobile-page="image-detail"], [data-mobile-page="video-detail"])
+  .mobile-action-button {
+  height: var(--ds-button-height-default);
+  min-height: var(--ds-button-height-default);
+  font-size: var(--ds-button-font-compact);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-button-leading);
+}
+
+/* Icon-only controls always expose at least a 44px touch target. */
+body.mobile-h5-body :is(.mobile-back-button, .mobile-icon-button, .mobile-avatar-button) {
+  width: var(--ds-button-height-default);
+  height: var(--ds-button-height-default);
+  min-width: var(--ds-button-height-default);
+  min-height: var(--ds-button-height-default);
+}
+
+/* Small inline icon actions use a 36px target without changing icon size. */
+body[data-mobile-page="my"] [data-mobile-copy-profile-id] {
+  width: var(--ds-button-height-compact);
+  height: var(--ds-button-height-compact);
+  min-width: var(--ds-button-height-compact);
+  min-height: var(--ds-button-height-compact);
+  flex-basis: var(--ds-button-height-compact);
+}
+
+/* Inline profile action: compact height, default readable text. */
+body[data-mobile-page="profile-edit"]
+  .mobile-profile-edit-content > .mobile-avatar-edit > button {
+  min-height: var(--ds-button-height-compact);
+  font-size: var(--ds-type-meta);
+  line-height: var(--ds-button-leading);
+}
+
+/* Style A is a compact segmented control; style B remains a display tab. */
+body.mobile-h5-body [role="tablist"].mobile-tabs-style-a > [role="tab"] {
+  min-height: var(--ds-button-height-compact);
+  font-size: var(--ds-type-meta);
+  line-height: var(--ds-button-leading);
+}
+
+body.mobile-h5-body [role="tablist"].mobile-tabs-style-a {
+  min-height: calc(var(--ds-button-height-compact) + 8px);
+}

@@ -99,6 +99,18 @@
   --ds-control-default: 44px;
   --ds-control-large: 50px;
 
+  /* Button contract: three action sizes plus one segmented-control size. */
+  --ds-button-height-compact: var(--ds-control-compact);
+  --ds-button-height-default: var(--ds-control-default);
+  --ds-button-height-prominent: var(--ds-control-large);
+  --ds-button-font-compact: var(--ds-type-sm);
+  --ds-button-font-default: var(--ds-type-body);
+  --ds-button-font-prominent: var(--ds-type-body);
+  --ds-button-leading: var(--ds-leading-control);
+  --ds-button-padding-compact: 14px;
+  --ds-button-padding-default: 16px;
+  --ds-button-padding-prominent: 20px;
+
   /*
    * Type scale.
    * 11px matches the approved homepage TabBar label and is the absolute UI
