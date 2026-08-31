@@ -1,0 +1,1235 @@
+/* Profile edit and AI store: targeted mobile hierarchy refresh. */
+body:is([data-mobile-page="profile-edit"], [data-mobile-page="exchange"]) .mobile-shell {
+  background:
+    radial-gradient(circle at 92% 3%, rgba(244, 201, 93, 0.105), transparent 25%),
+    radial-gradient(circle at 4% 46%, rgba(244, 201, 93, 0.035), transparent 28%),
+    var(--ds-bg);
+}
+
+body:is([data-mobile-page="profile-edit"], [data-mobile-page="exchange"]) .mobile-topbar {
+  border-bottom-color: rgba(255, 250, 240, 0.075);
+  background: rgba(5, 7, 11, 0.9);
+  backdrop-filter: blur(20px) saturate(135%);
+}
+
+body:is([data-mobile-page="profile-edit"], [data-mobile-page="exchange"])
+  :is(button, a):active {
+  transform: scale(0.985);
+}
+
+/* Profile edit: separate identity, editable fields and account state. */
+body[data-mobile-page="profile-edit"] .mobile-task-content {
+  display: grid;
+  gap: 18px;
+  padding-top: 16px;
+  padding-bottom: calc(34px + env(safe-area-inset-bottom, 0px));
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form {
+  display: grid;
+  gap: 14px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-form-section {
+  border-color: rgba(255, 250, 240, 0.105);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.052), rgba(255, 255, 255, 0.016));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035), 0 18px 42px rgba(0, 0, 0, 0.2);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-avatar-edit {
+  min-height: 132px;
+  grid-template-columns: 88px minmax(0, 1fr);
+  place-items: center start;
+  gap: 18px;
+  overflow: hidden;
+  padding: 20px;
+  background:
+    radial-gradient(circle at 18% 50%, rgba(244, 201, 93, 0.115), transparent 32%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.052), rgba(255, 255, 255, 0.014));
+}
+
+body[data-mobile-page="profile-edit"] .mobile-avatar-edit img {
+  width: 88px;
+  height: 88px;
+  border: 1px solid rgba(244, 201, 93, 0.58);
+  box-shadow: 0 0 0 6px rgba(244, 201, 93, 0.055), 0 16px 34px rgba(0, 0, 0, 0.3);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-avatar-edit button {
+  min-width: 112px;
+  min-height: 44px;
+  padding-inline: 18px;
+  border-color: rgba(244, 201, 93, 0.34);
+  color: var(--ds-gold-bright);
+  background: rgba(244, 201, 93, 0.075);
+  font-size: var(--ds-type-label);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-control);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-form-section:nth-of-type(2) {
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-form-section:nth-of-type(2) .mobile-field {
+  gap: 9px;
+  margin-top: 0 !important;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-field > span {
+  color: rgba(255, 250, 240, 0.76);
+  font-size: var(--ds-type-label);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-field :is(input, textarea) {
+  min-height: 48px;
+  padding: 13px 14px;
+  border-color: rgba(255, 250, 240, 0.12);
+  background: rgba(3, 5, 8, 0.68);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-field textarea {
+  min-height: 112px;
+  line-height: var(--ds-leading-body);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-field :is(input, textarea):focus {
+  border-color: rgba(244, 201, 93, 0.64);
+  box-shadow: var(--ds-focus-ring), inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-button {
+  width: 100%;
+  min-height: 50px;
+  margin-top: 2px;
+  font-size: var(--ds-type-body-strong);
+  box-shadow: var(--ds-shadow-control), 0 14px 30px rgba(244, 201, 93, 0.08);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-section {
+  gap: 4px;
+  padding: 16px 18px 4px;
+  border-color: rgba(255, 250, 240, 0.105);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.012));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 18px 42px rgba(0, 0, 0, 0.18);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-section-heading {
+  min-height: 42px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-section-heading h2 {
+  font-size: var(--ds-type-body-lg);
+  line-height: var(--ds-leading-body-lg);
+  letter-spacing: -0.025em;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-row {
+  min-height: 74px;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  gap: 12px;
+  border-top-color: rgba(255, 250, 240, 0.075);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-icon {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(244, 201, 93, 0.11);
+  background: rgba(244, 201, 93, 0.065);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-icon.is-wechat {
+  border-color: rgba(104, 202, 147, 0.14);
+  background: rgba(104, 202, 147, 0.065);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-copy strong {
+  font-size: var(--ds-type-reading);
+  line-height: var(--ds-leading-body);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-copy small {
+  color: rgba(255, 250, 240, 0.54);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-status {
+  min-height: 30px;
+  gap: 5px;
+  padding-inline: 9px;
+  border: 1px solid rgba(104, 202, 147, 0.16);
+  border-radius: var(--ds-radius-pill);
+  background: rgba(104, 202, 147, 0.065);
+  font-size: var(--ds-type-caption);
+  font-weight: var(--ds-weight-semibold);
+}
+
+/* AI store: restore the authored hero and make the catalog easier to scan. */
+body[data-mobile-page="exchange"] .mobile-store-content {
+  gap: 28px;
+  padding-top: 14px;
+  padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+}
+
+body[data-mobile-page="exchange"] .mobile-store-hero {
+  min-height: 214px;
+  align-items: stretch;
+  padding: 22px;
+  border-color: rgba(244, 201, 93, 0.22);
+  background:
+    linear-gradient(90deg, rgba(4, 6, 9, 0.98) 0%, rgba(4, 6, 9, 0.91) 45%, rgba(4, 6, 9, 0.12) 100%),
+    radial-gradient(circle at 76% 36%, rgba(244, 201, 93, 0.12), transparent 34%),
+    url("../../assets/web/image_assets/member-store-hero-blackgold-v1.png") 76% 48% / cover no-repeat;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045), 0 22px 50px rgba(0, 0, 0, 0.3);
+}
+
+body[data-mobile-page="exchange"] .mobile-store-hero::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 34%, rgba(0, 0, 0, 0.13));
+}
+
+body[data-mobile-page="exchange"] .mobile-store-hero-copy {
+  z-index: 2;
+  width: 58%;
+  align-content: center;
+  justify-items: start;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-hero h1 {
+  font-size: 30px;
+  font-weight: var(--ds-weight-bold);
+  line-height: 36px;
+  letter-spacing: -0.045em;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-hero p {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-top: 13px;
+  color: rgba(255, 250, 240, 0.62);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body[data-mobile-page="exchange"] .mobile-store-hero p strong {
+  margin-left: 0;
+  color: var(--ds-gold-bright);
+  font-family: var(--ds-font-display);
+  font-size: 26px;
+  font-weight: var(--ds-weight-bold);
+  line-height: 30px;
+  letter-spacing: -0.035em;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-record-entry {
+  min-height: 42px;
+  gap: 7px;
+  margin-top: 16px;
+  padding-inline: 12px;
+  border-color: rgba(244, 201, 93, 0.29);
+  color: var(--ds-gold-bright);
+  background: rgba(7, 9, 12, 0.72);
+  font-size: var(--ds-type-caption);
+  font-weight: var(--ds-weight-semibold);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+}
+
+body[data-mobile-page="exchange"] .mobile-store-content > .mobile-section {
+  margin-top: 0;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-content .mobile-section-heading {
+  min-height: 32px;
+  margin-bottom: 14px;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-content .mobile-section-heading h2 {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.035em;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-content .mobile-section-heading h2::before {
+  display: none;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-content .mobile-section-heading span {
+  min-width: 38px;
+  min-height: 28px;
+  display: inline-grid;
+  place-items: center;
+  padding-inline: 9px;
+  border: 1px solid rgba(255, 250, 240, 0.1);
+  border-radius: var(--ds-radius-pill);
+  color: rgba(255, 250, 240, 0.58);
+  background: rgba(255, 255, 255, 0.035);
+  font-size: var(--ds-type-caption);
+}
+
+body[data-mobile-page="exchange"] .mobile-store-grid {
+  gap: 10px;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-card {
+  position: relative;
+  min-height: 206px;
+  overflow: hidden;
+  padding: 15px;
+  border-color: rgba(255, 250, 240, 0.1);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(244, 201, 93, 0.07), transparent 43%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.047), rgba(255, 255, 255, 0.014));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035), 0 16px 36px rgba(0, 0, 0, 0.2);
+}
+
+body[data-mobile-page="exchange"] .mobile-store-card small {
+  color: rgba(255, 250, 240, 0.5);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body[data-mobile-page="exchange"] .mobile-store-card h3 {
+  min-height: 44px;
+  margin: 9px 0 14px;
+  color: rgba(255, 250, 240, 0.94);
+  font-size: var(--ds-type-reading);
+  font-weight: var(--ds-weight-semibold);
+  line-height: 20px;
+  letter-spacing: -0.015em;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-card p {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin: auto 0 0;
+  color: var(--ds-gold-bright);
+  font-family: var(--ds-font-display);
+  font-size: 21px;
+  font-weight: var(--ds-weight-bold);
+  line-height: 26px;
+  letter-spacing: -0.025em;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-card p span {
+  color: rgba(255, 250, 240, 0.5);
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-type-caption);
+  font-weight: var(--ds-weight-regular);
+  letter-spacing: 0;
+}
+
+body[data-mobile-page="exchange"] .mobile-store-card button {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 14px;
+  border-color: rgba(244, 201, 93, 0.36);
+  border-radius: var(--ds-radius-pill);
+  font-size: var(--ds-type-label);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-control);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34), 0 9px 20px rgba(244, 201, 93, 0.08);
+}
+
+body[data-mobile-page="exchange"] .mobile-store-card button:disabled {
+  border-color: rgba(255, 250, 240, 0.08);
+  color: rgba(255, 250, 240, 0.42);
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: none;
+}
+
+body[data-mobile-page="exchange"] .mobile-exchange-sheet .mobile-sheet-panel {
+  border-color: rgba(255, 250, 240, 0.11);
+  background: rgba(10, 13, 17, 0.98);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045), 0 -24px 70px rgba(0, 0, 0, 0.5);
+}
+
+body[data-mobile-page="exchange"] .mobile-exchange-product-summary {
+  border-color: rgba(244, 201, 93, 0.2);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(244, 201, 93, 0.1), transparent 42%),
+    rgba(244, 201, 93, 0.035);
+}
+
+body[data-mobile-page="exchange"] .mobile-exchange-confirm-detail {
+  border-color: rgba(255, 250, 240, 0.1);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+body[data-mobile-page="exchange"] .mobile-exchange-confirm-detail > div {
+  min-height: 50px;
+}
+
+body[data-mobile-page="exchange"] .mobile-exchange-sheet-actions {
+  gap: 10px;
+  padding-top: 12px;
+  background: rgba(7, 9, 12, 0.96);
+}
+
+@media (max-width: 359px) {
+  body[data-mobile-page="profile-edit"] .mobile-task-content {
+    gap: 14px;
+    padding-inline: 12px;
+  }
+
+  body[data-mobile-page="profile-edit"] .mobile-avatar-edit {
+    grid-template-columns: 78px minmax(0, 1fr);
+    gap: 14px;
+    padding: 16px;
+  }
+
+  body[data-mobile-page="profile-edit"] .mobile-avatar-edit img {
+    width: 78px;
+    height: 78px;
+  }
+
+  body[data-mobile-page="profile-edit"] .mobile-account-binding-section {
+    padding-inline: 14px;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-content {
+    padding-inline: 12px;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-hero {
+    min-height: 204px;
+    padding: 18px;
+    background-position: center, center, 72% 48%;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-hero-copy {
+    width: 61%;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-hero h1 {
+    font-size: 27px;
+    line-height: 34px;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-card {
+    min-height: 198px;
+    padding: 12px;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-card h3 {
+    min-height: 42px;
+    font-size: 13px;
+    line-height: 19px;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-card p {
+    font-size: 19px;
+  }
+}
+
+@media (min-width: 420px) {
+  body[data-mobile-page="profile-edit"] .mobile-task-content,
+  body[data-mobile-page="exchange"] .mobile-store-content {
+    padding-inline: 20px;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-grid {
+    gap: 12px;
+  }
+
+  body[data-mobile-page="exchange"] .mobile-store-hero {
+    background-position: center, center, 80% 48%;
+  }
+}
+
+/* Profile edit V2: familiar grouped settings rows with inline values. */
+body[data-mobile-page="profile-edit"] .mobile-task-content {
+  gap: 24px;
+  padding-top: 18px;
+}
+
+
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-list {
+  overflow: hidden;
+  border: 1px solid rgba(255, 250, 240, 0.1);
+  border-radius: var(--ds-radius-control);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025), 0 16px 36px rgba(0, 0, 0, 0.17);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-list > .mobile-form-section {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-list .mobile-avatar-edit {
+  min-height: 78px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  justify-items: stretch;
+  gap: 16px;
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(255, 250, 240, 0.075);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-list .mobile-avatar-edit img {
+  grid-column: 2;
+  grid-row: 1;
+  width: 54px;
+  height: 54px;
+  justify-self: end;
+  border: 1px solid rgba(244, 201, 93, 0.42);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-list .mobile-avatar-edit button {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  min-height: 44px;
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: rgba(255, 250, 240, 0.86);
+  background: transparent;
+  font-size: var(--ds-type-label);
+  font-weight: var(--ds-weight-medium);
+  text-align: left;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list {
+  display: grid;
+  gap: 0;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field {
+  min-height: 64px;
+  grid-template-columns: 88px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  margin: 0 !important;
+  padding: 9px 16px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field + .mobile-field {
+  min-height: 82px;
+  border-top: 1px solid rgba(255, 250, 240, 0.075);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field:focus-within {
+  background: rgba(244, 201, 93, 0.035);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field > span {
+  color: rgba(255, 250, 240, 0.82);
+  font-size: var(--ds-type-label);
+  font-weight: var(--ds-weight-medium);
+  line-height: var(--ds-leading-control);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field :is(input, textarea) {
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 7px 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  color: rgba(255, 250, 240, 0.7);
+  background: transparent;
+  box-shadow: none;
+  text-align: right;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field input {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field textarea {
+  min-height: 58px;
+  resize: none;
+  line-height: 20px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field :is(input, textarea):focus {
+  border-bottom-color: rgba(244, 201, 93, 0.62);
+  color: var(--ds-text-primary);
+  outline: none;
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-button {
+  min-height: 48px;
+  margin-top: 0;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-section {
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-section-heading {
+  min-height: 28px;
+  padding-inline: 4px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-section-heading h2 {
+  color: rgba(255, 250, 240, 0.58);
+  font-size: var(--ds-type-caption);
+  font-weight: var(--ds-weight-medium);
+  line-height: var(--ds-leading-caption);
+  letter-spacing: 0;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-list {
+  overflow: hidden;
+  padding-inline: 16px;
+  border: 1px solid rgba(255, 250, 240, 0.1);
+  border-radius: var(--ds-radius-control);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025), 0 16px 36px rgba(0, 0, 0, 0.15);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-row {
+  min-height: 68px;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  gap: 12px;
+  border-top: 0;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-row + .mobile-account-binding-row {
+  border-top: 1px solid rgba(255, 250, 240, 0.075);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-icon {
+  width: 36px;
+  height: 36px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-status {
+  min-height: 32px;
+  padding-inline: 0;
+  border: 0;
+  background: transparent;
+}
+
+@media (max-width: 359px) {
+  body[data-mobile-page="profile-edit"] .mobile-profile-edit-list .mobile-avatar-edit,
+  body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field {
+    padding-inline: 14px;
+  }
+
+  body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field {
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  body[data-mobile-page="profile-edit"] .mobile-account-binding-list {
+    padding-inline: 14px;
+  }
+}
+
+/* Profile edit V3: reference-led portrait header, grouped rows and bottom action. */
+body[data-mobile-page="profile-edit"] .mobile-task-content {
+  position: relative;
+  gap: 22px;
+  padding-top: 12px;
+  padding-bottom: calc(124px + env(safe-area-inset-bottom, 0px));
+}
+
+body[data-mobile-page="profile-edit"] .mobile-task-content::after {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 38;
+  width: min(100%, 480px);
+  height: calc(92px + env(safe-area-inset-bottom, 0px));
+  margin-inline: auto;
+  border-top: 1px solid rgba(255, 250, 240, 0.055);
+  background: rgba(11, 13, 14, 0.96);
+  content: "";
+  pointer-events: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form {
+  gap: 16px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-avatar-edit {
+  position: relative;
+  min-height: 148px;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: start center;
+  gap: 0;
+  overflow: visible;
+  padding: 24px 0 22px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-avatar-edit > img:first-child {
+  width: 94px;
+  height: 94px;
+  border: 2px solid rgba(255, 250, 240, 0.2);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-avatar-edit > button {
+  position: absolute;
+  top: 84px;
+  left: calc(50% + 18px);
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 3px solid var(--ds-bg);
+  border-radius: 50%;
+  color: #171205;
+  background: var(--ds-gold-bright);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-avatar-edit > button > span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-avatar-edit > button > .mobile-profile-avatar-edit-icon {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 0;
+  object-fit: contain;
+  box-shadow: none;
+  filter: brightness(0) saturate(100%);
+  opacity: 0.92;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-list {
+  border: 0;
+  border-radius: var(--ds-radius-control);
+  background: rgba(255, 255, 255, 0.048);
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field {
+  min-height: 66px;
+  grid-template-columns: 88px minmax(0, 1fr) 18px;
+  gap: 10px;
+  padding: 10px 18px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field + .mobile-field {
+  min-height: 82px;
+  border-top: 0;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field + .mobile-field::before {
+  position: absolute;
+  top: 0;
+  right: 18px;
+  left: 18px;
+  height: 1px;
+  background: rgba(255, 250, 240, 0.055);
+  content: "";
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field {
+  position: relative;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field::after {
+  width: 18px;
+  height: 18px;
+  grid-column: 3;
+  grid-row: 1;
+  align-self: center;
+  background: url("../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg") center / 18px 18px no-repeat;
+  content: "";
+  filter: brightness(0) invert(1);
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field > span {
+  grid-column: 1;
+  grid-row: 1;
+  color: rgba(255, 250, 240, 0.94);
+  font-size: var(--ds-type-body-lg);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-body-lg);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field :is(input, textarea) {
+  grid-column: 2;
+  grid-row: 1;
+  min-height: 44px;
+  padding: 6px 0;
+  border: 0;
+  color: rgba(255, 250, 240, 0.78);
+  font-size: var(--ds-type-body-lg);
+  font-weight: var(--ds-weight-regular);
+  line-height: var(--ds-leading-body-lg);
+  text-align: right;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field textarea {
+  min-height: 62px;
+  align-self: center;
+  padding-block: 8px;
+  line-height: 22px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field:focus-within {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field:focus-within::after {
+  opacity: 1;
+  filter: var(--mobile-icon-gold-filter);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field :is(input, textarea):focus {
+  border: 0;
+  color: var(--ds-text-primary);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-button {
+  position: fixed;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  z-index: 42;
+  width: min(calc(100% - 32px), 448px);
+  min-height: 52px;
+  margin: 0;
+  transform: translateX(-50%);
+  font-size: var(--ds-type-body-lg);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-form > .mobile-button:active {
+  transform: translateX(-50%) scale(0.985);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-section {
+  gap: 10px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-section-heading {
+  min-height: 24px;
+  padding-inline: 6px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-section-heading h2 {
+  color: rgba(255, 250, 240, 0.62);
+  font-size: var(--ds-type-caption);
+  font-weight: var(--ds-weight-medium);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-list {
+  padding-inline: 18px;
+  border: 0;
+  border-radius: var(--ds-radius-control);
+  background: rgba(255, 255, 255, 0.048);
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-row {
+  min-height: 68px;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  border-top: 0;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-row + .mobile-account-binding-row {
+  position: relative;
+  border-top: 0;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-row + .mobile-account-binding-row::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: rgba(255, 250, 240, 0.055);
+  content: "";
+}
+
+body[data-mobile-page="profile-edit"] .mobile-account-binding-copy strong {
+  font-size: var(--ds-type-body-lg);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-body-lg);
+}
+
+@media (max-width: 359px) {
+  body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field {
+    grid-template-columns: 76px minmax(0, 1fr) 18px;
+    padding-inline: 14px;
+  }
+
+  body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field + .mobile-field::before {
+    right: 14px;
+    left: 14px;
+  }
+
+  body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field > span,
+  body[data-mobile-page="profile-edit"] .mobile-profile-field-list .mobile-field :is(input, textarea),
+  body[data-mobile-page="profile-edit"] .mobile-account-binding-copy strong {
+    font-size: var(--ds-type-reading);
+  }
+}
+
+/* Profile edit V5: reference-matched portrait header and four uniform drill-in cells. */
+body[data-mobile-page="profile-edit"] .mobile-shell,
+body[data-mobile-page="profile-field-edit"] .mobile-shell {
+  background: #0b0d0e;
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-shell::before,
+body[data-mobile-page="profile-field-edit"] .mobile-shell::before {
+  display: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-topbar,
+body[data-mobile-page="profile-field-edit"] .mobile-topbar {
+  border-bottom: 0;
+  background: #0b0d0e;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-topbar.is-scrolled,
+body[data-mobile-page="profile-field-edit"] .mobile-topbar.is-scrolled {
+  background: rgba(11, 13, 14, 0.96);
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-content {
+  display: block;
+  padding: 12px 18px calc(40px + env(safe-area-inset-bottom, 0px));
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-content::after {
+  display: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-content > .mobile-avatar-edit {
+  min-height: 184px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  overflow: visible;
+  padding: 24px 0 28px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-content > .mobile-avatar-edit > img {
+  width: 96px;
+  height: 96px;
+  border: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-content > .mobile-avatar-edit > button {
+  min-width: 0;
+  min-height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: rgba(255, 255, 255, 0.92);
+  background: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-content > .mobile-avatar-edit > button:active {
+  color: var(--ds-gold-bright);
+  background: transparent;
+}
+
+.mobile-profile-cell-list {
+  overflow: hidden;
+  display: grid;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.048);
+}
+
+.mobile-profile-cell {
+  min-width: 0;
+  min-height: 78px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 20px;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 17px;
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-profile-cell:active,
+.mobile-profile-cell:focus-visible {
+  background: rgba(255, 255, 255, 0.04);
+  outline: 0;
+}
+
+.mobile-profile-cell-copy {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.mobile-profile-cell-copy strong,
+.mobile-profile-cell-copy small {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mobile-profile-cell-copy strong {
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 16px;
+  font-weight: 560;
+  line-height: 23px;
+}
+
+.mobile-profile-cell-copy small {
+  color: rgba(255, 255, 255, 0.46);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.mobile-profile-cell-arrow {
+  width: 20px;
+  height: 20px;
+  justify-self: end;
+  filter: brightness(0) invert(1);
+  opacity: 0.34;
+}
+
+body[data-mobile-page="profile-field-edit"] .mobile-profile-field-edit-content {
+  padding: 24px 18px calc(40px + env(safe-area-inset-bottom, 0px));
+}
+
+.mobile-profile-field-form {
+  display: grid;
+  gap: 10px;
+}
+
+.mobile-profile-field-editor {
+  display: grid;
+  gap: 10px;
+}
+
+.mobile-profile-field-editor > span {
+  padding-inline: 4px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.mobile-profile-field-editor :is(input, textarea) {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  outline: 0;
+  color: rgba(255, 255, 255, 0.94);
+  background: rgba(255, 255, 255, 0.048);
+  font: inherit;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.mobile-profile-field-editor textarea {
+  min-height: 132px;
+  resize: none;
+}
+
+.mobile-profile-field-editor :is(input, textarea):focus {
+  border-color: rgba(244, 201, 93, 0.62);
+  box-shadow: 0 0 0 3px rgba(244, 201, 93, 0.08);
+}
+
+.mobile-profile-field-note {
+  min-height: 18px;
+  margin: 0;
+  padding-inline: 4px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.mobile-profile-field-form > .mobile-button {
+  position: static;
+  width: 100%;
+  max-width: none;
+  min-height: 52px;
+  margin: 6px 0 0;
+  font-size: 16px;
+}
+
+@media (max-width: 359px) {
+  body[data-mobile-page="profile-edit"] .mobile-profile-edit-content,
+  body[data-mobile-page="profile-field-edit"] .mobile-profile-field-edit-content {
+    padding-inline: 14px;
+  }
+
+  .mobile-profile-cell {
+    padding-inline: 15px;
+  }
+}
+
+/* Shared page frame: one outer gutter and one secondary navigation treatment. */
+body.mobile-h5-body .mobile-topbar.mobile-topbar-detail {
+  position: sticky;
+  top: 0;
+  z-index: 72;
+  min-height: calc(var(--mobile-topbar-height) + env(safe-area-inset-top, 0px));
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  align-items: end;
+  gap: 8px;
+  padding: env(safe-area-inset-top, 0px) var(--ds-space-3) 0;
+  border: 0;
+  background: rgba(5, 7, 11, 0.92);
+  box-shadow: inset 0 -1px 0 rgba(255, 250, 240, 0.075);
+  backdrop-filter: blur(20px) saturate(135%);
+}
+
+body.mobile-h5-body .mobile-topbar.mobile-topbar-detail.is-scrolled {
+  border: 0;
+  background: rgba(5, 7, 11, 0.97);
+  box-shadow: inset 0 -1px 0 rgba(255, 250, 240, 0.09), 0 12px 28px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(20px) saturate(135%);
+}
+
+body.mobile-h5-body .mobile-topbar.mobile-topbar-detail > .mobile-page-title {
+  min-height: var(--mobile-topbar-height);
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: var(--ds-text-primary);
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-type-nav-title);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-nav-title);
+  letter-spacing: var(--ds-tracking-nav-title);
+  text-align: center;
+  opacity: 1;
+  transform: none;
+}
+
+body.mobile-h5-body .mobile-topbar.mobile-topbar-detail > :is(.mobile-back-button, .mobile-topbar-actions),
+body.mobile-h5-body .mobile-topbar.mobile-topbar-detail > .mobile-topbar-placeholder {
+  align-self: end;
+  margin: 0;
+}
+
+body.mobile-h5-body .mobile-topbar.mobile-topbar-detail > .mobile-back-button {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.mobile-h5-body[data-mobile-page="points"] .mobile-topbar.mobile-topbar-detail {
+  grid-template-columns: 64px minmax(0, 1fr) 64px;
+}
+
+:is(
+  .mobile-content,
+  .mobile-task-content,
+  .mobile-campaign-content,
+  .mobile-create-workspace,
+  .mobile-generation-history-main,
+  .mobile-flash-page-content,
+  .mobile-invite-content,
+  .mobile-result-content,
+  .mobile-detail-body
+) {
+  padding-right: var(--mobile-page-gutter);
+  padding-left: var(--mobile-page-gutter);
+}
+
+.mobile-tutorial-hero,
+.mobile-tutorial-article,
+body[data-mobile-page="profile-edit"] .mobile-profile-edit-content,
+body[data-mobile-page="profile-field-edit"] .mobile-profile-field-edit-content {
+  padding-right: var(--mobile-page-gutter);
+  padding-left: var(--mobile-page-gutter);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  body.mobile-h5-body .mobile-topbar.mobile-topbar-detail,
+  body.mobile-h5-body .mobile-topbar.mobile-topbar-detail.is-scrolled {
+    background: #080a0d;
+    backdrop-filter: none;
+  }
+}
+
+/* Activity details use a denser participation action without affecting other fixed bars. */
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card > .mobile-button {
+  min-height: 38px;
+  padding-inline: 16px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-single-action-bar {
+  min-height: calc(60px + env(safe-area-inset-bottom, 0px));
+  padding: 8px var(--mobile-page-gutter) calc(8px + env(safe-area-inset-bottom, 0px));
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-single-action-bar .mobile-action-primary {
+  min-height: 44px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shell.has-action-bar {
+  padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+}

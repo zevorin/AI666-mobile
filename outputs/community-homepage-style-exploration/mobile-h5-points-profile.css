@@ -1,0 +1,1781 @@
+/* Points center V2 — calm type hierarchy and compact mobile rhythm. */
+body[data-mobile-page="points"] {
+  --mobile-points-type-caption: var(--ds-type-caption);
+  --mobile-points-type-support: var(--ds-type-caption);
+  --mobile-points-type-body: var(--ds-type-reading);
+  --mobile-points-type-card: var(--ds-type-card-title);
+  --mobile-points-type-section: var(--ds-type-section-title);
+  font-family: var(--ds-font-body);
+  font-optical-sizing: auto;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body[data-mobile-page="points"] .mobile-topbar .mobile-page-title {
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity 180ms ease-out, transform 180ms ease-out;
+}
+
+
+
+body[data-mobile-page="points"] .mobile-points-content {
+  gap: 12px;
+}
+
+body[data-mobile-page="points"] .mobile-points-heading {
+  min-height: 86px;
+  gap: 16px;
+  padding: 10px 2px 12px;
+}
+
+
+
+body[data-mobile-page="points"] .mobile-points-heading > div > span {
+  font-family: var(--ds-font-display);
+  font-size: var(--mobile-font-min);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.16em;
+}
+
+body[data-mobile-page="points"] .mobile-points-heading h2 {
+  font-family: var(--ds-font-body);
+  font-size: clamp(1.75rem, 8vw, 2rem);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.035em;
+}
+
+body[data-mobile-page="points"] .mobile-points-heading p {
+  margin-top: 2px;
+  font-size: var(--mobile-points-type-body);
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+body[data-mobile-page="points"] .mobile-points-heading > a {
+  width: 44px;
+  height: 44px;
+  flex-basis: 44px;
+}
+
+body[data-mobile-page="points"] .mobile-points-content .mobile-points-hero {
+  min-height: 218px;
+  padding: 19px 20px 18px;
+  border-radius: 22px;
+}
+
+body[data-mobile-page="points"] .mobile-points-balance-head {
+  min-width: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+body[data-mobile-page="points"] .mobile-points-balance-head > span:first-child {
+  flex: 0 0 auto;
+  font-size: var(--mobile-points-type-body);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+body[data-mobile-page="points"] .mobile-points-balance-head > span:last-child {
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--mobile-font-min);
+  line-height: 1.35;
+  letter-spacing: 0.11em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-mobile-page="points"] .mobile-points-content .mobile-points-hero > strong {
+  margin: 7px 0 19px;
+  font-size: clamp(3.25rem, 15vw, 3.75rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+body[data-mobile-page="points"] .mobile-points-stats {
+  padding-top: 14px;
+}
+
+body[data-mobile-page="points"] .mobile-points-stats > span {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 4px;
+  padding: 0 12px;
+}
+
+body[data-mobile-page="points"] .mobile-points-stats i {
+  display: none;
+}
+
+body[data-mobile-page="points"] .mobile-points-stats small {
+  font-size: var(--mobile-points-type-support);
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+body[data-mobile-page="points"] .mobile-points-stats b {
+  font-family: var(--ds-font-body);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-card {
+  min-height: 150px;
+  border-radius: 22px;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-copy {
+  min-height: 150px;
+  padding: 17px 20px;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-copy small {
+  font-family: var(--ds-font-body);
+  font-size: var(--mobile-points-type-caption);
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: 0.04em;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-copy strong {
+  margin-top: 4px;
+  font-size: 1.1875rem;
+  font-weight: 650;
+  line-height: 1.28;
+  letter-spacing: -0.025em;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-copy b,
+body[data-mobile-page="points"] .mobile-points-earn-copy > b {
+  min-height: 34px;
+  margin-top: 12px;
+  padding-inline: 13px;
+  font-size: var(--mobile-points-type-body);
+  font-weight: 650;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn {
+  margin-top: 10px;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn .mobile-section-heading {
+  min-height: 44px;
+  margin-bottom: 10px;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn .mobile-section-heading h2 {
+  font-size: var(--mobile-points-type-section);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn .mobile-section-heading h2 small {
+  margin-left: 5px;
+  font-size: var(--mobile-font-min);
+  font-weight: 700;
+  letter-spacing: 0.11em;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn .mobile-section-heading > a {
+  font-size: var(--mobile-points-type-body);
+  font-weight: 500;
+}
+
+
+
+body[data-mobile-page="points"] .mobile-points-earn-featured {
+  min-height: 166px;
+  border-radius: 22px;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-copy {
+  width: 54%;
+  min-height: 166px;
+  padding: 16px 0 16px 18px;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-copy .mobile-points-earn-icon {
+  top: 15px;
+  width: 28px;
+  height: 28px;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-copy .mobile-points-earn-icon .mobile-icon {
+  width: 14px;
+  height: 14px;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-copy > small {
+  margin-top: 18px;
+  font-size: var(--mobile-points-type-caption);
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: 0.03em;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-copy > strong {
+  margin-top: 3px;
+  font-size: var(--mobile-points-type-card);
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-copy > em {
+  margin-top: 4px;
+  font-size: var(--mobile-points-type-support);
+  line-height: 1.35;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-copy > b {
+  margin-top: 10px;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-secondary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 247, 230, 0.11);
+  border-radius: 20px;
+  background: rgba(7, 10, 14, 0.70);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045), 0 14px 34px rgba(0, 0, 0, 0.20);
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-secondary > a {
+  min-height: 76px;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 20px;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-secondary > a + a {
+  border-top: 1px solid rgba(255, 247, 230, 0.09);
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-secondary > a > span:nth-child(2) {
+  gap: 3px;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-secondary strong {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-secondary small {
+  font-size: var(--mobile-points-type-support);
+  line-height: 1.35;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-secondary .mobile-menu-arrow {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: center;
+  justify-self: end;
+}
+
+body[data-mobile-page="points"] :is(
+  .mobile-points-heading > a,
+  .mobile-points-store-card,
+  .mobile-points-earn-featured,
+  .mobile-points-earn-secondary > a
+) {
+  transition: filter 110ms ease-out, transform 110ms ease-out;
+}
+
+body[data-mobile-page="points"] :is(
+  .mobile-points-heading > a,
+  .mobile-points-store-card,
+  .mobile-points-earn-featured,
+  .mobile-points-earn-secondary > a
+):active {
+  filter: brightness(0.9);
+  transform: scale(0.98);
+}
+
+body[data-mobile-page="points"] :is(
+  .mobile-points-heading > a,
+  .mobile-points-store-card,
+  .mobile-points-earn-featured,
+  .mobile-points-earn-secondary > a
+):focus-visible {
+  outline: 2px solid var(--mobile-points-gold);
+  outline-offset: 3px;
+}
+
+@keyframes mobile-points-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 374px) {
+  body[data-mobile-page="points"] .mobile-points-content .mobile-points-hero {
+    min-height: 210px;
+    padding-inline: 16px;
+  }
+
+  body[data-mobile-page="points"] .mobile-points-stats > span {
+    padding-inline: 8px;
+  }
+
+  body[data-mobile-page="points"] .mobile-points-earn-secondary > a {
+    padding-inline: 14px;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  body[data-mobile-page="points"] :is(
+    .mobile-topbar.is-scrolled,
+    .mobile-points-heading > a,
+    .mobile-points-hero,
+    .mobile-points-earn-featured,
+    .mobile-points-earn-secondary
+  ) {
+    background-color: #090c10;
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  body[data-mobile-page="points"] :is(
+    .mobile-points-heading > a,
+    .mobile-points-hero,
+    .mobile-points-store-card,
+    .mobile-points-earn-featured,
+    .mobile-points-earn-secondary
+  ) {
+    border-color: rgba(255, 250, 240, 0.42);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-mobile-page="points"] .mobile-topbar .mobile-page-title,
+  body[data-mobile-page="points"] :is(
+    .mobile-points-heading > a,
+    .mobile-points-store-card,
+    .mobile-points-earn-featured,
+    .mobile-points-earn-secondary > a
+  ) {
+    transition: none;
+  }
+}
+
+/* Shared tabbar V35: pin the navigation to the visual viewport. */
+body.mobile-h5-body .mobile-bottom-nav {
+  position: fixed !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  z-index: 1000;
+  width: min(100vw, 480px);
+  margin: 0;
+  transform: translate3d(-50%, 0, 0);
+  will-change: transform;
+}
+
+body.mobile-h5-body .mobile-shell.has-bottom-nav {
+  padding-bottom: calc(var(--mobile-tabbar-height) + env(safe-area-inset-bottom, 0px) + 26px);
+}
+
+/* Create menu V36: rotate the fixed center icon and remove decorative outlines. */
+.mobile-nav-create .mobile-nav-create-icon,
+.mobile-nav-create.is-menu-open .mobile-nav-create-icon {
+  transform: translateX(-50%) !important;
+}
+
+.mobile-nav-create.is-menu-open .mobile-nav-ai-image {
+  transform: rotate(135deg);
+}
+
+.mobile-create-action-panel {
+  padding-bottom: calc(var(--mobile-tabbar-height) + env(safe-area-inset-bottom, 0px) + 16px);
+  border: 0;
+}
+
+.mobile-create-action-option,
+button.mobile-create-action-option,
+.mobile-create-action-option:active {
+  min-height: 168px;
+  border: 0;
+}
+
+.mobile-create-action-option > .mobile-create-action-copy {
+  margin-top: 12px;
+}
+
+/* Create menu V37: opening the sheet must not alter tabbar geometry. */
+body.mobile-h5-body.is-create-menu-open {
+  overflow: visible;
+  overscroll-behavior: none;
+}
+
+.mobile-create-action-sheet,
+.mobile-create-action-sheet .mobile-sheet-backdrop {
+  overscroll-behavior: contain;
+}
+
+.mobile-create-action-sheet .mobile-sheet-backdrop {
+  touch-action: none;
+}
+
+.mobile-nav-create.is-menu-open .mobile-nav-create-icon {
+  top: -10px;
+  left: 50%;
+  width: 42px;
+  height: 42px;
+  border: 1.5px solid #e4a32c;
+  background: #11171b;
+  box-shadow:
+    0 0 10px rgba(228, 163, 44, 0.48),
+    inset 0 0 12px rgba(0, 0, 0, 0.58),
+    0 10px 24px rgba(0, 0, 0, 0.42);
+}
+
+.mobile-bottom-nav.is-create-menu-open {
+  bottom: 0 !important;
+  left: 50% !important;
+  width: min(100vw, 480px);
+  transform: translate3d(-50%, 0, 0);
+}
+
+/* Create menu V38: cover the page and reduce the tabbar to the close control. */
+.mobile-create-action-sheet {
+  z-index: 900;
+}
+
+.mobile-bottom-nav::before,
+.mobile-bottom-nav::after,
+.mobile-bottom-nav .mobile-nav-item:not(.mobile-nav-create),
+.mobile-nav-create > span:last-child {
+  transition: opacity 160ms ease, visibility 160ms ease;
+}
+
+body.mobile-h5-body .mobile-bottom-nav.is-create-menu-open::before,
+body.mobile-h5-body .mobile-bottom-nav.is-create-menu-open::after,
+body.mobile-h5-body .mobile-bottom-nav.is-create-menu-open .mobile-nav-item:not(.mobile-nav-create),
+body.mobile-h5-body .mobile-bottom-nav.is-create-menu-open .mobile-nav-create > span:last-child {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.mobile-bottom-nav.is-create-menu-open .mobile-nav-create {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Create menu V39: coordinated open and close motion. */
+body.mobile-h5-body .mobile-create-action-sheet {
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 220ms ease-out,
+    visibility 0s linear 380ms !important;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet.is-open {
+  visibility: visible;
+  opacity: 1;
+  transition:
+    opacity 220ms ease-out,
+    visibility 0s linear 0s !important;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet .mobile-sheet-backdrop {
+  opacity: 0;
+  transition: opacity 240ms ease-out !important;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet.is-open .mobile-sheet-backdrop {
+  opacity: 1;
+}
+
+body.mobile-h5-body .mobile-create-action-panel {
+  opacity: 0.82;
+  transform: translateY(54px) scale(0.985);
+  transform-origin: 50% 100%;
+  transition:
+    transform 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 220ms ease-out !important;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet.is-open .mobile-create-action-panel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+body.mobile-h5-body .mobile-create-action-option,
+body.mobile-h5-body button.mobile-create-action-option {
+  opacity: 0;
+  transform: translateY(26px) scale(0.94);
+  transition:
+    transform 340ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 190ms ease-out !important;
+  transition-delay: 0ms !important;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet.is-open .mobile-create-action-option {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 70ms !important;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet.is-open .mobile-create-action-option.is-flash {
+  transition-delay: 120ms !important;
+}
+
+body.mobile-h5-body .mobile-nav-create .mobile-nav-ai-image {
+  transition: transform 360ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body.mobile-h5-body .mobile-bottom-nav::before,
+body.mobile-h5-body .mobile-bottom-nav .mobile-nav-item,
+body.mobile-h5-body .mobile-nav-create > span:last-child {
+  transition: opacity 160ms ease, visibility 160ms ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-create-action-sheet,
+  .mobile-create-action-sheet .mobile-sheet-backdrop,
+  .mobile-create-action-panel,
+  .mobile-create-action-option,
+  .mobile-nav-create .mobile-nav-ai-image,
+  .mobile-bottom-nav::before,
+  .mobile-bottom-nav::after,
+  .mobile-bottom-nav .mobile-nav-item,
+  .mobile-nav-create > span:last-child {
+    transition: none !important;
+  }
+}
+
+/* Activity participation menu — follows the home AI creation menu without the tabbar close affordance. */
+body.mobile-h5-body .mobile-participation-choice-sheet {
+  z-index: 920;
+}
+
+body.mobile-h5-body.is-participation-sheet-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body.mobile-h5-body .mobile-participation-choice-panel {
+  padding: 20px 16px calc(20px + env(safe-area-inset-bottom, 0px));
+  border-color: rgba(255, 250, 240, 0.12);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(244, 201, 93, 0.10), transparent 38%),
+    #0d1013;
+}
+
+.mobile-participation-choice-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding: 0 2px;
+}
+
+.mobile-participation-choice-head > div {
+  min-width: 0;
+}
+
+.mobile-participation-choice-head span {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--ds-gold);
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+}
+
+.mobile-participation-choice-head h2 {
+  margin: 0;
+  color: var(--ds-text);
+  font-size: 21px;
+  font-weight: 650;
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+}
+
+.mobile-participation-choice-head p {
+  margin: 7px 0 0;
+  color: rgba(255, 250, 240, 0.50);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.mobile-participation-choice-close {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255, 250, 240, 0.11);
+  border-radius: 50%;
+  color: var(--ds-text-muted);
+  background: rgba(255, 255, 255, 0.045);
+  cursor: pointer;
+}
+
+.mobile-participation-choice-close .mobile-icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.72;
+}
+
+.mobile-participation-choice-panel .mobile-create-action-option,
+.mobile-participation-choice-panel button.mobile-create-action-option {
+  min-height: 176px;
+}
+
+.mobile-participation-choice-foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 14px 0 0;
+  color: rgba(255, 250, 240, 0.46);
+  font-size: 10px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.mobile-participation-choice-foot .mobile-icon {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  filter: var(--mobile-icon-gold-filter);
+  opacity: 0.72;
+}
+
+@media (max-width: 374px) {
+  body.mobile-h5-body .mobile-participation-choice-panel {
+    padding: 18px 12px calc(16px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mobile-participation-choice-head {
+    margin-bottom: 14px;
+  }
+
+  .mobile-participation-choice-head h2 {
+    font-size: 20px;
+  }
+
+  .mobile-participation-choice-panel .mobile-create-action-option,
+  .mobile-participation-choice-panel button.mobile-create-action-option {
+    min-height: 164px;
+  }
+
+  .mobile-participation-choice-panel .mobile-create-action-generated-icon,
+  .mobile-participation-choice-panel .mobile-create-action-option > .mobile-create-action-art {
+    width: 64px;
+    height: 64px;
+    flex-basis: 64px;
+  }
+}
+
+/* Points center V3 final cascade lock. */
+body[data-mobile-page="points"] .mobile-topbar-detail {
+  grid-template-columns: 44px minmax(0, 1fr) 64px;
+}
+
+body[data-mobile-page="points"] .mobile-topbar .mobile-page-title,
+body[data-mobile-page="points"] .mobile-topbar.is-scrolled .mobile-page-title {
+  opacity: 1;
+  transform: none;
+}
+
+body[data-mobile-page="points"] .mobile-points-content {
+  gap: 12px;
+  padding: 12px var(--mobile-side) 48px;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-card {
+  min-height: 148px;
+  border-color: rgba(170, 135, 255, 0.22);
+  border-radius: 22px;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-art {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-copy {
+  min-height: 148px;
+  padding: 16px 20px;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn {
+  margin-top: 8px;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-featured,
+body[data-mobile-page="points"] .mobile-points-earn-copy {
+  min-height: 164px;
+}
+
+/* Points center V4 — repetition, alignment and proximity refinement. */
+body[data-mobile-page="points"] .mobile-topbar,
+body[data-mobile-page="points"] .mobile-topbar.is-scrolled {
+  border: 0;
+  box-shadow: none;
+}
+
+body[data-mobile-page="points"] .mobile-topbar {
+  background: rgba(0, 2, 4, 0.18);
+}
+
+body[data-mobile-page="points"] .mobile-topbar.is-scrolled {
+  background: rgba(0, 2, 4, 0.9);
+}
+
+body[data-mobile-page="points"] :is(
+  .mobile-points-overview-card,
+  .mobile-points-store-card,
+  .mobile-points-earn-featured,
+  .mobile-points-earn-secondary
+) {
+  border-radius: 22px;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-art {
+  object-position: 58% 50%;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-copy {
+  justify-content: center;
+  padding-left: 20px;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-copy small {
+  margin: 0;
+  letter-spacing: 0.06em;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-copy strong {
+  margin-top: 5px;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-copy b {
+  min-height: 34px;
+  margin-top: 14px;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn .mobile-section-heading {
+  margin-bottom: 10px;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-copy {
+  width: 54%;
+  padding-left: 20px;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-copy .mobile-points-earn-icon {
+  left: 20px;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn-copy > b {
+  min-height: 34px;
+}
+
+/* Points center V5 — borderless cards and balanced topbar alignment. */
+body[data-mobile-page="points"] .mobile-topbar-detail {
+  grid-template-columns: 64px minmax(0, 1fr) 64px;
+  align-items: center;
+}
+
+body[data-mobile-page="points"] .mobile-topbar-detail > .mobile-back-button,
+body[data-mobile-page="points"] .mobile-points-detail-link {
+  justify-self: center;
+  margin-bottom: 0;
+}
+
+body[data-mobile-page="points"] .mobile-points-detail-link {
+  justify-content: center;
+}
+
+body[data-mobile-page="points"] .mobile-points-balance {
+  min-height: 124px;
+}
+
+body[data-mobile-page="points"] .mobile-points-balance > strong {
+  font-size: clamp(3rem, 14vw, 3.55rem);
+}
+
+body[data-mobile-page="points"] :is(
+  .mobile-points-overview-card,
+  .mobile-points-store-card,
+  .mobile-points-earn-featured,
+  .mobile-points-earn-secondary
+) {
+  border: 0;
+}
+
+body[data-mobile-page="points"] .mobile-points-overview-card {
+  background: rgba(8, 10, 13, 0.96);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+  backdrop-filter: none;
+}
+
+/* Points center V6 — remove the overlapping new-user icon and its reserved gap. */
+
+
+/* Points center V7 — quieter actions and a clearer three-column overview. */
+body[data-mobile-page="points"] .mobile-points-overview-card {
+  padding: 16px 8px;
+}
+
+body[data-mobile-page="points"] .mobile-points-overview-item {
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  gap: 6px 6px;
+  padding: 0 8px;
+  text-align: center;
+}
+
+body[data-mobile-page="points"] .mobile-points-overview-icon {
+  grid-row: 1;
+  grid-column: 1;
+  width: 22px;
+  height: 22px;
+  align-self: center;
+}
+
+body[data-mobile-page="points"] .mobile-points-overview-icon .mobile-icon {
+  width: 12px;
+  height: 12px;
+}
+
+body[data-mobile-page="points"] .mobile-points-overview-item small {
+  grid-row: 1;
+  grid-column: 2;
+  align-self: center;
+}
+
+body[data-mobile-page="points"] .mobile-points-overview-item > strong {
+  grid-row: 2;
+  grid-column: 1 / -1;
+  justify-self: center;
+  font-size: 1.0625rem;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-art {
+  object-position: 50% 50%;
+  transform: translateX(14px) scale(1.01);
+  transform-origin: center;
+}
+
+body[data-mobile-page="points"] .mobile-points-earn .mobile-section-heading h2::before {
+  display: none;
+}
+
+body[data-mobile-page="points"] .mobile-points-store-copy b,
+body[data-mobile-page="points"] .mobile-points-earn-copy > b {
+  gap: 0;
+  padding-inline: 15px;
+}
+
+/* Personal center V43 final overrides. */
+body[data-mobile-page="my"] .mobile-my-redesign {
+  gap: 22px;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-stats {
+  min-height: 0;
+  padding: 14px 0;
+  border-color: rgba(255, 255, 255, 0.075);
+  box-shadow: none;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-stats a {
+  gap: 5px;
+  padding: 3px;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-stats a + a::before {
+  top: 7px;
+  bottom: 7px;
+  background: rgba(255, 255, 255, 0.075);
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-stats strong {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei UI", sans-serif;
+  font-size: 25px;
+  font-weight: 620;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-stats span {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-section {
+  gap: 12px;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-content-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-stack {
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-benefits {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+
+body[data-mobile-page="my"] :is(.mobile-my-redesign-card, .mobile-my-works-card, .mobile-my-small-card, .mobile-my-benefit-redesign) {
+  min-height: 96px;
+  height: auto;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 26px;
+  align-items: center;
+  gap: 11px;
+  padding: 12px;
+  border-color: rgba(255, 255, 255, 0.075);
+  border-radius: 14px;
+  background: #151616;
+  box-shadow: none;
+}
+
+body[data-mobile-page="my"] :is(.mobile-my-redesign-art, .mobile-my-works-art, .mobile-my-small-card .mobile-my-redesign-art, .mobile-my-benefit-redesign .mobile-my-redesign-art) {
+  width: 64px;
+  height: 64px;
+  margin: 0;
+  overflow: visible;
+}
+
+body[data-mobile-page="my"] :is(.mobile-my-redesign-art img, .mobile-my-works-art img) {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: contain;
+}
+
+body[data-mobile-page="my"] :is(.mobile-my-redesign-card-copy, .mobile-my-small-card .mobile-my-redesign-card-copy, .mobile-my-benefit-redesign .mobile-my-redesign-card-copy) {
+  min-width: 0;
+  padding: 0;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-card-copy strong {
+  font-size: 15px;
+  line-height: 21px;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-card-copy small {
+  font-size: 11px;
+  line-height: 16px;
+}
+
+body[data-mobile-page="my"] :is(.mobile-my-redesign-arrow, .mobile-my-works-card .mobile-my-redesign-arrow, .mobile-my-small-card .mobile-my-redesign-arrow, .mobile-my-benefit-redesign .mobile-my-redesign-arrow) {
+  position: static;
+  width: 26px;
+  height: 26px;
+  align-self: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-arrow .mobile-icon {
+  width: 17px;
+  height: 17px;
+  opacity: 0.56;
+}
+
+body[data-mobile-page="my"] .mobile-my-works-card {
+  min-height: 0;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+}
+
+body[data-mobile-page="my"] .mobile-my-works-card .mobile-my-works-art {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  overflow: visible;
+  margin: 0;
+}
+
+body[data-mobile-page="my"] .mobile-my-works-card .mobile-my-works-art img {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body[data-mobile-page="my"] .mobile-my-works-card .mobile-my-redesign-arrow {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+}
+
+body[data-mobile-page="my"] .mobile-my-small-card {
+  min-height: 0;
+  height: 96px;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  padding: 12px 10px 12px 5px;
+}
+
+body[data-mobile-page="my"] .mobile-my-small-card .mobile-my-redesign-art {
+  width: 64px;
+  height: 64px;
+}
+
+body[data-mobile-page="my"] .mobile-my-small-card .mobile-my-redesign-card-copy small {
+  max-width: calc(100% - 28px);
+}
+
+body[data-mobile-page="my"] .mobile-my-small-card .mobile-my-redesign-arrow {
+  position: absolute;
+  right: 11px;
+  bottom: 16px;
+}
+
+/* Personal center content tiles: restrained dark editorial bento. */
+body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-redesign-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #16191b;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035), 0 12px 28px rgba(3, 7, 10, 0.22);
+  transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), border-color 180ms ease, background-color 180ms ease;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-works-card {
+  position: relative;
+  display: block;
+  padding: 16px;
+  background: #16191b;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-works-card .mobile-my-works-art {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-small-card {
+  position: relative;
+  display: block;
+  padding: 14px;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-stack .mobile-my-small-card:first-child {
+  background: #16191b;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-stack .mobile-my-small-card:last-child {
+  background: #16191b;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-small-card .mobile-my-redesign-art {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-redesign-card-copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 2px;
+  max-width: calc(100% - 42px);
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-works-card .mobile-my-redesign-card-copy {
+  max-width: calc(100% - 42px);
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-redesign-card-copy strong {
+  color: #f5f5f2;
+  font-size: 16px;
+  font-weight: 740;
+  line-height: 22px;
+  letter-spacing: -0.03em;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-redesign-card-copy small {
+  max-width: 100%;
+  color: rgba(245, 245, 242, 0.48);
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-stack .mobile-my-small-card:last-child .mobile-my-redesign-card-copy strong {
+  color: #f5f5f2;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-stack .mobile-my-small-card:last-child .mobile-my-redesign-card-copy small {
+  color: rgba(245, 245, 242, 0.48);
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-redesign-arrow {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  bottom: auto;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(243, 198, 0, 0.18);
+  background: rgba(243, 198, 0, 0.09);
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-redesign-arrow .mobile-icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.9;
+  filter: brightness(0) saturate(100%) invert(78%) sepia(95%) saturate(1195%) hue-rotate(357deg) brightness(102%) contrast(103%);
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-small-card .mobile-my-redesign-arrow {
+  top: auto;
+  right: auto;
+  bottom: 8px;
+  left: 14px;
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-redesign-art img {
+  filter: drop-shadow(0 8px 10px rgba(4, 8, 11, 0.28));
+}
+
+@media (hover: hover) {
+  body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-redesign-card:hover {
+    border-color: rgba(243, 198, 0, 0.24);
+    background: #1a1d1f;
+    transform: translateY(-1px);
+  }
+}
+
+body[data-mobile-page="my"] .mobile-my-redesign .mobile-my-profile-action {
+  border-color: rgba(255, 255, 255, 0.075);
+  box-shadow: none;
+}
+
+@media (max-width: 374px) {
+  body[data-mobile-page="my"] :is(.mobile-my-redesign-card, .mobile-my-works-card, .mobile-my-small-card, .mobile-my-benefit-redesign) {
+    grid-template-columns: 58px minmax(0, 1fr) 24px;
+    gap: 9px;
+    padding: 11px;
+  }
+
+  body[data-mobile-page="my"] :is(.mobile-my-redesign-art, .mobile-my-works-art, .mobile-my-small-card .mobile-my-redesign-art, .mobile-my-benefit-redesign .mobile-my-redesign-art) {
+    width: 58px;
+    height: 58px;
+  }
+
+  body[data-mobile-page="my"] .mobile-my-works-card {
+    height: 200px;
+    padding: 11px;
+  }
+
+  body[data-mobile-page="my"] .mobile-my-works-card .mobile-my-works-art {
+    width: 58px;
+    height: 58px;
+    flex-basis: 58px;
+    margin: 0;
+  }
+
+  body[data-mobile-page="my"] .mobile-my-small-card {
+    height: 96px;
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 7px;
+    padding: 11px 9px 11px 5px;
+  }
+
+  body[data-mobile-page="my"] .mobile-my-small-card .mobile-my-redesign-art {
+    width: 58px;
+    height: 58px;
+  }
+
+  body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-works-card {
+    padding: 14px;
+  }
+
+  body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-works-card .mobile-my-works-art {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-small-card {
+    padding: 12px;
+  }
+
+  body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-small-card .mobile-my-redesign-art {
+    right: 10px;
+    bottom: 8px;
+  }
+
+  body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-redesign-arrow {
+    top: 12px;
+    right: 12px;
+  }
+
+  body[data-mobile-page="my"] .mobile-my-redesign-content-grid .mobile-my-small-card .mobile-my-redesign-arrow {
+    top: auto;
+    right: auto;
+    bottom: 8px;
+    left: 12px;
+  }
+}
+
+/*
+ * Canonical mobile typography contract — 2026-08-25
+ *
+ * This is the final compatibility layer for the existing 24 H5 pages. New
+ * components should use the semantic utilities below instead of adding a new
+ * pixel value. The approved homepage TabBar label (11px) is the hard minimum;
+ * reading copy and ordinary supporting text intentionally start larger.
+ */
+body.mobile-h5-body {
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-type-reading);
+  font-weight: var(--ds-weight-regular);
+  line-height: var(--ds-leading-body);
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+.mobile-type-min,
+.mobile-type-caption,
+.mobile-type-meta,
+.mobile-type-body,
+.mobile-type-label,
+.mobile-type-emphasis,
+.mobile-type-card-title,
+.mobile-type-nav-title,
+.mobile-type-section-title,
+.mobile-type-page-title,
+.mobile-type-hero-title,
+.mobile-type-number {
+  margin: 0;
+  font-family: var(--ds-font-body);
+}
+
+.mobile-type-min {
+  font-size: var(--ds-type-min);
+  font-weight: var(--ds-weight-medium);
+  line-height: var(--ds-leading-min);
+}
+
+.mobile-type-caption {
+  color: var(--ds-text-tertiary);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+.mobile-type-meta {
+  color: var(--ds-text-secondary);
+  font-size: var(--ds-type-meta);
+  line-height: var(--ds-leading-meta);
+}
+
+.mobile-type-body {
+  color: var(--ds-text-secondary);
+  font-size: var(--ds-type-reading);
+  line-height: var(--ds-leading-body);
+}
+
+.mobile-type-label {
+  font-size: var(--ds-type-label);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-control);
+  letter-spacing: var(--ds-tracking-label);
+}
+
+.mobile-type-emphasis {
+  font-size: var(--ds-type-emphasis);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-emphasis);
+}
+
+.mobile-type-card-title {
+  font-size: var(--ds-type-card-title);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-card-title);
+  letter-spacing: var(--ds-tracking-card-title);
+}
+
+.mobile-type-nav-title {
+  font-size: var(--ds-type-nav-title);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-nav-title);
+  letter-spacing: var(--ds-tracking-nav-title);
+}
+
+.mobile-type-section-title {
+  font-size: var(--ds-type-section-title);
+  font-weight: var(--ds-weight-bold);
+  line-height: var(--ds-leading-section-title);
+  letter-spacing: var(--ds-tracking-section-title);
+}
+
+.mobile-type-page-title {
+  font-size: var(--ds-type-page-title);
+  font-weight: var(--ds-weight-bold);
+  line-height: var(--ds-leading-page-title);
+  letter-spacing: var(--ds-tracking-page-title);
+}
+
+.mobile-type-hero-title {
+  font-size: var(--ds-type-hero-title);
+  font-weight: var(--ds-weight-bold);
+  line-height: var(--ds-leading-hero-title);
+  letter-spacing: var(--ds-tracking-hero-title);
+}
+
+.mobile-type-number {
+  font-family: var(--ds-font-display);
+  font-size: var(--ds-type-number);
+  font-weight: var(--ds-weight-bold);
+  line-height: var(--ds-leading-number);
+  letter-spacing: var(--ds-tracking-number);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Reading copy: one consistent rhythm across detail, form, state and card pages. */
+body.mobile-h5-body :is(
+  .mobile-detail-body,
+  .mobile-detail-copy > p,
+  .mobile-form-heading > p,
+  .mobile-generation-copy > p,
+  .mobile-result-destination-note,
+  .mobile-exchange-result-note,
+  .mobile-exchange-sheet-note,
+  .mobile-rule-card > p,
+  .mobile-campaign-note,
+  .mobile-comment-copy > p,
+  .mobile-flash-post-card > p,
+  .mobile-create-turn > p,
+  .mobile-prompt-card > p,
+  .mobile-empty-filter > p
+) {
+  color: var(--ds-text-secondary);
+  font-size: var(--ds-type-reading);
+  font-weight: var(--ds-weight-regular);
+  line-height: var(--ds-leading-body);
+  letter-spacing: 0;
+}
+
+/* Supporting copy: descriptions, time, progress, helper and secondary labels. */
+body.mobile-h5-body :is(
+  small,
+  .mobile-brand-copy small,
+  .mobile-work-copy > p,
+  .mobile-feed-author-copy small,
+  .mobile-author-copy small,
+  .mobile-community-author small,
+  .mobile-community-feature-meta,
+  .mobile-community-hot-meta,
+  .mobile-community-meta-row,
+  .mobile-create-composer-meta,
+  .mobile-create-empty-modes,
+  .mobile-create-source small,
+  .mobile-create-task-status,
+  .mobile-exchange-record-meta,
+  .mobile-exchange-record-note,
+  .mobile-field-error,
+  .mobile-flash-post-head > span,
+  .mobile-flash-post-meta,
+  .mobile-growth-tasks,
+  .mobile-history-state,
+  .mobile-inline-generation-foot,
+  .mobile-message-list time,
+  .mobile-my-redesign-card-copy small,
+  .mobile-points-row time,
+  .mobile-profile-copy small,
+  .mobile-task-row p
+) {
+  font-size: var(--ds-type-caption);
+  font-weight: var(--ds-weight-regular);
+  line-height: var(--ds-leading-caption);
+  letter-spacing: 0;
+}
+
+/* Control copy: buttons, tabs, chips, fields and tappable rows. */
+body.mobile-h5-body :is(
+  .mobile-button,
+  .mobile-action-primary,
+  .mobile-chip,
+  .mobile-community-module-tab,
+  .mobile-community-tab,
+  .mobile-field > span,
+  .mobile-filter-tab,
+  .mobile-follow-button,
+  .mobile-form-action-bar button,
+  .mobile-invite-action-row,
+  .mobile-points-filter button,
+  .mobile-secondary-tabs button,
+  .mobile-sheet-action,
+  .mobile-top-link
+) {
+  font-size: var(--ds-type-label);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-control);
+  letter-spacing: var(--ds-tracking-label);
+}
+
+body.mobile-h5-body :is(input, textarea, select) {
+  font-size: var(--ds-type-reading);
+  font-weight: var(--ds-weight-regular);
+  line-height: var(--ds-leading-body);
+}
+
+/* Functional navigation title. */
+body.mobile-h5-body .mobile-topbar-detail > .mobile-page-title {
+  color: var(--ds-text-primary);
+  font-size: var(--ds-type-nav-title);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-nav-title);
+  letter-spacing: var(--ds-tracking-nav-title);
+}
+
+/* Page, section and card hierarchy. */
+body.mobile-h5-body :is(
+  .mobile-page-heading-simple h1,
+  .mobile-create-workspace-title h1,
+  .mobile-create-intro h1,
+  .mobile-form-heading h1
+) {
+  color: var(--ds-text-primary);
+  font-size: var(--ds-type-page-title);
+  font-weight: var(--ds-weight-bold);
+  line-height: var(--ds-leading-page-title);
+  letter-spacing: var(--ds-tracking-page-title);
+}
+
+body.mobile-h5-body :is(
+  .mobile-section-heading h1,
+  .mobile-section-heading h2,
+  .mobile-community-recommend-head h2,
+  .mobile-home-featured-heading h1,
+  .mobile-profile-section-heading h2,
+  .mobile-result-details h2,
+  .mobile-walkthrough-head h2
+) {
+  color: var(--ds-text-primary);
+  font-size: var(--ds-type-section-title);
+  font-weight: var(--ds-weight-bold);
+  line-height: var(--ds-leading-section-title);
+  letter-spacing: var(--ds-tracking-section-title);
+}
+
+body.mobile-h5-body :is(
+  .mobile-activity-title-row h3,
+  .mobile-card-title,
+  .mobile-comment-copy strong,
+  .mobile-community-card-copy h3,
+  .mobile-community-tutorial-row strong,
+  .mobile-create-action-copy strong,
+  .mobile-create-mode-copy strong,
+  .mobile-create-settings-copy strong,
+  .mobile-entry-card h3,
+  .mobile-exchange-card h3,
+  .mobile-feed-copy h3,
+  .mobile-history-copy strong,
+  .mobile-menu-card strong,
+  .mobile-message-list strong,
+  .mobile-model-card-copy strong,
+  .mobile-my-redesign-card-copy strong,
+  .mobile-points-row strong,
+  .mobile-profile-copy strong,
+  .mobile-quick-card h3,
+  .mobile-task-row h3,
+  .mobile-work-copy h3
+) {
+  color: var(--ds-text-primary);
+  font-size: var(--ds-type-card-title);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-card-title);
+  letter-spacing: var(--ds-tracking-card-title);
+}
+
+/* Hero and expressive display copy. Campaign artwork may keep its own art type. */
+body.mobile-h5-body :is(
+  .mobile-banner-copy h2,
+  .mobile-campaign-copy h1,
+  .mobile-detail-copy h1,
+  .mobile-hero-copy h1,
+  .mobile-invite-intro h1,
+  .mobile-points-heading h2,
+  .mobile-task-hero h1
+) {
+  font-size: var(--ds-type-hero-title);
+  font-weight: var(--ds-weight-bold);
+  line-height: var(--ds-leading-hero-title);
+  letter-spacing: var(--ds-tracking-hero-title);
+}
+
+body.mobile-h5-body :is(
+  .mobile-generation-stage > strong,
+  .mobile-invite-reward strong,
+  .mobile-my-redesign-stats strong,
+  .mobile-points-balance > strong,
+  .mobile-points-hero > strong,
+  .mobile-points-record-summary strong
+) {
+  font-family: var(--ds-font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Minimum-size roles. 11px is intentionally limited to dense, non-reading UI. */
+body.mobile-h5-body :is(
+  .mobile-activity-status,
+  .mobile-community-feature-eyebrow,
+  .mobile-community-topic,
+  .mobile-kicker,
+  .mobile-media-badge,
+  .mobile-nav-item,
+  .mobile-nav-create > span:last-child,
+  .mobile-nav-create.is-active > span:last-child,
+  .mobile-task-reward
+) {
+  font-size: var(--ds-type-min);
+  line-height: var(--ds-leading-min);
+}
+
+@media (max-width: 374px) {
+  body.mobile-h5-body :is(
+    .mobile-page-heading-simple h1,
+    .mobile-create-workspace-title h1,
+    .mobile-create-intro h1,
+    .mobile-form-heading h1
+  ) {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  body.mobile-h5-body :is(
+    .mobile-section-heading h1,
+    .mobile-section-heading h2,
+    .mobile-community-recommend-head h2,
+    .mobile-home-featured-heading h1,
+    .mobile-profile-section-heading h2
+  ) {
+    font-size: 18px;
+    line-height: 26px;
+  }
+}
+
+/* Home brand and Web curation parity V52: compact shortcut-to-heading spacing. */
+body[data-mobile-page="home"] .mobile-home-brand {
+  height: 68px;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 8px;
+}
+
+body[data-mobile-page="home"] .mobile-home-featured {
+  margin-top: 24px;
+}
+
+body[data-mobile-page="home"] .mobile-home-shortcut-icon,
+body[data-mobile-page="home"] .mobile-home-shortcuts > a.is-create .mobile-home-shortcut-icon {
+  top: -19px;
+  width: 50px;
+  height: 50px;
+}
+
+body[data-mobile-page="home"] .mobile-shortcut-art {
+  width: 50px;
+  height: 50px;
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tabs {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 0;
+  border-radius: var(--ds-radius-pill);
+  background: rgba(12, 15, 18, 0.78);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.11);
+  backdrop-filter: blur(16px) saturate(1.12);
+  isolation: isolate;
+  animation: mobileFeaturedFiltersIn 820ms 280ms both cubic-bezier(0.16, 1, 0.3, 1) !important;
+  scrollbar-width: none;
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+body[data-mobile-page="home"] .mobile-home-masonry {
+  margin-top: 8px;
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tabs > .mobile-home-filter-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: var(--mobile-home-glide-width, 0);
+  height: var(--mobile-home-glide-height, 0);
+  opacity: 0;
+  border: 1px solid rgba(244, 201, 93, 0.32);
+  border-radius: var(--mobile-home-glide-radius, var(--ds-radius-pill));
+  background: linear-gradient(180deg, rgba(244, 201, 93, 0.16), rgba(244, 201, 93, 0.08)), rgba(42, 34, 18, 0.9);
+  box-shadow: 0 0 0 1px rgba(244, 201, 93, 0.12), 0 8px 24px rgba(244, 201, 93, 0.12);
+  pointer-events: none;
+  transform: translate3d(var(--mobile-home-glide-x, 0), var(--mobile-home-glide-y, 0), 0);
+  will-change: transform, width, height;
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1), width 360ms cubic-bezier(0.22, 1, 0.36, 1), height 360ms cubic-bezier(0.22, 1, 0.36, 1), opacity 120ms ease !important;
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tabs > .mobile-home-filter-indicator.is-visible {
+  opacity: 1;
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tabs > .mobile-home-filter-indicator.is-jump {
+  transition: none !important;
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tabs > .mobile-home-filter-indicator.is-moving {
+  animation: mobileHomeGlideEmphasis 520ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tabs > .mobile-home-filter-tab {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  min-height: 32px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: var(--ds-radius-pill);
+  color: rgba(255, 250, 240, 0.66);
+  background: transparent;
+  box-shadow: none;
+  font-family: var(--ds-font-body);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1;
+  text-shadow: none;
+  transform: none;
+  transition: color 180ms ease, text-shadow 220ms ease !important;
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tabs > .mobile-home-filter-tab:is(:hover, :focus-visible) {
+  color: var(--ds-white);
+  border-color: transparent;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: none;
+  outline: 0;
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tabs > .mobile-home-filter-tab:is(.is-active, [aria-selected="true"], [aria-pressed="true"]) {
+  color: var(--ds-gold);
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  font-weight: 500;
+  text-shadow: none;
+  transform: none;
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tabs > .mobile-home-filter-tab::after {
+  content: none;
+}
+
+@keyframes mobileFeaturedFiltersIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mobileHomeGlideEmphasis {
+  0%, 100% { filter: brightness(1); }
+  48% { filter: brightness(1.35); box-shadow: 0 0 0 1px rgba(244, 201, 93, 0.3), 0 8px 28px rgba(244, 201, 93, 0.26); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-mobile-page="home"] .mobile-home-filter-tabs {
+    animation: none !important;
+  }
+
+  body[data-mobile-page="home"] .mobile-home-filter-tabs > .mobile-home-filter-tab {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  body[data-mobile-page="home"] .mobile-home-filter-tabs > .mobile-home-filter-indicator {
+    transition: transform 220ms ease-out, width 180ms ease-out, height 180ms ease-out, opacity 120ms ease !important;
+  }
+
+  body[data-mobile-page="home"] .mobile-home-filter-tabs > .mobile-home-filter-indicator.is-moving {
+    animation: mobileHomeGlideEmphasis 220ms ease-out !important;
+  }
+}
+
+@media (max-width: 374px) {
+  body[data-mobile-page="home"] .mobile-home-shortcut-icon,
+  body[data-mobile-page="home"] .mobile-home-shortcuts > a.is-create .mobile-home-shortcut-icon {
+    top: -18px;
+    width: 48px;
+    height: 48px;
+  }
+
+  body[data-mobile-page="home"] .mobile-shortcut-art {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* Shared tabbar V44: keep it anchored to the visual viewport, independent of page content. */
+body.mobile-h5-body > .mobile-bottom-nav {
+  position: fixed !important;
+  inset: auto auto 0 50% !important;
+  width: min(100vw, 480px);
+  margin: 0;
+  transform: translate3d(-50%, 0, 0);
+}

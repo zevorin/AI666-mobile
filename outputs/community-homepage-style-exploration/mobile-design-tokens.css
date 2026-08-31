@@ -179,6 +179,7 @@
   --mobile-panel: var(--ds-surface-strong);
   --mobile-panel-soft: rgba(255, 247, 230, 0.055);
   --mobile-paper: var(--ds-text);
+  --mobile-text: var(--ds-text);
   --mobile-muted: var(--ds-text-muted);
   --mobile-faint: var(--ds-text-faint);
   --mobile-line: var(--ds-line);
@@ -188,6 +189,7 @@
   --mobile-green: var(--ds-success);
   --mobile-red: var(--ds-danger);
   --mobile-blue: var(--ds-blue);
+  --mobile-shadow-soft: var(--ds-shadow-control);
   --mobile-radius-sm: var(--ds-radius-control);
   --mobile-radius: var(--ds-radius-card);
   --mobile-radius-lg: var(--ds-radius-modal);

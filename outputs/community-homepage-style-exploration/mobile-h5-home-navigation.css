@@ -1,0 +1,817 @@
+/* Unified mobile title system — adapted from the Web editorial hierarchy. */
+body.mobile-h5-body {
+  --mobile-title-display-size: clamp(27px, 7.4vw, 32px);
+  --mobile-title-section-size: clamp(21px, 5.8vw, 23px);
+  --mobile-title-form-size: 17px;
+  --mobile-title-display-tracking: -0.05em;
+  --mobile-title-section-tracking: -0.04em;
+}
+
+/* App-bar titles stay compact and functional across all secondary pages. */
+body.mobile-h5-body .mobile-topbar-detail > .mobile-page-title {
+  color: var(--ds-text);
+  font-family: var(--ds-font-body);
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+/* Editorial page titles share the Web title's tight, high-contrast rhythm. */
+body.mobile-h5-body :is(
+  .mobile-page-heading-simple h1,
+  .mobile-create-workspace-title h1,
+  .mobile-create-intro h1,
+  .mobile-home-featured-heading h1
+) {
+  color: var(--ds-text);
+  font-family: var(--ds-font-body);
+  font-size: var(--mobile-title-display-size);
+  font-weight: 650;
+  line-height: 1.04;
+  letter-spacing: var(--mobile-title-display-tracking);
+}
+
+/* Section titles use one scale and the short gold rule borrowed from Web kickers. */
+body.mobile-h5-body .mobile-section-heading {
+  min-height: 38px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+body.mobile-h5-body .mobile-section-heading :is(h1, h2) {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  margin: 0;
+  color: var(--ds-text);
+  font-family: var(--ds-font-body);
+  font-size: var(--mobile-title-section-size);
+  font-weight: 650;
+  line-height: 1.1;
+  letter-spacing: var(--mobile-title-section-tracking);
+}
+
+body.mobile-h5-body .mobile-section-heading :is(h1, h2)::before {
+  width: 20px;
+  height: 1px;
+  flex: 0 0 20px;
+  margin-right: 9px;
+  border-radius: var(--ds-radius-pill);
+  background: var(--ds-gold);
+  box-shadow: 0 0 12px rgba(244, 201, 93, 0.22);
+  content: "";
+}
+
+body.mobile-h5-body .mobile-section-heading h2 small {
+  margin-left: 7px;
+  color: var(--ds-text-faint);
+  font-size: 11px;
+  font-weight: 560;
+  letter-spacing: 0;
+}
+
+body.mobile-h5-body .mobile-section-heading > :is(a, span),
+body.mobile-h5-body .mobile-section-more {
+  color: var(--ds-text-muted);
+  font-size: 11px;
+  font-weight: 560;
+  letter-spacing: 0.015em;
+}
+
+/* Community editorial modules follow the same section scale; their kicker stays secondary. */
+body[data-mobile-page="community"] .mobile-community-recommend-head h2 {
+  color: var(--ds-text);
+  font-family: var(--ds-font-body);
+  font-size: var(--mobile-title-section-size);
+  font-weight: 650;
+  line-height: 1.1;
+  letter-spacing: var(--mobile-title-section-tracking);
+}
+
+body[data-mobile-page="community"] .mobile-community-recommend-head span {
+  color: var(--ds-gold);
+  font-family: var(--ds-font-body);
+  font-size: var(--mobile-font-min);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: 0.16em;
+}
+
+/* Form and settings titles are a deliberately quieter third tier. */
+body.mobile-h5-body :is(
+  .mobile-form-heading h1,
+  .mobile-form-heading h2,
+  .mobile-form-heading h3,
+  .mobile-profile-section-heading h2
+) {
+  margin: 0;
+  color: var(--ds-text);
+  font-family: var(--ds-font-body);
+  font-size: var(--mobile-title-form-size);
+  font-weight: 620;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+}
+
+@media (max-width: 374px) {
+  body.mobile-h5-body {
+    --mobile-title-display-size: 26px;
+    --mobile-title-section-size: 20px;
+  }
+}
+
+/* Home feed heading and filters — lighter editorial hierarchy with separate pills. */
+body[data-mobile-page="home"] .mobile-home-featured-heading {
+  align-items: flex-end;
+  margin-bottom: 14px;
+}
+
+body[data-mobile-page="home"] .mobile-home-featured-heading span {
+  margin-bottom: 6px;
+  color: var(--ds-gold);
+  font-family: var(--ds-font-body);
+  font-size: var(--mobile-font-min);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+}
+
+body[data-mobile-page="home"] .mobile-home-featured-heading h1 {
+  font-family: var(--ds-font-body);
+  font-size: 25px;
+  font-weight: 620;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+
+body[data-mobile-page="home"] .mobile-home-featured-heading > a {
+  min-height: 30px;
+  padding-inline: 12px;
+  border-color: rgba(255, 255, 255, 0.10);
+  color: rgba(239, 242, 246, 0.58);
+  background: rgba(255, 255, 255, 0.025);
+  box-shadow: none;
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tabs {
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 0;
+  overflow-x: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tab {
+  min-width: 0;
+  min-height: 34px;
+  padding-inline: 16px;
+  border: 0;
+  border-radius: var(--ds-radius-pill);
+  color: rgba(229, 233, 240, 0.64);
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: none;
+  font-family: var(--ds-font-body);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tab.is-active {
+  border: 0;
+  color: #1a1507;
+  background: var(--ds-gold);
+  box-shadow: none;
+  font-weight: 600;
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tab:focus-visible {
+  outline-color: var(--ds-gold);
+}
+
+@media (max-width: 374px) {
+  body[data-mobile-page="home"] .mobile-home-featured-heading h1 {
+    font-size: 25px;
+  }
+
+  body[data-mobile-page="home"] .mobile-home-filter-tab {
+    min-height: 32px;
+    padding-inline: 14px;
+    font-size: var(--mobile-font-min);
+  }
+}
+
+/* Home palette and optical icon balance. */
+body[data-mobile-page="home"] .mobile-shell {
+  background: #000;
+}
+
+body[data-mobile-page="home"] .mobile-shell::before {
+  background: none;
+}
+
+body[data-mobile-page="home"] .mobile-home-featured-heading h1 {
+  color: var(--ds-gold);
+}
+
+/* Shared bottom-nav indicator: accelerate immediately, then settle softly. */
+body.mobile-h5-body .mobile-bottom-nav::after {
+  position: absolute;
+  bottom: 18px;
+  left: var(--mobile-nav-indicator-x, 50%);
+  z-index: 2;
+  width: 24px;
+  height: 3px;
+  border-radius: var(--ds-radius-pill);
+  background: var(--ds-gold);
+  box-shadow: 0 0 12px rgba(244, 201, 93, 0.24);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transition:
+    left 380ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 120ms ease-out !important;
+}
+
+body.mobile-h5-body .mobile-bottom-nav.is-indicator-ready::after {
+  opacity: 1;
+}
+
+body.mobile-h5-body .mobile-bottom-nav.is-indicator-static::after {
+  transition: none !important;
+}
+
+body.mobile-h5-body .mobile-bottom-nav.is-create-current::after {
+  opacity: 0;
+}
+
+.mobile-bottom-nav .mobile-nav-item.is-active::after {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.mobile-h5-body .mobile-bottom-nav::after {
+    transition: none !important;
+  }
+}
+
+/* Home reference layout — compact brand masthead and floating shortcut tiles. */
+body[data-mobile-page="home"] .mobile-home-brand {
+  height: 68px;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 18px;
+}
+
+body[data-mobile-page="home"] .mobile-home-brand img {
+  width: 118px;
+  height: auto;
+  display: block;
+}
+
+body[data-mobile-page="home"] .mobile-home-shortcuts {
+  width: calc(100% + 8px);
+  min-height: 64px;
+  gap: 8px;
+  margin: 34px -4px 0;
+  padding: 0;
+  overflow: visible;
+}
+
+body[data-mobile-page="home"] .mobile-home-shortcuts > a {
+  position: relative;
+  min-height: 64px;
+  display: block;
+  padding: 0 3px;
+  overflow: visible;
+  border: 0;
+  border-radius: var(--ds-radius-control);
+  background: linear-gradient(145deg, #080909 2%, #181919 55%, #252525 100%);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
+}
+
+body[data-mobile-page="home"] .mobile-home-shortcut-icon,
+body[data-mobile-page="home"] .mobile-home-shortcuts > a.is-create .mobile-home-shortcut-icon {
+  position: absolute;
+  top: -23px;
+  left: 50%;
+  width: 58px;
+  height: 58px;
+  margin: 0;
+  transform: translateX(-50%);
+}
+
+body[data-mobile-page="home"] .mobile-shortcut-art {
+  width: 58px;
+  height: 58px;
+}
+
+body[data-mobile-page="home"] .mobile-home-shortcuts > a.is-points .mobile-shortcut-art {
+  transform: translateX(5px);
+}
+
+body[data-mobile-page="home"] .mobile-home-shortcut-copy {
+  position: absolute;
+  right: 2px;
+  bottom: 9px;
+  left: 2px;
+  width: auto;
+  text-align: center;
+}
+
+body[data-mobile-page="home"] .mobile-home-shortcuts strong,
+body[data-mobile-page="home"] .mobile-home-shortcuts > a.is-create strong {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 12px;
+  font-weight: 450;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+@media (max-width: 374px) {
+  body[data-mobile-page="home"] .mobile-home-brand {
+    height: 64px;
+    padding-top: 16px;
+  }
+
+  body[data-mobile-page="home"] .mobile-home-brand img {
+    width: 112px;
+  }
+
+  body[data-mobile-page="home"] .mobile-home-shortcuts {
+    min-height: 62px;
+    gap: 6px;
+    margin-top: 32px;
+  }
+
+  body[data-mobile-page="home"] .mobile-home-shortcuts > a {
+    min-height: 62px;
+    border-radius: var(--ds-radius-control);
+  }
+
+  body[data-mobile-page="home"] .mobile-home-shortcut-icon,
+  body[data-mobile-page="home"] .mobile-home-shortcuts > a.is-create .mobile-home-shortcut-icon {
+    top: -22px;
+    width: 56px;
+    height: 56px;
+  }
+
+  body[data-mobile-page="home"] .mobile-shortcut-art {
+    width: 56px;
+    height: 56px;
+  }
+
+  body[data-mobile-page="home"] .mobile-home-shortcut-copy {
+    bottom: 8px;
+  }
+
+  body[data-mobile-page="home"] .mobile-home-shortcuts strong,
+  body[data-mobile-page="home"] .mobile-home-shortcuts > a.is-create strong {
+    font-size: 11px;
+  }
+}
+
+/* Keep the home feed title on the shared display scale after home-specific overrides. */
+body[data-mobile-page="home"] .mobile-home-featured-heading h1 {
+  font-size: var(--mobile-title-display-size);
+  font-weight: 650;
+  line-height: 1.04;
+  letter-spacing: var(--mobile-title-display-tracking);
+}
+
+/* Tabbar create menu — two reference-led cards that emerge above the center action. */
+body.mobile-h5-body.is-create-menu-open {
+  overflow: hidden;
+}
+
+.mobile-bottom-nav.is-create-menu-open .mobile-nav-item:not(.mobile-nav-create) {
+  pointer-events: none;
+}
+
+.mobile-nav-create .mobile-nav-ai-image {
+  transform: rotate(0deg);
+  transform-origin: 50% 50%;
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+
+
+.mobile-nav-create.is-menu-open .mobile-nav-create-icon {
+  border-color: #f4c95d;
+  background: #161817;
+  box-shadow:
+    0 0 0 3px rgba(244, 201, 93, 0.08),
+    0 0 20px rgba(244, 201, 93, 0.30),
+    0 10px 24px rgba(0, 0, 0, 0.48);
+}
+
+body.mobile-h5-body .mobile-create-action-sheet {
+  z-index: 120;
+  align-items: flex-end;
+  padding: 0;
+  transition: opacity 180ms ease, visibility 180ms ease !important;
+}
+
+.mobile-create-action-sheet .mobile-sheet-backdrop {
+  background: rgba(0, 0, 0, 0.66);
+  backdrop-filter: blur(7px) saturate(120%);
+  transition: opacity 180ms ease !important;
+}
+
+.mobile-create-action-panel {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 480px);
+  padding: 24px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+  border: 1px solid rgba(255, 250, 240, 0.10);
+  border-bottom: 0;
+  border-radius: var(--ds-radius-control) var(--ds-radius-control) 0 0;
+  background: #0d1013;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.045),
+    0 -24px 70px rgba(0, 0, 0, 0.54);
+  transform: translateY(28px);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.mobile-create-action-sheet.is-open .mobile-create-action-panel {
+  transform: translateY(0);
+}
+
+.mobile-create-action-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0;
+}
+
+.mobile-create-action-option,
+button.mobile-create-action-option {
+  position: relative;
+  min-width: 0;
+  min-height: 194px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 18px 16px 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 250, 240, 0.11);
+  border-radius: var(--ds-radius-control);
+  color: var(--ds-text);
+  background: #181a1d;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    0 18px 44px rgba(0, 0, 0, 0.38);
+  opacity: 0;
+  transform: translateY(34px) scale(0.92) rotate(-2deg);
+  transform-origin: 50% 100%;
+  transition:
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 180ms ease-out,
+    border-color 160ms ease !important;
+}
+
+.mobile-create-action-option.is-flash {
+  background: #19182a;
+  transform: translateY(34px) scale(0.92) rotate(2deg);
+}
+
+.mobile-create-action-sheet.is-open .mobile-create-action-option {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotate(0);
+  transition-delay: 35ms !important;
+}
+
+.mobile-create-action-sheet.is-open .mobile-create-action-option.is-flash {
+  transition-delay: 85ms !important;
+}
+
+.mobile-create-action-option:active {
+  border-color: rgba(244, 201, 93, 0.34);
+  transform: scale(0.975) !important;
+}
+
+.mobile-create-action-option > .mobile-create-action-art {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 72px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.mobile-create-action-option.is-flash > .mobile-create-action-art {
+  background: transparent;
+}
+
+.mobile-create-action-generated-icon {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.mobile-create-action-option > .mobile-create-action-copy {
+  width: 100%;
+  height: auto;
+  flex: 0 1 auto;
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  gap: 5px;
+  margin-top: 14px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  text-align: center;
+}
+
+.mobile-create-action-copy strong {
+  font-size: 17px;
+  font-weight: 680;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.mobile-create-action-copy small,
+.mobile-create-action-option > .mobile-create-action-meta {
+  color: rgba(255, 250, 240, 0.48);
+  font-size: var(--mobile-font-min);
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.mobile-create-action-option > .mobile-create-action-meta {
+  position: absolute;
+  left: 16px;
+  bottom: 18px;
+  width: auto;
+  height: auto;
+  flex: 0 0 auto;
+  display: block;
+  place-items: initial;
+  max-width: calc(100% - 38px);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  white-space: nowrap;
+}
+
+.mobile-create-action-option > .mobile-create-action-arrow {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #151705;
+  background: var(--ds-gold);
+}
+
+.mobile-create-action-option.is-flash > .mobile-create-action-arrow {
+  background: #8dffb8;
+}
+
+.mobile-create-action-option > .mobile-create-action-arrow .mobile-icon {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0.18);
+  opacity: 1;
+}
+
+.mobile-create-action-close {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  margin: 18px auto 0;
+  padding: 0;
+  border: 1.5px solid #e4a32c;
+  border-radius: 50%;
+  background: #11171b;
+  box-shadow:
+    0 0 0 3px rgba(244, 201, 93, 0.07),
+    0 0 20px rgba(228, 163, 44, 0.30),
+    0 10px 24px rgba(0, 0, 0, 0.46);
+  cursor: pointer;
+}
+
+.mobile-create-action-close img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  transform: rotate(45deg);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.mobile-create-action-close:active img {
+  transform: rotate(45deg) scale(0.90);
+}
+
+@media (max-width: 374px) {
+  .mobile-create-action-sheet {
+    padding: 0;
+  }
+
+  .mobile-create-action-panel {
+    padding-inline: 12px;
+  }
+
+  .mobile-create-action-list {
+    gap: 9px;
+  }
+
+  .mobile-create-action-option,
+  button.mobile-create-action-option {
+    min-height: 184px;
+    padding: 15px 13px 14px;
+    border-radius: var(--ds-radius-control);
+  }
+
+  .mobile-create-action-option > .mobile-create-action-art {
+    width: 66px;
+    height: 66px;
+    flex-basis: 66px;
+  }
+
+  .mobile-create-action-generated-icon {
+    width: 66px;
+    height: 66px;
+  }
+
+  .mobile-create-action-copy strong {
+    font-size: 16px;
+  }
+
+  .mobile-create-action-option > .mobile-create-action-meta {
+    left: 13px;
+    bottom: 17px;
+    font-size: var(--mobile-font-min);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav-create .mobile-nav-ai-image,
+  .mobile-create-action-sheet,
+  .mobile-create-action-sheet .mobile-sheet-backdrop,
+  .mobile-create-action-option {
+    transition: none !important;
+  }
+
+  .mobile-create-action-panel,
+  .mobile-create-action-close img {
+    transition: none !important;
+  }
+}
+
+/* Home V29 — Web-aligned curation heading and feed-filter motion. */
+body[data-mobile-page="home"] .mobile-home-featured-heading h1 {
+  color: rgba(255, 252, 246, 0.94);
+}
+
+body[data-mobile-page="home"] .mobile-home-featured-heading h1 > span {
+  display: inline;
+  margin: 0 0.18em 0 0;
+  color: var(--ds-gold);
+  font-size: inherit;
+  font-weight: 700;
+  line-height: inherit;
+  letter-spacing: inherit;
+  text-shadow: 0 0 28px rgba(244, 201, 93, 0.12);
+}
+
+body[data-mobile-page="home"] .mobile-home-filter-tab {
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+body[data-mobile-page="home"] .mobile-home-masonry > .mobile-work-card {
+  transition:
+    opacity 180ms ease,
+    transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 260ms ease;
+}
+
+body[data-mobile-page="home"] .mobile-home-masonry.is-filtering > .mobile-work-card {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(12px) scale(0.985);
+}
+
+/* Tabbar copy is one optical step larger across every primary page. */
+.mobile-nav-item,
+.mobile-nav-create > span:last-child,
+.mobile-nav-create.is-active > span:last-child {
+  font-size: 11px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-mobile-page="home"] .mobile-home-filter-tab,
+  body[data-mobile-page="home"] .mobile-home-masonry > .mobile-work-card {
+    transition: none !important;
+  }
+
+  body[data-mobile-page="home"] .mobile-home-masonry.is-filtering > .mobile-work-card {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
+/* Home V33 — final banner inset and compact, stronger curation heading. */
+body[data-mobile-page="home"] .mobile-banner-carousel {
+  width: 100%;
+  margin-inline: 0;
+}
+
+body[data-mobile-page="home"] .mobile-home-featured-heading h1 {
+  font-size: calc(var(--mobile-title-display-size) - 2px);
+  font-weight: 700;
+}
+
+body[data-mobile-page="home"] .mobile-home-featured-heading h1 > span {
+  font-weight: inherit;
+}
+
+/* Shared filter tabs — the home curation control is the canonical mobile tab. */
+body.mobile-h5-body .mobile-filter-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 0 0 2px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  scrollbar-width: none;
+}
+
+body.mobile-h5-body .mobile-filter-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+body.mobile-h5-body .mobile-filter-tabs > .mobile-filter-tab {
+  min-width: 0;
+  min-height: 34px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--ds-radius-control);
+  color: rgba(229, 233, 240, 0.64);
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: none;
+  font-family: var(--ds-font-body);
+  font-size: var(--mobile-font-min);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+body.mobile-h5-body .mobile-filter-tabs > .mobile-filter-tab:is(
+  .is-active,
+  [aria-selected="true"],
+  [aria-pressed="true"]
+) {
+  color: #1a1507;
+  background: var(--ds-gold);
+  box-shadow: none;
+  font-weight: 600;
+}
+
+body.mobile-h5-body .mobile-filter-tabs > .mobile-filter-tab:active {
+  transform: scale(0.97);
+}
+
+body.mobile-h5-body .mobile-filter-tabs > .mobile-filter-tab:focus-visible {
+  outline: 2px solid var(--ds-gold);
+  outline-offset: 2px;
+}

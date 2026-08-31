@@ -1,0 +1,767 @@
+/* Newbie activity detail: shared campaign rhythm with a task-first growth path. */
+body[data-mobile-page="tasks"] .mobile-shell {
+  background:
+    radial-gradient(circle at 92% 4%, rgba(47, 92, 218, 0.17), transparent 26%),
+    radial-gradient(circle at 2% 42%, rgba(199, 223, 34, 0.055), transparent 24%),
+    var(--ds-bg);
+}
+
+body[data-mobile-page="tasks"] .mobile-campaign-content.mobile-newbie-detail {
+  gap: 16px;
+  padding-top: 12px;
+  padding-bottom: calc(42px + env(safe-area-inset-bottom, 0px));
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero {
+  border-color: rgba(90, 125, 229, 0.28);
+  background: linear-gradient(150deg, rgba(13, 22, 45, 0.96), rgba(7, 10, 17, 0.98));
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(137, 167, 255, 0.035) inset;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-cover {
+  aspect-ratio: 1916 / 821;
+  overflow: hidden;
+  background: #071020;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-cover::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 42%;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(180deg, transparent, rgba(4, 8, 17, 0.38));
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-cover > img {
+  object-fit: contain;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-cover > span {
+  z-index: 1;
+  min-height: 26px;
+  padding-inline: 10px;
+  color: #111708;
+  background: #c7df22;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-summary {
+  padding: 17px 18px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-eyebrow {
+  margin: 0 0 5px;
+  color: rgba(199, 223, 34, 0.74);
+  font-family: var(--ds-font-display);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 0.15em;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-summary h1 {
+  font-size: 24px;
+  font-weight: var(--ds-weight-bold);
+  line-height: 32px;
+  letter-spacing: -0.045em;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-summary > div {
+  margin-top: 7px;
+  color: var(--ds-text-secondary);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-summary strong {
+  color: var(--ds-gold);
+  font-size: var(--ds-type-caption);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px 16px;
+  padding: 18px;
+  border-color: rgba(199, 223, 34, 0.17);
+  background:
+    linear-gradient(135deg, rgba(199, 223, 34, 0.075), transparent 54%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+  box-shadow: var(--ds-shadow-card);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-copy {
+  min-width: 0;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-kicker {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--ds-text-muted);
+  font-size: var(--ds-type-min);
+  line-height: var(--ds-leading-min);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-copy h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin: 0;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-copy h2 strong {
+  color: #d7ee39;
+  font-family: var(--ds-font-display);
+  font-size: 30px;
+  line-height: 36px;
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-copy h2 span {
+  color: var(--ds-text-primary);
+  font-size: 14px;
+  font-weight: var(--ds-weight-semibold);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-card > .mobile-button {
+  min-height: 44px;
+  padding-inline: 16px;
+  color: #111708;
+  background: #c7df22;
+  box-shadow: 0 8px 18px rgba(118, 143, 20, 0.14);
+  font-size: var(--ds-type-meta);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-card > .mobile-progress-track {
+  grid-column: 1 / -1;
+  height: 6px;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.085);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-progress-card > .mobile-progress-track span {
+  min-width: 0;
+  background: linear-gradient(90deg, #9fbd16, #d7ee39);
+  box-shadow: 0 0 14px rgba(199, 223, 34, 0.28);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-unlock-note {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: -2px 0 0;
+  color: var(--ds-text-muted);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-unlock-note .mobile-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  opacity: 0.58;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-detail > .mobile-section {
+  margin-top: 10px;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-description {
+  padding: 16px;
+  border-color: rgba(90, 125, 229, 0.16);
+  background: linear-gradient(145deg, rgba(41, 73, 163, 0.075), rgba(255, 255, 255, 0.018));
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-description h3 {
+  font-size: 15px;
+  font-weight: var(--ds-weight-semibold);
+  letter-spacing: -0.02em;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-description p {
+  color: var(--ds-text-secondary);
+  font-size: var(--ds-type-reading);
+  line-height: var(--ds-leading-body);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-list > li {
+  position: relative;
+  min-height: 126px;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  align-items: start;
+  gap: 0 12px;
+  padding: 15px;
+  border: 1px solid rgba(255, 250, 240, 0.10);
+  border-radius: var(--ds-radius-control);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.046), rgba(255, 255, 255, 0.014));
+  box-shadow: var(--ds-shadow-card);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-index {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(137, 167, 255, 0.22);
+  border-radius: 50%;
+  color: #a9beff;
+  background: rgba(48, 83, 180, 0.14);
+  font-family: var(--ds-font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-copy {
+  min-width: 0;
+  padding-top: 1px;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-copy h3,
+body[data-mobile-page="tasks"] .mobile-newbie-task-copy p {
+  margin: 0;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-copy h3 {
+  color: var(--ds-text-primary);
+  font-size: var(--ds-type-card-title);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-card-title);
+  letter-spacing: var(--ds-tracking-card-title);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-copy p {
+  margin-top: 5px;
+  color: var(--ds-text-muted);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-action {
+  grid-column: 2;
+  min-height: 44px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-action > strong {
+  align-self: center;
+  color: var(--ds-gold);
+  font-size: var(--ds-type-caption);
+  font-weight: var(--ds-weight-semibold);
+  white-space: nowrap;
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-action > span,
+body[data-mobile-page="tasks"] .mobile-newbie-task-action > .mobile-button {
+  min-width: 76px;
+  min-height: 44px;
+  padding-inline: 14px;
+  border: 1px solid rgba(255, 250, 240, 0.11);
+  border-radius: var(--ds-radius-pill);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-action > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ds-text-faint);
+  background: rgba(255, 255, 255, 0.025);
+  font-size: var(--ds-type-meta);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-control);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-action > .mobile-button {
+  color: var(--ds-text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+  font-size: var(--ds-type-meta);
+}
+
+body[data-mobile-page="tasks"] .mobile-newbie-task-action > .mobile-button:active {
+  border-color: rgba(199, 223, 34, 0.24);
+  color: #d7ee39;
+  background: rgba(199, 223, 34, 0.07);
+}
+
+@media (max-width: 374px) {
+  body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-summary {
+    padding-inline: 16px;
+  }
+
+  body[data-mobile-page="tasks"] .mobile-newbie-hero .mobile-campaign-summary > div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  body[data-mobile-page="tasks"] .mobile-newbie-progress-card {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  body[data-mobile-page="tasks"] .mobile-newbie-progress-card > .mobile-button {
+    padding-inline: 13px;
+  }
+
+  body[data-mobile-page="tasks"] .mobile-newbie-task-list > li {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 0 10px;
+    padding: 14px;
+  }
+
+  body[data-mobile-page="tasks"] .mobile-newbie-task-index {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Campaign details V2: shared detail structure; V3 below supplies banner-led themes. */
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"]) .mobile-shell {
+  background:
+    radial-gradient(circle at 94% 3%, rgba(47, 92, 218, 0.16), transparent 27%),
+    radial-gradient(circle at 2% 46%, rgba(137, 167, 255, 0.05), transparent 24%),
+    var(--ds-bg);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-content.mobile-shared-campaign-detail {
+  gap: 16px;
+  padding-top: 12px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero {
+  border-color: rgba(90, 125, 229, 0.28);
+  background: linear-gradient(150deg, rgba(13, 22, 45, 0.96), rgba(7, 10, 17, 0.98));
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(137, 167, 255, 0.035) inset;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-cover {
+  aspect-ratio: 1916 / 821;
+  overflow: hidden;
+  background: #071020;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-cover::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 36%;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(180deg, transparent, rgba(4, 8, 17, 0.26));
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-cover > img {
+  display: block;
+  object-fit: contain;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-cover > span {
+  z-index: 1;
+  min-height: 26px;
+  padding-inline: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-summary {
+  padding: 17px 18px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-summary h1 {
+  color: var(--ds-text-primary);
+  font-size: 24px;
+  font-weight: var(--ds-weight-bold);
+  line-height: 32px;
+  letter-spacing: -0.045em;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-summary > div {
+  min-height: 22px;
+  margin-top: 5px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-summary strong {
+  margin-left: auto;
+  color: var(--ds-gold);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px 16px;
+  padding: 18px;
+  border-color: rgba(90, 125, 229, 0.2);
+  background:
+    linear-gradient(135deg, rgba(48, 83, 180, 0.105), transparent 56%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+  box-shadow: var(--ds-shadow-card);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-copy {
+  min-width: 0;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-copy > span {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--ds-text-muted);
+  font-size: var(--ds-type-min);
+  line-height: var(--ds-leading-min);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-copy h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 0;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-copy h2 strong {
+  color: #a9beff;
+  font-family: var(--ds-font-display);
+  font-size: 28px;
+  line-height: 36px;
+  font-variant-numeric: tabular-nums;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-copy h2 small {
+  color: var(--ds-text-primary);
+  font-size: 14px;
+  font-weight: var(--ds-weight-semibold);
+  line-height: 20px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card > .mobile-button {
+  min-height: 44px;
+  padding-inline: 18px;
+  box-shadow: 0 8px 18px rgba(244, 201, 93, 0.12);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card > .mobile-progress-track {
+  grid-column: 1 / -1;
+  height: 6px;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.085);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card > .mobile-progress-track span {
+  min-width: 0;
+  background: linear-gradient(90deg, #6685e3, #a9beff);
+  box-shadow: 0 0 14px rgba(137, 167, 255, 0.25);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-note {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: -2px 0 0;
+  color: var(--ds-text-muted);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-note .mobile-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  opacity: 0.58;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-detail > .mobile-section {
+  margin-top: 10px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  :is(.mobile-campaign-copy, .mobile-campaign-rule-list, .mobile-campaign-task-list article) {
+  border-color: rgba(90, 125, 229, 0.17);
+  background: linear-gradient(145deg, rgba(41, 73, 163, 0.07), rgba(255, 255, 255, 0.016));
+  box-shadow: var(--ds-shadow-card);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-copy {
+  padding: 16px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-copy h3 {
+  font-size: 15px;
+  font-weight: var(--ds-weight-semibold);
+  line-height: 22px;
+  letter-spacing: -0.02em;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-copy :is(p, ol) {
+  color: var(--ds-text-secondary);
+  font-size: var(--ds-type-reading);
+  line-height: var(--ds-leading-body);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-task-list {
+  gap: 12px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-task-list article {
+  min-height: 92px;
+  gap: 12px;
+  padding: 14px;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-task-list h3 {
+  color: var(--ds-text-primary);
+  font-size: var(--ds-type-card-title);
+  font-weight: var(--ds-weight-semibold);
+  line-height: var(--ds-leading-card-title);
+  letter-spacing: var(--ds-tracking-card-title);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-task-list p {
+  color: var(--ds-text-muted);
+  font-size: var(--ds-type-caption);
+  line-height: var(--ds-leading-caption);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-task-list .mobile-status-badge {
+  border-color: rgba(137, 167, 255, 0.22);
+  color: #a9beff;
+  background: rgba(48, 83, 180, 0.14);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-work-grid img {
+  border: 1px solid rgba(90, 125, 229, 0.18);
+  box-shadow: var(--ds-shadow-card);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-single-action-bar {
+  border-top-color: rgba(90, 125, 229, 0.18);
+  background: rgba(7, 11, 22, 0.92);
+}
+
+@media (max-width: 374px) {
+  body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+    .mobile-shared-campaign-hero .mobile-campaign-summary {
+    padding-inline: 16px;
+  }
+
+  body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+    .mobile-campaign-progress-card {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+    .mobile-campaign-progress-card > .mobile-button {
+    padding-inline: 15px;
+  }
+
+  body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+    .mobile-campaign-task-list article {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+    .mobile-campaign-task-list article > strong {
+    grid-column: 2;
+    margin-top: -2px;
+  }
+}
+
+/* Campaign theme V3: shared geometry, activity-specific color sampled from each banner. */
+body[data-mobile-page="activity-detail"] {
+  --campaign-accent: #a77bb9;
+  --campaign-accent-bright: #c9a5d6;
+  --campaign-accent-rgb: 167, 123, 185;
+  --campaign-secondary-rgb: 208, 168, 130;
+  --campaign-action: #d6aa77;
+  --campaign-action-bright: #efca9b;
+  --campaign-action-rgb: 214, 170, 119;
+  --campaign-hero-start: #28182e;
+  --campaign-hero-end: #0c0a0f;
+  --campaign-fixed-bar: rgba(21, 13, 25, 0.94);
+}
+
+body[data-mobile-page="activity-detail"][data-mobile-activity-theme="seven-day"] {
+  --campaign-accent: #ef8d52;
+  --campaign-accent-bright: #ffad75;
+  --campaign-accent-rgb: 239, 141, 82;
+  --campaign-secondary-rgb: 103, 76, 171;
+  --campaign-action: #ef8d52;
+  --campaign-action-bright: #ffb17d;
+  --campaign-action-rgb: 239, 141, 82;
+  --campaign-hero-start: #161c31;
+  --campaign-hero-end: #080b14;
+  --campaign-fixed-bar: rgba(12, 14, 25, 0.94);
+}
+
+body[data-mobile-page="campaign-detail"] {
+  --campaign-accent: #df8168;
+  --campaign-accent-bright: #f1a087;
+  --campaign-accent-rgb: 223, 129, 104;
+  --campaign-secondary-rgb: 55, 83, 83;
+  --campaign-action: #df8168;
+  --campaign-action-bright: #f3a181;
+  --campaign-action-rgb: 223, 129, 104;
+  --campaign-hero-start: #271714;
+  --campaign-hero-end: #09100f;
+  --campaign-fixed-bar: rgba(20, 14, 13, 0.94);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"]) .mobile-shell {
+  background:
+    radial-gradient(circle at 94% 3%, rgba(var(--campaign-accent-rgb), 0.15), transparent 27%),
+    radial-gradient(circle at 2% 46%, rgba(var(--campaign-secondary-rgb), 0.055), transparent 24%),
+    var(--ds-bg);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero {
+  border-color: rgba(var(--campaign-accent-rgb), 0.30);
+  background: linear-gradient(150deg, var(--campaign-hero-start), var(--campaign-hero-end));
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(var(--campaign-accent-rgb), 0.045) inset;
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-cover {
+  background: var(--campaign-hero-end);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-cover > span {
+  color: #1b110c;
+  background: var(--campaign-action-bright);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-summary {
+  border-top-color: rgba(var(--campaign-accent-rgb), 0.13);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-shared-campaign-hero .mobile-campaign-summary strong {
+  color: var(--campaign-action-bright);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card {
+  border-color: rgba(var(--campaign-accent-rgb), 0.24);
+  background:
+    linear-gradient(135deg, rgba(var(--campaign-accent-rgb), 0.115), transparent 56%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-copy h2 strong {
+  color: var(--campaign-accent-bright);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card > .mobile-button,
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-single-action-bar .mobile-action-primary {
+  color: #1b110c;
+  background: linear-gradient(135deg, var(--campaign-action-bright), var(--campaign-action));
+  box-shadow: 0 8px 20px rgba(var(--campaign-action-rgb), 0.16);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-progress-card > .mobile-progress-track span {
+  background: linear-gradient(90deg, var(--campaign-accent), var(--campaign-accent-bright));
+  box-shadow: 0 0 14px rgba(var(--campaign-accent-rgb), 0.26);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-section-heading h2::before {
+  background: var(--campaign-accent);
+  box-shadow: 0 0 18px rgba(var(--campaign-accent-rgb), 0.20);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  :is(.mobile-campaign-copy, .mobile-campaign-rule-list, .mobile-campaign-task-list article) {
+  border-color: rgba(var(--campaign-accent-rgb), 0.19);
+  background: linear-gradient(145deg, rgba(var(--campaign-accent-rgb), 0.078), rgba(255, 255, 255, 0.014));
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-rule-list > div + div {
+  border-top-color: rgba(var(--campaign-accent-rgb), 0.13);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  :is(
+    .mobile-campaign-rule-list strong,
+    .mobile-campaign-task-list article > strong,
+    .mobile-section-heading h2 small
+  ) {
+  color: var(--campaign-action-bright);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-task-list .mobile-status-badge {
+  border-color: rgba(var(--campaign-accent-rgb), 0.28);
+  color: var(--campaign-accent-bright);
+  background: rgba(var(--campaign-accent-rgb), 0.14);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-campaign-work-grid img {
+  border-color: rgba(var(--campaign-accent-rgb), 0.22);
+}
+
+body:is([data-mobile-page="activity-detail"], [data-mobile-page="campaign-detail"])
+  .mobile-single-action-bar {
+  border-top-color: rgba(var(--campaign-accent-rgb), 0.22);
+  background: var(--campaign-fixed-bar);
+}
