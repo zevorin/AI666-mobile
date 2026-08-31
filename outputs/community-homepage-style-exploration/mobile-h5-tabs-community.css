@@ -157,7 +157,7 @@ body.mobile-h5-body [role="tablist"].mobile-tabs-style-b > [role="tab"] {
   box-shadow: none;
   font-family: var(--ds-font-body);
   font-size: 18px;
-  font-weight: 520;
+  font-weight: var(--ds-weight-medium);
   line-height: 1;
   letter-spacing: -0.02em;
   white-space: nowrap;

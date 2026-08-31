@@ -21,7 +21,7 @@
   margin: 0;
   color: rgba(255, 252, 246, 0.94);
   font-family: var(--ds-font-body);
-  font-weight: 600;
+  font-weight: var(--ds-weight-semibold);
   letter-spacing: -0.055em;
   text-shadow: 0 12px 36px rgba(0, 0, 0, 0.24);
 }
@@ -46,7 +46,7 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   font-family: var(--ds-font-body);
   font-size: 8px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 1;
   letter-spacing: 0.17em;
   text-transform: uppercase;
@@ -90,7 +90,7 @@
   font: inherit;
   line-height: inherit;
   letter-spacing: inherit;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
 }
 
 .mobile-display-heading[data-mobile-display-heading].mobile-display-heading--feature .mobile-display-heading__kicker {
@@ -102,7 +102,7 @@
   padding: 0 8px;
   color: rgba(244, 201, 93, 0.78);
   font-size: 8px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 1;
   letter-spacing: 0.17em;
   animation: mobileDisplayHeadingKickerIn 520ms 120ms both cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -129,7 +129,7 @@
   color: rgba(255, 252, 246, 0.94);
   font-family: var(--ds-font-body);
   font-size: 20px;
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   line-height: 28px;
   letter-spacing: -0.04em;
   text-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -144,7 +144,7 @@
   margin-left: 7px;
   color: var(--ds-text-faint);
   font-size: 11px;
-  font-weight: 560;
+  font-weight: var(--ds-weight-semibold);
   line-height: 1;
   letter-spacing: 0;
 }
@@ -158,7 +158,7 @@
   min-height: 20px;
   padding-inline: 7px;
   font-size: 8px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 1;
 }
 

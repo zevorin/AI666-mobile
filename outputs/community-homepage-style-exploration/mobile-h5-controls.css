@@ -178,3 +178,75 @@ body.mobile-h5-body [role="tablist"].mobile-tabs-style-a > [role="tab"] {
 body.mobile-h5-body [role="tablist"].mobile-tabs-style-a {
   min-height: calc(var(--ds-button-height-compact) + 8px);
 }
+
+/*
+ * Global color contract.
+ * Activity surfaces keep their campaign variables; every other product surface
+ * resolves primary actions and selected states to the same warm-gold token.
+ */
+body.mobile-h5-body:not(:is(
+  [data-mobile-page="activity"],
+  [data-mobile-page="activity-detail"],
+  [data-mobile-page="campaign-detail"],
+  [data-mobile-page="tasks"]
+)) {
+  --mobile-primary: var(--ds-primary);
+  --mobile-primary-bright: var(--ds-primary-bright);
+  --mobile-primary-border: var(--ds-primary-border);
+  --mobile-gold: var(--ds-primary);
+}
+
+body.mobile-h5-body:not(:is(
+  [data-mobile-page="activity"],
+  [data-mobile-page="activity-detail"],
+  [data-mobile-page="campaign-detail"],
+  [data-mobile-page="tasks"]
+)) :is(
+  .mobile-button.primary,
+  .mobile-action-primary,
+  .mobile-create-send,
+  .mobile-store-card button,
+  .mobile-exchange-card button
+):not(:disabled):not([aria-disabled="true"]) {
+  color: var(--ds-primary-on);
+  border-color: var(--ds-primary-border);
+  background: linear-gradient(135deg, var(--ds-primary-bright), var(--ds-primary));
+  box-shadow: var(--ds-shadow-control), 0 0 28px rgba(244, 201, 93, 0.10);
+}
+
+body.mobile-h5-body:not(:is(
+  [data-mobile-page="activity"],
+  [data-mobile-page="activity-detail"],
+  [data-mobile-page="campaign-detail"],
+  [data-mobile-page="tasks"]
+)) :is(
+  [role="tab"][aria-selected="true"],
+  [role="tab"][aria-pressed="true"],
+  .mobile-nav-item.is-active,
+  .mobile-section-more:active
+) {
+  color: var(--ds-primary);
+}
+
+/* Creation pickers keep primary text readable while carrying selection in gold. */
+body[data-mobile-page="create"] :is(
+  .mobile-create-model-menu .mobile-model-card.is-selected,
+  .mobile-create-setting-menu > button.is-selected,
+  .mobile-create-ratio-menu > button.is-selected
+) {
+  border-color: var(--ds-primary-border);
+  background: rgba(244, 201, 93, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(244, 201, 93, 0.08);
+}
+
+/* Shared content-title role: primary color, compact 24px scale, token weight. */
+body:is([data-mobile-page="image-detail"], [data-mobile-page="video-detail"])
+  .mobile-detail-copy h1,
+body[data-mobile-page="points"] .mobile-points-heading h2,
+body[data-mobile-page="tutorial-detail"] .mobile-tutorial-article h1 {
+  color: var(--ds-text-primary);
+  font-size: var(--ds-type-content-title);
+  font-weight: var(--ds-weight-bold);
+  line-height: var(--ds-leading-content-title);
+  letter-spacing: var(--ds-tracking-content-title);
+}

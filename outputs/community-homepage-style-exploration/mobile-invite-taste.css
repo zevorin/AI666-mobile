@@ -11,8 +11,8 @@ body[data-mobile-page="invite"] {
   --invite-surface-soft: rgba(255, 250, 240, 0.055);
   --invite-line: rgba(233, 199, 122, 0.18);
   --invite-line-strong: rgba(233, 199, 122, 0.48);
-  --invite-gold: #e9c77a;
-  --invite-gold-bright: #f7dda1;
+  --invite-gold: var(--ds-primary);
+  --invite-gold-bright: var(--ds-primary-bright);
   --invite-ink: #17140e;
   --invite-text: rgba(255, 250, 240, 0.94);
   --invite-muted: rgba(255, 250, 240, 0.62);
@@ -67,13 +67,13 @@ body[data-mobile-page="invite"] .mobile-invite-top-link {
   align-self: end;
   color: var(--invite-gold);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 20px;
 }
 
 body[data-mobile-page="invite"] .mobile-page-title {
   color: var(--invite-text);
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
 }
 
 body[data-mobile-page="invite"] .mobile-invite-content {
@@ -94,7 +94,7 @@ body[data-mobile-page="invite"] .mobile-invite-intro h1 {
   color: var(--invite-text);
   font-family: var(--ds-font-display);
   font-size: 24px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 24px;
   letter-spacing: -0.02em;
 }
@@ -137,7 +137,7 @@ body[data-mobile-page="invite"] .mobile-invite-intro p {
 
 body[data-mobile-page="invite"] .mobile-invite-intro p strong {
   color: var(--invite-gold-bright);
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 body[data-mobile-page="invite"] .mobile-invite-pass {
@@ -239,7 +239,7 @@ body[data-mobile-page="invite"] .mobile-invite-pass-copy > span {
   margin-top: 7px;
   color: rgba(34, 30, 25, 0.66);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 16px;
   letter-spacing: 0.06em;
 }
@@ -249,7 +249,7 @@ body[data-mobile-page="invite"] .mobile-invite-pass-copy > strong {
   color: #4a3b29;
   font-family: var(--ds-font-display);
   font-size: clamp(28px, 8vw, 34px);
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 40px;
   letter-spacing: -0.015em;
   text-shadow: none;
@@ -336,13 +336,13 @@ body[data-mobile-page="invite"] .mobile-invite-seal-count {
 body[data-mobile-page="invite"] .mobile-invite-seal-count strong {
   font-family: var(--ds-font-display);
   font-size: 30px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
 }
 
 body[data-mobile-page="invite"] .mobile-invite-seal-count small {
   color: rgba(247, 221, 161, 0.78);
   font-size: 10px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 14px;
   white-space: nowrap;
 }
@@ -354,7 +354,7 @@ body[data-mobile-page="invite"] .mobile-invite-seal-label {
   margin-top: 2px;
   color: rgba(255, 250, 240, 0.76);
   font-size: 10px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 14px;
   letter-spacing: 0.12em;
   text-align: center;
@@ -395,7 +395,7 @@ body[data-mobile-page="invite"] .mobile-invite-reward-eyebrow {
   gap: 7px;
   color: var(--invite-muted);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 16px;
   letter-spacing: 0.12em;
 }
@@ -420,7 +420,7 @@ body[data-mobile-page="invite"] .mobile-invite-reward-total p strong {
   color: var(--invite-gold-bright);
   font-family: var(--ds-font-display);
   font-size: 42px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 44px;
   letter-spacing: -0.035em;
   text-shadow: 0 4px 22px rgba(233, 199, 122, 0.18);
@@ -429,7 +429,7 @@ body[data-mobile-page="invite"] .mobile-invite-reward-total p strong {
 body[data-mobile-page="invite"] .mobile-invite-reward-total p small {
   color: var(--invite-muted);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
 }
 
 body[data-mobile-page="invite"] .mobile-invite-reward-next {
@@ -446,7 +446,7 @@ body[data-mobile-page="invite"] .mobile-invite-reward-next {
 body[data-mobile-page="invite"] .mobile-invite-reward-next > span {
   color: var(--invite-faint);
   font-size: 10px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 14px;
   letter-spacing: 0.08em;
 }
@@ -462,7 +462,7 @@ body[data-mobile-page="invite"] .mobile-invite-reward-next > strong {
 body[data-mobile-page="invite"] .mobile-invite-reward-next > strong b {
   color: var(--invite-success);
   font-size: 24px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   letter-spacing: -0.025em;
 }
 
@@ -470,7 +470,7 @@ body[data-mobile-page="invite"] .mobile-invite-reward-next > strong small {
   color: rgba(117, 207, 151, 0.72);
   font-family: var(--ds-font-body);
   font-size: 10px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
 }
 
 body[data-mobile-page="invite"] .mobile-invite-reward-next p {
@@ -524,13 +524,13 @@ body[data-mobile-page="invite"] .mobile-invite-flow span {
   background: var(--invite-bg);
   font-family: var(--ds-font-display);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
 }
 
 body[data-mobile-page="invite"] .mobile-invite-flow strong {
   color: var(--invite-muted);
   font-size: 11px;
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   line-height: 15px;
 }
 
@@ -578,7 +578,7 @@ body[data-mobile-page="invite"] .mobile-invite-avatar {
   background: rgba(233, 199, 122, 0.05);
   font-family: var(--ds-font-display);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
 }
 
 body[data-mobile-page="invite"] .mobile-invite-progress p {
@@ -731,7 +731,7 @@ body[data-mobile-page="invite"] .mobile-invite-rules-list article > span {
   color: var(--invite-gold-bright);
   font-family: var(--ds-font-display);
   font-size: 10px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
 }
 
 body[data-mobile-page="invite"] .mobile-invite-rules-list strong {

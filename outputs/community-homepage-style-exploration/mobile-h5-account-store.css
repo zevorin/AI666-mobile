@@ -976,7 +976,7 @@ body[data-mobile-page="profile-edit"] .mobile-profile-edit-content > .mobile-ava
   color: rgba(255, 255, 255, 0.92);
   background: transparent;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
   line-height: 24px;
 }
 
@@ -1028,14 +1028,14 @@ body[data-mobile-page="profile-edit"] .mobile-profile-edit-content > .mobile-ava
 .mobile-profile-cell-copy strong {
   color: rgba(255, 255, 255, 0.94);
   font-size: 16px;
-  font-weight: 560;
+  font-weight: var(--ds-weight-semibold);
   line-height: 23px;
 }
 
 .mobile-profile-cell-copy small {
   color: rgba(255, 255, 255, 0.46);
   font-size: 14px;
-  font-weight: 400;
+  font-weight: var(--ds-weight-regular);
   line-height: 21px;
 }
 
@@ -1065,7 +1065,7 @@ body[data-mobile-page="profile-field-edit"] .mobile-profile-field-edit-content {
   padding-inline: 4px;
   color: rgba(255, 255, 255, 0.6);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
   line-height: 20px;
 }
 

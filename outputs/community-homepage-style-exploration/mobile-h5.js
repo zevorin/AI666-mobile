@@ -895,7 +895,7 @@
     if (!myContentTabs.length || !myContentPanels.length) return;
     const next = myContentTabs.some((tab) => tab.dataset.mobileMyTab === tabName) ? tabName : "works";
     if (myContentTitle) myContentTitle.textContent = next === "favorites" ? "我的收藏" : "我的内容";
-    if (myFlashTab) myFlashTab.hidden = next === "favorites";
+    if (myFlashTab) myFlashTab.hidden = body.dataset.mobilePage !== "my" && next === "favorites";
     myContentTabs.forEach((tab) => {
       const active = tab.dataset.mobileMyTab === next;
       tab.classList.toggle("is-active", active);

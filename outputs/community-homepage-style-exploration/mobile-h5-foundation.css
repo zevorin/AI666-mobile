@@ -242,7 +242,7 @@ video {
   max-width: 228px;
   overflow: hidden;
   font-size: 17px;
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
   line-height: 22px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -307,7 +307,7 @@ video {
   color: var(--mobile-gold);
   background: rgba(244, 201, 93, 0.08);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-points-pill .mobile-icon {
@@ -531,7 +531,7 @@ video {
   overflow: hidden;
   color: var(--mobile-paper);
   font-size: 11px;
-  font-weight: 750;
+  font-weight: var(--ds-weight-bold);
   line-height: 16px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -619,7 +619,7 @@ video {
   margin-bottom: 8px;
   color: var(--mobile-lime);
   font-size: 11px;
-  font-weight: 850;
+  font-weight: var(--ds-weight-extrabold);
   letter-spacing: 0.08em;
 }
 
@@ -658,7 +658,7 @@ video {
   border: 1px solid transparent;
   border-radius: 999px;
   font-size: 13px;
-  font-weight: 850;
+  font-weight: var(--ds-weight-extrabold);
   cursor: pointer;
 }
 
@@ -814,7 +814,7 @@ video {
   background: rgba(5, 7, 11, 0.66);
   backdrop-filter: blur(8px);
   font-size: var(--mobile-font-min);
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
 }
 
 .mobile-media-badge .mobile-icon {
@@ -915,7 +915,7 @@ video {
   color: var(--mobile-muted);
   background: rgba(255, 255, 255, 0.035);
   font-size: 12px;
-  font-weight: 750;
+  font-weight: var(--ds-weight-bold);
   cursor: pointer;
 }
 
@@ -947,7 +947,7 @@ video {
   color: var(--mobile-faint);
   background: transparent;
   font-size: 12px;
-  font-weight: 750;
+  font-weight: var(--ds-weight-bold);
   cursor: pointer;
 }
 
@@ -1025,7 +1025,7 @@ video {
   background: transparent;
   font: inherit;
   font-size: 17px;
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
   cursor: pointer;
 }
 
@@ -1112,14 +1112,14 @@ video {
   margin-bottom: 12px;
   color: rgba(255, 247, 230, 0.9);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
   letter-spacing: 0.08em;
 }
 
 .mobile-community-feature-copy h2 {
   font-family: Georgia, "Songti SC", "STSong", serif;
   font-size: clamp(27px, 7.7vw, 34px);
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 1.1;
   letter-spacing: -0.05em;
 }
@@ -1149,7 +1149,7 @@ video {
   border-radius: 999px;
   color: var(--mobile-gold);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-community-feature-action .mobile-icon {
@@ -1236,7 +1236,7 @@ video {
   color: var(--mobile-gold);
   background: transparent;
   font-size: 12px;
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-community-hot-post {
@@ -1928,7 +1928,7 @@ video {
   color: var(--mobile-gold);
   background: rgba(244, 201, 93, 0.07);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
   white-space: nowrap;
 }
 
@@ -2094,7 +2094,7 @@ video {
   color: #171205;
   background: var(--mobile-gold);
   font-size: 13px;
-  font-weight: 900;
+  font-weight: var(--ds-weight-extrabold);
   font-family: inherit;
   cursor: pointer;
 }
@@ -2296,7 +2296,7 @@ video {
   color: var(--mobile-muted);
   background: transparent;
   font-size: 11px;
-  font-weight: 750;
+  font-weight: var(--ds-weight-bold);
   cursor: pointer;
 }
 
@@ -2335,7 +2335,7 @@ video {
 .mobile-create-source span {
   color: var(--mobile-gold);
   font-size: var(--mobile-font-min);
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-create-source strong,
@@ -2490,7 +2490,7 @@ video {
 .mobile-create-script-preview > span {
   color: var(--mobile-gold);
   font-size: var(--mobile-font-min);
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-create-script-preview strong {
@@ -2598,7 +2598,7 @@ video {
 
 .mobile-create-task-status {
   color: var(--mobile-gold);
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-create-turn.is-task > .mobile-icon {
@@ -2645,7 +2645,7 @@ video {
   color: var(--mobile-muted);
   background: rgba(255, 255, 255, 0.025);
   font-size: var(--mobile-font-min);
-  font-weight: 750;
+  font-weight: var(--ds-weight-bold);
   cursor: pointer;
 }
 
@@ -2675,7 +2675,7 @@ video {
   color: var(--mobile-faint);
   background: transparent;
   font-size: var(--mobile-font-min);
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
   white-space: nowrap;
   cursor: pointer;
 }
@@ -2733,7 +2733,7 @@ video {
   gap: 3px;
   color: var(--mobile-gold);
   font-size: var(--mobile-font-min);
-  font-weight: 750;
+  font-weight: var(--ds-weight-bold);
 }
 
 .mobile-create-settings-copy small .mobile-icon {
@@ -2836,7 +2836,7 @@ video {
 }
 
 .mobile-create-composer-meta b {
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
 }
 
 .mobile-create-sheet .mobile-sheet-panel {
@@ -3069,7 +3069,7 @@ video {
   color: var(--mobile-lime);
   background: rgba(217, 255, 140, 0.08);
   font-size: var(--mobile-font-min);
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
   font-style: normal;
 }
 
@@ -3103,7 +3103,7 @@ video {
 .mobile-activity-info strong {
   color: var(--mobile-gold);
   font-size: var(--mobile-font-min);
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-activity-empty {
@@ -3198,7 +3198,7 @@ video {
   color: var(--mobile-gold);
   background: rgba(244, 201, 93, 0.06);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
   cursor: pointer;
 }
 
@@ -3267,7 +3267,7 @@ video {
   color: #171205;
   background: var(--mobile-gold);
   font-size: var(--mobile-font-min);
-  font-weight: 900;
+  font-weight: var(--ds-weight-extrabold);
   font-style: normal;
 }
 
@@ -3470,7 +3470,7 @@ video {
   color: #171205;
   background: var(--mobile-gold);
   font-size: var(--mobile-font-min);
-  font-weight: 900;
+  font-weight: var(--ds-weight-extrabold);
   font-style: normal;
 }
 
@@ -3588,7 +3588,7 @@ video {
   gap: 4px;
   color: var(--mobile-green);
   font-size: var(--mobile-font-min);
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
   white-space: nowrap;
 }
 
@@ -3702,7 +3702,7 @@ video {
   place-items: center end;
   color: #e8c986;
   font-size: 12px;
-  font-weight: 750;
+  font-weight: var(--ds-weight-bold);
 }
 
 .mobile-invite-content {
@@ -3725,7 +3725,7 @@ video {
   color: #e7c88d;
   font-family: "Songti SC", "STSong", "SimSun", serif;
   font-size: 29px;
-  font-weight: 600;
+  font-weight: var(--ds-weight-semibold);
   line-height: 39px;
   letter-spacing: -0.045em;
 }
@@ -3739,7 +3739,7 @@ video {
 
 .mobile-invite-intro p strong {
   color: #e9c46d;
-  font-weight: 780;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-invite-pass {
@@ -3776,7 +3776,7 @@ video {
   margin-top: 8px;
   color: rgba(255, 237, 203, 0.88);
   font-size: var(--mobile-font-min);
-  font-weight: 680;
+  font-weight: var(--ds-weight-bold);
   letter-spacing: 0.08em;
 }
 
@@ -3785,7 +3785,7 @@ video {
   color: #f0d09a;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 31px;
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
   line-height: 38px;
   letter-spacing: 0.04em;
 }
@@ -3832,13 +3832,13 @@ video {
 .mobile-invite-seal strong {
   font-family: Georgia, "Times New Roman", serif;
   font-size: 35px;
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
   line-height: 1;
 }
 
 .mobile-invite-seal span {
   font-size: var(--mobile-font-min);
-  font-weight: 720;
+  font-weight: var(--ds-weight-bold);
   line-height: 13px;
 }
 
@@ -3864,7 +3864,7 @@ video {
   margin: 0 3px;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 29px;
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
 }
 
 .mobile-invite-reward span {
@@ -3911,7 +3911,7 @@ video {
 .mobile-invite-flow strong {
   min-width: 0;
   font-size: var(--mobile-font-min);
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 14px;
   white-space: nowrap;
 }
@@ -4193,7 +4193,7 @@ video {
   gap: 2px;
   color: var(--mobile-paper);
   font-size: var(--mobile-font-min);
-  font-weight: 750;
+  font-weight: var(--ds-weight-bold);
 }
 
 .mobile-points-balance-head > a .mobile-icon {
@@ -4412,7 +4412,7 @@ video {
 .mobile-points-filter button.is-active {
   color: #171205;
   background: var(--mobile-gold);
-  font-weight: 850;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-points-record-group {
@@ -4424,7 +4424,7 @@ video {
   margin: 0;
   color: var(--mobile-muted);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
 }
 
 .mobile-points-record-list {
@@ -4519,7 +4519,7 @@ video {
   color: var(--mobile-gold);
   background: rgba(5, 7, 11, 0.54);
   font-size: var(--mobile-font-min);
-  font-weight: 750;
+  font-weight: var(--ds-weight-bold);
 }
 
 .mobile-store-record-entry .mobile-icon {
@@ -4579,13 +4579,13 @@ video {
   margin: auto 0 10px;
   color: var(--mobile-gold);
   font-size: 15px;
-  font-weight: 850;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-store-card p span {
   color: var(--mobile-muted);
   font-size: var(--mobile-font-min);
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
 }
 
 .mobile-store-card button {
@@ -4594,7 +4594,7 @@ video {
   color: #171205;
   background: var(--mobile-gold);
   font-size: var(--mobile-font-min);
-  font-weight: 850;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-store-card button:disabled {
@@ -4673,7 +4673,7 @@ video {
   margin: 0;
   color: var(--mobile-paper);
   font-size: 12px;
-  font-weight: 750;
+  font-weight: var(--ds-weight-bold);
 }
 
 .mobile-exchange-confirm-detail > div:last-child dd {
@@ -4868,7 +4868,7 @@ video {
 .mobile-task-reward {
   color: var(--mobile-gold);
   font-size: 11px;
-  font-weight: 850;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-exchange-grid {
@@ -4907,7 +4907,7 @@ video {
   color: #171205;
   background: var(--mobile-gold);
   font-size: var(--mobile-font-min);
-  font-weight: 850;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-secondary-note {
@@ -5007,7 +5007,7 @@ video {
   color: #171205;
   background: var(--mobile-gold);
   font-size: var(--mobile-font-min);
-  font-weight: 900;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-growth-card {
@@ -5160,7 +5160,7 @@ video {
   color: #171205;
   background: var(--mobile-gold);
   font-size: var(--mobile-font-min);
-  font-weight: 850;
+  font-weight: var(--ds-weight-extrabold);
   cursor: pointer;
 }
 
@@ -5266,7 +5266,7 @@ video {
   color: #171205;
   background: var(--mobile-gold);
   font-size: var(--mobile-font-min);
-  font-weight: 850;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-task-hero h1 {
@@ -5484,7 +5484,7 @@ video {
 .mobile-form-heading > span {
   color: var(--mobile-faint);
   font-size: var(--mobile-font-min);
-  font-weight: 600;
+  font-weight: var(--ds-weight-semibold);
 }
 
 .mobile-form-heading b {
@@ -5637,7 +5637,7 @@ video {
   color: var(--mobile-muted);
   background: rgba(255, 255, 255, 0.03);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
   cursor: pointer;
 }
 
@@ -5870,7 +5870,7 @@ video {
 .mobile-result-status-line strong {
   color: var(--mobile-green);
   font-size: 13px;
-  font-weight: 750;
+  font-weight: var(--ds-weight-bold);
 }
 
 .mobile-result-hero {
@@ -5918,7 +5918,7 @@ video {
 .mobile-result-script > span {
   color: var(--mobile-gold);
   font-size: var(--mobile-font-min);
-  font-weight: 850;
+  font-weight: var(--ds-weight-extrabold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -5966,7 +5966,7 @@ video {
   color: #f2dfbd;
   font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
   font-size: clamp(25px, 6.4vw, 30px);
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   line-height: 1.2;
   letter-spacing: -0.035em;
 }
@@ -5975,7 +5975,7 @@ video {
   margin: 4px 0 0;
   color: rgba(244, 201, 93, 0.82);
   font-size: 13px;
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   line-height: 18px;
 }
 

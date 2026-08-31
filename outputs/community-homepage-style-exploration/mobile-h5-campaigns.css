@@ -56,7 +56,7 @@ body[data-mobile-page="tasks"] .mobile-newbie-eyebrow {
   color: rgba(199, 223, 34, 0.74);
   font-family: var(--ds-font-display);
   font-size: 9px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 14px;
   letter-spacing: 0.15em;
 }
@@ -222,7 +222,7 @@ body[data-mobile-page="tasks"] .mobile-newbie-task-index {
   background: rgba(48, 83, 180, 0.14);
   font-family: var(--ds-font-display);
   font-size: 10px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   letter-spacing: 0.04em;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }

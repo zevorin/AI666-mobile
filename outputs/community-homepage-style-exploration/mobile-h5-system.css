@@ -49,7 +49,7 @@ body.mobile-h5-body :is(input:not([type="file"]), textarea, select) {
 
 .mobile-topbar-detail > .mobile-page-title {
   font-size: 15px;
-  font-weight: 620;
+  font-weight: var(--ds-weight-semibold);
   line-height: 1.15;
   letter-spacing: -0.025em;
 }
@@ -104,7 +104,7 @@ body.mobile-h5-body :is(input:not([type="file"]), textarea, select) {
 .mobile-section-heading h1,
 .mobile-section-heading h2 {
   font-size: clamp(22px, 6.4vw, var(--ds-type-heading));
-  font-weight: 680;
+  font-weight: var(--ds-weight-bold);
   line-height: 1.08;
   letter-spacing: -0.045em;
 }
@@ -147,7 +147,7 @@ body.mobile-h5-body :is(input:not([type="file"]), textarea, select) {
 ) {
   min-height: var(--ds-control-default);
   border-radius: var(--ds-radius-pill);
-  font-weight: 620;
+  font-weight: var(--ds-weight-semibold);
   letter-spacing: -0.015em;
 }
 
@@ -194,7 +194,7 @@ body.mobile-h5-body :is(input:not([type="file"]), textarea, select) {
 ) {
   min-height: 38px;
   border-radius: var(--ds-radius-pill);
-  font-weight: 540;
+  font-weight: var(--ds-weight-medium);
 }
 
 :is(
@@ -278,7 +278,7 @@ body[data-mobile-page="activity"] .mobile-section-heading:first-child h1 {
 
 .mobile-activity-copy h3 {
   font-size: 16px;
-  font-weight: 640;
+  font-weight: var(--ds-weight-semibold);
   letter-spacing: -0.025em;
 }
 
@@ -360,7 +360,7 @@ body[data-mobile-page="activity"] .mobile-section-heading:first-child h1 {
 .mobile-form-heading h1,
 .mobile-form-heading h2 {
   font-size: 19px;
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   letter-spacing: -0.035em;
 }
 
@@ -378,7 +378,7 @@ body[data-mobile-page="activity"] .mobile-section-heading:first-child h1 {
 .mobile-field > span {
   color: var(--ds-text-muted);
   font-size: var(--ds-type-xs);
-  font-weight: 560;
+  font-weight: var(--ds-weight-semibold);
   letter-spacing: 0.015em;
 }
 
@@ -409,7 +409,7 @@ body[data-mobile-page="activity"] .mobile-section-heading:first-child h1 {
 
 .mobile-profile-section-heading h2 {
   font-size: 17px;
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   letter-spacing: -0.025em;
 }
 
@@ -442,7 +442,7 @@ body[data-mobile-page="activity"] .mobile-section-heading:first-child h1 {
 
 .mobile-submission-row h3 {
   font-size: 14px;
-  font-weight: 640;
+  font-weight: var(--ds-weight-semibold);
   letter-spacing: -0.02em;
 }
 
@@ -494,7 +494,7 @@ body[data-mobile-page="activity"] .mobile-section-heading:first-child h1 {
 
 .mobile-task-row h3 {
   font-size: 14px;
-  font-weight: 630;
+  font-weight: var(--ds-weight-semibold);
   letter-spacing: -0.02em;
 }
 
@@ -528,7 +528,7 @@ body[data-mobile-page="activity"] .mobile-section-heading:first-child h1 {
 .mobile-detail-copy h1,
 .mobile-result-details h1 {
   font-size: clamp(24px, 7vw, 30px);
-  font-weight: 680;
+  font-weight: var(--ds-weight-bold);
   line-height: 1.08;
   letter-spacing: -0.05em;
 }
@@ -639,7 +639,7 @@ body:is([data-mobile-page="image-detail"], [data-mobile-page="video-detail"])
 
 .mobile-sheet-head h2 {
   font-size: 16px;
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   letter-spacing: -0.025em;
 }
 
@@ -751,7 +751,7 @@ body:is([data-mobile-page="image-detail"], [data-mobile-page="video-detail"])
   border-radius: 0;
   color: rgba(255, 250, 240, 0.48);
   font-size: var(--mobile-font-min);
-  font-weight: 540;
+  font-weight: var(--ds-weight-medium);
   line-height: 1;
 }
 
@@ -884,7 +884,7 @@ body:is([data-mobile-page="image-detail"], [data-mobile-page="video-detail"])
   clip-path: none;
   color: rgba(255, 255, 255, 0.52);
   font-size: var(--mobile-font-min);
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
   line-height: 1.1;
   white-space: nowrap;
   transform: translateX(-50%);
@@ -956,7 +956,7 @@ body[data-mobile-page="home"] .mobile-home-shortcuts strong,
 body[data-mobile-page="home"] .mobile-home-shortcuts > a.is-create strong {
   color: #f4f6fb;
   font-size: 12px;
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   line-height: 1.25;
   letter-spacing: -0.03em;
 }

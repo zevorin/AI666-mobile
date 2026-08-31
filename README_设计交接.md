@@ -2,10 +2,11 @@
 
 ## 包含内容
 
-- 22 个移动端 H5 原型页面源文件
+- 24 个移动端 H5 原型页面源文件
 - 移动端共享样式与交互脚本：`mobile-h5.css`、`mobile-h5.js`
 - 页面实际引用的品牌图、内容图、Remix Icon 图标资源
 - 已确认的邀请页第三版设计参考
+- 以当前生产 token 和组件为准的 `UI设计规范.html`
 
 ## 查看方式
 
@@ -27,10 +28,17 @@ npx serve .
 /outputs/community-homepage-style-exploration/mobile-invite.html
 ```
 
+当前移动端 UI 规范：
+
+```text
+/outputs/community-homepage-style-exploration/UI设计规范.html
+```
+
 ## 设计交接说明
 
 - `design-handoff/selected-invite-design.png`：用户确认的邀请页第三版设计方向
 - `design-handoff/2026-08-21-web-style-mobile-redesign.md`：移动端重设计交接说明
+- `outputs/community-homepage-style-exploration/UI设计规范.html`：当前设计系统唯一视觉参考；旧交接仅保留历史背景
 
 ## 边界
 

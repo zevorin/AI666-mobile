@@ -13,7 +13,7 @@ body[data-mobile-page="points"] .mobile-points-detail-link {
   margin-bottom: 2px;
   color: rgba(255, 250, 240, 0.88);
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: var(--ds-weight-semibold);
   line-height: 1;
 }
 
@@ -38,7 +38,7 @@ body[data-mobile-page="points"] .mobile-points-balance > strong {
   color: #fffaf0;
   font-family: var(--ds-font-display);
   font-size: clamp(3.35rem, 16vw, 4.15rem);
-  font-weight: 620;
+  font-weight: var(--ds-weight-semibold);
   font-variant-numeric: tabular-nums;
   line-height: 0.98;
   letter-spacing: -0.055em;
@@ -53,7 +53,7 @@ body[data-mobile-page="points"] .mobile-points-balance > span {
   margin-top: 8px;
   color: rgba(255, 250, 240, 0.62);
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
   letter-spacing: 0.01em;
 }
 
@@ -115,7 +115,7 @@ body[data-mobile-page="points"] .mobile-points-overview-item small {
   overflow: hidden;
   color: rgba(255, 250, 240, 0.5);
   font-size: 0.6875rem;
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
   line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -125,7 +125,7 @@ body[data-mobile-page="points"] .mobile-points-overview-item > strong {
   color: #fffaf0;
   font-family: var(--ds-font-display);
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   font-variant-numeric: tabular-nums;
   line-height: 1.15;
 }
@@ -161,14 +161,14 @@ body[data-mobile-page="points"] .mobile-points-store-copy {
 body[data-mobile-page="points"] .mobile-points-store-copy small {
   color: #f4c95d;
   font-size: 0.6875rem;
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   letter-spacing: 0.035em;
 }
 
 body[data-mobile-page="points"] .mobile-points-store-copy strong {
   margin-top: 4px;
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 1.2;
   letter-spacing: -0.025em;
 }
@@ -285,7 +285,7 @@ body[data-mobile-page="my"] .mobile-profile-copy h2 {
   margin: 0;
   color: #f4f4ef;
   font-size: 16px;
-  font-weight: 680;
+  font-weight: var(--ds-weight-bold);
   line-height: 21px;
   letter-spacing: -0.025em;
   text-overflow: ellipsis;
@@ -342,7 +342,7 @@ body[data-mobile-page="my"] .mobile-my-profile-action em {
   background: var(--mobile-gold);
   font-size: var(--mobile-font-min);
   font-style: normal;
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 body[data-mobile-page="my"] .mobile-my-task-strip {
@@ -376,7 +376,7 @@ body[data-mobile-page="my"] .mobile-my-task-art .mobile-icon {
 
 body[data-mobile-page="my"] .mobile-my-task-strip strong {
   font-size: 11px;
-  font-weight: 820;
+  font-weight: var(--ds-weight-extrabold);
   line-height: 16px;
   white-space: nowrap;
 }
@@ -453,14 +453,14 @@ body[data-mobile-page="my"] .mobile-my-overview-head h2 {
   margin: 0;
   color: #f1f2ed;
   font-size: 14px;
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   line-height: 20px;
 }
 
 body[data-mobile-page="my"] .mobile-my-overview-head b {
   color: var(--mobile-gold);
   font-size: 11px;
-  font-weight: 820;
+  font-weight: var(--ds-weight-extrabold);
   line-height: 18px;
   letter-spacing: 0.04em;
 }
@@ -479,7 +479,7 @@ body[data-mobile-page="my"] .mobile-my-overview-primary {
 body[data-mobile-page="my"] .mobile-my-overview-primary strong {
   color: #f8f8f4;
   font-size: 38px;
-  font-weight: 560;
+  font-weight: var(--ds-weight-semibold);
   line-height: 42px;
   letter-spacing: -0.055em;
 }
@@ -525,7 +525,7 @@ body[data-mobile-page="my"] .mobile-my-overview-stats a + a {
 body[data-mobile-page="my"] .mobile-my-overview-stats strong {
   color: #f3f4ef;
   font-size: 13px;
-  font-weight: 680;
+  font-weight: var(--ds-weight-bold);
   line-height: 18px;
 }
 
@@ -577,7 +577,7 @@ body[data-mobile-page="my"] .mobile-my-entry-card strong,
 body[data-mobile-page="my"] .mobile-my-card-head strong {
   color: #f2f3ee;
   font-size: 12px;
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   line-height: 17px;
 }
 
@@ -586,14 +586,14 @@ body[data-mobile-page="my"] .mobile-my-entry-card small,
 body[data-mobile-page="my"] .mobile-my-card-head small {
   color: rgba(255, 255, 255, 0.36);
   font-size: var(--mobile-font-min);
-  font-weight: 430;
+  font-weight: var(--ds-weight-regular);
   line-height: 13px;
 }
 
 body[data-mobile-page="my"] .mobile-my-points-row > b {
   color: #f4f4ef;
   font-size: 20px;
-  font-weight: 620;
+  font-weight: var(--ds-weight-semibold);
   line-height: 24px;
   letter-spacing: -0.04em;
 }
@@ -675,7 +675,7 @@ body[data-mobile-page="my"] .mobile-my-entry-card h2 {
   margin: 0 0 4px;
   color: rgba(255, 255, 255, 0.78);
   font-size: 12px;
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   line-height: 18px;
 }
 
@@ -830,7 +830,7 @@ body[data-mobile-page="home"] .mobile-banner-copy > strong {
   padding: 0;
   color: var(--ds-text);
   font-size: clamp(28px, 8vw, 34px);
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   line-height: 1.03;
   letter-spacing: -0.055em;
   text-shadow: 0 8px 30px rgba(0, 0, 0, 0.72);
@@ -929,7 +929,7 @@ body[data-mobile-page="home"] .mobile-home-shortcuts > a:not(.is-create) .mobile
 body[data-mobile-page="home"] .mobile-home-shortcuts strong {
   color: var(--ds-text-muted);
   font-size: var(--mobile-font-min);
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
 }
 
 body[data-mobile-page="home"] .mobile-home-shortcuts > a.is-create strong {
@@ -1028,7 +1028,7 @@ body[data-mobile-page="points"] .mobile-points-content {
   color: var(--mobile-points-gold);
   font-family: var(--ds-font-display);
   font-size: var(--mobile-font-min);
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 1;
   letter-spacing: 0.21em;
 }
@@ -1038,7 +1038,7 @@ body[data-mobile-page="points"] .mobile-points-content {
   color: var(--ds-text);
   font-family: var(--ds-font-brand);
   font-size: clamp(34px, 10vw, 42px);
-  font-weight: 400;
+  font-weight: var(--ds-weight-regular);
   line-height: 1.08;
   letter-spacing: -0.055em;
 }
@@ -1105,7 +1105,7 @@ body[data-mobile-page="points"] .mobile-points-balance-head {
 body[data-mobile-page="points"] .mobile-points-balance-head > span:first-child {
   color: rgba(255, 250, 240, 0.76);
   font-size: 12px;
-  font-weight: 560;
+  font-weight: var(--ds-weight-semibold);
   letter-spacing: 0.03em;
 }
 
@@ -1124,7 +1124,7 @@ body[data-mobile-page="points"] .mobile-points-content .mobile-points-hero > str
   color: var(--ds-text);
   font-family: var(--ds-font-display);
   font-size: clamp(58px, 17vw, 72px);
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   font-variant-numeric: tabular-nums;
   line-height: 0.98;
   letter-spacing: -0.055em;
@@ -1243,7 +1243,7 @@ body[data-mobile-page="points"] .mobile-points-store-copy small {
   color: var(--mobile-points-gold);
   font-family: var(--ds-font-display);
   font-size: var(--mobile-font-min);
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   letter-spacing: 0.14em;
 }
 
@@ -1251,7 +1251,7 @@ body[data-mobile-page="points"] .mobile-points-store-copy strong {
   margin-top: 5px;
   color: var(--ds-text);
   font-size: 21px;
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   line-height: 1.18;
   letter-spacing: -0.045em;
 }
@@ -1271,7 +1271,7 @@ body[data-mobile-page="points"] .mobile-points-earn-copy > b {
   box-shadow: 0 8px 20px rgba(244, 201, 93, 0.12);
   font-size: var(--mobile-font-min);
   font-style: normal;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
 }
 
 body[data-mobile-page="points"] .mobile-points-store-copy b .mobile-icon,
@@ -1371,7 +1371,7 @@ body[data-mobile-page="points"] .mobile-points-earn-copy > small {
   margin-top: 20px;
   color: var(--mobile-points-gold);
   font-size: var(--mobile-font-min);
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   letter-spacing: 0.08em;
 }
 
@@ -1379,7 +1379,7 @@ body[data-mobile-page="points"] .mobile-points-earn-copy > strong {
   margin-top: 4px;
   color: var(--ds-text);
   font-size: 19px;
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   line-height: 1.15;
   letter-spacing: -0.035em;
 }
@@ -1481,7 +1481,7 @@ body[data-mobile-page="points"] .mobile-points-earn-secondary strong {
   overflow: hidden;
   color: var(--ds-text);
   font-size: 12px;
-  font-weight: 620;
+  font-weight: var(--ds-weight-semibold);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1717,7 +1717,7 @@ body[data-mobile-page="home"] .mobile-home-filter-tab.is-active {
   color: #151106;
   background: var(--mobile-gold);
   font-size: var(--mobile-font-min);
-  font-weight: 900;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-campaign-summary {
@@ -1814,7 +1814,7 @@ body[data-mobile-page="home"] .mobile-home-filter-tab.is-active {
 
 .mobile-campaign-rule-list span {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
 }
 
 .mobile-campaign-rule-list strong {
@@ -1839,7 +1839,7 @@ body[data-mobile-page="home"] .mobile-home-filter-tab.is-active {
   margin-left: 5px;
   color: var(--mobile-gold);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
 }
 
 .mobile-campaign-task-list {
@@ -2058,7 +2058,7 @@ body[data-mobile-page="home"] .mobile-home-filter-tab.is-active {
   border-radius: var(--ds-radius-control);
   color: var(--mobile-faint);
   font-size: var(--mobile-font-min);
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
 }
 
 .mobile-nav-item .mobile-icon {
@@ -2350,7 +2350,7 @@ button.mobile-create-action-option {
   color: var(--mobile-muted);
   background: rgba(255, 255, 255, 0.03);
   font-size: 11px;
-  font-weight: 750;
+  font-weight: var(--ds-weight-bold);
   cursor: pointer;
 }
 
@@ -2516,7 +2516,7 @@ button.mobile-create-action-option {
   color: var(--mobile-paper);
   background: rgba(10, 13, 18, 0.92);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: var(--ds-weight-extrabold);
   line-height: 15px;
   writing-mode: vertical-rl;
   cursor: pointer;
@@ -2670,7 +2670,7 @@ body[data-mobile-clean="true"] .mobile-walkthrough {
 body[data-mobile-page="my"] .mobile-my-redesign-stats strong {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei UI", sans-serif;
   font-size: 27px;
-  font-weight: 620;
+  font-weight: var(--ds-weight-semibold);
   line-height: 1;
   letter-spacing: -0.025em;
   font-variant-numeric: tabular-nums;
@@ -2821,7 +2821,7 @@ body[data-mobile-page="my"] .mobile-my-redesign .mobile-profile-copy h1 {
   margin: 0;
   color: #f2f2ef;
   font-size: clamp(19px, 5.7vw, 23px);
-  font-weight: 690;
+  font-weight: var(--ds-weight-bold);
   line-height: 1.15;
   letter-spacing: -0.035em;
   text-overflow: ellipsis;
@@ -2907,7 +2907,7 @@ body[data-mobile-page="my"] .mobile-my-redesign .mobile-my-profile-action em {
   background: #f2c400;
   font-size: var(--mobile-font-min);
   font-style: normal;
-  font-weight: 820;
+  font-weight: var(--ds-weight-extrabold);
   line-height: 1;
 }
 
@@ -2946,7 +2946,7 @@ body[data-mobile-page="my"] .mobile-my-redesign-stats a + a::before {
 body[data-mobile-page="my"] .mobile-my-redesign-stats strong {
   color: #f4f4f0;
   font-size: clamp(27px, 8.4vw, 34px);
-  font-weight: 650;
+  font-weight: var(--ds-weight-semibold);
   line-height: 1;
   letter-spacing: -0.035em;
 }
@@ -2970,7 +2970,7 @@ body[data-mobile-page="my"] .mobile-my-redesign-title {
   padding-left: 0;
   color: #f1f1ed;
   font-size: 20px;
-  font-weight: 670;
+  font-weight: var(--ds-weight-bold);
   line-height: 26px;
   letter-spacing: -0.035em;
 }
@@ -3045,7 +3045,7 @@ body[data-mobile-page="my"] .mobile-my-redesign-card-copy strong {
   overflow: hidden;
   color: #f4f4f0;
   font-size: 17px;
-  font-weight: 670;
+  font-weight: var(--ds-weight-bold);
   line-height: 24px;
   letter-spacing: -0.025em;
   text-overflow: ellipsis;

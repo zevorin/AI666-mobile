@@ -325,7 +325,7 @@ body[data-mobile-page="community"] .mobile-community-hub-head .mobile-display-he
   color: rgba(255, 252, 246, 0.94);
   font-family: var(--ds-font-body);
   font-size: 25px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 1.08;
   letter-spacing: -0.045em;
   animation: none !important;
@@ -545,7 +545,7 @@ body[data-mobile-page="points"] {
   --points-surface: rgba(7, 10, 14, 0.82);
   --points-surface-strong: rgba(4, 7, 10, 0.94);
   --points-line: rgba(255, 247, 230, 0.11);
-  --points-accent: var(--ds-gold);
+  --points-accent: var(--ds-primary);
   background: #020406;
 }
 
@@ -599,7 +599,7 @@ body[data-mobile-page="points"] .mobile-points-heading > div > span {
   color: var(--points-accent);
   font-family: var(--ds-font-display);
   font-size: var(--ds-type-xs);
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 16px;
   letter-spacing: 0.16em;
 }
@@ -609,7 +609,7 @@ body[data-mobile-page="points"] .mobile-points-heading h2 {
   color: var(--ds-text);
   font-family: var(--ds-font-body);
   font-size: clamp(30px, 8.5vw, 36px);
-  font-weight: 720;
+  font-weight: var(--ds-weight-bold);
   line-height: 1.1;
   letter-spacing: -0.048em;
 }
@@ -670,7 +670,7 @@ body[data-mobile-page="points"] .mobile-points-balance-head {
 body[data-mobile-page="points"] .mobile-points-balance-head > span:first-child {
   color: rgba(255, 250, 240, 0.78);
   font-size: var(--ds-type-body);
-  font-weight: 600;
+  font-weight: var(--ds-weight-semibold);
   letter-spacing: 0;
 }
 
@@ -679,7 +679,7 @@ body[data-mobile-page="points"] .mobile-points-balance-head > span:last-child {
   color: rgba(255, 250, 240, 0.44);
   font-family: var(--ds-font-body);
   font-size: var(--ds-type-xs);
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
   letter-spacing: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -693,7 +693,7 @@ body[data-mobile-page="points"] .mobile-points-content .mobile-points-hero > str
   color: var(--ds-text);
   font-family: var(--ds-font-display);
   font-size: clamp(54px, 15vw, 64px);
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   font-variant-numeric: tabular-nums;
   line-height: 0.96;
   letter-spacing: -0.052em;
@@ -752,7 +752,7 @@ body[data-mobile-page="points"] .mobile-points-stats small {
   overflow: hidden;
   color: rgba(255, 250, 240, 0.48);
   font-size: var(--ds-type-xs);
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
   line-height: 15px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -762,7 +762,7 @@ body[data-mobile-page="points"] .mobile-points-stats b {
   color: var(--ds-text);
   font-family: var(--ds-font-display);
   font-size: var(--ds-type-body);
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   font-variant-numeric: tabular-nums;
   line-height: 18px;
 }
@@ -798,7 +798,7 @@ body[data-mobile-page="points"] .mobile-points-store-copy small,
 body[data-mobile-page="points"] .mobile-points-earn-copy > small {
   color: var(--points-accent);
   font-size: var(--ds-type-xs);
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 16px;
   letter-spacing: 0.04em;
 }
@@ -806,7 +806,7 @@ body[data-mobile-page="points"] .mobile-points-earn-copy > small {
 body[data-mobile-page="points"] .mobile-points-store-copy strong {
   margin-top: 3px;
   font-size: 20px;
-  font-weight: 680;
+  font-weight: var(--ds-weight-bold);
   line-height: 25px;
   letter-spacing: -0.035em;
 }
@@ -829,7 +829,7 @@ body[data-mobile-page="points"] .mobile-points-earn-copy > b {
   background: var(--points-accent);
   box-shadow: 0 9px 22px rgba(244, 201, 93, 0.12);
   font-size: var(--ds-type-caption);
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   white-space: nowrap;
 }
 
@@ -844,7 +844,7 @@ body[data-mobile-page="points"] .mobile-points-earn .mobile-section-heading {
 
 body[data-mobile-page="points"] .mobile-points-earn .mobile-section-heading h2 {
   font-size: 22px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   line-height: 28px;
   letter-spacing: -0.032em;
 }
@@ -852,7 +852,7 @@ body[data-mobile-page="points"] .mobile-points-earn .mobile-section-heading h2 {
 body[data-mobile-page="points"] .mobile-points-earn .mobile-section-heading > a {
   color: rgba(255, 250, 240, 0.62);
   font-size: var(--ds-type-caption);
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
 }
 
 body[data-mobile-page="points"] .mobile-points-earn-list {
@@ -881,7 +881,7 @@ body[data-mobile-page="points"] .mobile-points-earn-copy > small {
 body[data-mobile-page="points"] .mobile-points-earn-copy > strong {
   margin-top: 3px;
   font-size: 18px;
-  font-weight: 680;
+  font-weight: var(--ds-weight-bold);
   line-height: 23px;
 }
 
@@ -915,7 +915,7 @@ body[data-mobile-page="points"] .mobile-points-earn-secondary > a + a {
 
 body[data-mobile-page="points"] .mobile-points-earn-secondary strong {
   font-size: var(--ds-type-body-strong);
-  font-weight: 620;
+  font-weight: var(--ds-weight-semibold);
 }
 
 body[data-mobile-page="points"] .mobile-points-earn-secondary small {
@@ -1110,7 +1110,7 @@ body[data-mobile-page="community"] .mobile-community-hub .mobile-community-modul
   box-shadow: none;
   font-family: var(--ds-font-body);
   font-size: 18px;
-  font-weight: 520;
+  font-weight: var(--ds-weight-medium);
   line-height: 1;
   letter-spacing: -0.02em;
   white-space: nowrap;
@@ -1130,7 +1130,7 @@ body[data-mobile-page="community"] .mobile-community-hub .mobile-community-modul
   background: transparent;
   box-shadow: none;
   font-size: 19px;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
 }
 
 body[data-mobile-page="community"] .mobile-community-hub .mobile-community-module-tab::after {
@@ -1245,7 +1245,7 @@ body[data-mobile-page="community"] .mobile-community-inner-panel > .mobile-commu
   box-shadow: none;
   font-family: var(--ds-font-body);
   font-size: 13px;
-  font-weight: 400;
+  font-weight: var(--ds-weight-regular);
   line-height: 1;
   transform: none;
   transition: color 180ms ease, text-shadow 220ms ease !important;
@@ -1261,7 +1261,7 @@ body[data-mobile-page="community"] .mobile-community-inner-panel > .mobile-commu
   color: var(--ds-gold);
   background: transparent;
   box-shadow: none;
-  font-weight: 500;
+  font-weight: var(--ds-weight-medium);
 }
 
 body[data-mobile-page="community"] .mobile-community-inner-panel > .mobile-community-aigc-tabs > .mobile-community-aigc-tab::after {

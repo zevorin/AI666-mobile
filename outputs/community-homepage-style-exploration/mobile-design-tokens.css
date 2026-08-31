@@ -8,7 +8,7 @@
   font-family: "Montserrat Mobile";
   src: url("../../assets/web/fonts/Montserrat-Bold.ttf") format("truetype");
   font-style: normal;
-  font-weight: 700;
+  font-weight: var(--ds-weight-bold);
   font-display: swap;
 }
 
@@ -16,7 +16,7 @@
   font-family: "GGQ Mobile";
   src: url("../../assets/web/fonts/GGQ.ttf") format("truetype");
   font-style: normal;
-  font-weight: 400;
+  font-weight: var(--ds-weight-regular);
   font-display: swap;
 }
 
@@ -45,6 +45,11 @@
   --ds-gold-border: rgba(244, 201, 93, 0.32);
   --ds-gold-strong: rgba(244, 201, 93, 0.48);
   --ds-gold-emphasis: rgba(244, 201, 93, 0.78);
+  --ds-primary: var(--ds-gold);
+  --ds-primary-bright: var(--ds-gold-bright);
+  --ds-primary-deep: var(--ds-gold-deep);
+  --ds-primary-border: var(--ds-gold-border);
+  --ds-primary-on: #171205;
   --ds-white-veil: rgba(255, 255, 255, 0.05);
   --ds-white-soft: rgba(255, 255, 255, 0.11);
   --ds-white-muted: rgba(255, 255, 255, 0.24);
@@ -142,6 +147,7 @@
   --ds-type-card-title: var(--ds-type-body-lg);
   --ds-type-section-title: var(--ds-type-title);
   --ds-type-page-title: var(--ds-type-heading);
+  --ds-type-content-title: var(--ds-type-heading);
   --ds-type-hero-title: 30px;
   --ds-type-number: var(--ds-type-display);
 
@@ -156,6 +162,7 @@
   --ds-leading-card-title: 23px;
   --ds-leading-section-title: 28px;
   --ds-leading-page-title: 32px;
+  --ds-leading-content-title: var(--ds-leading-page-title);
   --ds-leading-hero-title: 38px;
   --ds-leading-number: 40px;
 
@@ -170,6 +177,7 @@
   --ds-tracking-nav-title: -0.02em;
   --ds-tracking-section-title: -0.03em;
   --ds-tracking-page-title: -0.04em;
+  --ds-tracking-content-title: var(--ds-tracking-page-title);
   --ds-tracking-hero-title: -0.045em;
   --ds-tracking-number: -0.035em;
 
