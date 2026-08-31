@@ -414,6 +414,7 @@ body[data-mobile-page="my"] .mobile-my-content-tabs.mobile-secondary-tabs {
   z-index: 1;
   margin: 0;
   padding: 4px;
+  background: #1a1813;
 }
 
 body[data-mobile-page="my"] .mobile-my-content-body {
