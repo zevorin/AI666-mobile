@@ -411,6 +411,157 @@ body[data-mobile-page="create"] .mobile-create-composer-meta .mobile-field-error
   }
 }
 
+/* Direct publish page: one focused path without nested sheet containers. */
+body[data-mobile-page="publish"] .mobile-direct-publish-page {
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 82% 0%, rgba(244, 201, 93, 0.08), transparent 28%),
+    linear-gradient(180deg, #05070b 0%, #080b0a 100%);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 72;
+  border-bottom-color: rgba(255, 250, 240, 0.08);
+  background: rgba(5, 7, 11, 0.86);
+  backdrop-filter: blur(20px) saturate(1.18);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-content {
+  padding: 16px var(--mobile-side) 34px;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-form {
+  display: grid;
+  gap: 14px;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-section {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid rgba(255, 250, 240, 0.1);
+  border-radius: var(--ds-radius-card);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-add {
+  width: 100%;
+  height: 64px;
+  display: grid;
+  margin-top: 13px;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-preview {
+  overflow: hidden;
+  margin: 10px 0 0;
+  aspect-ratio: 4 / 3;
+  border: 1px solid rgba(255, 250, 240, 0.1);
+  border-radius: var(--ds-radius-control);
+  background: rgba(3, 5, 8, 0.62);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-preview[hidden] {
+  display: none;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-preview > :is(img, video) {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  background: #030508;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-preview > [hidden] {
+  display: none;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-fields {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid rgba(255, 250, 240, 0.1);
+  border-radius: var(--ds-radius-card);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-fields .mobile-field {
+  gap: 8px;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-fields .mobile-field > span {
+  color: rgba(255, 250, 240, 0.84);
+  font-size: 13px;
+  font-weight: var(--ds-weight-semibold);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-fields .mobile-field > span em {
+  margin-left: 4px;
+  color: rgba(244, 201, 93, 0.72);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: var(--ds-weight-medium);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-fields .mobile-field:nth-child(2) > span em {
+  color: rgba(255, 250, 240, 0.4);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-fields :is(input, textarea) {
+  border-color: rgba(255, 250, 240, 0.11);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-fields :is(input, textarea)::placeholder {
+  color: rgba(255, 250, 240, 0.42);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-fields :is(input, textarea):focus {
+  border-color: rgba(244, 201, 93, 0.52);
+  box-shadow: 0 0 0 3px rgba(244, 201, 93, 0.08);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-fields .mobile-field > small {
+  color: rgba(255, 250, 240, 0.48);
+  font-size: 11px;
+  line-height: 16px;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-status {
+  min-height: 18px;
+  margin: -4px 0 0;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-action .mobile-action-primary {
+  padding-inline: 20px;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-action .mobile-action-primary:active {
+  transform: scale(0.985);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-action .mobile-action-primary:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+@media (max-width: 374px) {
+  body[data-mobile-page="publish"] .mobile-direct-publish-content {
+    padding-inline: 14px;
+  }
+
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  body[data-mobile-page="publish"] .mobile-direct-publish-topbar {
+    background: #05070b;
+    backdrop-filter: none;
+  }
+}
+
 /* AIGC full-screen workspace: independent navigation and compact model picker. */
 body[data-mobile-page="create"] .mobile-create-shell {
   min-height: 100dvh;

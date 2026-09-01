@@ -311,13 +311,18 @@
             <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-aigc-flat-v1.png" width="512" height="512" alt=""></span>
             <span class="mobile-create-action-copy"><strong>AIGC 生成</strong><small>把灵感变成作品</small></span>
           </a>
+          <a class="mobile-create-action-option is-publish" href="./mobile-publish.html">
+            <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-upload-image-flat-v1.png" width="512" height="512" alt=""></span>
+            <span class="mobile-create-action-copy"><strong>直接发布</strong><small>上传已有作品</small></span>
+          </a>
           <a class="mobile-create-action-option is-flash" href="./mobile-compose-flash.html">
-            <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-flash-flat-v1.png" width="512" height="512" alt=""></span>
+            <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-flash-flat-v2.png" width="512" height="512" alt=""></span>
             <span class="mobile-create-action-copy"><strong>发布闪念</strong><small>记录此刻的创作想法</small></span>
           </a>
         </div>
       </div>`;
     (document.querySelector(".mobile-shell") || body).append(createActionSheet);
+
     createLaunchers.forEach((launcher) => {
       launcher.setAttribute("aria-haspopup", "dialog");
       launcher.setAttribute("aria-controls", "mobile-create-action-sheet");
@@ -331,6 +336,135 @@
     createActionSheet.querySelectorAll("[data-mobile-create-action-close]").forEach((button) => button.addEventListener("click", () => setCreateActionSheet(false, true)));
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && createActionSheet.classList.contains("is-open")) setCreateActionSheet(false, true);
+    });
+  }
+
+  const directPublishForm = document.querySelector("[data-mobile-direct-publish-form]");
+  if (directPublishForm) {
+    const directPublishInput = directPublishForm.querySelector("[data-mobile-direct-publish-input]");
+    const directPublishMediaOpen = directPublishForm.querySelector("[data-mobile-direct-publish-media-open]");
+    const directPublishPreview = directPublishForm.querySelector("[data-mobile-direct-publish-preview]");
+    const directPublishImagePreview = directPublishForm.querySelector("[data-mobile-direct-publish-image-preview]");
+    const directPublishVideoPreview = directPublishForm.querySelector("[data-mobile-direct-publish-video-preview]");
+    const directPublishLabel = directPublishForm.querySelector("[data-mobile-direct-publish-label]");
+    const directPublishFileName = directPublishForm.querySelector("[data-mobile-direct-publish-file-name]");
+    const directPublishTitle = directPublishForm.querySelector("[data-mobile-direct-publish-work-title]");
+    const directPublishDescription = directPublishForm.querySelector("[data-mobile-direct-publish-description]");
+    const directPublishPrompt = directPublishForm.querySelector("[data-mobile-direct-publish-prompt]");
+    const directPublishStatus = directPublishForm.querySelector("[data-mobile-direct-publish-status]");
+    const directPublishSubmit = directPublishForm.querySelector("[data-mobile-direct-publish-submit]");
+    const directPublishSubmitLabel = directPublishForm.querySelector("[data-mobile-direct-publish-submit-label]");
+    let directPublishObjectUrl = "";
+    let directPublishIsSubmitting = false;
+
+    const clearDirectPublishMedia = () => {
+      if (directPublishObjectUrl) URL.revokeObjectURL(directPublishObjectUrl);
+      directPublishObjectUrl = "";
+      if (directPublishInput) directPublishInput.value = "";
+      if (directPublishImagePreview) {
+        directPublishImagePreview.removeAttribute("src");
+        directPublishImagePreview.hidden = true;
+      }
+      if (directPublishVideoPreview) {
+        directPublishVideoPreview.pause();
+        directPublishVideoPreview.removeAttribute("src");
+        directPublishVideoPreview.load();
+        directPublishVideoPreview.hidden = true;
+      }
+      if (directPublishPreview) directPublishPreview.hidden = true;
+      if (directPublishLabel) directPublishLabel.textContent = "选择图片或视频";
+      if (directPublishFileName) directPublishFileName.textContent = "JPG、PNG、WebP、MP4、WebM、MOV";
+    };
+
+    const getDirectPublishMissingField = () => {
+      if (!directPublishInput?.files?.[0]) return "media";
+      if (!directPublishTitle?.value.trim()) return "title";
+      if (!directPublishPrompt?.value.trim()) return "prompt";
+      return "";
+    };
+
+    const updateDirectPublishState = () => {
+      const missingField = getDirectPublishMissingField();
+      if (directPublishSubmit) directPublishSubmit.disabled = directPublishIsSubmitting || Boolean(missingField);
+      if (!directPublishStatus || directPublishIsSubmitting) return;
+      const statusCopy = {
+        media: "请选择图片或视频",
+        title: "请填写作品标题",
+        prompt: "请填写作品提示词",
+      };
+      directPublishStatus.textContent = statusCopy[missingField] || "信息已填写完整，可以发布作品";
+      directPublishStatus.classList.toggle("is-success", !missingField);
+      directPublishStatus.classList.remove("is-error");
+    };
+
+    directPublishMediaOpen?.addEventListener("click", () => directPublishInput?.click());
+
+    directPublishInput?.addEventListener("change", () => {
+      const file = directPublishInput.files?.[0];
+      if (!file) {
+        updateDirectPublishState();
+        return;
+      }
+      const directPublishType = file.type.startsWith("video/") ? "video" : file.type.startsWith("image/") ? "image" : "";
+      if (!directPublishType) {
+        clearDirectPublishMedia();
+        updateDirectPublishState();
+        if (directPublishStatus) {
+          directPublishStatus.textContent = "请选择支持的图片或视频格式";
+          directPublishStatus.classList.add("is-error");
+          directPublishStatus.classList.remove("is-success");
+        }
+        return;
+      }
+      if (directPublishObjectUrl) URL.revokeObjectURL(directPublishObjectUrl);
+      directPublishObjectUrl = URL.createObjectURL(file);
+      const selectedPreview = directPublishType === "video" ? directPublishVideoPreview : directPublishImagePreview;
+      if (selectedPreview) {
+        selectedPreview.src = directPublishObjectUrl;
+        selectedPreview.hidden = false;
+      }
+      if (directPublishPreview) directPublishPreview.hidden = false;
+      if (directPublishLabel) directPublishLabel.textContent = directPublishType === "video" ? "更换视频" : "更换图片";
+      if (directPublishFileName) directPublishFileName.textContent = file.name;
+      updateDirectPublishState();
+    });
+
+    [directPublishTitle, directPublishDescription, directPublishPrompt].forEach((field) => field?.addEventListener("input", updateDirectPublishState));
+
+    directPublishForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const missingField = getDirectPublishMissingField();
+      if (missingField) {
+        const focusTargets = {
+          media: directPublishMediaOpen,
+          title: directPublishTitle,
+          prompt: directPublishPrompt,
+        };
+        updateDirectPublishState();
+        directPublishStatus?.classList.add("is-error");
+        directPublishStatus?.classList.remove("is-success");
+        focusTargets[missingField]?.focus();
+        return;
+      }
+      directPublishIsSubmitting = true;
+      if (directPublishStatus) {
+        directPublishStatus.textContent = "作品发布中…";
+        directPublishStatus.classList.remove("is-error", "is-success");
+      }
+      if (directPublishSubmitLabel) directPublishSubmitLabel.textContent = "发布中";
+      updateDirectPublishState();
+      window.setTimeout(() => {
+        directPublishIsSubmitting = false;
+        if (directPublishSubmitLabel) directPublishSubmitLabel.textContent = "发布作品";
+        updateDirectPublishState();
+        showToast("作品发布成功");
+      }, 520);
+    });
+
+    updateDirectPublishState();
+
+    window.addEventListener("pagehide", () => {
+      if (directPublishObjectUrl) URL.revokeObjectURL(directPublishObjectUrl);
     });
   }
 

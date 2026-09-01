@@ -422,6 +422,93 @@ button.mobile-create-action-option,
   margin-top: 12px;
 }
 
+/* Two compact primary paths above one full-width flash path. */
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) :is(.mobile-create-action-option, button.mobile-create-action-option) {
+  height: 88px;
+  min-height: 88px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 11px;
+  padding: 12px 14px;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-option.is-flash {
+  grid-column: 1 / -1;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-option > .mobile-create-action-art,
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-generated-icon {
+  width: 52px;
+  height: 52px;
+  flex-basis: 52px;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-generated-icon {
+  transform: scale(var(--mobile-create-action-icon-scale, 1));
+  transform-origin: center;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-option.is-aigc {
+  --mobile-create-action-icon-scale: 1;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-option.is-publish {
+  --mobile-create-action-icon-scale: 0.985;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-option.is-flash {
+  --mobile-create-action-icon-scale: 0.91;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-copy {
+  width: auto;
+  flex: 1 1 auto;
+  place-items: start;
+  gap: 3px;
+  margin-top: 0;
+  text-align: left;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-copy strong {
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-copy small {
+  min-height: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 374px) {
+  body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-list {
+    gap: 8px;
+  }
+
+  body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) :is(.mobile-create-action-option, button.mobile-create-action-option) {
+    height: 84px;
+    min-height: 84px;
+    gap: 9px;
+    padding-inline: 10px;
+  }
+
+  body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-option > .mobile-create-action-art,
+  body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-generated-icon {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+  }
+
+  body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-copy strong {
+    font-size: 14px;
+  }
+}
+
 /* Create menu V37: opening the sheet must not alter tabbar geometry. */
 body.mobile-h5-body.is-create-menu-open {
   overflow: visible;
@@ -539,6 +626,10 @@ body.mobile-h5-body .mobile-create-action-sheet.is-open .mobile-create-action-op
 }
 
 body.mobile-h5-body .mobile-create-action-sheet.is-open .mobile-create-action-option.is-flash {
+  transition-delay: 170ms !important;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet.is-open .mobile-create-action-option.is-publish {
   transition-delay: 120ms !important;
 }
 
