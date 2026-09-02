@@ -413,10 +413,21 @@ body[data-mobile-page="create"] .mobile-create-composer-meta .mobile-field-error
 
 /* Direct publish page: one focused path without nested sheet containers. */
 body[data-mobile-page="publish"] .mobile-direct-publish-page {
+  position: relative;
+  isolation: isolate;
   min-height: 100dvh;
+  overflow-x: clip;
   background:
-    radial-gradient(circle at 82% 0%, rgba(244, 201, 93, 0.08), transparent 28%),
+    radial-gradient(circle at 84% 5%, rgba(244, 201, 93, 0.07), transparent 30%),
     linear-gradient(180deg, #05070b 0%, #080b0a 100%);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-page::before {
+  content: none;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-page::after {
+  content: none;
 }
 
 body[data-mobile-page="publish"] .mobile-direct-publish-topbar {
@@ -429,73 +440,323 @@ body[data-mobile-page="publish"] .mobile-direct-publish-topbar {
 }
 
 body[data-mobile-page="publish"] .mobile-direct-publish-content {
+  position: relative;
+  z-index: 1;
   padding: 16px var(--mobile-side) 34px;
 }
 
 body[data-mobile-page="publish"] .mobile-direct-publish-form {
   display: grid;
-  gap: 14px;
+  gap: 18px;
 }
 
 body[data-mobile-page="publish"] .mobile-direct-publish-section {
+  position: relative;
+  isolation: isolate;
   min-width: 0;
-  padding: 16px;
-  border: 1px solid rgba(255, 250, 240, 0.1);
-  border-radius: var(--ds-radius-card);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-section::before {
+  position: absolute;
+  top: 24px;
+  right: -12px;
+  z-index: -1;
+  width: 244px;
+  height: 184px;
+  background: url("./assets/mobile/direct-publish-media-planet-illustrated-v3.webp") right center / 320px 240px no-repeat;
+  content: "";
+  opacity: 0.2;
+  filter: brightness(1.08) contrast(1.04);
+  -webkit-mask-image: radial-gradient(ellipse 64% 48% at 70% 50%, #000 0%, #000 42%, rgba(0, 0, 0, 0.78) 62%, transparent 100%);
+  mask-image: radial-gradient(ellipse 64% 48% at 70% 50%, #000 0%, #000 42%, rgba(0, 0, 0, 0.78) 62%, transparent 100%);
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-section.has-media::before {
+  opacity: 0;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-head {
+  align-items: flex-start;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-head h2 {
+  color: rgba(255, 250, 240, 0.84);
+  font-family: var(--ds-font-body);
+  font-size: 16px;
+  font-weight: var(--ds-weight-semibold);
+  line-height: 22px;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-head h2 em {
+  margin-left: 3px;
+  color: rgba(244, 201, 93, 0.72);
+  font-size: 10px;
+  font-style: normal;
+  vertical-align: 2px;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-head p {
+  margin-top: 5px;
+  color: rgba(255, 250, 240, 0.46);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-mode {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 0 24px;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-tabs {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  min-height: 40px;
+  flex: 0 0 100%;
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  gap: 4px;
+  margin: 0;
+  padding: 4px;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--ds-radius-pill);
+  background: rgba(12, 15, 18, 0.78);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.11);
+  backdrop-filter: blur(16px) saturate(1.12);
+  isolation: isolate;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-tabs > .mobile-filter-tab {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  min-height: 32px;
+  flex: 1 1 0 !important;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: var(--ds-radius-pill);
+  color: rgba(255, 250, 240, 0.66);
+  background: transparent;
+  box-shadow: none;
+  font-family: var(--ds-font-body);
+  font-size: 13px;
+  font-weight: var(--ds-weight-regular);
+  line-height: 1;
+  letter-spacing: normal;
+  text-shadow: none;
+  transform: none;
+  transition: color 180ms ease, text-shadow 220ms ease !important;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-tabs > .mobile-filter-tab:is(:hover, :focus-visible) {
+  border-color: transparent;
+  color: var(--ds-white);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: none;
+  outline: 0;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-tabs > .mobile-filter-tab:is(.is-active, [aria-selected="true"], [aria-pressed="true"]) {
+  border-color: transparent;
+  color: var(--ds-gold);
+  background: transparent;
+  box-shadow: none;
+  font-size: 13px;
+  font-weight: var(--ds-weight-medium);
+  text-shadow: none;
+  transform: none;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-tabs > .mobile-filter-tab::after {
+  content: none;
 }
 
 body[data-mobile-page="publish"] .mobile-direct-publish-media-add {
-  width: 100%;
+  width: 64px;
+  min-width: 64px;
+  min-height: 64px;
   height: 64px;
+  aspect-ratio: auto;
+  flex: 0 0 64px;
   display: grid;
-  margin-top: 13px;
-}
-
-body[data-mobile-page="publish"] .mobile-direct-publish-preview {
-  overflow: hidden;
-  margin: 10px 0 0;
-  aspect-ratio: 4 / 3;
-  border: 1px solid rgba(255, 250, 240, 0.1);
+  place-content: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border: 1px dashed rgba(255, 250, 240, 0.32);
   border-radius: var(--ds-radius-control);
-  background: rgba(3, 5, 8, 0.62);
+  color: rgba(255, 250, 240, 0.72);
+  background: rgba(255, 255, 255, 0.035);
+  text-align: center;
+  box-shadow: none;
 }
 
-body[data-mobile-page="publish"] .mobile-direct-publish-preview[hidden] {
+body[data-mobile-page="publish"] .mobile-direct-publish-media-add:is(:hover, :focus-visible) {
+  border-color: rgba(244, 201, 93, 0.55);
+  outline: 0;
+  background: rgba(244, 201, 93, 0.045);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-add:active {
+  transform: scale(0.985);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-count {
+  min-width: 34px;
+  align-self: flex-end;
+  color: rgba(255, 250, 240, 0.56);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--ds-weight-medium);
+  line-height: 18px;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-add:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+  transform: none;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-media-add[hidden],
+body[data-mobile-page="publish"] .mobile-direct-publish-media-count[hidden] {
   display: none;
 }
 
-body[data-mobile-page="publish"] .mobile-direct-publish-preview > :is(img, video) {
+body[data-mobile-page="publish"] .mobile-direct-publish-preview-list {
+  display: contents;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-preview-list[hidden] {
+  display: none;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-preview-item {
+  position: relative;
+  width: 64px;
+  min-width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  overflow: hidden;
+  margin: 0;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 250, 240, 0.1);
+  border-radius: var(--ds-radius-control);
+  background: #030508;
+  cursor: grab;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-preview-item.is-video {
+  cursor: default;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-preview-item > :is(img, video) {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
   background: #030508;
 }
 
-body[data-mobile-page="publish"] .mobile-direct-publish-preview > [hidden] {
-  display: none;
+body[data-mobile-page="publish"] .mobile-direct-publish-preview-item.is-video > video {
+  object-fit: cover;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-preview-item.is-dragging {
+  opacity: 0.52;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-preview-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 2;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255, 250, 240, 0.14);
+  border-radius: 50%;
+  background: rgba(5, 7, 11, 0.72);
+  backdrop-filter: blur(12px);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-preview-remove:is(:hover, :focus-visible) {
+  border-color: rgba(244, 201, 93, 0.42);
+  outline: 0;
+  background: rgba(32, 27, 17, 0.88);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-preview-remove .mobile-icon {
+  width: 13px;
+  height: 13px;
+  filter: brightness(0) invert(1);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-preview-badge {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  z-index: 2;
+  min-height: 20px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 7px;
+  border: 1px solid rgba(255, 250, 240, 0.1);
+  border-radius: var(--ds-radius-pill);
+  color: rgba(255, 250, 240, 0.9);
+  background: rgba(5, 7, 11, 0.72);
+  font-size: 10px;
+  line-height: 1;
+  backdrop-filter: blur(12px);
 }
 
 body[data-mobile-page="publish"] .mobile-direct-publish-fields {
   display: grid;
-  gap: 14px;
-  padding: 16px;
-  border: 1px solid rgba(255, 250, 240, 0.1);
-  border-radius: var(--ds-radius-card);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  gap: 24px;
+  margin-top: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 body[data-mobile-page="publish"] .mobile-direct-publish-fields .mobile-field {
+  position: relative;
   gap: 8px;
 }
 
 body[data-mobile-page="publish"] .mobile-direct-publish-fields .mobile-field > span {
   color: rgba(255, 250, 240, 0.84);
-  font-size: 13px;
+  font-family: var(--ds-font-body);
+  font-size: 16px;
   font-weight: var(--ds-weight-semibold);
+  line-height: 22px;
 }
 
 body[data-mobile-page="publish"] .mobile-direct-publish-fields .mobile-field > span em {
@@ -506,13 +767,18 @@ body[data-mobile-page="publish"] .mobile-direct-publish-fields .mobile-field > s
   font-weight: var(--ds-weight-medium);
 }
 
-body[data-mobile-page="publish"] .mobile-direct-publish-fields .mobile-field:nth-child(2) > span em {
-  color: rgba(255, 250, 240, 0.4);
-}
-
 body[data-mobile-page="publish"] .mobile-direct-publish-fields :is(input, textarea) {
   border-color: rgba(255, 250, 240, 0.11);
   background: rgba(255, 255, 255, 0.025);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-fields input {
+  padding-right: 62px;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-fields textarea {
+  padding-right: 58px;
+  padding-bottom: 30px;
 }
 
 body[data-mobile-page="publish"] .mobile-direct-publish-fields :is(input, textarea)::placeholder {
@@ -525,14 +791,24 @@ body[data-mobile-page="publish"] .mobile-direct-publish-fields :is(input, textar
 }
 
 body[data-mobile-page="publish"] .mobile-direct-publish-fields .mobile-field > small {
-  color: rgba(255, 250, 240, 0.48);
-  font-size: 11px;
+  position: absolute;
+  right: 14px;
+  bottom: 11px;
+  color: rgba(255, 250, 240, 0.32);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--ds-weight-regular);
   line-height: 16px;
+  pointer-events: none;
 }
 
 body[data-mobile-page="publish"] .mobile-direct-publish-status {
   min-height: 18px;
   margin: -4px 0 0;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-status:empty {
+  display: none;
 }
 
 body[data-mobile-page="publish"] .mobile-direct-publish-action .mobile-action-primary {
@@ -546,6 +822,31 @@ body[data-mobile-page="publish"] .mobile-direct-publish-action .mobile-action-pr
 body[data-mobile-page="publish"] .mobile-direct-publish-action .mobile-action-primary:disabled {
   cursor: not-allowed;
   opacity: 1;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-action .mobile-action-primary:is([aria-busy="true"], .is-success) {
+  border-color: rgba(255, 235, 177, 0.18);
+  color: #1d1707;
+  background: linear-gradient(135deg, #f6cf62, #eeb63d);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38), 0 8px 24px rgba(244, 187, 61, 0.12);
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-action .mobile-action-primary:is([aria-busy="true"], .is-success) .mobile-flash-page-submit-copy > .mobile-icon {
+  display: none;
+}
+
+body[data-mobile-page="publish"] .mobile-direct-publish-submit-spinner {
+  width: 18px;
+  height: 18px;
+  display: block;
+  border: 2px solid rgba(29, 23, 7, 0.28);
+  border-top-color: #1d1707;
+  border-radius: 50%;
+  animation: mobileDirectPublishSubmitSpin 680ms linear infinite;
+}
+
+@keyframes mobileDirectPublishSubmitSpin {
+  to { transform: rotate(360deg); }
 }
 
 @media (max-width: 374px) {
@@ -3776,4 +4077,44 @@ body[data-mobile-page="generation-history"] .mobile-generation-history-topbar .m
     background: #0b0e12;
     backdrop-filter: none;
   }
+}
+
+/* One upload control shared by AIGC, flash compose, and direct publish. */
+body.mobile-h5-body[data-mobile-page] .mobile-unified-upload-button {
+  width: 64px;
+  min-width: 64px;
+  min-height: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-content: center;
+  place-items: center;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px dashed rgba(255, 250, 240, 0.32);
+  border-radius: var(--ds-radius-control);
+  color: var(--ds-text-tertiary);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: none;
+}
+
+body.mobile-h5-body[data-mobile-page] .mobile-unified-upload-button:is(:hover, :focus-visible) {
+  border-color: rgba(244, 201, 93, 0.48);
+  outline: 0;
+  background: rgba(244, 201, 93, 0.055);
+  box-shadow: none;
+}
+
+body.mobile-h5-body[data-mobile-page] .mobile-unified-upload-button:active {
+  transform: scale(0.985);
+}
+
+body.mobile-h5-body[data-mobile-page] .mobile-unified-upload-button > .mobile-icon {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  opacity: 1;
+  filter: none;
 }

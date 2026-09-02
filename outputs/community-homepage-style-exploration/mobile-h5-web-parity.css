@@ -1646,6 +1646,22 @@ body[data-mobile-page="flash-compose"] .mobile-flash-compose-page {
   opacity: 0.9;
 }
 
+body[data-mobile-page="flash-compose"] .mobile-flash-page-media-add.mobile-create-reference-add {
+  grid-template-columns: none;
+  gap: 0;
+  text-align: center;
+}
+
+body[data-mobile-page="flash-compose"] .mobile-flash-page-media-add.mobile-create-reference-add:is(:hover, :focus-visible) {
+  border-color: rgba(255, 250, 240, 0.32);
+  outline: 0;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+body[data-mobile-page="flash-compose"] .mobile-flash-page-media-add.mobile-create-reference-add:active {
+  transform: none;
+}
+
 .mobile-flash-page-media-add-copy {
   min-width: 0;
   display: grid;

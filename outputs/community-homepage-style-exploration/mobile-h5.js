@@ -341,11 +341,14 @@
 
   const directPublishForm = document.querySelector("[data-mobile-direct-publish-form]");
   if (directPublishForm) {
+    const directPublishMediaTabs = [...directPublishForm.querySelectorAll("[data-mobile-direct-publish-media-tab]")];
     const directPublishInput = directPublishForm.querySelector("[data-mobile-direct-publish-input]");
     const directPublishMediaOpen = directPublishForm.querySelector("[data-mobile-direct-publish-media-open]");
-    const directPublishPreview = directPublishForm.querySelector("[data-mobile-direct-publish-preview]");
-    const directPublishImagePreview = directPublishForm.querySelector("[data-mobile-direct-publish-image-preview]");
-    const directPublishVideoPreview = directPublishForm.querySelector("[data-mobile-direct-publish-video-preview]");
+    const directPublishPreviewList = directPublishForm.querySelector("[data-mobile-direct-publish-preview-list]");
+    const directPublishMediaIcon = directPublishForm.querySelector("[data-mobile-direct-publish-media-icon]");
+    const directPublishMediaHelp = directPublishForm.querySelector("[data-mobile-direct-publish-media-help]");
+    const directPublishMediaCount = directPublishForm.querySelector("[data-mobile-direct-publish-media-count]");
+    const directPublishMediaSection = directPublishMediaOpen?.closest(".mobile-direct-publish-section");
     const directPublishLabel = directPublishForm.querySelector("[data-mobile-direct-publish-label]");
     const directPublishFileName = directPublishForm.querySelector("[data-mobile-direct-publish-file-name]");
     const directPublishTitle = directPublishForm.querySelector("[data-mobile-direct-publish-work-title]");
@@ -354,33 +357,147 @@
     const directPublishStatus = directPublishForm.querySelector("[data-mobile-direct-publish-status]");
     const directPublishSubmit = directPublishForm.querySelector("[data-mobile-direct-publish-submit]");
     const directPublishSubmitLabel = directPublishForm.querySelector("[data-mobile-direct-publish-submit-label]");
-    let directPublishObjectUrl = "";
+    const directPublishCounters = [...directPublishForm.querySelectorAll("[data-mobile-direct-publish-counter-for]")];
+    let directPublishMediaMode = "image";
+    let directPublishFiles = [];
+    let directPublishFileSequence = 0;
     let directPublishIsSubmitting = false;
 
+    const directPublishMediaConfig = {
+      image: {
+        accept: "image/png,image/jpeg,image/webp",
+        ariaLabel: "选择图片",
+        icon: "./assets/mobile/upload-unified-v1.svg",
+        label: "添加图片",
+        hint: "图片不超过 32MB",
+        help: "第一张为封面，拖动可调整顺序",
+        maxSize: 32 * 1024 * 1024,
+        limit: 4,
+      },
+      video: {
+        accept: "video/mp4,video/webm,video/quicktime",
+        ariaLabel: "选择视频",
+        icon: "./assets/mobile/upload-unified-v1.svg",
+        label: "添加视频",
+        hint: "支持 MP4、WebM、MOV",
+        help: "上传一个视频文件",
+        maxSize: 0,
+        limit: 1,
+      },
+    };
+
+    const syncDirectPublishInput = () => {
+      if (!directPublishInput || typeof DataTransfer === "undefined") return;
+      const transfer = new DataTransfer();
+      directPublishFiles.forEach((item) => transfer.items.add(item.file));
+      directPublishInput.files = transfer.files;
+    };
+
+    const renderDirectPublishPreview = () => {
+      directPublishPreviewList?.replaceChildren();
+      const mediaConfig = directPublishMediaConfig[directPublishMediaMode];
+      const isAtLimit = directPublishFiles.length >= mediaConfig.limit;
+      if (directPublishMediaCount) directPublishMediaCount.textContent = `${directPublishFiles.length}/${mediaConfig.limit}`;
+      if (directPublishMediaCount) directPublishMediaCount.hidden = isAtLimit;
+      if (directPublishMediaOpen) {
+        directPublishMediaOpen.disabled = isAtLimit;
+        directPublishMediaOpen.hidden = isAtLimit;
+      }
+      directPublishMediaSection?.classList.toggle("has-media", directPublishFiles.length > 0);
+      if (!directPublishPreviewList) return;
+      directPublishPreviewList.hidden = directPublishFiles.length === 0;
+      directPublishFiles.forEach((item, index) => {
+        const holder = document.createElement("figure");
+        holder.className = `mobile-direct-publish-preview-item is-${directPublishMediaMode}`;
+        holder.dataset.mobileDirectPublishPreviewId = item.id;
+        holder.draggable = directPublishMediaMode === "image" && directPublishFiles.length > 1;
+        holder.setAttribute("aria-label", directPublishMediaMode === "image" ? `图片 ${index + 1}${index === 0 ? "，封面" : ""}` : "已选择的视频");
+
+        const media = document.createElement(directPublishMediaMode === "video" ? "video" : "img");
+        media.src = item.url;
+        if (directPublishMediaMode === "video") {
+          media.muted = true;
+          media.playsInline = true;
+          media.preload = "metadata";
+        } else {
+          media.alt = `已选择的图片 ${index + 1}`;
+        }
+
+        const remove = document.createElement("button");
+        remove.className = "mobile-direct-publish-preview-remove";
+        remove.type = "button";
+        remove.setAttribute("aria-label", `删除${directPublishMediaMode === "image" ? `图片 ${index + 1}` : "视频"}`);
+        remove.innerHTML = '<img class="mobile-icon" src="../../resources/icons/remixicon/svg/System/close-line.svg" alt="">';
+        remove.addEventListener("click", () => {
+          URL.revokeObjectURL(item.url);
+          directPublishFiles = directPublishFiles.filter((candidate) => candidate.id !== item.id);
+          syncDirectPublishInput();
+          renderDirectPublishPreview();
+          updateDirectPublishState();
+        });
+
+        const badge = document.createElement("span");
+        badge.className = "mobile-direct-publish-preview-badge";
+        badge.textContent = directPublishMediaMode === "image" ? (index === 0 ? "封面" : `${index + 1}`) : "视频";
+
+        holder.addEventListener("dragstart", (event) => {
+          holder.classList.add("is-dragging");
+          event.dataTransfer?.setData("text/plain", item.id);
+          if (event.dataTransfer) event.dataTransfer.effectAllowed = "move";
+        });
+        holder.addEventListener("dragend", () => holder.classList.remove("is-dragging"));
+        holder.addEventListener("dragover", (event) => {
+          if (directPublishMediaMode !== "image") return;
+          event.preventDefault();
+        });
+        holder.addEventListener("drop", (event) => {
+          event.preventDefault();
+          const sourceId = event.dataTransfer?.getData("text/plain");
+          if (!sourceId || sourceId === item.id) return;
+          const sourceIndex = directPublishFiles.findIndex((candidate) => candidate.id === sourceId);
+          const targetIndex = directPublishFiles.findIndex((candidate) => candidate.id === item.id);
+          if (sourceIndex < 0 || targetIndex < 0) return;
+          const [moved] = directPublishFiles.splice(sourceIndex, 1);
+          directPublishFiles.splice(targetIndex, 0, moved);
+          syncDirectPublishInput();
+          renderDirectPublishPreview();
+        });
+
+        holder.append(media, remove, badge);
+        directPublishPreviewList.append(holder);
+      });
+    };
+
+    const clearDirectPublishPreview = () => {
+      directPublishFiles.forEach((item) => URL.revokeObjectURL(item.url));
+      directPublishFiles = [];
+      renderDirectPublishPreview();
+    };
+
     const clearDirectPublishMedia = () => {
-      if (directPublishObjectUrl) URL.revokeObjectURL(directPublishObjectUrl);
-      directPublishObjectUrl = "";
+      clearDirectPublishPreview();
       if (directPublishInput) directPublishInput.value = "";
-      if (directPublishImagePreview) {
-        directPublishImagePreview.removeAttribute("src");
-        directPublishImagePreview.hidden = true;
-      }
-      if (directPublishVideoPreview) {
-        directPublishVideoPreview.pause();
-        directPublishVideoPreview.removeAttribute("src");
-        directPublishVideoPreview.load();
-        directPublishVideoPreview.hidden = true;
-      }
-      if (directPublishPreview) directPublishPreview.hidden = true;
-      if (directPublishLabel) directPublishLabel.textContent = "选择图片或视频";
-      if (directPublishFileName) directPublishFileName.textContent = "JPG、PNG、WebP、MP4、WebM、MOV";
+      const mediaConfig = directPublishMediaConfig[directPublishMediaMode];
+      directPublishMediaOpen?.setAttribute("aria-label", mediaConfig.label);
+      if (directPublishLabel) directPublishLabel.textContent = mediaConfig.label;
+      if (directPublishFileName) directPublishFileName.textContent = mediaConfig.hint;
+      if (directPublishMediaHelp) directPublishMediaHelp.textContent = mediaConfig.help;
     };
 
     const getDirectPublishMissingField = () => {
-      if (!directPublishInput?.files?.[0]) return "media";
+      if (!directPublishFiles.length) return "media";
       if (!directPublishTitle?.value.trim()) return "title";
       if (!directPublishPrompt?.value.trim()) return "prompt";
       return "";
+    };
+
+    const updateDirectPublishCounters = () => {
+      directPublishCounters.forEach((counter) => {
+        const fieldId = counter.dataset.mobileDirectPublishCounterFor;
+        const field = fieldId ? document.getElementById(fieldId) : null;
+        if (!field) return;
+        counter.textContent = `${field.value.length}/${field.maxLength}`;
+      });
     };
 
     const updateDirectPublishState = () => {
@@ -388,48 +505,88 @@
       if (directPublishSubmit) directPublishSubmit.disabled = directPublishIsSubmitting || Boolean(missingField);
       if (!directPublishStatus || directPublishIsSubmitting) return;
       const statusCopy = {
-        media: "请选择图片或视频",
+        media: "",
         title: "请填写作品标题",
         prompt: "请填写作品提示词",
       };
-      directPublishStatus.textContent = statusCopy[missingField] || "信息已填写完整，可以发布作品";
+      directPublishStatus.textContent = missingField ? (statusCopy[missingField] || "") : "信息已填写完整，可以发布作品";
       directPublishStatus.classList.toggle("is-success", !missingField);
       directPublishStatus.classList.remove("is-error");
     };
 
-    directPublishMediaOpen?.addEventListener("click", () => directPublishInput?.click());
+    directPublishMediaTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const nextMode = tab.dataset.mobileDirectPublishMediaTab;
+        if (!nextMode || nextMode === directPublishMediaMode || !directPublishMediaConfig[nextMode]) return;
+        directPublishMediaMode = nextMode;
+        directPublishMediaTabs.forEach((item) => {
+          const selected = item === tab;
+          item.classList.toggle("is-active", selected);
+          item.setAttribute("aria-selected", String(selected));
+          item.setAttribute("aria-pressed", String(selected));
+          item.tabIndex = selected ? 0 : -1;
+        });
+        const mediaConfig = directPublishMediaConfig[directPublishMediaMode];
+        if (directPublishInput) {
+          directPublishInput.accept = mediaConfig.accept;
+          directPublishInput.multiple = directPublishMediaMode === "image";
+          directPublishInput.setAttribute("aria-label", mediaConfig.ariaLabel);
+        }
+        if (directPublishMediaIcon) directPublishMediaIcon.src = mediaConfig.icon;
+        clearDirectPublishMedia();
+        updateDirectPublishState();
+      });
+    });
+
+    directPublishMediaOpen?.addEventListener("click", () => {
+      if (!directPublishInput) return;
+      directPublishInput.value = "";
+      directPublishInput.click();
+    });
 
     directPublishInput?.addEventListener("change", () => {
-      const file = directPublishInput.files?.[0];
-      if (!file) {
+      const selectedFiles = [...(directPublishInput.files || [])];
+      if (!selectedFiles.length) {
         updateDirectPublishState();
         return;
       }
-      const directPublishType = file.type.startsWith("video/") ? "video" : file.type.startsWith("image/") ? "image" : "";
-      if (!directPublishType) {
-        clearDirectPublishMedia();
-        updateDirectPublishState();
+      const requiredMimePrefix = `${directPublishMediaMode}/`;
+      const mediaConfig = directPublishMediaConfig[directPublishMediaMode];
+      const hasInvalidType = selectedFiles.some((file) => !file.type.startsWith(requiredMimePrefix));
+      const hasOversizedFile = mediaConfig.maxSize > 0 && selectedFiles.some((file) => file.size > mediaConfig.maxSize);
+      if (hasInvalidType || hasOversizedFile) {
+        directPublishInput.value = "";
         if (directPublishStatus) {
-          directPublishStatus.textContent = "请选择支持的图片或视频格式";
+          directPublishStatus.textContent = hasOversizedFile ? "单张图片不能超过 32MB" : `请选择支持的${directPublishMediaMode === "image" ? "图片" : "视频"}格式`;
           directPublishStatus.classList.add("is-error");
           directPublishStatus.classList.remove("is-success");
         }
         return;
       }
-      if (directPublishObjectUrl) URL.revokeObjectURL(directPublishObjectUrl);
-      directPublishObjectUrl = URL.createObjectURL(file);
-      const selectedPreview = directPublishType === "video" ? directPublishVideoPreview : directPublishImagePreview;
-      if (selectedPreview) {
-        selectedPreview.src = directPublishObjectUrl;
-        selectedPreview.hidden = false;
-      }
-      if (directPublishPreview) directPublishPreview.hidden = false;
-      if (directPublishLabel) directPublishLabel.textContent = directPublishType === "video" ? "更换视频" : "更换图片";
-      if (directPublishFileName) directPublishFileName.textContent = file.name;
+      if (directPublishMediaMode === "video") clearDirectPublishPreview();
+      const existingKeys = new Set(directPublishFiles.map((item) => `${item.file.name}:${item.file.size}:${item.file.lastModified}`));
+      const uniqueFiles = selectedFiles.filter((file) => {
+        const key = `${file.name}:${file.size}:${file.lastModified}`;
+        if (directPublishMediaMode === "image" && existingKeys.has(key)) return false;
+        existingKeys.add(key);
+        return true;
+      });
+      const availableSlots = Math.max(0, mediaConfig.limit - directPublishFiles.length);
+      const filesToAdd = uniqueFiles.slice(0, availableSlots);
+      filesToAdd.forEach((file) => {
+        directPublishFileSequence += 1;
+        directPublishFiles.push({ id: `direct-publish-${directPublishFileSequence}`, file, url: URL.createObjectURL(file) });
+      });
+      if (uniqueFiles.length > filesToAdd.length) showToast(directPublishMediaMode === "image" ? "最多上传 4 张图片" : "仅支持上传 1 个视频");
+      syncDirectPublishInput();
+      renderDirectPublishPreview();
       updateDirectPublishState();
     });
 
-    [directPublishTitle, directPublishDescription, directPublishPrompt].forEach((field) => field?.addEventListener("input", updateDirectPublishState));
+    [directPublishTitle, directPublishDescription, directPublishPrompt].forEach((field) => field?.addEventListener("input", () => {
+      updateDirectPublishCounters();
+      updateDirectPublishState();
+    }));
 
     directPublishForm.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -447,25 +604,42 @@
         return;
       }
       directPublishIsSubmitting = true;
+      directPublishSubmit?.classList.remove("is-success");
+      directPublishSubmit?.setAttribute("aria-busy", "true");
+      directPublishSubmit?.setAttribute("aria-label", "正在发布作品");
       if (directPublishStatus) {
         directPublishStatus.textContent = "作品发布中…";
         directPublishStatus.classList.remove("is-error", "is-success");
       }
-      if (directPublishSubmitLabel) directPublishSubmitLabel.textContent = "发布中";
+      if (directPublishSubmitLabel) {
+        const spinner = document.createElement("span");
+        spinner.className = "mobile-direct-publish-submit-spinner";
+        spinner.setAttribute("aria-hidden", "true");
+        directPublishSubmitLabel.replaceChildren(spinner);
+      }
       updateDirectPublishState();
       window.setTimeout(() => {
-        directPublishIsSubmitting = false;
-        if (directPublishSubmitLabel) directPublishSubmitLabel.textContent = "发布作品";
-        updateDirectPublishState();
+        directPublishSubmit?.removeAttribute("aria-busy");
+        directPublishSubmit?.setAttribute("aria-label", "发布成功");
+        directPublishSubmit?.classList.add("is-success");
+        if (directPublishSubmitLabel) directPublishSubmitLabel.textContent = "发布成功";
+        if (directPublishStatus) {
+          directPublishStatus.textContent = "发布成功，正在返回社区";
+          directPublishStatus.classList.add("is-success");
+          directPublishStatus.classList.remove("is-error");
+        }
         showToast("作品发布成功");
-      }, 520);
+        window.setTimeout(() => {
+          window.location.assign("./mobile-community.html?module=aigc");
+        }, 700);
+      }, 900);
     });
 
+    updateDirectPublishCounters();
+    renderDirectPublishPreview();
     updateDirectPublishState();
 
-    window.addEventListener("pagehide", () => {
-      if (directPublishObjectUrl) URL.revokeObjectURL(directPublishObjectUrl);
-    });
+    window.addEventListener("pagehide", clearDirectPublishPreview);
   }
 
   const bottomNav = document.querySelector(".mobile-bottom-nav");
