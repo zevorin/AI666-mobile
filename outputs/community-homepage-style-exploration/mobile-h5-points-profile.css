@@ -422,9 +422,9 @@ button.mobile-create-action-option,
   margin-top: 12px;
 }
 
-/* Two compact primary paths above one full-width flash path. */
+/* Three equal, full-width creation paths. */
 body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-list {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 10px;
 }
 
@@ -436,10 +436,6 @@ body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice
   justify-content: flex-start;
   gap: 11px;
   padding: 12px 14px;
-}
-
-body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-option.is-flash {
-  grid-column: 1 / -1;
 }
 
 body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-option > .mobile-create-action-art,
@@ -483,6 +479,25 @@ body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice
 body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-copy small {
   min-height: 0;
   white-space: nowrap;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-arrow,
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-option.is-flash > .mobile-create-action-arrow {
+  position: static;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  margin-left: auto;
+  border-radius: 0;
+  color: inherit;
+  background: transparent;
+}
+
+body.mobile-h5-body .mobile-create-action-sheet:not(.mobile-participation-choice-sheet) .mobile-create-action-arrow .mobile-icon {
+  width: 20px;
+  height: 20px;
+  filter: invert(96%) sepia(8%) saturate(354%) hue-rotate(333deg) brightness(103%) contrast(94%);
+  opacity: 0.46;
 }
 
 @media (max-width: 374px) {

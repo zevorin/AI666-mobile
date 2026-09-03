@@ -390,14 +390,17 @@
           <a class="mobile-create-action-option is-aigc" href="./mobile-create.html">
             <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-aigc-flat-v1.png" width="512" height="512" alt=""></span>
             <span class="mobile-create-action-copy"><strong>AIGC 生成</strong><small>把灵感变成作品</small></span>
+            <span class="mobile-create-action-arrow" aria-hidden="true"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt=""></span>
           </a>
           <a class="mobile-create-action-option is-publish" href="./mobile-publish.html">
             <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-upload-image-flat-v1.png" width="512" height="512" alt=""></span>
             <span class="mobile-create-action-copy"><strong>直接发布</strong><small>上传已有作品</small></span>
+            <span class="mobile-create-action-arrow" aria-hidden="true"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt=""></span>
           </a>
           <a class="mobile-create-action-option is-flash" href="./mobile-compose-flash.html">
             <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-flash-flat-v3.png" width="512" height="512" alt=""></span>
             <span class="mobile-create-action-copy"><strong>发布闪念</strong><small>记录此刻的创作想法</small></span>
+            <span class="mobile-create-action-arrow" aria-hidden="true"><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-right-s-line.svg" alt=""></span>
           </a>
         </div>
       </div>`;
