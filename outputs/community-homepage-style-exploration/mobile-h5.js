@@ -235,6 +235,86 @@
     });
   };
 
+  const playFlashComposeEntrance = () => {
+    if (body.dataset.mobilePage !== "flash-compose") return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduceMotion.matches || typeof Element.prototype.animate !== "function") {
+      body.dataset.mobileFlashEntrance = "reduced";
+      return;
+    }
+
+    const animations = [];
+    const animateEntrance = (element, keyframes, delay, duration = 420) => {
+      if (!element || element.hidden || element.getClientRects().length === 0) return;
+      try {
+        const animation = element.animate(keyframes, {
+          delay,
+          duration,
+          easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+          fill: "backwards",
+        });
+        animations.push(animation);
+      } catch {
+        // Progressive enhancement: unsupported animation details must never hide content.
+      }
+    };
+
+    const riseIn = [
+      { opacity: 0, transform: "translate3d(0, 10px, 0)" },
+      { opacity: 1, transform: "translate3d(0, 0, 0)" },
+    ];
+
+    body.dataset.mobileFlashEntrance = "running";
+
+    document.querySelectorAll(".mobile-flash-compose-topbar > *").forEach((element, index) => {
+      animateEntrance(
+        element,
+        [
+          { opacity: 0, transform: "translate3d(0, -6px, 0)" },
+          { opacity: 1, transform: "translate3d(0, 0, 0)" },
+        ],
+        20 + index * 38,
+        340,
+      );
+    });
+
+    animateEntrance(
+      document.querySelector(".mobile-flash-compose-banner"),
+      [
+        { opacity: 0, transform: "translate3d(0, 8px, 0) scale(0.992)" },
+        { opacity: 1, transform: "translate3d(0, 0, 0) scale(1)" },
+      ],
+      72,
+      500,
+    );
+
+    animateEntrance(document.querySelector(".mobile-flash-page-editor"), riseIn, 150);
+    animateEntrance(document.querySelector(".mobile-flash-page-media"), riseIn, 215);
+    animateEntrance(document.querySelector(".mobile-flash-page-settings > .mobile-flash-page-section-head"), riseIn, 280, 390);
+    document.querySelectorAll(".mobile-flash-page-settings > .mobile-flash-page-field").forEach((element, index) => {
+      animateEntrance(element, riseIn, 335 + index * 55, 400);
+    });
+    animateEntrance(document.querySelector(".mobile-flash-page-status"), riseIn, 430, 360);
+    animateEntrance(
+      document.querySelector(".mobile-flash-page-action"),
+      [
+        { opacity: 0, transform: "translate3d(-50%, 8px, 0)" },
+        { opacity: 1, transform: "translate3d(-50%, 0, 0)" },
+      ],
+      250,
+      460,
+    );
+
+    Promise.allSettled(animations.map((animation) => animation.finished)).then(() => {
+      body.dataset.mobileFlashEntrance = "complete";
+    });
+  };
+
+  if (body.dataset.mobilePage === "flash-compose") {
+    window.requestAnimationFrame(() => window.requestAnimationFrame(playFlashComposeEntrance));
+  }
+
   const profileCoverVideo = document.querySelector("[data-mobile-profile-cover-video]");
   if (profileCoverVideo) {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -316,7 +396,7 @@
             <span class="mobile-create-action-copy"><strong>直接发布</strong><small>上传已有作品</small></span>
           </a>
           <a class="mobile-create-action-option is-flash" href="./mobile-compose-flash.html">
-            <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-flash-flat-v2.png" width="512" height="512" alt=""></span>
+            <span class="mobile-create-action-art"><img class="mobile-create-action-generated-icon" src="./assets/mobile/action-flash-flat-v3.png" width="512" height="512" alt=""></span>
             <span class="mobile-create-action-copy"><strong>发布闪念</strong><small>记录此刻的创作想法</small></span>
           </a>
         </div>
@@ -354,6 +434,7 @@
     const directPublishTitle = directPublishForm.querySelector("[data-mobile-direct-publish-work-title]");
     const directPublishDescription = directPublishForm.querySelector("[data-mobile-direct-publish-description]");
     const directPublishPrompt = directPublishForm.querySelector("[data-mobile-direct-publish-prompt]");
+    const directPublishPromptLabel = directPublishForm.querySelector("[data-mobile-direct-publish-prompt-label]");
     const directPublishStatus = directPublishForm.querySelector("[data-mobile-direct-publish-status]");
     const directPublishSubmit = directPublishForm.querySelector("[data-mobile-direct-publish-submit]");
     const directPublishSubmitLabel = directPublishForm.querySelector("[data-mobile-direct-publish-submit-label]");
@@ -383,6 +464,16 @@
         help: "上传一个视频文件",
         maxSize: 0,
         limit: 1,
+      },
+      text: {
+        accept: "",
+        ariaLabel: "",
+        icon: "../../resources/icons/remixicon/svg/Document/draft-line.svg",
+        label: "",
+        hint: "",
+        help: "",
+        maxSize: 0,
+        limit: 0,
       },
     };
 
@@ -485,7 +576,7 @@
     };
 
     const getDirectPublishMissingField = () => {
-      if (!directPublishFiles.length) return "media";
+      if (directPublishMediaMode !== "text" && !directPublishFiles.length) return "media";
       if (!directPublishTitle?.value.trim()) return "title";
       if (!directPublishPrompt?.value.trim()) return "prompt";
       return "";
@@ -502,14 +593,16 @@
 
     const updateDirectPublishState = () => {
       const missingField = getDirectPublishMissingField();
-      if (directPublishSubmit) directPublishSubmit.disabled = directPublishIsSubmitting || Boolean(missingField);
+      if (directPublishSubmit) directPublishSubmit.disabled = directPublishIsSubmitting;
       if (!directPublishStatus || directPublishIsSubmitting) return;
       const statusCopy = {
         media: "",
         title: "请填写作品标题",
-        prompt: "请填写作品提示词",
+        prompt: directPublishMediaMode === "text" ? "请填写正文" : "请填写作品提示词",
       };
-      directPublishStatus.textContent = missingField ? (statusCopy[missingField] || "") : "信息已填写完整，可以发布作品";
+      directPublishStatus.textContent = missingField
+        ? (statusCopy[missingField] || "")
+        : `信息已填写完整，可以发布${directPublishMediaMode === "text" ? "文本" : "作品"}`;
       directPublishStatus.classList.toggle("is-success", !missingField);
       directPublishStatus.classList.remove("is-error");
     };
@@ -530,9 +623,15 @@
         if (directPublishInput) {
           directPublishInput.accept = mediaConfig.accept;
           directPublishInput.multiple = directPublishMediaMode === "image";
+          directPublishInput.required = directPublishMediaMode !== "text";
+          directPublishInput.disabled = directPublishMediaMode === "text";
           directPublishInput.setAttribute("aria-label", mediaConfig.ariaLabel);
         }
         if (directPublishMediaIcon) directPublishMediaIcon.src = mediaConfig.icon;
+        directPublishMediaSection?.classList.toggle("is-text-mode", directPublishMediaMode === "text");
+        if (directPublishPromptLabel) directPublishPromptLabel.textContent = directPublishMediaMode === "text" ? "正文" : "提示词";
+        if (directPublishPrompt) directPublishPrompt.placeholder = directPublishMediaMode === "text" ? "填写要发布的文本内容" : "填写生成该作品使用的提示词";
+        if (directPublishSubmitLabel && !directPublishIsSubmitting) directPublishSubmitLabel.textContent = directPublishMediaMode === "text" ? "发布文本" : "发布作品";
         clearDirectPublishMedia();
         updateDirectPublishState();
       });
@@ -597,18 +696,24 @@
           title: directPublishTitle,
           prompt: directPublishPrompt,
         };
+        const missingCopy = {
+          media: `还需要添加${directPublishMediaMode === "video" ? "视频" : "图片"}才能发布哦`,
+          title: "还需要填写标题才能发布哦",
+          prompt: directPublishMediaMode === "text" ? "还需要填写正文才能发布哦" : "还需要填写提示词才能发布哦",
+        };
         updateDirectPublishState();
         directPublishStatus?.classList.add("is-error");
         directPublishStatus?.classList.remove("is-success");
+        showToast(missingCopy[missingField]);
         focusTargets[missingField]?.focus();
         return;
       }
       directPublishIsSubmitting = true;
       directPublishSubmit?.classList.remove("is-success");
       directPublishSubmit?.setAttribute("aria-busy", "true");
-      directPublishSubmit?.setAttribute("aria-label", "正在发布作品");
+      directPublishSubmit?.setAttribute("aria-label", `正在发布${directPublishMediaMode === "text" ? "文本" : "作品"}`);
       if (directPublishStatus) {
-        directPublishStatus.textContent = "作品发布中…";
+        directPublishStatus.textContent = `${directPublishMediaMode === "text" ? "文本" : "作品"}发布中…`;
         directPublishStatus.classList.remove("is-error", "is-success");
       }
       if (directPublishSubmitLabel) {
@@ -628,7 +733,7 @@
           directPublishStatus.classList.add("is-success");
           directPublishStatus.classList.remove("is-error");
         }
-        showToast("作品发布成功");
+        showToast(`${directPublishMediaMode === "text" ? "文本" : "作品"}发布成功`);
         window.setTimeout(() => {
           window.location.assign("./mobile-community.html?module=aigc");
         }, 700);
@@ -1859,6 +1964,11 @@
     const topicList = flashPageForm.querySelector("[data-mobile-flash-page-topic-list]");
     const topicCount = flashPageForm.querySelector("[data-mobile-flash-page-topic-count]");
     const category = flashPageForm.querySelector("[data-mobile-flash-page-category]");
+    const categorySelector = flashPageForm.querySelector("[data-mobile-flash-page-category-selector]");
+    const categoryTrigger = flashPageForm.querySelector("[data-mobile-flash-page-category-trigger]");
+    const categoryLabel = flashPageForm.querySelector("[data-mobile-flash-page-category-label]");
+    const categoryOptions = [...flashPageForm.querySelectorAll("[data-mobile-flash-page-category-option]")];
+    const initialCategory = categoryOptions.find((option) => option.classList.contains("is-selected"))?.dataset.mobileFlashPageCategoryOption || "tools";
     const status = flashPageForm.querySelector("[data-mobile-flash-page-status]");
     const submit = flashPageForm.querySelector("[data-mobile-flash-page-submit]");
     const mediaFiles = [];
@@ -1867,6 +1977,39 @@
     const topicLimit = 5;
     const maxFileSize = 50 * 1024 * 1024;
     let isPublishing = false;
+    let placeholderTimer = 0;
+
+    if (category) {
+      category.value = initialCategory;
+      category.setAttribute("value", initialCategory);
+    }
+
+    const playFlashPlaceholder = () => {
+      if (!content) return;
+      const placeholder = content.dataset.mobileFlashPagePlaceholder || content.placeholder;
+      const characters = Array.from(placeholder);
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.clearTimeout(placeholderTimer);
+      if (reduceMotion || !characters.length) {
+        content.placeholder = placeholder;
+        return;
+      }
+
+      let characterIndex = 0;
+      content.placeholder = "";
+      const typeNextCharacter = () => {
+        if (content.value) {
+          content.placeholder = placeholder;
+          return;
+        }
+        characterIndex += 1;
+        content.placeholder = characters.slice(0, characterIndex).join("");
+        if (characterIndex < characters.length) {
+          placeholderTimer = window.setTimeout(typeNextCharacter, 72);
+        }
+      };
+      placeholderTimer = window.setTimeout(typeNextCharacter, 520);
+    };
 
     const setFlashPageStatus = (message, tone = "") => {
       if (!status) return;
@@ -1882,7 +2025,7 @@
       if (topicCount) topicCount.textContent = `${topics.length}/5`;
       if (mediaAdd) mediaAdd.disabled = mediaFiles.length >= mediaLimit;
       if (topicAdd) topicAdd.disabled = !topicInput?.value.trim() || topics.length >= topicLimit;
-      if (submit) submit.disabled = !hasContent || isPublishing;
+      if (submit) submit.disabled = isPublishing;
     };
 
     const renderFlashPageMedia = () => {
@@ -2013,14 +2156,37 @@
       }
     });
     topicAdd?.addEventListener("click", addFlashPageTopic);
-    category?.addEventListener("change", () => {
-      const selected = category.options[category.selectedIndex]?.textContent || "当前";
-      setFlashPageStatus(`内容将发布到“${selected}”分类`);
+    categorySelector?.addEventListener("toggle", () => {
+      categoryTrigger?.setAttribute("aria-expanded", categorySelector.open ? "true" : "false");
+    });
+    categoryOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        const value = option.dataset.mobileFlashPageCategoryOption || "tools";
+        if (category) {
+          category.value = value;
+          category.setAttribute("value", value);
+        }
+        if (categoryLabel) categoryLabel.textContent = option.textContent.trim();
+        categoryOptions.forEach((item) => {
+          const selected = item === option;
+          item.classList.toggle("is-selected", selected);
+          item.setAttribute("aria-selected", selected ? "true" : "false");
+        });
+        if (categorySelector) categorySelector.open = false;
+        categoryTrigger?.focus();
+        setFlashPageStatus(`内容将发布到“${option.textContent.trim()}”分类`);
+      });
+    });
+    document.addEventListener("pointerdown", (event) => {
+      if (!categorySelector?.open || event.target.closest("[data-mobile-flash-page-category-selector]")) return;
+      categorySelector.open = false;
     });
     flashPageForm.addEventListener("submit", (event) => {
       event.preventDefault();
       if (!content?.value.trim()) {
-        setFlashPageStatus("请先写下闪念内容", "error");
+        const missingContentMessage = "还需要填写内容才能发布哦";
+        setFlashPageStatus(missingContentMessage, "error");
+        showToast(missingContentMessage);
         content?.focus();
         return;
       }
@@ -2036,17 +2202,12 @@
         window.setTimeout(() => window.location.assign("./mobile-community.html?module=flash"), 480);
       }, 520);
     });
-    window.addEventListener("pagehide", () => mediaFiles.forEach((item) => URL.revokeObjectURL(item.url)));
-    syncFlashPage();
-    window.requestAnimationFrame(() => {
-      if (!content || document.visibilityState !== "visible") return;
-      try {
-        content.focus({ preventScroll: true });
-      } catch {
-        content.focus();
-      }
-      content.setSelectionRange(content.value.length, content.value.length);
+    window.addEventListener("pagehide", () => {
+      window.clearTimeout(placeholderTimer);
+      mediaFiles.forEach((item) => URL.revokeObjectURL(item.url));
     });
+    syncFlashPage();
+    playFlashPlaceholder();
   }
 
   document.querySelectorAll("[data-mobile-back]").forEach((button) => {
@@ -2318,7 +2479,7 @@
       if (!createPrompt) return;
       createPrompt.style.height = "auto";
       createPrompt.style.height = `${Math.min(createPrompt.scrollHeight, 120)}px`;
-      if (createSend) createSend.disabled = !createPrompt.value.trim();
+      if (createSend) createSend.disabled = false;
       if (createPrompt.value.trim() && createError) createError.textContent = "";
     };
     const syncCreateSummary = () => {
@@ -2980,7 +3141,9 @@
     createComposer.addEventListener("submit", (event) => {
       event.preventDefault();
       if (!createPrompt?.value.trim()) {
-        if (createError) createError.textContent = "请输入提示词";
+        const missingPromptMessage = "还需要填写提示词才能生成哦";
+        if (createError) createError.textContent = missingPromptMessage;
+        showToast(missingPromptMessage);
         createPrompt?.focus();
         return;
       }

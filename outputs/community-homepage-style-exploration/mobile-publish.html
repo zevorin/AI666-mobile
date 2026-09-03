@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#05070b">
   <title>直接发布 - 多元拾光</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260902-publish-status-v32">
-  <script src="./mobile-h5.js?v=20260902-publish-status-v33" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260903-placeholder-14-v11">
+  <script src="./mobile-h5.js?v=20260903-publish-text-v39" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="publish">
   <div class="mobile-shell mobile-direct-publish-page has-action-bar">
@@ -22,12 +22,13 @@
         <section class="mobile-direct-publish-section" aria-labelledby="mobile-direct-publish-media-title">
           <nav class="mobile-direct-publish-media-mode" aria-label="发布类型">
             <div class="mobile-filter-tabs mobile-home-filter-tabs mobile-direct-publish-media-tabs mobile-tabs-style-a" role="tablist" aria-label="媒体类型">
-              <button class="mobile-filter-tab mobile-home-filter-tab is-active" type="button" role="tab" aria-selected="true" aria-pressed="true" data-mobile-direct-publish-media-tab="image">发布图片</button>
-              <button class="mobile-filter-tab mobile-home-filter-tab" type="button" role="tab" aria-selected="false" aria-pressed="false" tabindex="-1" data-mobile-direct-publish-media-tab="video">发布视频</button>
+              <button class="mobile-filter-tab mobile-home-filter-tab is-active" type="button" role="tab" aria-selected="true" aria-pressed="true" data-mobile-direct-publish-media-tab="image"><img class="mobile-direct-publish-media-tab-icon" src="../../resources/icons/remixicon/svg/Media/image-edit-line.svg" alt="" aria-hidden="true"><span>图片</span></button>
+              <button class="mobile-filter-tab mobile-home-filter-tab" type="button" role="tab" aria-selected="false" aria-pressed="false" tabindex="-1" data-mobile-direct-publish-media-tab="video"><img class="mobile-direct-publish-media-tab-icon" src="../../resources/icons/remixicon/svg/model/video.svg" alt="" aria-hidden="true"><span>视频</span></button>
+              <button class="mobile-filter-tab mobile-home-filter-tab" type="button" role="tab" aria-selected="false" aria-pressed="false" tabindex="-1" data-mobile-direct-publish-media-tab="text"><img class="mobile-direct-publish-media-tab-icon" src="../../resources/icons/remixicon/svg/Document/draft-line.svg" alt="" aria-hidden="true"><span>文本</span></button>
             </div>
           </nav>
           <div class="mobile-flash-page-section-head mobile-direct-publish-media-head">
-            <div><h2 id="mobile-direct-publish-media-title">媒体文件 <em>*</em></h2><p data-mobile-direct-publish-media-help>第一张为封面，拖动可调整顺序</p></div>
+            <div><h2 id="mobile-direct-publish-media-title">媒体文件 <em><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Others/shining-2-fill.svg" alt="" aria-hidden="true"></em></h2><p data-mobile-direct-publish-media-help>第一张为封面，拖动可调整顺序</p></div>
           </div>
           <input id="mobile-direct-publish-file" class="mobile-visually-hidden" type="file" accept="image/png,image/jpeg,image/webp" aria-label="选择图片" required multiple data-mobile-direct-publish-input>
           <div class="mobile-direct-publish-media-grid">
@@ -40,14 +41,14 @@
         </section>
 
         <div class="mobile-direct-publish-fields">
-          <label class="mobile-field" for="mobile-direct-publish-work-title"><span>标题 <em>*</em></span><input id="mobile-direct-publish-work-title" type="text" maxlength="40" placeholder="填写作品标题" required data-mobile-direct-publish-work-title><small data-mobile-direct-publish-counter-for="mobile-direct-publish-work-title">0/40</small></label>
+          <label class="mobile-field" for="mobile-direct-publish-work-title"><span>标题 <em><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Others/shining-2-fill.svg" alt="" aria-hidden="true"></em></span><input id="mobile-direct-publish-work-title" type="text" maxlength="40" placeholder="填写作品标题" required data-mobile-direct-publish-work-title><small data-mobile-direct-publish-counter-for="mobile-direct-publish-work-title">0/40</small></label>
           <label class="mobile-field" for="mobile-direct-publish-description"><span>简介</span><textarea id="mobile-direct-publish-description" maxlength="600" rows="4" placeholder="介绍创作想法、创作场景或使用模型" data-mobile-direct-publish-description></textarea><small data-mobile-direct-publish-counter-for="mobile-direct-publish-description">0/600</small></label>
-          <label class="mobile-field" for="mobile-direct-publish-prompt"><span>提示词 <em>*</em></span><textarea id="mobile-direct-publish-prompt" maxlength="1000" rows="5" placeholder="填写生成该作品使用的提示词" required data-mobile-direct-publish-prompt></textarea><small data-mobile-direct-publish-counter-for="mobile-direct-publish-prompt">0/1000</small></label>
+          <label class="mobile-field" for="mobile-direct-publish-prompt"><span><span data-mobile-direct-publish-prompt-label>提示词</span> <em><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Others/shining-2-fill.svg" alt="" aria-hidden="true"></em></span><textarea id="mobile-direct-publish-prompt" maxlength="1000" rows="5" placeholder="填写生成该作品使用的提示词" required data-mobile-direct-publish-prompt></textarea><small data-mobile-direct-publish-counter-for="mobile-direct-publish-prompt">0/1000</small></label>
         </div>
         <p id="mobile-direct-publish-status" class="mobile-flash-page-status mobile-direct-publish-status" role="status" aria-live="polite" data-mobile-direct-publish-status></p>
 
         <footer class="mobile-action-bar mobile-flash-page-action mobile-direct-publish-action">
-          <button class="mobile-action-primary" type="submit" data-mobile-direct-publish-submit disabled>
+          <button class="mobile-action-primary" type="submit" data-mobile-direct-publish-submit>
             <span class="mobile-flash-page-submit-copy"><strong data-mobile-direct-publish-submit-label>发布作品</strong><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-up-line.svg" alt=""></span>
           </button>
         </footer>

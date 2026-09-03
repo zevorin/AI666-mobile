@@ -1402,18 +1402,15 @@ body[data-mobile-page="flash-compose"] .mobile-flash-compose-page {
   position: absolute;
   inset: -8px 0 0 -12px;
   z-index: 0;
-  background: url("./assets/mobile/flash-compose-astronaut-v2.webp") 62% center / cover no-repeat;
+  background: url("./assets/mobile/flash-compose-astronaut-desk-v3.webp") 100% center / auto 146px no-repeat;
   content: "";
-  transform: translate3d(12px, 16px, 0);
 }
 
 .mobile-flash-compose-banner::after {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background:
-    linear-gradient(180deg, rgba(3, 5, 9, 0.06), rgba(3, 5, 9, 0.82)),
-    linear-gradient(90deg, rgba(5, 7, 11, 0.78) 0%, rgba(5, 7, 11, 0.16) 64%, rgba(5, 7, 11, 0.08) 100%);
+  background: linear-gradient(90deg, rgba(5, 7, 11, 0.72) 0%, rgba(5, 7, 11, 0.38) 34%, transparent 58%);
   content: "";
   pointer-events: none;
 }
@@ -1421,7 +1418,7 @@ body[data-mobile-page="flash-compose"] .mobile-flash-compose-page {
 .mobile-flash-compose-banner-copy {
   position: absolute;
   right: var(--mobile-side);
-  bottom: 42px;
+  bottom: 68px;
   left: calc(var(--mobile-side) + 20px);
   z-index: 2;
   display: grid;
@@ -1430,17 +1427,41 @@ body[data-mobile-page="flash-compose"] .mobile-flash-compose-page {
 }
 
 .mobile-flash-compose-banner-copy strong {
-  color: rgba(255, 250, 240, 0.96);
-  font-size: 17px;
-  font-weight: var(--ds-weight-bold);
-  line-height: 23px;
+  color: transparent;
+  background: linear-gradient(
+    112deg,
+    #f2c75c 0%,
+    #f2c75c 34%,
+    #fff4d3 49%,
+    #f4f2ed 58%,
+    #ffffff 68%,
+    #f2c75c 100%
+  );
+  background-size: 240% 100%;
+  background-position: 120% 50%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 25px;
   letter-spacing: -0.025em;
+  animation: mobile-create-inspiration-shimmer 5s linear infinite !important;
+  will-change: background-position;
 }
 
 .mobile-flash-compose-banner-copy span {
   color: rgba(255, 250, 240, 0.62);
   font-size: 12px;
   line-height: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-flash-compose-banner-copy strong {
+    animation: none !important;
+    background-position: 50% 50%;
+    will-change: auto;
+  }
 }
 
 .mobile-flash-page-form {
@@ -1586,6 +1607,21 @@ body[data-mobile-page="flash-compose"] .mobile-flash-compose-page {
 
 .mobile-flash-page-media-head {
   align-items: center;
+}
+
+.mobile-flash-page-media-head h2 em {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 3px;
+  font-style: normal;
+  vertical-align: 2px;
+}
+
+.mobile-flash-page-media-head h2 em .mobile-icon {
+  width: 10px;
+  height: 10px;
+  opacity: 0.72;
+  filter: var(--mobile-icon-gold-filter);
 }
 
 .mobile-flash-page-media-head p {
@@ -1844,16 +1880,52 @@ body[data-mobile-page="flash-compose"] .mobile-flash-page-media-add.mobile-creat
   position: relative;
 }
 
-.mobile-flash-page-select select {
+.mobile-flash-page-category-selector {
+  position: relative;
+  width: 100%;
+}
+
+summary.mobile-flash-page-select {
   width: 100%;
   min-height: 48px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
   padding: 0 44px 0 14px;
-  appearance: none;
-  border: 0;
+  list-style: none;
+  cursor: pointer;
+  border: 1px solid rgba(255, 250, 240, 0.1);
+  border-radius: var(--ds-radius-control);
   outline: 0;
   color: rgba(255, 250, 240, 0.86);
+  background: rgba(3, 5, 8, 0.62);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+summary.mobile-flash-page-select::-webkit-details-marker {
+  display: none;
+}
+
+.mobile-flash-page-category-selector[open] > summary.mobile-flash-page-select {
+  border-color: #666a68;
+  color: #f0f1f0;
+  background: #242625;
+}
+
+.mobile-flash-page-category-menu {
+  box-sizing: border-box;
+  width: 100%;
+  max-height: 212px;
+}
+
+.mobile-flash-page-category-menu > button {
+  width: 100%;
+  justify-content: flex-start;
+  border: 0;
+  color: #aeb1af;
   background: transparent;
-  box-shadow: none !important;
+  box-shadow: none;
+  text-align: left;
 }
 
 .mobile-flash-page-select .mobile-icon {
@@ -1863,6 +1935,11 @@ body[data-mobile-page="flash-compose"] .mobile-flash-page-media-add.mobile-creat
   height: 18px;
   pointer-events: none;
   opacity: 0.58;
+  transition: transform 140ms ease;
+}
+
+.mobile-flash-page-category-selector[open] > .mobile-flash-page-select .mobile-icon {
+  transform: rotate(180deg);
 }
 
 .mobile-flash-page-status {
@@ -1923,7 +2000,7 @@ body[data-mobile-page="flash-compose"] .mobile-flash-page-media-add.mobile-creat
 .mobile-flash-page-submit-copy {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 48%;
   display: block;
   white-space: nowrap;
   pointer-events: none;

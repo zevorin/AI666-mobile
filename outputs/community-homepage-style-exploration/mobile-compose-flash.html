@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#05070b">
   <title>发布闪念 - 多元拾光</title>
   <link rel="icon" type="image/svg+xml" href="assets/brand/duoyuan-shiguang-favicon.svg">
-  <link rel="stylesheet" href="./mobile-h5.css?v=20260902-unified-upload-v13">
-  <script src="./mobile-h5.js?v=20260902-unified-upload-v13" defer></script>
+  <link rel="stylesheet" href="./mobile-h5.css?v=20260903-flash-hero-split-v11">
+  <script src="./mobile-h5.js?v=20260903-flash-placeholder-v38" defer></script>
 </head>
 <body class="mobile-h5-body" data-mobile-page="flash-compose">
   <div class="mobile-shell mobile-flash-compose-page has-action-bar">
@@ -19,24 +19,21 @@
       <span class="mobile-topbar-placeholder" aria-hidden="true"></span>
     </header>
     <div class="mobile-flash-compose-banner">
+      <div class="mobile-flash-compose-banner-art" aria-hidden="true">
+        <img src="./assets/mobile/flash-compose-astronaut-desk-v3.webp" alt="">
+      </div>
       <div class="mobile-flash-compose-banner-copy">
-        <strong>发布闪念</strong>
-        <span>一个方法、一次试错，都值得被看见。</span>
+        <strong>留下刚刚发生的灵感</strong>
+        <span class="mobile-flash-compose-banner-subtitle">每次尝试，都值得被看见。</span>
       </div>
     </div>
 
     <form id="mobile-flash-compose-form" class="mobile-flash-page-form" data-mobile-flash-page-form novalidate>
       <main id="main" class="mobile-flash-page-content">
         <div class="mobile-flash-compose-stage">
-          <section class="mobile-flash-page-section mobile-flash-page-editor" aria-labelledby="mobile-flash-content-label">
-            <label id="mobile-flash-content-label" class="mobile-visually-hidden" for="mobile-flash-content">闪念内容</label>
-            <textarea id="mobile-flash-content" maxlength="600" rows="7" placeholder="分享一个刚冒出来的想法" aria-describedby="mobile-flash-content-counter mobile-flash-compose-status" data-mobile-flash-page-content autofocus></textarea>
-            <span id="mobile-flash-content-counter" class="mobile-flash-page-editor-counter" data-mobile-flash-page-counter>0 / 600</span>
-          </section>
-
           <section class="mobile-flash-page-section mobile-flash-page-media" aria-labelledby="mobile-flash-media-title">
             <div class="mobile-flash-page-section-head mobile-flash-page-media-head">
-              <div><h2 id="mobile-flash-media-title">图片与视频</h2><p>支持混合上传，单个文件不超过 50MB</p></div>
+              <div><h2 id="mobile-flash-media-title">图片与视频 <em><img class="mobile-icon" src="../../resources/icons/remixicon/svg/Others/shining-2-fill.svg" alt="" aria-hidden="true"></em></h2><p>支持混合上传，单个文件不超过 50MB</p></div>
               <span data-mobile-flash-page-media-count>0 / 6</span>
             </div>
             <input class="mobile-visually-hidden" type="file" accept="image/*,video/*" multiple aria-label="选择图片或视频" data-mobile-flash-page-media-input>
@@ -45,6 +42,12 @@
                 <img class="mobile-icon" src="./assets/mobile/upload-unified-v1.svg" alt="">
               </button>
             </div>
+          </section>
+
+          <section class="mobile-flash-page-section mobile-flash-page-editor" aria-labelledby="mobile-flash-content-label">
+            <label id="mobile-flash-content-label" class="mobile-visually-hidden" for="mobile-flash-content">闪念内容</label>
+            <textarea id="mobile-flash-content" maxlength="600" rows="7" placeholder="分享一个刚冒出来的想法" aria-describedby="mobile-flash-content-counter mobile-flash-compose-status" data-mobile-flash-page-content data-mobile-flash-page-placeholder="分享一个刚冒出来的想法"></textarea>
+            <span id="mobile-flash-content-counter" class="mobile-flash-page-editor-counter" data-mobile-flash-page-counter>0 / 600</span>
           </section>
         </div>
 
@@ -63,25 +66,29 @@
             <div class="mobile-flash-page-topic-list" data-mobile-flash-page-topic-list aria-live="polite"></div>
           </div>
 
-          <label class="mobile-flash-page-field mobile-flash-page-category">
+          <div class="mobile-flash-page-field mobile-flash-page-category">
             <span class="mobile-flash-page-field-label"><span>内容分类</span></span>
-            <span class="mobile-flash-page-select">
-              <select aria-label="内容分类" data-mobile-flash-page-category>
-                <option value="tools">工具推荐</option>
-                <option value="showcase">作品展示</option>
-                <option value="experience">经验分享</option>
-                <option value="question">问题讨论</option>
-              </select>
-              <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-down-s-line.svg" alt="">
-            </span>
-          </label>
+            <details class="mobile-create-selector mobile-flash-page-category-selector" data-mobile-flash-page-category-selector>
+              <summary class="mobile-flash-page-select" aria-controls="mobile-flash-page-category-menu" aria-expanded="false" data-mobile-flash-page-category-trigger>
+                <span data-mobile-flash-page-category-label>工具推荐</span>
+                <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-down-s-line.svg" alt="">
+              </summary>
+              <div id="mobile-flash-page-category-menu" class="mobile-create-selector-menu mobile-create-setting-menu mobile-flash-page-category-menu" role="listbox" aria-label="内容分类">
+                <button class="is-selected" type="button" role="option" data-mobile-flash-page-category-option="tools" aria-selected="true">工具推荐</button>
+                <button type="button" role="option" data-mobile-flash-page-category-option="showcase" aria-selected="false">作品展示</button>
+                <button type="button" role="option" data-mobile-flash-page-category-option="experience" aria-selected="false">经验分享</button>
+                <button type="button" role="option" data-mobile-flash-page-category-option="question" aria-selected="false">问题讨论</button>
+              </div>
+              <input type="hidden" name="category" value="tools" data-mobile-flash-page-category>
+            </details>
+          </div>
         </section>
 
         <p id="mobile-flash-compose-status" class="mobile-flash-page-status" role="status" aria-live="polite" data-mobile-flash-page-status>先写下一点内容，再发布闪念</p>
       </main>
 
       <footer class="mobile-action-bar mobile-flash-page-action">
-        <button class="mobile-action-primary" type="submit" data-mobile-flash-page-submit disabled>
+        <button class="mobile-action-primary" type="submit" data-mobile-flash-page-submit>
           <span class="mobile-flash-page-submit-copy">
             <strong data-mobile-flash-page-submit-label>发布闪念</strong>
             <img class="mobile-icon" src="../../resources/icons/remixicon/svg/Arrows/arrow-up-line.svg" alt="">
